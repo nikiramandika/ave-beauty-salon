@@ -16,14 +16,6 @@ class CashierController extends Controller
         return view('owner.pages.cashiers.cashiers', compact('cashiers'));
     }
 
-    /**
-     * Display the specified cashier.
-     */
-    public function show($cashierId)
-    {
-        $cashier = Cashier::with('user')->findOrFail($cashierId);
-        return view('owner.pages.cashiers.show', compact('cashier'));
-    }
 
     /**
      * Show the form for editing the specified cashier.
@@ -31,7 +23,7 @@ class CashierController extends Controller
     public function edit($cashierId)
     {
         $cashier = Cashier::with('user')->findOrFail($cashierId);
-        return view('owner.pages.cashiers.edit', compact('cashier'));
+        return view('owner.pages.cashiers.cashiers-edit', compact('cashier'));
     }
 
     /**
@@ -41,16 +33,24 @@ class CashierController extends Controller
     {
         // Validate the request data
         $request->validate([
-            'user_id' => 'nullable|exists:users,id',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'is_active' => 'required|boolean',
         ]);
 
-        $cashier = Cashier::findOrFail($cashierId);
-        $cashier->user_id = $request->user_id;
+        // Find the cashier and update the details
+        $cashier = Cashier::with('user')->findOrFail($cashierId);
+
+        // Update user details
+        $cashier->user->nama_depan = $request->first_name;
+        $cashier->user->nama_belakang = $request->last_name;
         $cashier->is_active = $request->is_active;
+
+        // Save both user and cashier changes
+        $cashier->user->save();
         $cashier->save();
 
-        return redirect()->route('cashiers.cashiers')->with('success', 'Cashier updated successfully');
+        return redirect()->route('cashiers.index')->with('success', 'Cashier updated successfully');
     }
 
     /**
@@ -61,6 +61,6 @@ class CashierController extends Controller
         $cashier = Cashier::findOrFail($cashierId);
         $cashier->delete();
 
-        return redirect()->route('cashiers.cashiers')->with('success', 'Cashier deleted successfully');
+        return redirect()->route('cashiers.index')->with('success', 'Cashier deleted successfully');
     }
 }

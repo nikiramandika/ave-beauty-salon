@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default"
     data-assets-path="owner/dashboard/assets/" data-template="vertical-menu-template-free" data-style="light">
 
@@ -71,8 +70,12 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <span>{{ $cashier->user->nama_depan }}
-                                                            {{ $cashier->user->nama_belakang }}</span>
+                                                        @if ($cashier->user)
+                                                            <span>{{ $cashier->user->nama_depan ?? '' }}
+                                                                {{ $cashier->user->nama_belakang ?? '' }}</span>
+                                                        @else
+                                                            <span class="text-muted">Data user tidak ditemukan</span>
+                                                        @endif
                                                     </div>
                                                 </td>
                                                 <td>
@@ -90,12 +93,18 @@
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
+                                                            <a href="javascript:void(0);" class="dropdown-item"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#cashierDetailModal"
+                                                                onclick="viewCashierDetail('{{ $cashier->user ? $cashier->user->nama_depan . ' ' . $cashier->user->nama_belakang : 'Unknown' }}', '{{ $cashier->user ? $cashier->user->email : '-' }}', '{{ $cashier->user ? $cashier->user->phone : '-' }}', '{{ $cashier->is_active ? 'Active' : 'Inactive' }}', '{{ $cashier->created_at }}', '{{ $cashier->updated_at }}')">
+                                                                <i class="bx bx-show-alt me-2"></i> View
+                                                            </a>
                                                             <a class="dropdown-item"
                                                                 href="{{ route('cashiers.edit', $cashier->cashier_id) }}">
                                                                 <i class="bx bx-edit-alt me-2"></i> Edit
                                                             </a>
                                                             <button type="button" class="dropdown-item"
-                                                                onclick="confirmDelete('{{ $cashier->cashier_id }}', '{{ $cashier->user->nama_depan }} {{ $cashier->user->nama_belakang }}')">
+                                                                onclick="confirmDelete('{{ $cashier->cashier_id }}', '{{ $cashier->user ? $cashier->user->nama_depan . ' ' . $cashier->user->nama_belakang : 'Unknown User' }}')">
                                                                 <i class="bx bx-trash me-2"></i> Delete
                                                             </button>
                                                         </div>
@@ -146,9 +155,33 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
+    <!-- Cashier Detail Modal -->
+    <div class="modal fade" id="cashierDetailModal" tabindex="-1" aria-labelledby="cashierDetailModalLabel"
         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cashierDetailModalLabel">Detail Kasir</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Nama:</strong> <span id="modalCashierName"></span></p>
+                    <p><strong>Email:</strong> <span id="modalCashierEmail"></span></p>
+                    <p><strong>Phone:</strong> <span id="modalCashierPhone"></span></p>
+                    <p><strong>Status:</strong> <span id="modalCashierStatus"></span></p>
+                    <p><strong>Created At:</strong> <span id="modalCashierCreatedAt"></span></p>
+                    <p><strong>Updated At:</strong> <span id="modalCashierUpdatedAt"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1"
+        aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -173,6 +206,21 @@
 
     <!-- Core JS -->
     <script>
+        function viewCashierDetail(name, email, phone, status, createdAt, updatedAt) {
+            // Helper function to return '-' if value is empty
+            function displayOrDash(value) {
+                return value ? value : '-';
+            }
+
+            // Populate modal fields with data or '-'
+            document.getElementById('modalCashierName').innerText = displayOrDash(name);
+            document.getElementById('modalCashierEmail').innerText = displayOrDash(email);
+            document.getElementById('modalCashierPhone').innerText = displayOrDash(phone);
+            document.getElementById('modalCashierStatus').innerText = displayOrDash(status);
+            document.getElementById('modalCashierCreatedAt').innerText = displayOrDash(createdAt);
+            document.getElementById('modalCashierUpdatedAt').innerText = displayOrDash(updatedAt);
+        }
+
         function confirmDelete(cashierId, cashierName) {
             document.getElementById('deleteCashierName').innerText = cashierName;
             document.getElementById('deleteCashierForm').action = `/cashiers/${cashierId}`;
