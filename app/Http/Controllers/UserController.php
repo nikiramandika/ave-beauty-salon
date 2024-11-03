@@ -33,10 +33,10 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $request->validate([
-            'name_depan' => 'required|string|max:255',
+            'nama_depan' => 'required|string|max:255',
             'nama_belakang' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
-            'phone' => 'required|string|max:20',
+            'phone' => 'nullable|string|max:20',
             'role' => 'required|string',
             'is_active' => 'required|boolean',
             'password' => 'nullable|min:6|confirmed',
@@ -54,30 +54,14 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->with('success', 'User berhasil diupdate');
     }
-    /**
-     * Display the specified user.
-     */
-    public function show($id)
+    public function destroy($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show', compact('user'));
+        $user->delete();
+
+        return redirect()->route('users.index')
+            ->with('success', 'User berhasil dihapus');
     }
 
-    /**
-     * Display a listing of active users.
-     */
-    public function activeUsers()
-    {
-        $users = User::where('is_active', true)->paginate(10);
-        return view('users.active', compact('users'));
-    }
 
-    /**
-     * Display users by role.
-     */
-    public function usersByRole($role)
-    {
-        $users = User::where('role', $role)->paginate(10);
-        return view('users.by_role', compact('users', 'role'));
-    }
 }

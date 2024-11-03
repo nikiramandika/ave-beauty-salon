@@ -8,7 +8,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Ave Beauty Salon - Users</title>
+    <title>Ave Beauty Salon - Cashiers</title>
     <meta name="description" content="" />
 
     <!-- Favicon -->
@@ -32,12 +32,8 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="owner/dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <!-- Page CSS -->
-
     <!-- Helpers -->
     <script src="owner/dashboard/assets/vendor/js/helpers.js"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="owner/dashboard/assets/js/config.js"></script>
 </head>
 
@@ -46,49 +42,41 @@
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <!-- Menu -->
-
             @include('owner.layouts.sidebar')
             <!-- / Menu -->
 
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
-
                 @include('owner.layouts.navbar')
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <!-- Basic Bootstrap Table -->
-                        <!-- resources/views/owner/pages/users.blade.php -->
                         <div class="card">
-                            <h5 class="card-header">Daftar Pengguna</h5>
+                            <h5 class="card-header">Daftar Kasir</h5>
                             <div class="table-responsive text-nowrap">
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <th>Nama</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
-                                        @forelse($users as $user)
+                                        @forelse($cashiers as $cashier)
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <span>{{ $user->nama_depan }} {{ $user->nama_belakang }}</span>
+                                                        <span>{{ $cashier->user->nama_depan }}
+                                                            {{ $cashier->user->nama_belakang }}</span>
                                                     </div>
                                                 </td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->role }}</td>
                                                 <td>
-                                                    @if ($user->is_active)
+                                                    @if ($cashier->is_active)
                                                         <span class="badge bg-label-primary me-1">Active</span>
                                                     @else
                                                         <span class="badge bg-label-warning me-1">Inactive</span>
@@ -102,39 +90,30 @@
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <a href="javascript:void(0);" class="dropdown-item"
-                                                                data-bs-toggle="modal" data-bs-target="#userDetailModal"
-                                                                onclick="viewUserDetail('{{ $user->nama_depan }} {{ $user->nama_belakang }}', '{{ $user->email }}','{{ $user->phone }}', '{{ $user->role }}', '{{ $user->is_active ? 'Active' : 'Inactive' }}','{{ $user->created_at }}','{{ $user->updated_at }}')">
-                                                                <i class="bx bx-show-alt me-2"></i> View
-                                                            </a>
-
                                                             <a class="dropdown-item"
-                                                                href="{{ route('users.edit', $user->id) }}">
+                                                                href="{{ route('cashiers.edit', $cashier->cashier_id) }}">
                                                                 <i class="bx bx-edit-alt me-2"></i> Edit
                                                             </a>
                                                             <button type="button" class="dropdown-item"
-                                                                onclick="confirmDelete('{{ $user->id }}', '{{ $user->nama_depan }} {{ $user->nama_belakang }}')">
+                                                                onclick="confirmDelete('{{ $cashier->cashier_id }}', '{{ $cashier->user->nama_depan }} {{ $cashier->user->nama_belakang }}')">
                                                                 <i class="bx bx-trash me-2"></i> Delete
                                                             </button>
-
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">Tidak ada data pengguna</td>
+                                                <td colspan="3" class="text-center">Tidak ada data kasir</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
                             </div>
                             <div class="card-footer">
-                                {{ $users->links() }}
+                                {{ $cashiers->links() }}
                             </div>
                         </div>
-                        <!--/ Basic Bootstrap Table -->
-
                     </div>
                     <!-- / Content -->
 
@@ -166,34 +145,10 @@
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-    <!-- User Detail Modal -->
-    <div class="modal fade" id="userDetailModal" tabindex="-1" aria-labelledby="userDetailModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="userDetailModalLabel">Detail Pengguna</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- User details will be populated here via JavaScript -->
-                    <p><strong>Nama:</strong> <span id="modalUserName"></span></p>
-                    <p><strong>Email:</strong> <span id="modalUserEmail"></span></p>
-                    <p><strong>Phone:</strong> <span id="modalUserPhone"></span></p>
-                    <p><strong>Role:</strong> <span id="modalUserRole"></span></p>
-                    <p><strong>Status:</strong> <span id="modalUserStatus"></span></p>
-                    <p><strong>Created_at:</strong> <span id="modalUserCreatedAt"></span></p>
-                    <p><strong>Updated_at:</strong> <span id="modalUserUpdatedAt"></span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1"
-        aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -201,10 +156,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus user <strong><span id="deleteUserName"></span></strong>?</p>
+                    <p>Apakah Anda yakin ingin menghapus kasir <strong><span id="deleteCashierName"></span></strong>?
+                    </p>
                 </div>
                 <div class="modal-footer">
-                    <form id="deleteUserForm" method="POST">
+                    <form id="deleteCashierForm" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -215,57 +171,25 @@
         </div>
     </div>
 
-
     <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
     <script>
-        function viewUserDetail(name, email, phone, role, status, createdAt, updatedAt) {
-            // Helper function to return '-' if value is empty
-            function displayOrDash(value) {
-                return value ? value : '-';
-            }
-
-            // Populate modal fields with data or '-'
-            document.getElementById('modalUserName').innerText = displayOrDash(name);
-            document.getElementById('modalUserEmail').innerText = displayOrDash(email);
-            document.getElementById('modalUserPhone').innerText = displayOrDash(phone);
-            document.getElementById('modalUserRole').innerText = displayOrDash(role);
-            document.getElementById('modalUserStatus').innerText = displayOrDash(status);
-            document.getElementById('modalUserCreatedAt').innerText = displayOrDash(createdAt);
-            document.getElementById('modalUserUpdatedAt').innerText = displayOrDash(updatedAt);
-        }
-
-        function confirmDelete(userId, userName) {
-            // Set user name in the modal
-            document.getElementById('deleteUserName').innerText = userName;
-
-            // Update the form action with the user's delete route
-            const form = document.getElementById('deleteUserForm');
-            form.action = `/users/${userId}`;
-
-            // Show the modal
-            new bootstrap.Modal(document.getElementById('deleteConfirmationModal')).show();
+        function confirmDelete(cashierId, cashierName) {
+            document.getElementById('deleteCashierName').innerText = cashierName;
+            document.getElementById('deleteCashierForm').action = `/cashiers/${cashierId}`;
+            const modal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+            modal.show();
         }
     </script>
 
-
+    <!-- Vendors JS -->
     <script src="owner/dashboard/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="owner/dashboard/assets/vendor/libs/popper/popper.js"></script>
     <script src="owner/dashboard/assets/vendor/js/bootstrap.js"></script>
     <script src="owner/dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="owner/dashboard/assets/vendor/js/menu.js"></script>
 
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-
     <!-- Main JS -->
     <script src="owner/dashboard/assets/js/main.js"></script>
-
-    <!-- Page JS -->
-
-    <!-- Place this tag before closing body tag for github widget button. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 
 </html>

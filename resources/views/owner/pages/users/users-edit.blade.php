@@ -79,16 +79,16 @@
                                             @method('PUT')
 
                                             <div class="mb-6">
-                                                <label class="form-label" for="name_depan">Nama Depan</label>
+                                                <label class="form-label" for="nama_depan">Nama Depan</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i class="bx bx-user"></i></span>
                                                     <input type="text"
-                                                        class="form-control @error('name_depan') is-invalid @enderror"
-                                                        id="name_depan" name="name_depan"
-                                                        value="{{ old('name_depan', $user->name_depan) }}"
+                                                        class="form-control @error('nama_depan') is-invalid @enderror"
+                                                        id="nama_depan" name="nama_depan"
+                                                        value="{{ old('nama_depan', $user->nama_depan) }}"
                                                         placeholder="John" />
                                                 </div>
-                                                @error('name_depan')
+                                                @error('nama_depan')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -154,7 +154,7 @@
                                                             User</option>
                                                         <option value="cashier"
                                                             {{ old('role', $user->role) == 'Cashier' ? 'selected' : '' }}>
-                                                            User</option>
+                                                            Cashier</option>
                                                     </select>
                                                 </div>
                                                 @error('role')

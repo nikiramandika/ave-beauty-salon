@@ -15,17 +15,9 @@ class MemberController extends Controller
         // Mengambil data member dengan relasi user
         $members = Member::with('user')->paginate(10);
 
-        return view('members.index', compact('members'));
+        return view('owner.pages.members.members', compact('members'));
     }
 
-    /**
-     * Display the specified member.
-     */
-    public function show($memberId)
-    {
-        $member = Member::with('user')->findOrFail($memberId);
-        return view('members.show', compact('member'));
-    }
 
     /**
      * Display active members.
@@ -35,7 +27,7 @@ class MemberController extends Controller
         $members = Member::with('user')
             ->where('is_active', true)
             ->paginate(10);
-            
+
         return view('members.active', compact('members'));
     }
 
@@ -51,4 +43,47 @@ class MemberController extends Controller
 
         return view('members.by_points', compact('members', 'minPoints'));
     }
+
+    public function edit($memberId)
+    {
+        $member = Member::with('user')->findOrFail($memberId);
+        return view('owner.pages.members.members-edit', compact('member'));
+    }
+
+    public function update(Request $request, $memberId)
+    {
+        // Validate the request data
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'membership_number' => 'required|string|max:255',
+            'points' => 'required|integer|min:0',
+            'is_active' => 'required|boolean',
+            'joined_date' => 'required|date',
+        ]);
+
+        // Find the member and update the details
+        $member = Member::with('user')->findOrFail($memberId);
+        $member->user->nama_depan = $request->first_name;
+        $member->user->nama_belakang = $request->last_name;
+        $member->membership_number = $request->membership_number;
+        $member->points = $request->points;
+        $member->is_active = $request->is_active;
+        $member->joined_date = $request->joined_date;
+
+        $member->user->save();
+        $member->save();
+
+        return redirect()->route('members.index')->with('success', 'Member updated successfully');
+    }
+
+
+
+    public function destroy($memberId)
+    {
+        $member = Member::findOrFail($memberId);
+        $member->delete();
+        return redirect()->route('members.index')->with('success', 'Member deleted successfully');
+    }
+
 }
