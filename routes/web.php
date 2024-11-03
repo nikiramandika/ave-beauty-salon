@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CashierController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -52,6 +53,20 @@ Route::put('/cashiers-owner/{id}', [CashierController::class, 'update'])->name('
 // Route untuk menghapus
 Route::delete('/cashiers/{id}', [CashierController::class, 'destroy'])->name('cashiers.destroy');
 
+// Route untuk menampilkan daftar kategori
+Route::get('/categories-owner', [CategoryController::class, 'index'])->name('categories.index');
+// Route untuk menampilkan form create kategori
+Route::get('/categories-owner/create', [CategoryController::class, 'create'])->name('categories.create');
+// Route untuk menyimpan kategori baru
+Route::post('/categories-owner', [CategoryController::class, 'store'])->name('categories.store');
+// Route untuk menampilkan form edit
+Route::get('categories-owner/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+// Route untuk proses update
+Route::put('/categories-owner/{id}', [CategoryController::class, 'update'])->name('categories.update');
+// Route untuk menghapus kategori
+Route::delete('/categories-owner/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -63,4 +78,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -30,11 +30,11 @@
             </ul>
         </li>
 
-
         <!-- Management -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Management</span>
         </li>
+
         <li
             class="menu-item {{ Request::is('users*') || Request::is('cashiers-owner') || Request::is('members-owner') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -59,14 +59,27 @@
                 </li>
             </ul>
         </li>
-
-        <li class="menu-item {{ Request::is('categories') ? 'active' : '' }}">
+        <li
+            class="menu-item {{ Request::is('categories*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-category"></i>
+                <div class="text-truncate" data-i18n="Authentications">Categories</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ Request::is('categories-owner') ? 'active' : '' }}">
+                    <a href="/categories-owner" class="menu-link">
+                        <div class="text-truncate" data-i18n="Basic">Product</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        {{-- <!-- Categories Product -->
+        <li class="menu-item {{ Request::is('categories-owner*') ? 'active' : '' }}">
             <a href="/categories-owner" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-category"></i>
                 <div class="text-truncate" data-i18n="Basic">Categories Product</div>
             </a>
-        </li>
-
+        </li> --}}
 
         <!-- Products & Services -->
         <li class="menu-header small text-uppercase">
@@ -96,6 +109,8 @@
                 <div class="text-truncate" data-i18n="Basic">Promos</div>
             </a>
         </li>
+
+        <!-- Logs -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Logs</span>
         </li>
@@ -106,4 +121,5 @@
             </a>
         </li>
     </ul>
+
 </aside>
