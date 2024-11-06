@@ -26,6 +26,10 @@ Route::get('/dashboard-owner', function () {
     return view('owner.index');
 });
 
+Route::get('/home', function () {
+    return view('user.index');
+});
+
 //owner-users
 Route::get('/users-owner', [UserController::class, 'index'])->name('users.index');
 // Route untuk menampilkan form edit
