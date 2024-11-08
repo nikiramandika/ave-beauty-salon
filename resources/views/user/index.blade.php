@@ -62,25 +62,25 @@
       <h5 class="cat-list-title">Browse Categories</h5>
       <ul class="cat-list">
         <li class="cat-list-item">
-          <a href="#" title="Jackets">Jackets</a>
+          <a href="#" title="Jackets">Shampoo</a>
         </li>
         <li class="cat-list-item">
-          <a href="#" title="T-shirts">T-shirts</a>
+          <a href="#" title="T-shirts">Conditioner</a>
         </li>
         <li class="cat-list-item">
-          <a href="#" title="Handbags">Handbags</a>
+          <a href="#" title="Handbags">Medicure</a>
         </li>
         <li class="cat-list-item">
-          <a href="#" title="Accessories">Accessories</a>
+          <a href="#" title="Accessories">Pedicure</a>
         </li>
         <li class="cat-list-item">
-          <a href="#" title="Cosmetics">Cosmetics</a>
+          <a href="#" title="Cosmetics">Hairmask</a>
         </li>
         <li class="cat-list-item">
-          <a href="#" title="Dresses">Dresses</a>
+          <a href="#" title="Dresses">Haircolor</a>
         </li>
         <li class="cat-list-item">
-          <a href="#" title="Jumpsuits">Jumpsuits</a>
+          <a href="#" title="Jumpsuits">Course</a>
         </li>
       </ul>
     </div>

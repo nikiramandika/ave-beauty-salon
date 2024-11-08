@@ -635,51 +635,6 @@ body {
     }
   }
 
-  /** Swiper Slide Arrows 2
-  --------------------------------------------------------------*/
-  .icon-arrow.no-outline {
-    top: 40%;
-    font-size: 1.7em;
-    color: var(--grey-color);
-    border: none;
-  }
-
-  .icon-arrow.no-outline:hover {
-    background: none;
-    color: var(--dark-color);
-  }
-
-  .icon-arrow.light-arrow.no-outline {
-    color: var(--light-color);
-    opacity: 0.7;
-  }
-
-  .icon-arrow.light-arrow.no-outline:hover {
-    opacity: 1;
-  }
-
-  .swiper-button-normal {
-    background: transparent;
-  }
-
-  .swiper-button-normal .icon {
-    font-size: 1.6em;
-    color: var(--dark-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-
-  /** Swiper Slide Arrows with background 3
-  --------------------------------------------------------------*/
-  .icon-arrow {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-  }
-
   /*--- Image hover Effects
   -----------------------------------------------*/
   .image-zoom-effect {
@@ -810,51 +765,6 @@ body {
     z-index: 0;
   }
 
-  /*--------------------------------------------------------------
-  /** 7.8 Video Section
-  --------------------------------------------------------------*/
-  .video .video-content {
-    position: relative;
-  }
-
-  .video .video-player {
-    position: absolute;
-  }
-
-  .video .video-player {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .video .video-player a {
-    position: relative;
-  }
-
-  .video .video-player svg {
-    color: #fff;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-  }
-
-  @media (max-width: 600px) {
-    .video .video-player img.text-pattern {
-      width: 60%;
-      display: flex;
-      margin: 0 auto;
-    }
-  }
-
-
   /** 7.13 Instagram
   --------------------------------------------------------------*/
   .instagram .insta-item {
@@ -874,11 +784,6 @@ body {
     transition: 0.6s ease-out;
   }
 
-  /* Link Effect
-   - Place anywhere you want your link to animate
-   - Add data-after="Any text" to the link within the class
-   - Use span within the anchor tag for the effect to work
-  ------------------------------------------------------------- */
   .link-effect a {
     position: relative;
     padding: 0;
