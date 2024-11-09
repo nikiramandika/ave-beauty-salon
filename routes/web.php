@@ -27,8 +27,17 @@ Route::get('/dashboard-owner', function () {
 });
 
 Route::get('/home', function () {
-    return view('user.index');
+    return view('user.pages.home');
 });
+Route::get('/shop', function () {
+    return view('user.pages.shop');
+});
+Route::get('/treatment', function () {
+    return view('user.pages.treatment');
+});
+
+
+
 
 //owner-users
 Route::get('/users-owner', [UserController::class, 'index'])->name('users.index');
