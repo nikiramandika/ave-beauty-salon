@@ -59,8 +59,7 @@
                 </li>
             </ul>
         </li>
-        <li
-            class="menu-item {{ Request::is('categories*') ? 'active open' : '' }}">
+        <li class="menu-item {{ Request::is('categories*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-category"></i>
                 <div class="text-truncate" data-i18n="Authentications">Categories</div>
@@ -85,8 +84,8 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Products &amp; Services</span>
         </li>
-        <li class="menu-item">
-            <a href="cards-basic.html" class="menu-link">
+        <li class="menu-item {{ Request::is('products-owner') ? 'active' : '' }}">
+            <a href="/products-owner" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div class="text-truncate" data-i18n="Basic">Products</div>
             </a>

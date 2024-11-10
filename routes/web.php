@@ -3,6 +3,7 @@
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -79,6 +80,18 @@ Route::put('/categories-owner/{id}', [CategoryController::class, 'update'])->nam
 // Route untuk menghapus kategori
 Route::delete('/categories-owner/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
+//owner-product
+Route::get('/products-owner', [ProductController::class, 'index'])->name('products.index');
+// Route untuk menampilkan form create products
+Route::get('/products-owner/create', [ProductController::class, 'create'])->name('products.create');
+// Route untuk menyimpan Products
+Route::post('/products-owner', [ProductController::class, 'store'])->name('products.store');
+// Route untuk menampilkan form edit
+Route::get('/products-owner/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+// Route untuk proses update
+Route::put('/products-owner/{id}', [ProductController::class, 'update'])->name('products.update');
+// Route untuk menghapus
+Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 
 Route::get('/dashboard', function () {
