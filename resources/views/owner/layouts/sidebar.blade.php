@@ -84,14 +84,14 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Products &amp; Services</span>
         </li>
-        <li class="menu-item {{ Request::is('products-owner') ? 'active' : '' }}">
+        <li class="menu-item {{ Request::is('products-owner*') ? 'active' : '' }}">
             <a href="/products-owner" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div class="text-truncate" data-i18n="Basic">Products</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="cards-basic.html" class="menu-link">
+        <li class="menu-item {{ Request::is('treatments-owner*') ? 'active' : '' }}">
+            <a href="/treatments-owner" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-list-plus"></i>
                 <div class="text-truncate" data-i18n="Basic">Treatments</div>
             </a>
