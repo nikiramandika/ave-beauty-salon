@@ -121,7 +121,7 @@
 
         <div class="col-auto">
             <a class="navbar-brand text-white" href="home">
-              <img src="user/images/logo.png" alt="Logo" style="width: 60px; height: auto">
+              <img src="{{ asset('user/images/logo.png') }}" alt="Logo" style="width: 60px; height: auto">
             </a>
           </div>
 
@@ -142,7 +142,7 @@
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
                 <li class="nav-item dropdown">
-                  <a class="nav-link" href="user.pages.home">Home</a>
+                  <a class="nav-link" href="/home">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link" href="{{ route('user.pages.products') }}">Shop</a>

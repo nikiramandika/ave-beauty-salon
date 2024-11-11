@@ -77,7 +77,13 @@ class UserController extends Controller
 
     public function showProduct($product_slug)
     {
-        $product = Product::where('product_slug', $product_slug)->firstOrFail();
-        return view('user.product-details', compact('product'));
+        // Pastikan Anda menggunakan kolom `product_slug` untuk mengambil data produk yang benar
+        $product = Product::where('product_slug', $product_slug)
+            ->where('is_active', 1)
+            ->with('description', 'details')
+            ->firstOrFail();
+
+        return view('user.pages.product-details', compact('product'));
     }
+
 }
