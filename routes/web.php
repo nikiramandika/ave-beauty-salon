@@ -42,6 +42,7 @@ Route::get('/user.pages.home', function () {
 });
 
 Route::get('/products', [UserController::class, 'userIndex'])->name('user.pages.products');
+Route::get('/products/{product_slug}', [UserController::class, 'showProduct'])->name('products.show');
 
 //owner-users
 Route::get('/users-owner', [UserController::class, 'index'])->name('users.index');

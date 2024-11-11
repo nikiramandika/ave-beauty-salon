@@ -75,4 +75,9 @@ class UserController extends Controller
         return view('user.pages.product', compact('products', 'categories'));
     }
 
+    public function showProduct($product_slug)
+    {
+        $product = Product::where('product_slug', $product_slug)->firstOrFail();
+        return view('user.product-details', compact('product'));
+    }
 }

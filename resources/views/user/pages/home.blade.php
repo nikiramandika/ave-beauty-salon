@@ -63,13 +63,13 @@
         <div class="col-md-4">
           <div class="cat-item image-zoom-effect">
             <div class="image-holder">
-              <a href="user.pages.product">
+              <a href="{{ route('user.pages.products') }}">
                 <img src="user/images/cat-item1.jpg" alt="categories" class="product-image img-fluid">
               </a>
             </div>
             <div class="category-content">
               <div class="product-button">
-                <a class="nav-link" href="user.pages.product">Shop Product</a>
+                <a class="nav-link" href="{{ route('user.pages.products') }}">Shop Product</a>
               </div>
             </div>
           </div>
@@ -139,7 +139,7 @@
   <div class="container">
     <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
       <h4 class="text-uppercase">You May Also Like</h4>
-      <a href="user.pages.product" class="btn-link">View All Products</a>
+      <a href="{{ route('user.pages.products') }}" class="btn-link">View All Products</a>
     </div>
     <div class="swiper product-swiper open-up" data-aos="zoom-out">
       <div class="swiper-wrapper d-flex">
