@@ -36,6 +36,12 @@ Route::get('/shop', function () {
 Route::get('/treatment', function () {
     return view('user.pages.treatment');
 });
+Route::get('/user.pages.product', function () {
+    return view('user.pages.product');
+});
+Route::get('/user.pages.home', function () {
+    return view('user.pages.home');
+});
 
 
 

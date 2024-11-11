@@ -6,7 +6,7 @@
           <div class="footer-menu footer-menu-001">
             <div class="footer-intro mb-4">
               <a href="index.html">
-                <img src="user/images/main-logo.png" alt="logo" style="width: 100px; height: auto;">
+                <img src="user/images/logo.png" alt="logo" style="width: 100px; height: auto;">
               </a>
             </div>
             <p>Experience premium salon care with a range of professional treatments tailored to enhance your beauty and well-being.

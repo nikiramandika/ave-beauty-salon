@@ -63,13 +63,13 @@
         <div class="col-md-4">
           <div class="cat-item image-zoom-effect">
             <div class="image-holder">
-              <a href="index.html">
+              <a href="user.pages.product">
                 <img src="user/images/cat-item1.jpg" alt="categories" class="product-image img-fluid">
               </a>
             </div>
             <div class="category-content">
               <div class="product-button">
-                <a href="index.html" class="btn btn-common text-uppercase">Shop Product</a>
+                <a class="nav-link" href="user.pages.product">Shop Product</a>
               </div>
             </div>
           </div>
@@ -121,13 +121,13 @@
           </div>
         </div>
         <div class="col-md-6 column-container bg-white">
-          <div class="collection-content p-5 m-0 m-md-5">
+          <div class="collection-content p-5 m-0 m-md-">
             <h3 class="element-title text-uppercase">Salon Essentials</h3>
             <p align="justify">A curated collection of premium salon-quality hair care products, including nourishing shampoo, hydrating conditioner,
               revitalizing vitamins, smoothing serum, and strengthening tonic. Each product is crafted to enhance the health, shine,
               and vitality of your hair, giving you a luxurious salon experience at home. This collection is ideal for all hair types,
               helping to repair damage, protect against environmental stressors, and support overall hair wellness.</p>
-            <a href="#" class="btn btn-dark text-uppercase mt-3">Shop Product</a>
+            <a href="#" class="btn btn-dark text-uppercase mt-3">Salon Details</a>
           </div>
         </div>
       </div>
@@ -139,7 +139,7 @@
   <div class="container">
     <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
       <h4 class="text-uppercase">You May Also Like</h4>
-      <a href="index.html" class="btn-link">View All Products</a>
+      <a href="user.pages.product" class="btn-link">View All Products</a>
     </div>
     <div class="swiper product-swiper open-up" data-aos="zoom-out">
       <div class="swiper-wrapper d-flex">
@@ -289,13 +289,10 @@
 <section class="newsletter bg-light" style="background: url(images/pattern-bg.png) no-repeat;">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-8 py-5 my-5">
+      <div class="col-md-8 py-4 my-4">
         <div class="subscribe-header text-center pb-3">
-          <h3 class="section-title text-uppercase">Registration for Course</h3>
-        </div>
-        <form id="form" class="d-flex flex-wrap gap-2">
-          <button class="btn btn-dark btn-lg text-uppercase w-100">Course Registration</button>
-        </form>
+        <h3 class="section-title text-uppercase">Check Our Instagram for Details</h3>
+      </div>
       </div>
     </div>
   </div>
