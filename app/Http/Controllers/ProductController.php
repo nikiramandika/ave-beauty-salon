@@ -93,9 +93,6 @@ class ProductController extends Controller
         return view('owner.pages.products.products', compact('products', 'categories'));
     }
 
-
-
-
     public function edit($id)
     {
         // Find product by ID and load its related details and description
@@ -202,4 +199,5 @@ class ProductController extends Controller
                 ->with('error', 'Error menghapus produk: ' . $e->getMessage());
         }
     }
+
 }

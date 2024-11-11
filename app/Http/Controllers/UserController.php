@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Category;
 
 class UserController extends Controller
 {
@@ -63,5 +66,13 @@ class UserController extends Controller
             ->with('success', 'User berhasil dihapus');
     }
 
+    public function userIndex()
+    {
+        $products = Product::where('is_active', 1)
+            ->with(['details', 'description', 'category'])
+            ->get();
+        $categories = Category::all();
+        return view('user.pages.product', compact('products', 'categories'));
+    }
 
 }

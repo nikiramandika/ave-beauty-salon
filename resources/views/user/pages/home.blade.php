@@ -203,30 +203,8 @@
             </div>
           </div>
         </div>
-        <div class="swiper-slide">
-          <div class="product-item image-zoom-effect link-effect">
-            <div class="image-holder">
-              <a href="index.html">
-                <img src="user/images/product-item-1.jpg" alt="product" class="product-image img-fluid">
-              </a>
-              <div class="product-content">
-                <h5 class="text-uppercase fs-5 mt-3">
-                  <a href="index.html">Handmade crop sweater</a>
-                </h5>
-                <a href="index.html" class="text-decoration-none" data-after="Add to cart"><span>$70.00</span></a>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-      <div class="swiper-pagination"></div>
     </div>
-    <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24">
-        <use xlink:href="#arrow-left"></use>
-      </svg></div>
-    <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24">
-        <use xlink:href="#arrow-right"></use>
-      </svg></div>
   </div>
 </section>
 

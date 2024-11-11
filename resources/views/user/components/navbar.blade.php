@@ -145,7 +145,7 @@
                   <a class="nav-link" href="user.pages.home">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link" href="user.pages.product">Shop</a>
+                  <a class="nav-link" href="{{ route('user.pages.products') }}">Shop</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link toggle" href="#" id="dropdownBlog" data-bs-toggle="dropdown"
