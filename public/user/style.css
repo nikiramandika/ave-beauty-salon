@@ -35,6 +35,10 @@ body {
     --bs-link-hover-color-rgb: 99, 55, 77;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
 
   body {
     letter-spacing: 0.03rem;

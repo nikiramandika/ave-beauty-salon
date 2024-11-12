@@ -13,7 +13,7 @@
   </div>
 </section>
 
-<section class="features py-5">
+<section class="features py-5" id="start">
   <div class="container">
     <div class="row">
       <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="0">
@@ -127,7 +127,7 @@
               revitalizing vitamins, smoothing serum, and strengthening tonic. Each product is crafted to enhance the health, shine,
               and vitality of your hair, giving you a luxurious salon experience at home. This collection is ideal for all hair types,
               helping to repair damage, protect against environmental stressors, and support overall hair wellness.</p>
-            <a href="#" class="btn btn-dark text-uppercase mt-3">Salon Details</a>
+            <a href="/about" class="btn btn-dark text-uppercase mt-3">Salon Details</a>
           </div>
         </div>
       </div>

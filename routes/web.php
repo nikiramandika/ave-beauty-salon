@@ -40,6 +40,9 @@ Route::get('/treatment', function () {
 Route::get('/user.pages.home', function () {
     return view('user.pages.home');
 });
+Route::get('/about', function () {
+    return view('user.pages.about');
+});
 
 Route::get('/products', [UserController::class, 'userIndex'])->name('user.pages.products');
 Route::get('/products/{product_slug}', [UserController::class, 'showProduct'])->name('products.show');

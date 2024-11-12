@@ -159,10 +159,9 @@
                     <a class="nav-link toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">Promo</a>
                   </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">About</a>
-                </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="/about">About</a>
+                  </li>
               </ul>
             </div>
           </div>
