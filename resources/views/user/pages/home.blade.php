@@ -83,7 +83,7 @@
             </div>
             <div class="category-content">
               <div class="product-button">
-                <a href="index.html" class="btn btn-common text-uppercase">Treatment Details</a>
+                <a href="{{ route('user.pages.treatment') }}" class="btn btn-common text-uppercase">Treatment Details</a>
               </div>
             </div>
           </div>
@@ -212,7 +212,7 @@
   <div class="container">
     <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
       <h4 class="text-uppercase">Choose the Right Treatment for You</h4>
-      <a href="index.html" class="btn-link">View All</a>
+      <a href="{{ route('user.pages.treatment') }}" class="btn-link">View All</a>
     </div>
     <div class="row">
       <div class="col-md-4">

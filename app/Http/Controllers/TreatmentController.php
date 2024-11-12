@@ -94,6 +94,7 @@ class TreatmentController extends Controller
         return view('owner.pages.treatments.treatments', compact('treatments'));
     }
 
+
     public function edit($id)
     {
         // Cari treatment berdasarkan ID dan load relasi description
@@ -202,5 +203,24 @@ class TreatmentController extends Controller
         }
     }
 
+// Menampilkan semua treatment
+public function showTreatments()
+{
+    // Ambil semua treatment dengan relasi description
+    $treatments = Treatment::with('description')->get();
+
+    return view('user.pages.treatment', compact('treatments'));
+}
+
+public function showTreatment($treatment_slug)
+{
+    // Ambil treatment berdasarkan slug dan relasi description
+    $treatment = Treatment::where('treatment_slug', $treatment_slug)
+        ->where('is_active', 1)
+        ->with('description')
+        ->firstOrFail();
+
+    return view('user.pages.treatment-details', compact('treatment'));
+}
 
 }
