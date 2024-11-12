@@ -43,10 +43,12 @@ Route::get('/user.pages.home', function () {
 Route::get('/about', function () {
     return view('user.pages.about');
 });
-Route::get('/signup', function () {
+Route::get('/sign-up', function () {
     return view('user.pages.signup');
 });
-
+Route::get('/sign-in', function () {
+    return view('user.pages.signin');
+});
 
 Route::get('/products', [ProductController::class, 'userIndex'])->name('user.pages.products');
 Route::get('/products/{product_slug}', [ProductController::class, 'showProduct'])->name('products.show');

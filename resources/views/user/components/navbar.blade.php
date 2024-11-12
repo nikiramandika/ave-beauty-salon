@@ -72,7 +72,6 @@
       </ul>
     </div>
   </div>
-
   <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="My Cart">
     <div class="offcanvas-header justify-content-center">
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -141,25 +140,25 @@
 
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
-                <li class="nav-item dropdown">
-                  <a class="nav-link" href="/home">Home</a>
+                <li class="nav-item dropdown border-animation-left">
+                  <a class="my-0 nav-link item-anchor" href="/home">Home</a>
                 </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link" href="{{ route('user.pages.products') }}">Shop</a>
+                <li class="nav-item dropdown border-animation-left">
+                  <a class="my-0 nav-link item-anchor" href="{{ route('user.pages.products') }}">Shop</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="{{ route('user.pages.treatment') }}">Treatment</a>
+                <li class="nav-item dropdown border-animation-left">
+                    <a class="my-0 nav-link item-anchor" href="{{ route('user.pages.treatment') }}">Treatment</a>
                   </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
+                <li class="nav-item dropdown border-animation-left">
+                  <a class="my-0 nav-link item-anchor toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">Course</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
+                <li class="nav-item dropdown border-animation-left">
+                    <a class="my-0 nav-link item-anchor toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">Promo</a>
                   </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link" href="/about">About</a>
+                  <li class="nav-item dropdown border-animation-left">
+                    <a class="my-0 nav-link item-anchor" href="/about">About</a>
                   </li>
               </ul>
             </div>
@@ -169,7 +168,12 @@
         <div class="col-3 col-lg-auto">
           <ul class="list-unstyled d-flex m-0">
             <li class="d-none d-lg-block position-relative me-3">
-                <a href="#" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                <a href="/sign-in" class="mx-2">
+                  login
+                </a>
+              </li>
+            <li class="d-none d-lg-block position-relative me-3">
+                <a href="login" class="mx-2">
                   <svg width="24" height="24" viewBox="0 0 24 24">
                     <use xlink:href="#cart"></use>
                   </svg>
