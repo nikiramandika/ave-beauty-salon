@@ -77,7 +77,7 @@
         <div class="col-md-4">
           <div class="cat-item image-zoom-effect">
             <div class="image-holder">
-              <a href="index.html">
+              <a href="{{ route('user.pages.treatment') }}">
                 <img src="user/images/cat-item2.jpg" alt="categories" class="product-image img-fluid">
               </a>
             </div>
