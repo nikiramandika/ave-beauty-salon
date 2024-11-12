@@ -200,4 +200,24 @@ class ProductController extends Controller
         }
     }
 
+    public function userIndex()
+    {
+        $products = Product::where('is_active', 1)
+            ->with(['details', 'description', 'category'])
+            ->get();
+        $categories = Category::all();
+        return view('user.pages.product', compact('products', 'categories'));
+    }
+
+    public function showProduct($product_slug)
+    {
+        // Pastikan Anda menggunakan kolom `product_slug` untuk mengambil data produk yang benar
+        $product = Product::where('product_slug', $product_slug)
+            ->where('is_active', 1)
+            ->with('description', 'details')
+            ->firstOrFail();
+
+        return view('user.pages.product-details', compact('product'));
+    }
+
 }

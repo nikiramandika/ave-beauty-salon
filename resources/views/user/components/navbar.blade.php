@@ -148,9 +148,8 @@
                   <a class="nav-link" href="{{ route('user.pages.products') }}">Shop</a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link toggle" href="#" id="dropdownBlog" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">Treatment</a>
-                </li>
+                    <a class="nav-link" href="{{ route('user.pages.treatment') }}">Treatment</a>
+                  </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">Course</a>

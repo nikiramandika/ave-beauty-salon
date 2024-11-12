@@ -48,8 +48,12 @@ Route::get('/signup', function () {
 });
 
 
-Route::get('/products', [UserController::class, 'userIndex'])->name('user.pages.products');
-Route::get('/products/{product_slug}', [UserController::class, 'showProduct'])->name('products.show');
+Route::get('/products', [ProductController::class, 'userIndex'])->name('user.pages.products');
+Route::get('/products/{product_slug}', [ProductController::class, 'showProduct'])->name('products.show');
+
+
+Route::get('/treatment', [TreatmentController::class, 'showTreatments'])->name('user.pages.treatment');
+Route::get('/treatment/{treatment_slug}', [TreatmentController::class, 'showTreatment'])->name('treatment.show');
 
 //owner-users
 Route::get('/users-owner', [UserController::class, 'index'])->name('users.index');
