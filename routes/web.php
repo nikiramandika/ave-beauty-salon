@@ -58,6 +58,10 @@ Route::get('/products/{product_slug}', [ProductController::class, 'showProduct']
 Route::get('/treatment', [TreatmentController::class, 'showTreatments'])->name('user.pages.treatment');
 Route::get('/treatment/{treatment_slug}', [TreatmentController::class, 'showTreatment'])->name('treatment.show');
 
+Route::get('/course', [CourseController::class, 'userIndex'])->name('user.pages.course');
+Route::get('/course/{course_slug}', [CourseController::class, 'showCourse'])->name('course.show');
+
+
 //owner-users
 Route::get('/users-owner', [UserController::class, 'index'])->name('users.index');
 // Route untuk menampilkan form edit

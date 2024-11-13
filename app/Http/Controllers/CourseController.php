@@ -185,4 +185,23 @@ class CourseController extends Controller
         return redirect()->route('courses.index')->with('success', 'Course deleted successfully.');
     }
 
+    public function userIndex()
+    {
+        $courses = Course::where('is_active', 1)
+            ->with(['description'])
+            ->get();
+
+        return view('user.pages.course', compact('courses'));
+    }
+
+    public function showCourse($course_slug)
+    {
+        $course = Course::where('course_slug', $course_slug)
+            ->where('is_active', 1)
+            ->with('description')
+            ->firstOrFail();
+
+        return view('user.pages.course-details', compact('course'));
+    }
+
 }

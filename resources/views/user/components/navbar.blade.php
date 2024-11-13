@@ -149,10 +149,9 @@
                 <li class="nav-item dropdown border-animation-left">
                     <a class="my-0 nav-link item-anchor" href="{{ route('user.pages.treatment') }}">Treatment</a>
                   </li>
-                <li class="nav-item dropdown border-animation-left">
-                  <a class="my-0 nav-link item-anchor toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">Course</a>
-                </li>
+                  <li class="nav-item dropdown border-animation-left">
+                    <a class="my-0 nav-link item-anchor" href="{{ route('user.pages.course') }}">Course</a>
+                  </li>
                 <li class="nav-item dropdown border-animation-left">
                     <a class="my-0 nav-link item-anchor toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">Promo</a>

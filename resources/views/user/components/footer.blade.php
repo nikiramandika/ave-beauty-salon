@@ -29,7 +29,7 @@
                             <a href="{{ route('user.pages.treatment') }}" class="item-anchor">Treatment</a>
                         </li>
                         <li class="menu-item">
-                            <a href="{{ url('styles.html') }}" class="item-anchor">Course</a>
+                            <a href="{{ route('user.pages.course') }}" class="item-anchor">Course</a>
                         </li>
                     </ul>
                 </div>

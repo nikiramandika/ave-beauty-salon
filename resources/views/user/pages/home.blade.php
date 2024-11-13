@@ -91,13 +91,13 @@
         <div class="col-md-4">
           <div class="cat-item image-zoom-effect">
             <div class="image-holder">
-              <a href="index.html">
+              <a href="{{ route('user.pages.course') }}">
                 <img src="user/images/cat-item3.jpg" alt="categories" class="product-image img-fluid">
               </a>
             </div>
             <div class="category-content">
               <div class="product-button">
-                <a href="index.html" class="btn btn-common text-uppercase">Course Details</a>
+                <a href="{{ route('user.pages.course') }}" class="btn btn-common text-uppercase">Course Details</a>
               </div>
             </div>
           </div>

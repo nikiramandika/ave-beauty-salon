@@ -5,8 +5,7 @@
         <div class="container-fluid">
             <div class="course-content d-flex align-items-center justify-content-center gap-5">
                 <div class="course-image">
-                    <img src="{{ asset($course->description->course_image) }}"
-                        alt="{{ $course->course_name }}" class="img-fluid">
+                    <img src="{{ asset($course->description->course_image) }}" alt="{{ $course->course_name }}" class="img-fluid">
                 </div>
                 <div class="course-info">
                     <h1 class="course-title">{{ $course->course_name }}</h1>
