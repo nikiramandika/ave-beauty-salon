@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -122,6 +123,19 @@ Route::get('/treatments-owner/{id}/edit', [TreatmentController::class, 'edit'])-
 Route::put('/treatments-owner/{id}', [TreatmentController::class, 'update'])->name('treatments.update');
 // Route untuk menghapus
 Route::delete('/treatments/{id}', [TreatmentController::class, 'destroy'])->name('treatments.destroy');
+
+//owner-course
+Route::get('/courses-owner', [CourseController::class, 'index'])->name('courses.index');
+// Route untuk menampilkan form create courses
+Route::get('/courses-owner/create', [CourseController::class, 'create'])->name('courses.create');
+// Route untuk menyimpan courses
+Route::post('/courses-owner', [CourseController::class, 'store'])->name('courses.store');
+// Route untuk menampilkan form edit
+Route::get('/courses-owner/{course_id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+// Route untuk proses update
+Route::put('/courses-owner/{course_id}', [CourseController::class, 'update'])->name('courses.update');
+// Route untuk menghapus
+Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('courses.destroy');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

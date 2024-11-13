@@ -96,8 +96,8 @@
                 <div class="text-truncate" data-i18n="Basic">Treatments</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="cards-basic.html" class="menu-link">
+        <li class="menu-item {{ Request::is('courses-owner*') ? 'active' : '' }}">
+            <a href="/courses-owner" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
                 <div class="text-truncate" data-i18n="Basic">Courses</div>
             </a>
