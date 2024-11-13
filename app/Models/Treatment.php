@@ -23,9 +23,16 @@ class Treatment extends Model
         'is_active',
     ];
 
-
+    // Relationship with TreatmentDescription (if you have this model)
     public function description()
     {
         return $this->hasOne(TreatmentDescription::class, 'treatment_id');
     }
+
+    // Relationship with Promos (one-to-many)
+    public function promos()
+    {
+        return $this->belongsToMany(Promo::class, 'promo_treatment', 'treatment_id', 'promo_id');
+    }
+    
 }

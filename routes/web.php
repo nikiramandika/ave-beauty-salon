@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PromoController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -140,6 +141,19 @@ Route::get('/courses-owner/{course_id}/edit', [CourseController::class, 'edit'])
 Route::put('/courses-owner/{course_id}', [CourseController::class, 'update'])->name('courses.update');
 // Route untuk menghapus
 Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('courses.destroy');
+
+//owner-promo
+Route::get('/promos-owner', [PromoController::class, 'index'])->name('promos.index');
+// Route untuk menampilkan form create promos
+Route::get('/promos-owner/create', [PromoController::class, 'create'])->name('promos.create');
+// Route untuk menyimpan promos
+Route::post('/promos-owner', [PromoController::class, 'store'])->name('promos.store');
+// Route untuk menampilkan form edit
+Route::get('/promos-owner/{promo_id}/edit', [PromoController::class, 'edit'])->name('promos.edit');
+// Route untuk proses update
+Route::put('/promos-owner/{promo_id}', [PromoController::class, 'update'])->name('promos.update');
+// Route untuk menghapus
+Route::delete('/promos/{id}', [PromoController::class, 'destroy'])->name('promos.destroy'); 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
