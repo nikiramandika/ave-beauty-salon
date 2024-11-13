@@ -2,16 +2,16 @@
 
 @section('content')
 <section id="billboard" class="bg-light full-screen">
-  <div class="container h-100 d-flex flex-column justify-content-center align-items-center">
-    <h1 class="section-title text-center mt-4" data-aos="fade-up">Ave Beauty Salon</h1>
-    <div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
-      <p>Experience elegance and relaxation at Ave Beauty Salon, where beauty meets expertise. Our skilled professionals
-        are here to provide exceptional salon services, premium products, and personalized treatments crafted just for you.
-        Let us help you look and feel your best.</p>
+    <div class="container h-100 d-flex flex-column justify-content-center align-items-center">
+      <h1 class="section-title text-center mt-4" data-aos="fade-up">Ave Beauty Salon</h1>
+      <div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
+        <p>Experience elegance and relaxation at Ave Beauty Salon, where beauty meets expertise. Our skilled professionals
+          are here to provide exceptional salon services, premium products, and personalized treatments crafted just for you.
+          Let us help you look and feel your best.</p>
         <a href="#start" class="btn btn-primary mt-4">Check it out</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
 <section class="features py-5" id="start">
   <div class="container">
@@ -264,7 +264,7 @@
   </div>
 </section>
 
-<section class="newsletter bg-light" style="background: url(images/pattern-bg.png) no-repeat;">
+<section class="newsletter bg-light" style="background: url(/user/images/pattern-bg.png) no-repeat;">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8 py-4 my-4">

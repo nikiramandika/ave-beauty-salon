@@ -1,3 +1,11 @@
+#billboard {
+    background-image: url('/user/images/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+
 body {
     --heading-font: "Marcellus", Roboto, sans-serif;
     --heading-font-weight: 400;
@@ -183,7 +191,7 @@ body {
 
   .btn-primary {
     --bs-btn-color: #fff;
-    --bs-btn-bg: #f4d0e0; /* Pastel pink */
+    --bs-btn-bg: #8c5b73; /* Pastel pink */
     --bs-btn-border-color: #f4d0e0;
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: #d8a6b6; /* Soft muted pink */
@@ -907,12 +915,12 @@ body {
     line-height: 1.5;
     text-align: center;
     cursor: pointer;
-    background-color: var(--accent-dim-color);
+    background-color: #8c5b73;
     transition: .5s all ease-in-out;
   }
 
   .qty-number .quntity-button:hover {
-    background-color: var(--accent-lit-color);
+    background-color: #8c5b73;
   }
 
   .qty-number input {
@@ -1019,7 +1027,7 @@ body {
 
   /* button */
   .btn-link {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-family: var(--bs-body-font-family);
     letter-spacing: 0.0875rem;
     text-transform: uppercase;
@@ -1099,7 +1107,7 @@ body {
     left: 0;
     height: 25px;
     width: 25px;
-    background-color: #eee;
+    background-color: #8c5b73;;
     border: 1px solid #111;
     border-radius: 50%;
   }
