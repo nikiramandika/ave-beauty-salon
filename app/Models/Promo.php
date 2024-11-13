@@ -36,9 +36,11 @@ class Promo extends Model
         return $this->hasOne(PromoDescription::class, 'promo_id');
     }
 
+    // Model Promo
     public function treatments()
     {
         return $this->belongsToMany(Treatment::class, 'promo_treatment', 'promo_id', 'treatment_id');
     }
+
 
 }

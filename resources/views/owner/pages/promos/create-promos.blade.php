@@ -43,10 +43,63 @@
             /* Indicate that it's not editable */
         }
     </style>
+    <style>
+        .selectpicker {
+            height: auto !important;
+            min-height: 40px;
+            /* Atur tinggi minimal sesuai kebutuhan */
+            width: 100% !important;
+            /* Memastikan lebar penuh */
+        }
+
+        .bootstrap-select .dropdown-toggle {
+            display: flex;
+            background-color: #ffffff;
+            color: black
+            align-items: center;
+            /* Untuk menengahkan teks secara vertikal */
+            padding-top: 10px;
+            /* Sesuaikan padding atas */
+            padding-bottom: 8px;
+            /* Sesuaikan padding bawah */
+            height: auto !important;
+            min-height: 40px;
+            width: 100% !important;
+            text-align: left;
+            /* Teks tetap di kiri */
+        }
+
+        .btn .filter-option-inner-inner {
+            /* Memberikan jarak dari kiri */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+
+        /* Menyembunyikan panah hanya jika ada kelas .hide-caret */
+        .dropdown-toggle::after {
+            content: none !important;
+        }
+    </style>
+
+
+
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Tambahkan ini di bagian <head> atau sebelum </body> -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+
+    <!-- jQuery, Popper.js, dan Bootstrap JS (jika belum ada) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
 
 </head>
 
@@ -78,15 +131,21 @@
                                     <div class="mb-3">
                                         <label for="treatments" class="form-label">Pilih Treatment</label>
                                         <select class="form-control selectpicker" id="treatments" name="treatments[]"
-                                            multiple required data-live-search="true">
-                                            @foreach ($treatments as $treatment)
-                                                <option value="{{ $treatment->treatment_id }}"
-                                                    data-price="{{ $treatment->price }}">
-                                                    {{ $treatment->treatment_name }} -
-                                                    Rp{{ number_format($treatment->price, 0, ',', '.') }}
-                                                </option>
-                                            @endforeach
+                                            title="Pilih Treatment" multiple required data-live-search="true"
+                                            data-selected-text-format="count > 2" onchange="calculateOriginalPrice()">
+                                            @if ($treatments->isEmpty())
+                                                <option disabled>Tidak ada treatment yang aktif</option>
+                                            @else
+                                                @foreach ($treatments as $treatment)
+                                                    <option value="{{ $treatment->treatment_id }}"
+                                                        data-price="{{ $treatment->price }}">
+                                                        {{ $treatment->treatment_name }} -
+                                                        Rp{{ number_format($treatment->price, 0, ',', '.') }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
                                         </select>
+
                                     </div>
 
                                     <div class="mb-3">
@@ -167,47 +226,56 @@
     <script src="{{ asset('owner/dashboard/assets/js/main.js') }}"></script>
     <script>
         function generateSlug() {
-            const treatmentName = document.getElementById('treatment_name').value;
-            const slug = treatmentName
+            const promoName = document.getElementById('promo_name').value;
+            const slug = promoName
                 .toLowerCase() // Convert to lowercase
                 .replace(/\s+/g, '-') // Replace spaces with hyphens
                 .replace(/[^\w\-]+/g, '') // Remove invalid characters
                 .replace(/\-\-+/g, '-') // Replace multiple hyphens with single hyphen
                 .replace(/^-+|-+$/g, ''); // Trim hyphens from start and end
 
-            document.getElementById('treatment_slug').value = slug;
+            document.getElementById('promo_slug').value = slug;
         }
     </script>
     <script>
         $(document).ready(function() {
-            $('.selectpicker').selectpicker();
-
-            // Event listener ketika treatment dipilih
-            $('#treatments').on('changed.bs.select', function() {
-                let selectedTreatments = $(this).val();
-
-                // Jika tidak ada treatment yang dipilih, reset harga original
-                if (selectedTreatments.length === 0) {
-                    $('#original_price').val(0);
-                    return;
-                }
-
-                // Mengirim request ke server untuk menghitung total harga
-                $.ajax({
-                    url: '{{ route('promos.calculatePrice') }}', // Ganti dengan route yang sesuai
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        treatments: selectedTreatments
-                    },
-                    success: function(response) {
-                        // Mengisi original_price dengan hasil yang diterima dari server
-                        $('#original_price').val(response.total_price);
+            $('.selectpicker').selectpicker({
+                style: 'btn-default',
+                width: '100%'
+            });
+            $(document).ready(function() {
+                $('#treatments').selectpicker({
+                    selectedTextFormat: 'count > 2',
+                    countSelectedText: '{0} items selected',
+                    width: '100%'
+                }).on('changed.bs.select', function(e, clickedIndex, isSelected, previousValue) {
+                    // Cek apakah ada item yang dipilih
+                    if ($(this).val().length > 0) {
+                        $(this).closest('.bootstrap-select').addClass(
+                        'hide-caret'); // Tambahkan kelas jika ada item terpilih
+                    } else {
+                        $(this).closest('.bootstrap-select').removeClass(
+                        'hide-caret'); // Hapus kelas jika tidak ada item terpilih
                     }
                 });
             });
         });
     </script>
+
+    <script>
+        function calculateOriginalPrice() {
+            let total = 0;
+
+            // Mengambil elemen-elemen option yang dipilih dan menjumlahkan harga
+            document.querySelectorAll('#treatments option:checked').forEach(option => {
+                total += parseFloat(option.getAttribute('data-price'));
+            });
+
+            // Memasukkan total ke dalam input original_price
+            document.getElementById('original_price').value = total.toFixed(2);
+        }
+    </script>
+
 
 
 </body>
