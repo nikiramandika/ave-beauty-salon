@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Hash;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 
-class UserController extends Controller
+class UserController extends Controller 
 {
     /**
      * Display a listing of users.
