@@ -171,4 +171,24 @@ class PromoController extends Controller
 
         return redirect()->route('promos.index')->with('success', 'Promo berhasil dihapus.');
     }
+
+    public function showPromos()
+{
+    // Fetch all promos with related description
+    $promos = Promo::with('description')->get();
+
+    return view('user.pages.promo', compact('promos'));
+}
+
+public function showPromo($promo_slug)
+{
+    // Fetch promo based on slug with related description
+    $promo = Promo::where('promo_slug', $promo_slug)
+        ->where('is_active', 1)
+        ->with('description')
+        ->firstOrFail();
+
+    return view('user.pages.promo-details', compact('promo'));
+}
+
 }

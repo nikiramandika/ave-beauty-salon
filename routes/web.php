@@ -72,6 +72,9 @@ Route::get('/course', [CourseController::class, 'userIndex'])->name('user.pages.
 Route::get('/course/{course_slug}', [CourseController::class, 'showCourse'])->name('course.show');
 Route::post('/course-registrations', [CourseRegistrationController::class, 'store'])->name('course-registrations.store');
 
+Route::get('/promo', [PromoController::class, 'showPromos'])->name('user.pages.promo');
+Route::get('/promo/{promo_slug}', [PromoController::class, 'showPromo'])->name('promo.show');
+
 
 //owner-users
 Route::get('/users-owner', [UserController::class, 'index'])->name('users.index');

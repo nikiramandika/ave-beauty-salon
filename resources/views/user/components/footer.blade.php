@@ -31,6 +31,9 @@
                         <li class="menu-item">
                             <a href="{{ route('user.pages.course') }}" class="item-anchor">Course</a>
                         </li>
+                        <li class="menu-item">
+                            <a href="{{ route('user.pages.promo') }}" class="item-anchor">Promo</a>
+                        </li>
                     </ul>
                 </div>
             </div>
