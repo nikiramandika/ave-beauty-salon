@@ -51,6 +51,15 @@ Route::get('/sign-up', function () {
 Route::get('/sign-in', function () {
     return view('user.pages.signin');
 });
+Route::get('/checkout', function () {
+    return view('user.pages.checkout');
+});
+Route::get('/verification', function () {
+    return view('user.pages.verif-email');
+});
+
+
+
 
 Route::get('/products', [ProductController::class, 'userIndex'])->name('user.pages.products');
 Route::get('/products/{product_slug}', [ProductController::class, 'showProduct'])->name('products.show');

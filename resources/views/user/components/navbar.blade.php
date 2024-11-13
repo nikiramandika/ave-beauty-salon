@@ -165,14 +165,11 @@
         </div>
 
         <div class="col-3 col-lg-auto">
-          <ul class="list-unstyled d-flex m-0">
+          <ul class="list-unstyled d-flex m-0 justify-content-end">
             <li class="d-none d-lg-block position-relative me-3">
-                <a href="/sign-in" class="mx-2">
-                  login
-                </a>
-              </li>
-              <li class="d-none d-lg-block position-relative me-3">
-                <a href="/sign-up" class="mx-2">
+                <a href="/sign-in" class="mx-0">
+                  login /
+                </a><a href="/sign-up" class="mx-0">
                   register
                 </a>
               </li>
