@@ -43,6 +43,62 @@
             /* Indicate that it's not editable */
         }
     </style>
+    <style>
+        .selectpicker {
+            height: auto !important;
+            min-height: 40px;
+            /* Atur tinggi minimal sesuai kebutuhan */
+            width: 100% !important;
+            /* Memastikan lebar penuh */
+        }
+
+        .bootstrap-select .dropdown-toggle {
+            display: flex;
+            background-color: #ffffff;
+            color: black align-items: center;
+            /* Untuk menengahkan teks secara vertikal */
+            padding-top: 10px;
+            /* Sesuaikan padding atas */
+            padding-bottom: 8px;
+            /* Sesuaikan padding bawah */
+            height: auto !important;
+            min-height: 40px;
+            width: 100% !important;
+            text-align: left;
+            /* Teks tetap di kiri */
+        }
+
+        .btn .filter-option-inner-inner {
+            /* Memberikan jarak dari kiri */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+
+        /* Menyembunyikan panah hanya jika ada kelas .hide-caret */
+        .dropdown-toggle::after {
+            content: none !important;
+        }
+    </style>
+
+
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Tambahkan ini di bagian <head> atau sebelum </body> -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+
+    <!-- jQuery, Popper.js, dan Bootstrap JS (jika belum ada) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
 
 </head>
 
@@ -57,78 +113,90 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Edit Treatment</h5>
+                            <h5 class="card-header">Edit Promo</h5>
                             <div class="card-body">
-                                <form action="{{ route('treatments.update', $treatment->treatment_id) }}" method="POST"
+                                <form action="{{ route('promos.update', $promo->promo_id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    @method('PUT') <!-- Menggunakan PUT untuk update data -->
-
+                                    @method('PUT')
                                     <div class="mb-3">
-                                        <label for="treatment_name" class="form-label">Nama Treatment</label>
-                                        <input type="text" class="form-control" id="treatment_name"
-                                            name="treatment_name" value="{{ $treatment->treatment_name }}" required
-                                            oninput="generateSlug()">
+                                        <label for="promo_name" class="form-label">Nama Promo</label>
+                                        <input type="text" class="form-control" id="promo_name" name="promo_name"
+                                            value="{{ $promo->promo_name }}" required oninput="generateSlug()">
                                     </div>
-
                                     <div class="mb-3">
-                                        <label for="treatment_slug" class="form-label">Slug</label>
-                                        <input type="text" class="form-control slug-input" id="treatment_slug"
-                                            name="treatment_slug" value="{{ $treatment->treatment_slug }}" required
-                                            readonly>
+                                        <label for="promo_slug" class="form-label">Slug</label>
+                                        <input type="text" class="form-control slug-input" id="promo_slug"
+                                            name="promo_slug" value="{{ $promo->promo_slug }}" required readonly>
                                     </div>
-
                                     <div class="mb-3">
-                                        <label for="price" class="form-label">Harga</label>
-                                        <input type="number" class="form-control" id="price" name="price"
-                                            value="{{ $treatment->price }}" required>
+                                        <label for="treatments" class="form-label">Pilih Treatment</label>
+                                        <select class="form-control selectpicker" id="treatments" name="treatments[]"
+                                            title="Pilih Treatment" multiple required data-live-search="true"
+                                            data-selected-text-format="count > 2" onchange="calculateOriginalPrice()">
+                                            @if ($treatments->isEmpty())
+                                                <option disabled>Tidak ada treatment yang aktif</option>
+                                            @else
+                                                @foreach ($treatments as $treatment)
+                                                    <option value="{{ $treatment->treatment_id }}"
+                                                        data-price="{{ $treatment->price }}"
+                                                        {{ in_array($treatment->treatment_id, $promo->treatments->pluck('treatment_id')->toArray()) ? 'selected' : '' }}>
+                                                        {{ $treatment->treatment_name }} -
+                                                        Rp{{ number_format($treatment->price, 0, ',', '.') }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
+                                        </select>
                                     </div>
-
+                                    <div class="mb-3">
+                                        <label for="original_price" class="form-label">Harga Asli</label>
+                                        <input type="number" class="form-control" id="original_price"
+                                            name="original_price" value="{{ $promo->original_price }}" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="promo_price" class="form-label">Harga Promo</label>
+                                        <input type="number" class="form-control" id="promo_price" name="promo_price"
+                                            value="{{ $promo->promo_price }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="start_date" class="form-label">Tanggal Mulai</label>
+                                        <input type="date" class="form-control" id="start_date" name="start_date"
+                                            value="{{ $promo->start_date }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="end_date" class="form-label">Tanggal Berakhir</label>
+                                        <input type="date" class="form-control" id="end_date" name="end_date"
+                                            value="{{ $promo->end_date }}" required>
+                                    </div>
                                     <div class="mb-3">
                                         <label for="is_active" class="form-label">Status Aktif</label>
                                         <select class="form-control" id="is_active" name="is_active">
-                                            <option value="1" {{ $treatment->is_active ? 'selected' : '' }}>Aktif
-                                            </option>
-                                            <option value="0" {{ !$treatment->is_active ? 'selected' : '' }}>
+                                            <option value="1" {{ $promo->is_active == 1 ? 'selected' : '' }}>
+                                                Aktif</option>
+                                            <option value="0" {{ $promo->is_active == 0 ? 'selected' : '' }}>
                                                 Nonaktif</option>
                                         </select>
                                     </div>
-
                                     <div class="mb-3">
-                                        <label for="treatment_image" class="form-label">Gambar Treatment</label>
-                                        <input type="file" class="form-control" id="treatment_image"
-                                            name="treatment_image" accept="image/*">
-
-                                        @if ($treatment->description && $treatment->description->treatment_image)
-                                            <div class="mt-2">
-                                                <img src="{{ asset($treatment->description->treatment_image) }}"
-                                                    alt="Current Image" style="max-width: 200px;">
-                                                <p>Gambar saat ini</p>
-                                            </div>
+                                        <label for="promo_image" class="form-label">Gambar Promo</label>
+                                        <input type="file" class="form-control" id="promo_image"
+                                            name="promo_image" accept="image/*">
+                                        @if ($promo->description && $promo->description->promo_image)
+                                            <img src="{{ asset($promo->description->promo_image) }}"
+                                                alt="Current Promo Image" class="mt-2" style="width: 150px;">
                                         @endif
                                     </div>
-
                                     <div class="mb-3">
-                                        <label for="description" class="form-label">Deskripsi Treatment</label>
-                                        <textarea class="form-control" id="description" name="description" required>{{ $treatment->description->description }}</textarea>
+                                        <label for="description" class="form-label">Deskripsi Promo</label>
+                                        <textarea class="form-control" id="description" name="description">{{ $promo->description ? $promo->description->description : '' }}</textarea>
                                     </div>
-
                                     <div class="mb-3">
-                                        <label for="duration" class="form-label">Durasi (menit)</label>
-                                        <input type="number" class="form-control" id="duration" name="duration"
-                                            value="{{ $treatment->description->duration }}" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <button type="submit" class="btn btn-primary">Perbarui Treatment</button>
-                                        <a href="{{ route('treatments.index') }}"
-                                            class="btn btn-secondary">Kembali</a>
+                                        <button type="submit" class="btn btn-primary">Update Promo</button>
+                                        <a href="{{ route('promos.index') }}" class="btn btn-secondary">Kembali</a>
                                     </div>
                                 </form>
                             </div>
                         </div>
-
-
                     </div>
 
                     <footer class="content-footer footer bg-footer-theme">
@@ -162,17 +230,61 @@
     <script src="{{ asset('owner/dashboard/assets/js/main.js') }}"></script>
     <script>
         function generateSlug() {
-            const treatmentName = document.getElementById('treatment_name').value;
-            const slug = treatmentName
+            const promoName = document.getElementById('promo_name').value;
+            const slug = promoName
                 .toLowerCase() // Convert to lowercase
                 .replace(/\s+/g, '-') // Replace spaces with hyphens
                 .replace(/[^\w\-]+/g, '') // Remove invalid characters
                 .replace(/\-\-+/g, '-') // Replace multiple hyphens with single hyphen
                 .replace(/^-+|-+$/g, ''); // Trim hyphens from start and end
 
-            document.getElementById('treatment_slug').value = slug;
+            document.getElementById('promo_slug').value = slug;
         }
     </script>
+    <script>
+        $(document).ready(function() {
+            $('.selectpicker').selectpicker({
+                style: 'btn-default',
+                width: '100%'
+            });
+            $(document).ready(function() {
+                $('#treatments').selectpicker({
+                    selectedTextFormat: 'count > 2',
+                    countSelectedText: '{0} items selected',
+                    width: '100%'
+                }).on('changed.bs.select', function(e, clickedIndex, isSelected, previousValue) {
+                    // Cek apakah ada item yang dipilih
+                    if ($(this).val().length > 0) {
+                        $(this).closest('.bootstrap-select').addClass(
+                            'hide-caret'); // Tambahkan kelas jika ada item terpilih
+                    } else {
+                        $(this).closest('.bootstrap-select').removeClass(
+                            'hide-caret'); // Hapus kelas jika tidak ada item terpilih
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        function calculateOriginalPrice() {
+            let total = 0;
+
+            // Mengambil elemen-elemen option yang dipilih dan menjumlahkan harga
+            document.querySelectorAll('#treatments option:checked').forEach(option => {
+                const price = parseFloat(option.getAttribute('data-price')) ||
+                    0; // Gunakan 0 jika data-price tidak valid
+                total += price;
+                console.log("Adding price:", price); // Debugging untuk memeriksa harga masing-masing option
+            });
+
+            // Memasukkan total ke dalam input original_price
+            console.log("Total original price:", total); // Debugging untuk memastikan total sesuai
+            document.getElementById('original_price').value = total.toFixed(2);
+        }
+    </script>
+
+
 
 </body>
 

@@ -116,6 +116,17 @@
                                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                                             </button>
                                                             <div class="dropdown-menu">
+                                                                <a href="javascript:void(0);" class="dropdown-item"
+                                                                    onclick="viewPromoDetails(this)"
+                                                                    data-name="{{ $promo->promo_name }}"
+                                                                    data-slug="{{ $promo->promo_slug }}"
+                                                                    data-original-price="{{ $promo->original_price }}"
+                                                                    data-promo-price="{{ $promo->promo_price }}"
+                                                                    data-image="{{ asset($promo->description->promo_image ?? 'path/to/default/image.jpg') }}"
+                                                                    data-description="{{ $promo->description->description ?? '-' }}"
+                                                                    data-status="{{ $promo->is_active ? 'Active' : 'Inactive' }}">
+                                                                    <i class="bx bx-show-alt me-2"></i> Lihat
+                                                                </a>
                                                                 <a href="{{ route('promos.edit', $promo->promo_id) }}"
                                                                     class="dropdown-item">
                                                                     <i class="bx bx-edit-alt me-2"></i> Edit
@@ -170,24 +181,23 @@
             <div class="layout-overlay layout-menu-toggle"></div>
         </div>
         <!-- / Layout wrapper -->
-        <!-- User Detail Modal -->
-        <!-- Treatment Detail Modal -->
-        <div class="modal fade" id="viewTreatmentModal" tabindex="-1" aria-labelledby="viewTreatmentModalLabel"
+        <!-- Promo Detail Modal -->
+        <div class="modal fade" id="viewPromoModal" tabindex="-1" aria-labelledby="viewPromoModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="viewTreatmentModalLabel">Detail Treatment</h5>
+                        <h5 class="modal-title" id="viewPromoModalLabel">Detail Promo</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <img id="modalTreatmentImage" src="" alt="Gambar Treatment" class="img-fluid mb-2">
-                        <p><strong>Nama:</strong> <span id="modalTreatmentName"></span></p>
-                        <p><strong>Slug:</strong> <span id="modalTreatmentSlug"></span></p>
-                        <p><strong>Harga:</strong> <span id="modalTreatmentPrice"></span></p>
-                        <p><strong>Deskripsi:</strong> <span id="modalTreatmentDescription"></span></p>
-                        <p><strong>Durasi:</strong> <span id="modalTreatmentDuration"></span></p>
-                        <p><strong>Status:</strong> <span id="modalTreatmentStatus"></span></p>
+                        <img id="modalPromoImage" src="" alt="Gambar Promo" class="img-fluid mb-2">
+                        <p><strong>Nama Promo:</strong> <span id="modalPromoName"></span></p>
+                        <p><strong>Slug:</strong> <span id="modalPromoSlug"></span></p>
+                        <p><strong>Harga Asli:</strong> <span id="modalPromoOriginalPrice"></span></p>
+                        <p><strong>Harga Promo:</strong> <span id="modalPromoPrice"></span></p>
+                        <p><strong>Deskripsi:</strong> <span id="modalPromoDescription"></span></p>
+                        <p><strong>Status:</strong> <span id="modalPromoStatus"></span></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -198,22 +208,23 @@
 
 
 
-        <!-- Delete Confirmation Modal for Treatment -->
-        <div class="modal fade" id="deleteTreatmentModal" tabindex="-1" aria-labelledby="deleteTreatmentModalLabel"
+
+        <!-- Delete Confirmation Modal for Promo -->
+        <div class="modal fade" id="deletePromoModal" tabindex="-1" aria-labelledby="deletePromoModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteTreatmentModalLabel">Konfirmasi Hapus Treatment</h5>
+                        <h5 class="modal-title" id="deletePromoModalLabel">Konfirmasi Hapus Promo</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus treatment <strong><span
-                                    id="deleteTreatmentName"></span></strong>?</p>
+                        <p>Apakah Anda yakin ingin menghapus promo <strong><span id="deletePromoName"></span></strong>?
+                        </p>
                     </div>
                     <div class="modal-footer">
-                        <form id="deleteTreatmentForm" method="POST">
+                        <form id="deletePromoForm" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -226,44 +237,47 @@
 
 
 
+
         <!-- Core JS -->
         <!-- build:js assets/vendor/js/core.js -->
         <script>
-            function viewTreatmentDetails(button) {
-                // Retrieve data from button attributes
-                const name = button.getAttribute('data-name');
-                const slug = button.getAttribute('data-slug');
-                const price = button.getAttribute('data-price');
-                const image = button.getAttribute('data-image');
-                const description = button.getAttribute('data-description');
-                const duration = button.getAttribute('data-duration');
-                const status = button.getAttribute('data-status');
+            function viewPromoDetails(element) {
+                const name = element.getAttribute('data-name');
+                const slug = element.getAttribute('data-slug');
+                const originalPrice = element.getAttribute('data-original-price');
+                const promoPrice = element.getAttribute('data-promo-price');
+                const image = element.getAttribute('data-image');
+                const description = element.getAttribute('data-description');
+                const status = element.getAttribute('data-status');
 
-                // Set modal content
-                document.getElementById('modalTreatmentImage').src = image;
-                document.getElementById('modalTreatmentName').textContent = name;
-                document.getElementById('modalTreatmentSlug').textContent = slug;
-                document.getElementById('modalTreatmentPrice').textContent = price;
-                document.getElementById('modalTreatmentDescription').textContent = description;
-                document.getElementById('modalTreatmentDuration').textContent = duration;
-                document.getElementById('modalTreatmentStatus').textContent = status;
+                // Isi konten modal dengan data promo
+                document.getElementById('modalPromoName').textContent = name;
+                document.getElementById('modalPromoSlug').textContent = slug;
+                document.getElementById('modalPromoOriginalPrice').textContent =
+                    `Rp${parseInt(originalPrice).toLocaleString()}`;
+                document.getElementById('modalPromoPrice').textContent = `Rp${parseInt(promoPrice).toLocaleString()}`;
+                document.getElementById('modalPromoImage').src = image;
+                document.getElementById('modalPromoDescription').textContent = description;
+                document.getElementById('modalPromoStatus').textContent = status;
 
-                // Show modal
-                new bootstrap.Modal(document.getElementById('viewTreatmentModal')).show();
+                // Tampilkan modal
+                new bootstrap.Modal(document.getElementById('viewPromoModal')).show();
             }
 
 
 
-            function confirmDelete(treatmentId, treatmentName) {
-                // Set treatment name in the modal
-                document.getElementById('deleteTreatmentName').innerText = treatmentName;
 
-                // Update the form action with the treatment's delete route
-                const form = document.getElementById('deleteTreatmentForm');
-                form.action = `/treatments/${treatmentId}`; // Sesuaikan path jika perlu
 
-                // Show the modal
-                new bootstrap.Modal(document.getElementById('deleteTreatmentModal')).show();
+            function confirmDelete(promoId, promoName) {
+                // Set nama promo di dalam modal
+                document.getElementById('deletePromoName').innerText = promoName;
+
+                // Update action pada form dengan rute delete untuk promo
+                const form = document.getElementById('deletePromoForm');
+                form.action = `/promos/${promoId}`; // Sesuaikan path jika perlu
+
+                // Tampilkan modal
+                new bootstrap.Modal(document.getElementById('deletePromoModal')).show();
             }
         </script>
 
