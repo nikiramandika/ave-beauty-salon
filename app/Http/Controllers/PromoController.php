@@ -175,7 +175,8 @@ class PromoController extends Controller
     public function showPromos()
 {
     // Fetch all promos with related description
-    $promos = Promo::with('description')->get();
+    $promos = Promo::where('is_active', 1)
+    ->with('description')->get();
 
     return view('user.pages.promo', compact('promos'));
 }

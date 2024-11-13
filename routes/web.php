@@ -42,11 +42,8 @@ Route::get('/checkout', function () {
 Route::get('/verification', function () {
     return view('user.pages.verif-email');
 });
-
-
 Route::get('/products', [ProductController::class, 'userIndex'])->name('user.pages.products');
 Route::get('/products/{product_slug}', [ProductController::class, 'showProduct'])->name('products.show');
-
 
 Route::get('/treatment', [TreatmentController::class, 'showTreatments'])->name('user.pages.treatment');
 Route::get('/treatment/{treatment_slug}', [TreatmentController::class, 'showTreatment'])->name('treatment.show');

@@ -207,7 +207,8 @@ class TreatmentController extends Controller
 public function showTreatments()
 {
     // Ambil semua treatment dengan relasi description
-    $treatments = Treatment::with('description')->get();
+    $treatments = Treatment::where('is_active', 1)
+    ->with('description')->get();
 
     return view('user.pages.treatment', compact('treatments'));
 }
