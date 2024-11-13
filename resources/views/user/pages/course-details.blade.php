@@ -34,6 +34,7 @@
                             <label for="end_date">End Date</label>
                             <input type="date" class="form-control" id="end_date" name="end_date" required>
                         </div>
+                        <br>
                         <button type="submit" class="btn btn-primary">Add to Cart</button>
                     </form>
                 </div>

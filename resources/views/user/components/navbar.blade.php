@@ -171,6 +171,11 @@
                   login
                 </a>
               </li>
+              <li class="d-none d-lg-block position-relative me-3">
+                <a href="/sign-up" class="mx-2">
+                  register
+                </a>
+              </li>
             <li class="d-none d-lg-block position-relative me-3">
                 <a href="login" class="mx-2">
                   <svg width="24" height="24" viewBox="0 0 24 24">

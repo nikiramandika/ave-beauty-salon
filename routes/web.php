@@ -61,6 +61,7 @@ Route::get('/treatment/{treatment_slug}', [TreatmentController::class, 'showTrea
 
 Route::get('/course', [CourseController::class, 'userIndex'])->name('user.pages.course');
 Route::get('/course/{course_slug}', [CourseController::class, 'showCourse'])->name('course.show');
+Route::post('/course-registrations', [CourseRegistrationController::class, 'store'])->name('course-registrations.store');
 
 
 //owner-users
@@ -153,7 +154,7 @@ Route::get('/promos-owner/{promo_id}/edit', [PromoController::class, 'edit'])->n
 // Route untuk proses update
 Route::put('/promos-owner/{promo_id}', [PromoController::class, 'update'])->name('promos.update');
 // Route untuk menghapus
-Route::delete('/promos/{id}', [PromoController::class, 'destroy'])->name('promos.destroy'); 
+Route::delete('/promos/{id}', [PromoController::class, 'destroy'])->name('promos.destroy');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
