@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/users-owner', function () {
 //     return view('owner.pages.users');
 // });
+Route::get('/cashier', [CashierController::class, 'cashierProduct'])->name('cashier.index');
+Route::get('/cashier/treatments', [CashierController::class, 'cashierTreatment'])->name('cashier.index');
+Route::get('/cashier/promos', [CashierController::class, 'cashierPromos'])->name('cashier.index');
+Route::post('/cashier/process', [CashierController::class, 'process'])->name('cashier.process');
 
 
 
@@ -42,8 +46,11 @@ Route::get('/checkout', function () {
 Route::get('/verification', function () {
     return view('user.pages.verif-email');
 });
+
+
 Route::get('/products', [ProductController::class, 'userIndex'])->name('user.pages.products');
 Route::get('/products/{product_slug}', [ProductController::class, 'showProduct'])->name('products.show');
+
 
 Route::get('/treatment', [TreatmentController::class, 'showTreatments'])->name('user.pages.treatment');
 Route::get('/treatment/{treatment_slug}', [TreatmentController::class, 'showTreatment'])->name('treatment.show');
@@ -168,4 +175,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+require _DIR_ . '/auth.php';

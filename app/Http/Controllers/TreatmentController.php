@@ -203,25 +203,25 @@ class TreatmentController extends Controller
         }
     }
 
-// Menampilkan semua treatment
-public function showTreatments()
-{
-    // Ambil semua treatment dengan relasi description
-    $treatments = Treatment::where('is_active', 1)
-    ->with('description')->get();
+    // Menampilkan semua treatment
+    public function showTreatments()
+    {
+        // Ambil semua treatment dengan relasi description
+        $treatments = Treatment::with('description')->where('is_active', 1)
+            ->get();
 
-    return view('user.pages.treatment', compact('treatments'));
-}
+        return view('user.pages.treatment', compact('treatments'));
+    }
 
-public function showTreatment($treatment_slug)
-{
-    // Ambil treatment berdasarkan slug dan relasi description
-    $treatment = Treatment::where('treatment_slug', $treatment_slug)
-        ->where('is_active', 1)
-        ->with('description')
-        ->firstOrFail();
+    public function showTreatment($treatment_slug)
+    {
+        // Ambil treatment berdasarkan slug dan relasi description
+        $treatment = Treatment::where('treatment_slug', $treatment_slug)
+            ->where('is_active', 1)
+            ->with('description')
+            ->firstOrFail();
 
-    return view('user.pages.treatment-details', compact('treatment'));
-}
+        return view('user.pages.treatment-details', compact('treatment'));
+    }
 
 }

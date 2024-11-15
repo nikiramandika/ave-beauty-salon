@@ -173,23 +173,24 @@ class PromoController extends Controller
     }
 
     public function showPromos()
-{
-    // Fetch all promos with related description
-    $promos = Promo::where('is_active', 1)
-    ->with('description')->get();
+    {
+        // Fetch all promos with related description
+        $promos = Promo::with('description')
+            ->where('is_active', 1 )
+            ->get();
 
-    return view('user.pages.promo', compact('promos'));
-}
+        return view('user.pages.promo', compact('promos'));
+    }
 
-public function showPromo($promo_slug)
-{
-    // Fetch promo based on slug with related description
-    $promo = Promo::where('promo_slug', $promo_slug)
-        ->where('is_active', 1)
-        ->with('description')
-        ->firstOrFail();
+    public function showPromo($promo_slug)
+    {
+        // Fetch promo based on slug with related description
+        $promo = Promo::where('promo_slug', $promo_slug)
+            ->where('is_active', 1)
+            ->with('description')
+            ->firstOrFail();
 
-    return view('user.pages.promo-details', compact('promo'));
-}
+        return view('user.pages.promo-details', compact('promo'));
+    }
 
 }
