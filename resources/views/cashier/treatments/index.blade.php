@@ -35,34 +35,22 @@
                     </div>
                     <!-- Product Grid -->
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <!-- Product Card 1 -->
-                        <div class="bg-white border rounded-lg overflow-hidden hover:shadow-md cursor-pointer">
-                            <img src="/api/placeholder/200/150" alt="Product 1" class="w-full h-32 object-cover">
-                            <div class="p-3">
-                                <h3 class="font-semibold">Nasi Goreng</h3>
-                                <p class="text-green-600 font-bold">Rp 25.000</p>
-                                <p class="text-sm text-gray-500">Stok: 50</p>
+                        @foreach ($treatments as $treatment)
+                            <div class="bg-white border rounded-lg overflow-hidden hover:shadow-md cursor-pointer">
+                                <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}"
+                                    alt="{{ $treatment->treatment_name }}" class="w-full h-32 object-cover">
+                                <div class="p-3">
+                                    <h3 class="font-semibold">{{ $treatment->treatment_name }}</h3>
+                                    <p class="text-green-600 font-bold">Rp
+                                        {{ number_format($treatment->price, 0, ',', '.') }}</p>
+                                    <p class="text-sm text-gray-500">Duration: {{ $treatment->description->duration }}
+                                        minutes</p>
+                                    <p class="text-sm text-gray-500" align="justify">
+                                        {{ \Illuminate\Support\Str::limit($treatment->description->description, 100, '...') }}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <!-- Product Card 2 -->
-                        <div class="bg-white border rounded-lg overflow-hidden hover:shadow-md cursor-pointer">
-                            <img src="/api/placeholder/200/150" alt="Product 2" class="w-full h-32 object-cover">
-                            <div class="p-3">
-                                <h3 class="font-semibold">Mie Goreng</h3>
-                                <p class="text-green-600 font-bold">Rp 23.000</p>
-                                <p class="text-sm text-gray-500">Stok: 45</p>
-                            </div>
-                        </div>
-                        <!-- Product Card 3 -->
-                        <div class="bg-white border rounded-lg overflow-hidden hover:shadow-md cursor-pointer">
-                            <img src="/api/placeholder/200/150" alt="Product 3" class="w-full h-32 object-cover">
-                            <div class="p-3">
-                                <h3 class="font-semibold">Es Teh</h3>
-                                <p class="text-green-600 font-bold">Rp 5.000</p>
-                                <p class="text-sm text-gray-500">Stok: 100</p>
-                            </div>
-                        </div>
-                        <!-- Add more product cards as needed -->
+                        @endforeach
                     </div>
                 </div>
             </div>

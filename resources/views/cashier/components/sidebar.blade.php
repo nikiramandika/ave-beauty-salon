@@ -16,7 +16,7 @@
                 <div class="pl-6 space-y-1 mt-1">
                     <a href="/cashier"
                         class="flex items-center space-x-2 block p-2 rounded-lg hover:bg-gray-100 
-                        {{ Request::is('cashier*') ? 'bg-blue-50 text-blue-700' : 'text-gray-700' }}">
+                        {{ Request::is('cashier') ? 'bg-blue-50 text-blue-700' : 'text-gray-700' }}">
                         <i class="fas fa-box"></i> <!-- Ikon untuk Products -->
                         <span>Products</span>
                     </a>
