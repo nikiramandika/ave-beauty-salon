@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-4">
-                                    <h3 class="mb-2">Sign In</h3>
+                                    <h3 class="mb-2">Log In</h3>
                                     <h3 class="fs-6 fw-normal text-secondary m-0">Enter your details</h3>
                                 </div>
                             </div>
@@ -48,9 +48,9 @@
                                 <!-- Remember Me -->
                                 <div class="col-12">
                                     <div class="form-check">
-                                        <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
+                                        <input id="remember_me" type="checkbox" class="form-check-input ms-0" name="remember">
                                         <label for="remember_me"
-                                            class="form-check-label ms-2">{{ __('Remember me') }}</label>
+                                            class="form-check-label ">{{ __('Remember me') }}</label>
                                     </div>
                                 </div>
 
@@ -71,8 +71,9 @@
                                 <p class="m-0 text-end border-animation-left">
                                     @if (Route::has('password.request'))
                                         <a href="{{ route('password.request') }}"
-                                            class="text-decoration-none item-anchor me-3">{{ __('Forgot your password?') }}</a>
+                                            class="text-decoration-none item-anchor">{{ __('Forgot your password?') }}</a>
                                     @endif
+                                    <br>
                                     Don't have an account? <a href="{{ route('register') }}"
                                         class="text-decoration-none item-anchor">Sign Up Now!</a>
                                 </p>
