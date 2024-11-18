@@ -43,7 +43,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Email atau password salah.',
+            'email' => 'Your email or password is incorret. Please try again.',
         ]);
     }
 

@@ -67,10 +67,10 @@
 
                                 <!-- Checkbox for Terms and Conditions -->
                                 <div class="col-12">
-                                    <div class="form-check " style="margin-left: 30px">
-                                        <input class="form-check-input" type="checkbox" id="iAgree" name="iAgree"
+                                    <div class="form-check ">
+                                        <input class="form-check-input ms-0" type="checkbox" id="iAgree" name="iAgree"
                                             onchange="toggleButton()" required>
-                                        <label class="form-check-label border-animation-left" for="iAgree">
+                                        <label class="form-check-label border-animation-left ms-0" for="iAgree">
                                             I agree to the <a href="#!" class="item-anchor">terms and conditions</a>
                                         </label>
                                     </div>

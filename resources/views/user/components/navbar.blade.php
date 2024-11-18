@@ -117,7 +117,6 @@
 <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center fixed-top">
     <div class="container-fluid">
         <div class="row justify-content-between align-items-center w-100">
-
             <div class="col-auto">
                 <a class="navbar-brand text-white" href="home">
                     <img src="{{ asset('user/images/logo.png') }}" alt="Logo" style="width: 60px; height: auto">
@@ -168,14 +167,14 @@
 
             <div class="col-3 col-lg-auto">
                 <ul class="list-unstyled d-flex m-0 justify-content-end">
-                    <li class="d-none d-lg-block position-relative me-3">
+                    <li class="d-none d-lg-block position-relative me-3 border-animation-left">
                         @auth
 
                             <!-- Tombol Logout -->
                             <form method="POST" action="{{ route('logout') }}" class="d-inline">
                                 @csrf
                                 <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault(); this.closest('form').submit();" class="mx-0">
+                                    onclick="event.preventDefault(); this.closest('form').submit();" class="mx-0 item-anchor">
                                     Log Out
                                 </a>
                             </form>
@@ -183,8 +182,9 @@
 
                         <!-- Menampilkan login dan register jika belum login -->
                         @guest
-                            <a href="/login" class="mx-0">login /</a>
-                            <a href="/register" class="mx-0">register</a>
+                            <a href="/login" class="mx-0 item-anchor">login</a>
+                            <a>/</a>
+                            <a href="/register" class="mx-0 item-anchor">register</a>
                         @endguest
                     </li>
 
