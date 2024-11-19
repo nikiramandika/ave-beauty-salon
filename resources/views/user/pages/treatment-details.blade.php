@@ -3,7 +3,7 @@
 @section('content')
     <section id="treatment-details" class="treatment-detail full-screen">
         <div class="container-fluid">
-            <div class="treatment-content d-flex align-items-center justify-content-center gap-5">
+            <div class="content d-flex align-items-center justify-content-center gap-5">
                 <div class="treatment-image">
                     <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}"
                          alt="{{ $treatment->treatment_name }}" class="img-fluid">

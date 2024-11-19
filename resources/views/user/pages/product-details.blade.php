@@ -1,9 +1,9 @@
 @extends('user.layouts.product-details')
 
 @section('content')
-    <section id="product-detail" class="product-detail full-screen">
+    <section id="details" class="details full-screen">
         <div class="container-fluid">
-            <div class="product-content d-flex align-items-center justify-content-center gap-5">
+            <div class="content d-flex align-items-center justify-content-center gap-5">
                 <div class="product-image">
                     <img src="{{ asset($product->description->product_image) }}"
                         alt="{{ $product->product_name }}" class="img-fluid">

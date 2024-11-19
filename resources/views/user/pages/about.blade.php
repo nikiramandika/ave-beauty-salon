@@ -12,7 +12,7 @@
         <img src="user/images/ave1.jpg" alt="Ave Beauty Salon">
     </div>
 
-    <div class="content">
+    <div class="contents">
         <div class="left">
             <img src="user/images/ave2.jpg" alt="Ave Beauty Salon">
         </div>
