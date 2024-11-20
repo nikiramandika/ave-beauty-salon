@@ -35,8 +35,14 @@ class ProductController extends Controller
             'description' => 'required|string'
         ]);
 
+        // Debugging: Log input awal
+        \Log::info('Input data yang diterima:', $request->all());
+
         // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
         if ($validator->fails()) {
+            // Debugging: Log error validasi
+            \Log::error('Validasi gagal:', $validator->errors()->toArray());
+
             return redirect()
                 ->back()
                 ->withErrors($validator)
@@ -49,42 +55,71 @@ class ProductController extends Controller
             if ($request->hasFile('product_image')) {
                 $image = $request->file('product_image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+                // Debugging: Log nama file sebelum disimpan
+                \Log::info('Nama file gambar:', ['image_name' => $imageName]);
+
                 $image->storeAs('public/product_images', $imageName);
                 $imageUrl = 'storage/product_images/' . $imageName;
+
+                // Debugging: Log URL file gambar setelah disimpan
+                \Log::info('Gambar berhasil disimpan:', ['image_url' => $imageUrl]);
             }
 
             // Simpan data ke tabel products
-            $product = Product::create([
+            $productData = [
                 'product_id' => (string) Str::uuid(),
                 'product_name' => $request->product_name,
                 'product_slug' => $request->product_slug,
                 'price' => $request->price,
                 'category_id' => $request->category_id,
                 'is_active' => $request->is_active,
-            ]);
+            ];
+
+            // Debugging: Log data produk sebelum disimpan
+            \Log::info('Data produk yang akan disimpan:', $productData);
+
+            $product = Product::create($productData);
 
             // Simpan data ke tabel product_details
-            ProductDetail::create([
+            $productDetailData = [
                 'product_id' => $product->product_id,
                 'product_stock' => $request->product_stock,
                 'size' => $request->size,
-            ]);
+            ];
+
+            // Debugging: Log data product_details sebelum disimpan
+            \Log::info('Data detail produk yang akan disimpan:', $productDetailData);
+
+            ProductDetail::create($productDetailData);
 
             // Simpan data ke tabel product_descriptions
-            ProductDescription::create([
+            $productDescriptionData = [
                 'product_id' => $product->product_id,
                 'product_image' => $imageUrl,
                 'description' => $request->description,
-            ]);
+            ];
+
+            // Debugging: Log data product_descriptions sebelum disimpan
+            \Log::info('Data deskripsi produk yang akan disimpan:', $productDescriptionData);
+
+            ProductDescription::create($productDescriptionData);
+
+            // Debugging: Log keberhasilan penyimpanan produk
+            \Log::info('Produk berhasil ditambahkan:', ['product_id' => $product->product_id]);
 
             return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan.');
         } catch (\Exception $e) {
+            // Debugging: Log error saat penyimpanan
+            \Log::error('Error saat menyimpan produk:', ['error_message' => $e->getMessage(), 'stack_trace' => $e->getTrace()]);
+
             return redirect()
                 ->back()
                 ->with('error', 'Error menambahkan produk: ' . $e->getMessage())
                 ->withInput();
         }
     }
+
 
     public function index()
     {

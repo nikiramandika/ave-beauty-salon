@@ -20,7 +20,7 @@
                     <h5 class="widget-title text-uppercase mb-4">Quick Links</h5>
                     <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
                         <li class="menu-item">
-                            <a href="/" class="item-anchor">Home</a>
+                            <a href="home" class="item-anchor">Home</a>
                         </li>
                         <li class="menu-item">
                             <a href="/product" class="item-anchor">Shop</a>

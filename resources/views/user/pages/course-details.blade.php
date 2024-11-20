@@ -3,7 +3,7 @@
 @section('content')
     <section id="course-detail" class="course-detail full-screen">
         <div class="container-fluid">
-            <div class="course-content d-flex align-items-center justify-content-center gap-5">
+            <div class="content d-flex align-items-center justify-content-center gap-5">
                 <div class="course-image">
                     <img src="{{ asset($course->description->course_image) }}" alt="{{ $course->course_name }}" class="img-fluid">
                 </div>

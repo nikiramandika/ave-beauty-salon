@@ -6,11 +6,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <!-- Local CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{ asset('user/css/vendor.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('user/style.css') }}">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -18,14 +26,14 @@
         rel="stylesheet">
 </head>
 
-<body class="product">
-    @include('user.components.navbar')
+<body class="homepage">
+    @livewire('partials.navbar')
+    <main>
+        {{ $slot }}
+    </main>
+    @livewire('partials.footer')
 
-    @yield('content')
-
-    @include('user.components.footer')
-
-    <!-- Local JS Files -->
+    <!-- jQuery and Plugin Scripts -->
     <script src="{{ asset('user/js/jquery.min.js') }}"></script>
     <script src="{{ asset('user/js/plugins.js') }}"></script>
     <script src="{{ asset('user/js/SmoothScroll.js') }}"></script>
@@ -41,6 +49,5 @@
     <!-- Custom Script -->
     <script src="{{ asset('user/js/script.min.js') }}"></script>
 </body>
-
 
 </html>

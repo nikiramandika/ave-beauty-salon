@@ -146,16 +146,20 @@
                                     <a class="my-0 nav-link item-anchor" href="/">Home</a>
                                 </li>
                                 <li class="nav-item dropdown border-animation-left">
-                                    <a class="my-0 nav-link item-anchor" href="/product">Shop</a>
+                                    <a class="my-0 nav-link item-anchor"
+                                        href="/product">Shop</a>
                                 </li>
                                 <li class="nav-item dropdown border-animation-left">
-                                    <a class="my-0 nav-link item-anchor" href="/treatment">Treatment</a>
+                                    <a class="my-0 nav-link item-anchor"
+                                        href="/treatment">Treatment</a>
                                 </li>
                                 <li class="nav-item dropdown border-animation-left">
-                                    <a class="my-0 nav-link item-anchor" href="/course">Course</a>
+                                    <a class="my-0 nav-link item-anchor"
+                                        href="/course">Course</a>
                                 </li>
                                 <li class="nav-item dropdown border-animation-left">
-                                    <a class="my-0 nav-link item-anchor" href="/promo">Promo</a>
+                                    <a class="my-0 nav-link item-anchor"
+                                        href="/promo">Promo</a>
                                 </li>
                                 <li class="nav-item dropdown border-animation-left">
                                     <a class="my-0 nav-link item-anchor" href="/about">About</a>

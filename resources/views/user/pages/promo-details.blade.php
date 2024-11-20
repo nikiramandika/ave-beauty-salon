@@ -3,7 +3,7 @@
 @section('content')
     <section id="promo-details" class="promo-detail full-screen">
         <div class="container-fluid">
-            <div class="promo-content d-flex align-items-center justify-content-center gap-5">
+            <div class="content d-flex align-items-center justify-content-center gap-5">
                 <div class="promo-image">
                     <img src="{{ asset($promo->description->promo_image ?? 'user/images/default.jpg') }}"
                          alt="{{ $promo->promo_name }}" class="img-fluid">

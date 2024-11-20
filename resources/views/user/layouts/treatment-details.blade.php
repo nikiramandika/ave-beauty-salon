@@ -13,7 +13,7 @@
 
     <!-- Local CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{ asset('user/css/vendor.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('user/treatment-details.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('user/style.css') }}">
 
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -26,7 +26,7 @@
         rel="stylesheet">
 </head>
 
-<body class="homepage">
+<body class="treatment-details">
     @include('user.components.navbar')
 
     @yield('content')
