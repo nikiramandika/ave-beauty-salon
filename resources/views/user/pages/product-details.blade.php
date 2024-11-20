@@ -1,4 +1,4 @@
-@extends('user.layouts.product-details')
+@extends('user.layouts.main')
 
 @section('content')
     <section id="product-detail" class="product-detail full-screen">

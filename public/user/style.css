@@ -45,7 +45,14 @@ body {
     --bs-link-hover-color-rgb: 99, 55, 77;
 
 
+    --accent: #751332;
+    --accent2: #4b1225;
+
   }
+#footer {
+  background-color: #fdeef4;
+}
+
 
   html {
     scroll-behavior: smooth;
@@ -156,6 +163,22 @@ body {
 
 .form-control::-ms-input-placeholder { /* Microsoft Edge */
     color: var(--bs-body-color);
+}
+
+.product-content h5 a {
+  color: var(--bs-body-color);
+}
+
+.btn-primary {
+  background-color: var(--accent);
+}
+
+.item-anchor:hover {
+  color: var(--accent);
+}
+
+.btn-primary:hover{
+  background-color: var(--accent2);
 }
 
 

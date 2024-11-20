@@ -118,7 +118,7 @@
     <div class="container-fluid">
         <div class="row justify-content-between align-items-center w-100">
             <div class="col-auto">
-                <a class="navbar-brand text-white" href="home">
+                <a class="navbar-brand text-white" href="/">
                     <img src="{{ asset('user/images/logo.png') }}" alt="Logo" style="width: 60px; height: auto">
                 </a>
             </div>
