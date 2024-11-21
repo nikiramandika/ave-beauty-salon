@@ -39,37 +39,27 @@
 
     <div class="search-popup">
         <div class="search-popup-container">
-            <form role="search" method="get" class="form-group" action="">
+            <form role="search" method="get" class="form-group" action="{{ route('search') }}">
                 <input type="search" id="search-form" class="form-control border-0 border-bottom"
-                    placeholder="Type and press enter" value="" name="s" />
+                    placeholder="Type and press enter" value="{{ request('query') }}" name="query" />
                 <button type="submit" class="search-submit border-0 position-absolute bg-white"
-                    style="top: 15px;right: 15px;"><svg class="search" width="24" height="24">
+                    style="top: 15px; right: 15px;">
+                    <svg class="search" width="24" height="24">
                         <use xlink:href="#search"></use>
-                    </svg></button>
+                    </svg>
+                </button>
             </form>
+
+
+
             <h5 class="cat-list-title">Browse Categories</h5>
             <ul class="cat-list">
-                <li class="cat-list-item">
-                    <a href="#" title="Jackets">Shampoo</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="T-shirts">Conditioner</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="Handbags">Medicure</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="Accessories">Pedicure</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="Cosmetics">Hairmask</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="Dresses">Haircolor</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="Jumpsuits">Course</a>
-                </li>
+                @foreach ($categories as $category)
+                    <li class="cat-list-item">
+                        <a href="products?category={{ $category->category_slug }}"
+                            title="Jackets">{{ $category->category_name }}</a>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>
@@ -146,20 +136,16 @@
                                     <a class="my-0 nav-link item-anchor" href="/">Home</a>
                                 </li>
                                 <li class="nav-item dropdown border-animation-left">
-                                    <a class="my-0 nav-link item-anchor"
-                                        href="/products">Shop</a>
+                                    <a class="my-0 nav-link item-anchor" href="/products">Shop</a>
                                 </li>
                                 <li class="nav-item dropdown border-animation-left">
-                                    <a class="my-0 nav-link item-anchor"
-                                        href="/treatment">Treatment</a>
+                                    <a class="my-0 nav-link item-anchor" href="/treatment">Treatment</a>
                                 </li>
                                 <li class="nav-item dropdown border-animation-left">
-                                    <a class="my-0 nav-link item-anchor"
-                                        href="/course">Course</a>
+                                    <a class="my-0 nav-link item-anchor" href="/course">Course</a>
                                 </li>
                                 <li class="nav-item dropdown border-animation-left">
-                                    <a class="my-0 nav-link item-anchor"
-                                        href="/promo">Promo</a>
+                                    <a class="my-0 nav-link item-anchor" href="/promo">Promo</a>
                                 </li>
                                 <li class="nav-item dropdown border-animation-left">
                                     <a class="my-0 nav-link item-anchor" href="/about">About</a>
