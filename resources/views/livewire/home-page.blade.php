@@ -151,42 +151,27 @@
     <section id="related-products" class="related-products product-carousel py-5 position-relative overflow-hidden">
         <div class="container">
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
-                <h4 class="text-uppercase">You May Also Like</h4>
+                <h4 class="text-uppercase">Explore Categories Product</h4>
                 <a href="/product" class="btn-link">View All Products</a>
             </div>
             <section class="categories py-5">
-                <div class="container">
-                    <h2 class="section-title">Categories</h2>
-                    <div class="category-list d-flex flex-wrap">
-                        @foreach ($categories as $category)
-                            <div class="category-item">
-                                <a href="{{ url('categories/' . $category->slug) }}">
-                                    <h5>{{ $category->name }}</h5>
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
             </section>
             <div class="swiper product-swiper open-up" data-aos="zoom-out">
                 <div class="swiper-wrapper d-flex">
-                    @foreach ($products as $product)
+                    @foreach ($categories as $category)
                         <div class="swiper-slide">
                             <div class="product-item image-zoom-effect link-effect">
                                 <div class="image-holder">
-                                    <a href="{{ url('products/' . $product->product_slug) }}">
-                                        <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
-                                            alt="{{ $product->product_name }}" class="product-image img-fluid">
+                                    <a href="">
+                                        <img src="{{ asset($category->category_image ?? 'user/images/default.jpg') }}"
+                                            alt="{{ $category->category_name }}" class="product-image img-fluid">
                                     </a>
                                     <div class="product-content">
                                         <h5 class="text-uppercase fs-5 mt-3">
-                                            <a href="{{ url('products/' . $product->product_slug) }}">
-                                                {{ $product->product_name }}
+                                            <a href="">
+                                                {{ $category->category_name }}
                                             </a>
                                         </h5>
-                                        <a href="#" class="text-decoration-none" data-after="Add to cart">
-                                            <span>Rp{{ number_format($product->price, 0, ',', '.') }}</span>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -204,58 +189,24 @@
                 <a href="/treatment" class="btn-link">View All</a>
             </div>
             <div class="row">
+                @foreach($treatments as $treatment)
                 <div class="col-md-4">
                     <article class="post-item">
                         <div class="post-image">
                             <a>
-                                <img src="user/images/post-image1.jpg" alt="image"
+                                <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}" alt="image"
                                     class="post-grid-image img-fluid">
                             </a>
                         </div>
                         <div class="post-content d-flex flex-wrap gap-2 my-3">
                             <h5 class="post-title text-uppercase">
-                                <a>Hairmask</a>
+                                <a>{{ $treatment->treatment_name }}</a>
                             </h5>
-                            <p align="justify">A deep-conditioning treatment that nourishes and repairs damaged hair,
-                                leaving it softer, shinier, and more manageable.</p>
+                            <p align="justify">{{ $treatment->description->description }}</p>
                         </div>
                     </article>
                 </div>
-                <div class="col-md-4">
-                    <article class="post-item">
-                        <div class="post-image">
-                            <a>
-                                <img src="user/images/post-image2.jpg" alt="image"
-                                    class="post-grid-image img-fluid">
-                            </a>
-                        </div>
-                        <div class="post-content d-flex flex-wrap gap-2 my-3">
-                            <h5 class="post-title text-uppercase">
-                                <a>Menicure</a>
-                            </h5>
-                            <p align="justify">A hand and nail treatment that includes shaping, cuticle care, and
-                                polishing, leaving your nails looking healthy and well-groomed.</p>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-md-4">
-                    <article class="post-item">
-                        <div class="post-image">
-                            <a>
-                                <img src="user/images/post-image3.jpg" alt="image"
-                                    class="post-grid-image img-fluid">
-                            </a>
-                        </div>
-                        <div class="post-content d-flex flex-wrap gap-2 my-3">
-                            <h5 class="post-title text-uppercase">
-                                <a>Pedicure</a>
-                            </h5>
-                            <p align="justify">A foot and nail care treatment that includes exfoliation, nail trimming,
-                                and
-                                moisturizing, resulting in soft, rejuvenated feet.</p>
-                        </div>
-                    </article>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

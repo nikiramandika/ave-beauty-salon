@@ -9,10 +9,14 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\UserController;
+use App\Livewire\CourseDetailPage;
 use App\Livewire\CoursePage;
 use App\Livewire\HomePage;
+use App\Livewire\ProductDetailPage;
+use App\Livewire\ProductPage;
+use App\Livewire\PromoDetailPage;
 use App\Livewire\PromoPage;
-use App\Livewire\ShopPage;
+use App\Livewire\TreatmentDetailPage;
 use App\Livewire\TreatmentPage;
 use Illuminate\Support\Facades\Route;
 
@@ -58,10 +62,14 @@ Route::get('/verification', function () {
 
 // User Livewire
 Route::get('/', HomePage::class);
-Route::get('/product', ShopPage::class);
+Route::get('/products', ProductPage::class);
+Route::get('/products/{product_slug}', ProductDetailPage::class);
 Route::get('/treatment', TreatmentPage::class);
+Route::get('/treatment/{treatment_slug}', TreatmentDetailPage::class);
 Route::get('/promo', PromoPage::class);
+Route::get('/promo/{promo_slug}', PromoDetailPage::class);
 Route::get('/course', CoursePage::class);
+Route::get('/course/{course_slug}', CourseDetailPage::class);
 
 // Route::get('/products', [ProductController::class, 'userIndex'])->name('user.pages.products');
 // Route::get('/products/{product_slug}', [ProductController::class, 'showProduct'])->name('products.show');

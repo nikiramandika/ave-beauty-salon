@@ -146,7 +146,7 @@
                                     <a class="my-0 nav-link item-anchor" href="/">Home</a>
                                 </li>
                                 <li class="nav-item dropdown border-animation-left">
-                                    <a class="my-0 nav-link item-anchor" href="/product">Shop</a>
+                                    <a class="my-0 nav-link item-anchor" href="/products">Shop</a>
                                 </li>
                                 <li class="nav-item dropdown border-animation-left">
                                     <a class="my-0 nav-link item-anchor" href="/treatment">Treatment</a>
