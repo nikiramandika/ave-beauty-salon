@@ -24,7 +24,7 @@
                             <a href="{{ url('products/' . $product->product_slug) }}">
                                 <div>
                                     <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
-                                    class="bd-placeholder-img card-img-top product-image img-fluid" width="100%" style="aspect-ratio: 1 / 1;
+                                    class="bd-placeholder-img card-img-top product-image img-fluid" width="100%" style="aspect-ratio: 1 / 1;"
                                         alt="{{ $product->product_name }}">
                                 </div>
                             </a>
