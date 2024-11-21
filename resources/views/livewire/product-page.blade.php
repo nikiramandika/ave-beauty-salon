@@ -16,15 +16,16 @@
             </div>
         </div>
         <div class="container">
-            <div class="product-grid open-up" data-aos="zoom-out">
+            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3" data-aos="zoom-out">
                 @foreach ($products as $product)
+                <div class="col">
                     <div class="product-item image-zoom-effect link-effect">
                         <div class="image-holder">
                             <a href="{{ url('products/' . $product->product_slug) }}">
                                 <div>
                                     <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
-                                        style="width: 250px; height:250px; object-fit:cover;"
-                                        alt="{{ $product->product_name }}" class="product-image img-fluid">
+                                    class="bd-placeholder-img card-img-top product-image img-fluid" width="100%" style="aspect-ratio: 1 / 1;
+                                        alt="{{ $product->product_name }}">
                                 </div>
                             </a>
                             <div class="product-content">
@@ -39,6 +40,7 @@
                             </div>
                         </div>
                     </div>
+                </div>    
                 @endforeach
             </div>
         </div>
