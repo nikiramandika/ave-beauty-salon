@@ -162,7 +162,7 @@
                         <div class="swiper-slide">
                             <div class="product-item image-zoom-effect link-effect">
                                 <div class="image-holder">
-                                    <a href="">
+                                    <a href="/products?category={{ $category->category_slug }}">
                                         <img src="{{ asset($category->category_image ?? 'user/images/default.jpg') }}"
                                             alt="{{ $category->category_name }}" class="product-image img-fluid">
                                     </a>
