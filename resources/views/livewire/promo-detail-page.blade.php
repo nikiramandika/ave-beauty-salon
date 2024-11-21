@@ -5,8 +5,8 @@
             <div class="row align-items-center">
                 <!-- Gambar Promo -->
                 <div class="col-md-6 text-center">
-                    <img src="{{ asset($promo->description->promo_image ?? 'user/images/default.jpg') }}" 
-                         alt="{{ $promo->promo_name }}" class="img-fluid rounded shadow-sm">
+                    <img src="{{ asset($promo->description->promo_image ?? 'user/images/default.jpg') }}"
+                        alt="{{ $promo->promo_name }}" class="img-fluid rounded shadow-sm">
                 </div>
 
                 <!-- Informasi Promo -->
@@ -31,35 +31,33 @@
     <!-- Treatments Included in Promo -->
     <section id="promo-treatments" class="promo-treatments py-5">
         <div class="container">
-            <h2 class="text-center text-primary mb-4">Treatments Included in This Promo</h2>
-            <div class="row g-4">
-                @forelse ($promo->treatments as $treatment)
-                    <div class="col-md-4">
-                        <div class="card shadow-sm border-0">
-                            <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}" 
-                                 alt="{{ $treatment->treatment_name }}" 
-                                 class="card-img-top rounded-top" 
-                                 style="height: 200px; object-fit: cover;">
-                            <div class="card-body">
-                                <h5 class="card-title text-primary">{{ $treatment->treatment_name }}</h5>
-                                <p class="card-text text-muted">
-                                    {{ Str::limit($treatment->description->description ?? 'No description available', 100) }}
-                                </p>
-                                <p class="treatment-price text-success fw-bold">
-                                    Price: Rp{{ number_format($treatment->price, 0, ',', '.') }}
-                                </p>
-                                <a href="/treatment/{{ $treatment->treatment_slug }}" class="btn btn-outline-primary w-100">
-                                    View Details
-                                </a>
+            <h3 class="text-center mb-4">Treatments Included in This Promo</h3>
+            <section id="related-treatments"
+                class="related-treatments treatment-carousel py-5 position-relative overflow-hidden">
+                <div class="container">
+                    <div class="treatment-grid open-up" data-aos="zoom-out">
+                        @foreach ($promo->treatments as $treatment)
+                            <div class="treatment-item image-zoom-effect link-effect">
+                                <div class="image-holder">
+                                    <a href="{{ url('treatment/' . $treatment->treatment_slug) }}">
+                                        <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}"
+                                            alt="{{ $treatment->treatment_name }}" class="treatment-image img-fluid">
+                                    </a>
+                                    <div class="treatment-content">
+                                        <h5 class="text-uppercase fs-5 mt-3">
+                                            <a
+                                                href="{{ url('treatment/' . $treatment->treatment_slug) }}">{{ $treatment->treatment_name }}</a>
+                                        </h5>
+                                        <a href="#" class="text-decoration-none" data-after="View Details">
+                                            <span>Rp{{ number_format($treatment->price, 0, ',', '.') }}</span>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
-                @empty
-                    <div class="col-12">
-                        <p class="text-center text-muted">No treatments are included in this promo.</p>
-                    </div>
-                @endforelse
-            </div>
+                </div>
+            </section>
         </div>
     </section>
 </div>
