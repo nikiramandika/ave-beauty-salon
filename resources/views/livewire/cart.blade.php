@@ -1,11 +1,11 @@
-<div>
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true"  tabindex="-1" id="offcanvasCart"
-        aria-labelledby="Keranjang Saya" wire:ignore.self>
-        <div class="offcanvas-header justify-content-between">
-            <h5 class="offcanvas-title" id="Keranjang Saya">My Cart</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Tutup"></button>
-        </div>
-        <div class="offcanvas-body" id="cart-container">
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="Keranjang Saya"
+    wire:ignore.self>
+    <div class="offcanvas-header justify-content-between">
+        <h5 class="offcanvas-title" id="Keranjang Saya">My Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Tutup"></button>
+    </div>
+    <div class="offcanvas-body" id="cart-container">
+        @auth
             <div id="cart-loader" class="text-center d-none">
                 <div class="spinner-border" role="status">
                     <span class="visually-hidden">Memuat...</span>
@@ -53,6 +53,10 @@
                     Checkout
                 </a>
             </div>
-        </div>
+        @else
+            <div class="text-center">
+                <a href="/login">Please login to view your cart.</a>
+            </div>
+        @endauth
     </div>
 </div>

@@ -73,49 +73,49 @@
             </ul>
         </div>
     </div>
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="Keranjang Saya">
-        <div class="offcanvas-header justify-content-between">
-            <h5 class="offcanvas-title">Keranjang Saya</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Tutup"></button>
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart"
+        aria-labelledby="My Cart">
+        <div class="offcanvas-header justify-content-center">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body" id="cart-container">
-            <!-- Konten keranjang yang akan dimuat secara dinamis -->
-            <div id="cart-loader" class="text-center d-none">
-                <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Memuat...</span>
-                </div>
-            </div>
-
-            <!-- Pesan Keranjang Kosong jika tidak ada item -->
-            @if(auth()->check() && auth()->user()->cart && auth()->user()->cart->cartItems->count() > 0)
-            @foreach(auth()->user()->cart->cartItems as $item)
-                <li class="list-group-item d-flex justify-content-between align-items-center" data-id="{{ $item->id }}">
-                    <div>
-                        <h6 class="my-0">{{ $item->name }}</h6>
-                        <small class="text-muted">{{ $item->item_type == 'product' ? 'Produk' : 'Kursus' }}</small>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <span class="me-3">Rp{{ number_format($item->price, 0, ',', '.') }}</span>
-                        <button class="btn btn-sm btn-danger remove-cart-item">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                </li>
-            @endforeach
-        @else
-            <div id="cart-empty" class="text-center">
-                <p>Keranjang Anda kosong</p>
-            </div>
-        @endif
-
-
-            <div class="mt-3">
-                <a href="{{ route('checkout') }}" class="btn btn-primary w-100 {{ auth()->check() && auth()->user()->cart && auth()->user()->cart->cartItems->count() > 0 ? '' : 'disabled' }}" id="checkout-btn">
-                    Checkout
-                </a>
+        <div class="offcanvas-body">
+            <div class="order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary">Your cart</span>
+                    <span class="badge bg-primary rounded-pill">3</span>
+                </h4>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Growers cider</h6>
+                            <small class="text-body-secondary">Brief description</small>
+                        </div>
+                        <span class="text-body-secondary">$12</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Fresh grapes</h6>
+                            <small class="text-body-secondary">Brief description</small>
+                        </div>
+                        <span class="text-body-secondary">$8</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Heinz tomato ketchup</h6>
+                            <small class="text-body-secondary">Brief description</small>
+                        </div>
+                        <span class="text-body-secondary">$5</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (USD)</span>
+                        <strong>$20</strong>
+                    </li>
+                </ul>
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to Checkout</button>
             </div>
         </div>
     </div>
+
     <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center fixed-top">
         <div class="container-fluid">
             <div class="row justify-content-between align-items-center w-100">
@@ -190,14 +190,10 @@
                         </li>
 
                         <li class="d-none d-lg-block position-relative me-3">
-                            <a href="login" class="mx-2">
+                            <a href="#cart" class="mx-2">
                                 <svg width="24" height="24" viewBox="0 0 24 24">
                                     <use xlink:href="#cart"></use>
                                 </svg>
-                                <span
-                                    class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-circle bg-white text-black">
-                                    5
-                                </span>
                             </a>
                         </li>
                         <li class="search-box" class="mx-2">
@@ -215,45 +211,3 @@
         </div>
     </nav>
 </div>
-
-
-@push('scripts')
-<script>
-$(document).ready(function() {
-    function updateCartSummary() {
-        const cartItems = $('#cart-items li');
-        const totalItems = cartItems.length;
-
-        // Update badge
-        $('.cart-badge').text(totalItems);
-
-        // Update total
-        let total = 0;
-        cartItems.each(function() {
-            const price = parseFloat($(this).find('span').text().replace('Rp', '').replace(/\./g, ''));
-            total += price;
-        });
-
-        $('#cart-total').text(`Rp${total.toLocaleString('id-ID')}`);
-
-        // Toggle empty cart message and checkout button
-        $('#cart-empty').toggleClass('d-none', totalItems > 0);
-        $('#checkout-btn').toggleClass('disabled', totalItems === 0);
-    }
-
-    // Hapus item dari keranjang
-    $(document).on('click', '.remove-cart-item', function() {
-        const cartItemId = $(this).closest('li').data('id');
-
-        $.ajax({
-            url: `/cart/remove/${cartItemId}`,
-            method: 'DELETE',
-            success: function(response) {
-                $(`li[data-id="${cartItemId}"]`).remove();
-                updateCartSummary();
-            }
-        });
-    });
-});
-</script>
-@endpush

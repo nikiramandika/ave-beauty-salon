@@ -160,13 +160,18 @@
                                 <svg width="24" height="24" viewBox="0 0 24 24">
                                     <use xlink:href="#cart"></use>
                                 </svg>
-                                <span
-                                    class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-circle bg-white text-black"
-                                    wire:loading.class="opacity-50">
-                                    {{ $cartCount }}
-                                </span>
+                                @auth
+                                    <span
+                                        class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-circle bg-white text-black"
+                                        wire:loading.class="opacity-50">
+                                        {{ $cartCount }}
+                                    </span>
+                                @endauth
                             </a>
                         </li>
+
+
+
 
 
                         <li class="search-box" class="mx-2">
