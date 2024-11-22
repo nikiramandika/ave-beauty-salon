@@ -1,6 +1,4 @@
-@extends('user.layouts.main')
-
-@section('content')
+<div>
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -108,37 +106,33 @@
             <div class="row g-5">
                 <div class="col-md-5 col-lg-4 order-md-last">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
-                        <span> Your cart</span>
-                        <span class="badge bg-primary rounded-pill">3</span>
+                        <span>Your cart</span>
+                        <span class="badge bg-primary rounded-pill">{{ count($cartItems) }}</span>
                     </h4>
                     <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">Product name</h6>
-                                <small class="text-body-secondary">Brief description</small>
-                            </div>
-                            <span class="text-body-secondary">$12</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">Second product</h6>
-                                <small class="text-body-secondary">Brief description</small>
-                            </div>
-                            <span class="text-body-secondary">$8</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">Third item</h6>
-                                <small class="text-body-secondary">Brief description</small>
-                            </div>
-                            <span class="text-body-secondary">$5</span>
-                        </li>
+                        @forelse ($cartItems as $item)
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <h6 class="my-0">{{ $item->product->product_name ?? 'Unknown Product' }}</h6>
+                                    <small class="text-body-secondary">Qty: {{ $item->quantity }}</small>
+                                </div>
+                                <span
+                                    class="text-body-secondary">Rp{{ number_format($item->quantity * ($item->product->price ?? 0), 0, ',', '.') }}</span>
+                            </li>
+                        @empty
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div class="text-center w-100">
+                                    <small class="text-body-secondary">Your cart is empty</small>
+                                </div>
+                            </li>
+                        @endforelse
                         <li class="list-group-item d-flex justify-content-between">
-                            <span>Total (USD)</span>
-                            <strong>$20</strong>
+                            <span>Total (Rp)</span>
+                            <strong>Rp{{ number_format($cartTotal, 0, ',', '.') }}</strong>
                         </li>
                     </ul>
                 </div>
+
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Billing address</h4>
                     <form class="needs-validation" novalidate>
@@ -268,4 +262,4 @@
     </div>
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('user/js/checkout.js') }}"></script>
-@endsection
+</div>

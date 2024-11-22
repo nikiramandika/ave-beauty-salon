@@ -10,6 +10,7 @@ use App\Http\Controllers\PromoController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\SearchResult;
+use App\Livewire\CheckoutPage;
 use App\Livewire\CourseDetailPage;
 use App\Livewire\CoursePage;
 use App\Livewire\HomePage;
@@ -75,6 +76,8 @@ Route::get('/promo/{promo_slug}', PromoDetailPage::class);
 Route::get('/course', CoursePage::class);
 Route::get('/course/{course_slug}', CourseDetailPage::class);
 Route::get('/search', SearchPage::class)->name('search');
+Route::get('/checkout', CheckoutPage::class)->name('checkout');
+
 
 // Route::get('/products', [ProductController::class, 'userIndex'])->name('user.pages.products');
 // Route::get('/products/{product_slug}', [ProductController::class, 'showProduct'])->name('products.show');
