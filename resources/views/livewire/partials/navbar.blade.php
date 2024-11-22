@@ -49,9 +49,6 @@
                     </svg>
                 </button>
             </form>
-
-
-
             <h5 class="cat-list-title">Browse Categories</h5>
             <ul class="cat-list">
                 @foreach ($categories as $category)
@@ -63,45 +60,46 @@
             </ul>
         </div>
     </div>
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart"
-        aria-labelledby="My Cart">
-        <div class="offcanvas-header justify-content-center">
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="Keranjang Saya">
+        <div class="offcanvas-header justify-content-between">
+            <h5 class="offcanvas-title" id="Keranjang Saya">My Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Tutup"></button>
         </div>
-        <div class="offcanvas-body">
-            <div class="order-md-last">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-primary">Your cart</span>
-                    <span class="badge bg-primary rounded-pill">3</span>
-                </h4>
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">Growers cider</h6>
-                            <small class="text-body-secondary">Brief description</small>
-                        </div>
-                        <span class="text-body-secondary">$12</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">Fresh grapes</h6>
-                            <small class="text-body-secondary">Brief description</small>
-                        </div>
-                        <span class="text-body-secondary">$8</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">Heinz tomato ketchup</h6>
-                            <small class="text-body-secondary">Brief description</small>
-                        </div>
-                        <span class="text-body-secondary">$5</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Total (USD)</span>
-                        <strong>$20</strong>
-                    </li>
-                </ul>
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to Checkout</button>
+        <div class="offcanvas-body" id="cart-container">
+            <div id="cart-loader" class="text-center d-none">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Memuat...</span>
+                </div>
+            </div>
+            <div id="cart-content">
+                @if(auth()->check() && auth()->user()->cart && auth()->user()->cart->cartItems->count() > 0)
+                    <ul class="list-group">
+                        @foreach(auth()->user()->cart->cartItems as $item)
+                            <li class="list-group-item d-flex justify-content-between align-items-center" data-id="{{ $item->id }}">
+                                <div>
+                                    <h6 class="my-0">{{ $item->name }}</h6>
+                                    <small class="text-muted">{{ $item->item_type == 'product' ? 'Produk' : 'Kursus' }}</small>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <span class="me-3">Rp{{ number_format($item->price, 0, ',', '.') }}</span>
+                                    <button class="btn btn-sm btn-danger remove-cart-item" data-id="{{ $item->id }}">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <div id="cart-empty" class="text-center">
+                        <p>Your cart is empty</p>
+                    </div>
+                @endif
+            </div>
+            <div class="mt-3">
+                <a href="{{ route('checkout') }}" class="btn btn-primary w-100 {{ auth()->check() && auth()->user()->cart && auth()->user()->cart->cartItems->count() > 0 ? '' : 'disabled' }}" id="checkout-btn">
+                    Checkout
+                </a>
             </div>
         </div>
     </div>
@@ -178,18 +176,17 @@
                                 <a href="/register" class="mx-0 item-anchor">register</a>
                             @endguest
                         </li>
-
-                        <li class="d-none d-lg-block position-relative me-3">
-                            <a href="login" class="mx-2">
-                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                    <use xlink:href="#cart"></use>
-                                </svg>
-                                <span
-                                    class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-circle bg-white text-black">
-                                    5
-                                </span>
-                            </a>
-                        </li>
+            <!-- Icon Keranjang di Navbar -->
+            <li class="d-none d-lg-block position-relative me-3">
+                <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                        <use xlink:href="#cart"></use>
+                    </svg>
+                <span class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-circle bg-white text-black">
+                    {{ auth()->check() && auth()->user()->cart ? auth()->user()->cart->cartItems->count() : 0 }}
+                </span>
+                </a>
+            </li>
                         <li class="search-box" class="mx-2">
                             <a href="#search" class="search-button">
                                 <svg width="24" height="24" viewBox="0 0 24 24">
@@ -205,3 +202,5 @@
         </div>
     </nav>
 </div>
+
+

@@ -23,8 +23,9 @@
                         {{ $course->description->description }}
                     </p>
 
-                    <form action="{{ route('course-registrations.store') }}" method="POST">
+                    <form action="{{ route('cart.add') }}" method="POST">
                         @csrf
+                        <input type="hidden" name="item_type" value="course">
                         <input type="hidden" name="course_id" value="{{ $course->id }}">
                         <div class="form-group">
                             <label for="start_date">Start Date</label>

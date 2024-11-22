@@ -21,6 +21,8 @@ use App\Livewire\SearchPage;
 use App\Livewire\TreatmentDetailPage;
 use App\Livewire\TreatmentPage;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
+
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -56,7 +58,7 @@ Route::get('/about', function () {
 });
 Route::get('/checkout', function () {
     return view('user.pages.checkout');
-});
+})->name('checkout');
 Route::get('/verification', function () {
     return view('user.pages.verif-email');
 });
@@ -200,5 +202,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::delete('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+    Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
+    Route::put('/cart/update/{id}', [CartController::class, 'updateQuantity'])->name('cart.update');
+});
+
 
 require __DIR__ . '/auth.php';

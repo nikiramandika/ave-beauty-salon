@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -51,6 +52,11 @@ class User extends Authenticatable implements MustVerifyEmail
             'is_active' => 'boolean'
         ];
     }
+    public function cart(): HasOne
+    {
+        return $this->hasOne(Cart::class)->where('is_active', true);
+    }
+
 
     /**
      * The attributes that should be cast to enum.
@@ -60,4 +66,5 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $enumCasts = [
         'role' => \App\Enums\UserRole::class,
     ];
+
 }

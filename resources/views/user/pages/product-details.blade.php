@@ -20,10 +20,11 @@
                     <p class="product-description" align="justify">
                         {{ $product->description->description }}
                     </p>
-
-                    <form action="" method="POST">
+                    <form action="{{ route('cart.add') }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        <input type="hidden" name="item_type" value="product">
+                        <input type="hidden" name="item_id" value="{{ $product->id }}">
+                        <button type="submit" class="btn btn-primary">Tambah ke Keranjang</button>
                     </form>
                 </div>
             </div>
