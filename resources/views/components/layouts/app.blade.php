@@ -53,6 +53,22 @@
 
     <!-- Custom Script -->
     <script src="{{ asset('user/js/script.min.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Livewire.on('cartUpdated', function() {
+                // Pastikan backdrop tetap aktif saat keranjang diperbarui
+                var offcanvasElement = document.getElementById('offcanvasCart');
+                var offcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+                if (!offcanvas) {
+                    offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+                }
+                offcanvas.show();
+            });
+        });
+    </script>
+
+
+
     @livewireScripts
 </body>
 
