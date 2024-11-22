@@ -135,81 +135,91 @@
 
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Billing address</h4>
-                    <form class="needs-validation" novalidate>
+                    <form wire:submit.prevent="submitPayment" enctype="multipart/form-data" class="needs-validation"
+                        novalidate>
                         <div class="row g-3">
+                            <!-- First Name -->
                             <div class="col-sm-6">
-                                <label for="firstName" class="form-label">First name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="" value=""
-                                    required>
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" wire:model="firstName"
+                                    placeholder="" required>
                                 <div class="invalid-feedback">
                                     Valid first name is required.
                                 </div>
                             </div>
 
+                            <!-- Last Name -->
                             <div class="col-sm-6">
-                                <label for="lastName" class="form-label">Last name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="" value=""
-                                    required>
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" wire:model="lastName"
+                                    placeholder="" required>
                                 <div class="invalid-feedback">
                                     Valid last name is required.
                                 </div>
                             </div>
 
-                            <div class="col-12">
-                                <label for="username" class="form-label">Username</label>
-                                <div class="input-group has-validation">
-                                    <span class="input-group-text">@</span>
-                                    <input type="text" class="form-control" id="username" placeholder="Username"
-                                        required>
-                                    <div class="invalid-feedback">
-                                        Your username is required.
-                                    </div>
-                                </div>
-                            </div>
-
+                            <!-- Email -->
                             <div class="col-12">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="you@example.com"
-                                    required>
+                                <input type="email" class="form-control" id="email" wire:model="email"
+                                    placeholder="you@example.com" required>
                                 <div class="invalid-feedback">
                                     Please enter a valid email address for shipping updates.
                                 </div>
                             </div>
 
                             <div class="col-12">
+                                <label for="recipientPhone" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="recipientPhone"
+                                    wire:model="recipientPhone" placeholder="e.g., 08123456789" required>
+                                @error('recipientPhone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <!-- Address -->
+                            <div class="col-12">
                                 <label for="address" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="address" placeholder="1234 Main St"
-                                    required>
+                                <input type="text" class="form-control" id="address" wire:model="address"
+                                    placeholder="1234 Main St" required>
                                 <div class="invalid-feedback">
                                     Please enter your shipping address.
                                 </div>
                             </div>
 
+                            <!-- Country -->
                             <div class="col-md-5">
                                 <label for="country" class="form-label">Country</label>
-                                <select class="form-select" id="country" required>
+                                <select class="form-select" id="country" wire:model="country" required>
                                     <option value="">Choose...</option>
                                     <option>United States</option>
+                                    <option>Indonesia</option>
+                                    <option>Other</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please select a valid country.
                                 </div>
                             </div>
 
+                            <!-- State -->
                             <div class="col-md-4">
                                 <label for="state" class="form-label">State</label>
-                                <select class="form-select" id="state" required>
+                                <select class="form-select" id="state" wire:model="state" required>
                                     <option value="">Choose...</option>
                                     <option>California</option>
+                                    <option>Jakarta</option>
+                                    <option>Other</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please provide a valid state.
                                 </div>
                             </div>
 
+                            <!-- Zip -->
                             <div class="col-md-3">
                                 <label for="zip" class="form-label">Zip</label>
-                                <input type="text" class="form-control" id="zip" placeholder="" required>
+                                <input type="text" class="form-control" id="zip" wire:model="zip"
+                                    placeholder="" required>
                                 <div class="invalid-feedback">
                                     Zip code required.
                                 </div>
@@ -218,43 +228,47 @@
 
                         <hr class="my-4">
 
-                        <div class="form-check ps-4">
-                            <input type="checkbox" class="form-check-input" id="same-address">
-                            <label class="form-check-label px-0" for="same-address">Shipping address is the same as my
-                                billing address</label>
-                        </div>
-
-                        <div class="form-check ps-4">
-                            <input type="checkbox" class="form-check-input" id="save-info">
-                            <label class="form-check-label px-0" for="save-info">Save this information for next
-                                time</label>
-                        </div>
-
-                        <hr class="my-4">
-
+                        <!-- Payment Method: Bank Transfer -->
                         <h4 class="mb-3">Payment</h4>
-
                         <div class="mt-3 mb-5">
                             <div class="form-check ps-4">
-                                <input id="credit" name="paymentMethod" type="radio" class="form-check-input "
-                                    checked required>
-                                <label class="form-check-label px-0" for="credit">Credit card</label>
-                            </div>
-                            <div class="form-check ps-4">
-                                <input id="debit" name="paymentMethod" type="radio" class="form-check-input"
+                                <input id="bankTransfer" name="paymentMethod" type="radio"
+                                    class="form-check-input" value="Bank Transfer" wire:model="paymentMethod" checked
                                     required>
-                                <label class="form-check-label px-0" for="debit">Debit card</label>
+                                <label class="form-check-label px-0" for="bankTransfer">Bank Transfer</label>
                             </div>
-                            <div class="form-check ps-4">
-                                <input id="paypal" name="paymentMethod" type="radio" class="form-check-input"
-                                    required>
-                                <label class="form-check-label px-0" for="paypal">PayPal</label>
+                        </div>
+
+
+                        <!-- Bank Selection -->
+                        <div class="col-12">
+                            <label for="bank" class="form-label">Choose Your Bank</label>
+                            <select class="form-select" id="bank" wire:model="recipientBank" required>
+                                <option value="">Select a bank...</option>
+                                <option value="BCA">BCA</option>
+                                <option value="Mandiri">Mandiri</option>
+                                <option value="BNI">BNI</option>
+                                <option value="BRI">BRI</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a valid bank.
+                            </div>
+                        </div>
+
+                        <!-- Upload Proof of Payment -->
+                        <div class="col-12 mt-4">
+                            <label for="proofOfPayment" class="form-label">Upload Proof of Payment</label>
+                            <input type="file" class="form-control" id="proofOfPayment"
+                                wire:model="proofOfPayment" accept="image/*" required>
+                            <div class="invalid-feedback">
+                                Please upload a valid proof of payment.
                             </div>
                         </div>
 
                         <hr class="my-4">
 
-                        <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+                        <!-- Submit Button -->
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">Submit Payment</button>
                     </form>
                 </div>
             </div>

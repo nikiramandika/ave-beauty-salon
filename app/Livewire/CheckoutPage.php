@@ -2,15 +2,44 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Helpers\CartManagement;
+use Livewire\Component;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutPage extends Component
 {
+    use WithFileUploads;
+
+    // Form fields
+    public $firstName;
+    public $lastName;
+    public $email;
+    public $address;
+    public $country;
+    public $state;
+    public $zip;
+    public $recipientBank;
+    public $proofOfPayment;
+    public $recipientPhone;
+
+    // Cart data
     public $cartItems = [];
     public $cartTotal = 0;
 
-    protected $listeners = ['cartUpdated' => 'loadCartData']; // Dengarkan event 'cartUpdated'
+    protected $rules = [
+        'firstName' => 'required|string|max:100',
+        'lastName' => 'required|string|max:100',
+        'email' => 'required|email',
+        'recipientPhone' => 'required|string|max:15', // Tambahkan aturan validasi untuk phone
+        'address' => 'required|string',
+        'country' => 'required|string',
+        'state' => 'required|string',
+        'zip' => 'required|string|max:10',
+        'recipientBank' => 'required|string',
+        'proofOfPayment' => 'required|file|mimes:jpeg,png,jpg',
+    ];
+
 
     public function mount()
     {
@@ -29,6 +58,57 @@ class CheckoutPage extends Component
             $this->cartTotal = 0;
         }
     }
+
+    public function submitPayment()
+    {
+
+
+        // Validasi input
+        $this->validate();
+
+
+        // Gabungkan nama depan dan belakang
+        $recipientName = $this->firstName . ' ' . $this->lastName;
+
+        // Gabungkan Address, Country, State, dan Zip ke dalam satu string
+        $recipientAddress = $this->address . ', ' . $this->state . ', ' . $this->country . ', ' . $this->zip;
+
+        // Upload file proof of payment
+        if (!$this->proofOfPayment) {
+            dd('Proof of Payment file not provided');
+        }
+
+        $proofPath = $this->proofOfPayment->store('proof_of_payments', 'public');
+
+        try {
+            DB::transaction(function () use ($recipientName, $recipientAddress, $proofPath) {
+
+                // Panggil stored procedure
+                DB::statement('CALL insertInvoiceProcedure(?, ?, ?, ?, ?, ?, ?, ?)', [
+                    auth()->id(),                  // User ID
+                    $recipientName,                // Recipient Name
+                    $this->email,                  // Email
+                    $this->recipientPhone,         // Recipient Phone
+                    $recipientAddress,             // Recipient Address (gabungan)
+                    $this->recipientBank,          // Recipient Bank
+                    $proofPath,                    // Proof of Payment
+                    'Pending',                     // Order Status
+                ]);
+
+
+            });
+
+
+            // Set pesan sukses
+            session()->flash('success', 'Payment submitted successfully!');
+            $this->reset(); // Reset form input setelah sukses
+        } catch (\Exception $e) {
+            // Debug: Jika terjadi error
+            dd('Error during transaction:', $e->getMessage());
+        }
+    }
+
+
 
     public function render()
     {

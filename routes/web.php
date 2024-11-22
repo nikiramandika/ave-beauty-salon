@@ -10,6 +10,7 @@ use App\Http\Controllers\PromoController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\SearchResult;
+use App\Livewire\AboutPage;
 use App\Livewire\CheckoutPage;
 use App\Livewire\CourseDetailPage;
 use App\Livewire\CoursePage;
@@ -32,31 +33,20 @@ use App\Http\Controllers\CartController;
 // Route::get('/users-owner', function () {
 //     return view('owner.pages.users');
 // });
-Route::get('/cashiers', [CashierController::class, 'cashierProduct'])->name('cashier.index');
-Route::get('/cashier/treatments', [CashierController::class, 'cashierTreatment'])->name('cashier.index');
-Route::get('/cashier/promos', [CashierController::class, 'cashierPromos'])->name('cashier.index');
-Route::post('/cashier/process', [CashierController::class, 'process'])->name('cashier.process');
+Route::middleware(['role:Admin'])->group(function () {
+    Route::get('/cashiers', [CashierController::class, 'cashierProduct'])->name('cashier.index');
+    Route::post('/cashier/process', [CashierController::class, 'process'])->name('cashier.process');
+    Route::get('/pesanan-online', [CashierController::class, 'pesananOnline'])->name('cashier.pesananOnline');
+    Route::post('/update-order-status', [CashierController::class, 'updateOrderStatus'])->name('updateOrderStatus');
+});
 
 
 
-// Route::get('/', function () {
-//     return view('user.pages.home');
-// });
-
-// Route::get('/shop', function () {
-//     return view('user.pages.shop');
-// });
-
-// Route::get('/treatment', function () {
-    //     return view('user.pages.treatment');
-// });
 
 Route::get('/user.pages.home', function () {
     return view('user.pages.home');
 });
-Route::get('/about', function () {
-    return view('user.pages.about');
-});
+
 Route::get('/checkout', function () {
     return view('user.pages.checkout');
 })->name('checkout');
@@ -75,23 +65,10 @@ Route::get('/promo', PromoPage::class);
 Route::get('/promo/{promo_slug}', PromoDetailPage::class);
 Route::get('/course', CoursePage::class);
 Route::get('/course/{course_slug}', CourseDetailPage::class);
+Route::get('/about', AboutPage::class);
 Route::get('/search', SearchPage::class)->name('search');
 Route::get('/checkout', CheckoutPage::class)->name('checkout');
 
-
-// Route::get('/products', [ProductController::class, 'userIndex'])->name('user.pages.products');
-// Route::get('/products/{product_slug}', [ProductController::class, 'showProduct'])->name('products.show');
-
-
-// Route::get('/treatment', [TreatmentController::class, 'showTreatments'])->name('user.pages.treatment');
-// Route::get('/treatment/{treatment_slug}', [TreatmentController::class, 'showTreatment'])->name('treatment.show');
-
-// Route::get('/course', [CourseController::class, 'userIndex'])->name('user.pages.course');
-// Route::get('/course/{course_slug}', [CourseController::class, 'showCourse'])->name('course.show');
-// // Route::post('/course-registrations', [CourseRegistrationController::class, 'store'])->name('course-registrations.store');
-
-// Route::get('/promo', [PromoController::class, 'showPromos'])->name('user.pages.promo');
-// Route::get('/promo/{promo_slug}', [PromoController::class, 'showPromo'])->name('promo.show');
 
 Route::middleware(['role:Admin'])->group(function () {
     Route::get('/cashiers-owner', function () {

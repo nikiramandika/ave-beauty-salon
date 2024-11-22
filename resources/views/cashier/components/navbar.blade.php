@@ -14,7 +14,18 @@
             </div>
             <!-- User Profile -->
             <div class="flex items-center">
-                <span class="text-gray-700 mr-2">Halo, {{Auth::user()->nama_depan}}</span>
+                <span class="text-gray-700 mr-2">Halo, {{ Auth::user()->nama_depan }}</span>
+                @auth
+
+                    <!-- Tombol Logout -->
+                    <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                        @csrf
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();"
+                            class="font-bold text-red-700  mr-2">
+                            Log Out
+                        </a>
+                    </form>
+                @endauth
             </div>
         </div>
     </div>
