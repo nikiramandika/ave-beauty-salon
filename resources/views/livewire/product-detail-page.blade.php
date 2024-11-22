@@ -18,16 +18,13 @@
                     <p class="product-description" align="justify">
                         {{ $product->description->description }}
                     </p>
-                    <form action="{{ route('cart.add') }}" method="POST" id="addToCartForm">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->product_id }}">
-                        <input type="hidden" name="quantity" value="1">
-                        <button type="submit" class="btn btn-primary">Add to Cart</button>
-                    </form>
+                    <div>
+                        <button wire:click="addToCart('{{ $product->product_id }}', 1)" class="btn btn-primary">Add to
+                            Cart</button>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
 </div>
-
-

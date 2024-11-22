@@ -61,7 +61,8 @@
         </div>
     </div>
 
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="Keranjang Saya">
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart"
+        aria-labelledby="Keranjang Saya" wire:ignore.self>
         <div class="offcanvas-header justify-content-between">
             <h5 class="offcanvas-title" id="Keranjang Saya">My Cart</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Tutup"></button>
@@ -72,18 +73,30 @@
                     <span class="visually-hidden">Memuat...</span>
                 </div>
             </div>
-            <div id="cart-content">
-                @if(auth()->check() && auth()->user()->cart && auth()->user()->cart->cartItems->count() > 0)
+            <div id="cart-content" wire:key="cart-items">
+                @if ($cartItems->isNotEmpty())
                     <ul class="list-group">
-                        @foreach(auth()->user()->cart->cartItems as $item)
-                            <li class="list-group-item d-flex justify-content-between align-items-center" data-id="{{ $item->id }}">
+                        @foreach ($cartItems as $item)
+                            <li class="list-group-item d-flex justify-content-between align-items-center"
+                                data-id="{{ $item->cart_item_id }}">
                                 <div>
-                                    <h6 class="my-0">{{ $item->name }}</h6>
-                                    <small class="text-muted">{{ $item->item_type == 'product' ? 'Produk' : 'Kursus' }}</small>
+                                    <h6 class="my-0">
+                                        {{ $item->product->product_name ?? 'Produk tidak ditemukan' }}
+                                    </h6>
+                                    <small class="text-muted">Produk</small>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <span class="me-3">Rp{{ number_format($item->price, 0, ',', '.') }}</span>
-                                    <button class="btn btn-sm btn-danger remove-cart-item" data-id="{{ $item->id }}">
+                                    <button class="btn btn-sm btn-outline-secondary me-2"
+                                        wire:click.prevent="decreaseQuantity({{ $item->cart_item_id }})">-
+                                    </button>
+                                    <span>{{ $item->quantity }}</span>
+                                    <button class="btn btn-sm btn-outline-secondary ms-2"
+                                        wire:click.prevent="increaseQuantity({{ $item->cart_item_id }})">+
+                                    </button>
+                                    <span
+                                        class="ms-3 me-3">Rp{{ number_format(($item->product->price ?? 0) * $item->quantity, 0, ',', '.') }}</span>
+                                    <button class="btn btn-sm btn-danger"
+                                        wire:click.prevent="removeFromCart({{ $item->cart_item_id }})">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </div>
@@ -97,12 +110,31 @@
                 @endif
             </div>
             <div class="mt-3">
-                <a href="{{ route('checkout') }}" class="btn btn-primary w-100 {{ auth()->check() && auth()->user()->cart && auth()->user()->cart->cartItems->count() > 0 ? '' : 'disabled' }}" id="checkout-btn">
+                <a href="{{ route('checkout') }}"
+                    class="btn btn-primary w-100 {{ $cartItems->isNotEmpty() ? '' : 'disabled' }}">
                     Checkout
                 </a>
             </div>
         </div>
     </div>
+
+    @script
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Livewire.on('keepBackdrop', function() {
+                    // Pastikan backdrop tetap muncul
+                    var offcanvasElement = document.getElementById('offcanvasCart');
+                    var offcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+                    if (!offcanvas) {
+                        offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+                    }
+                    offcanvas.show();
+                });
+            });
+        </script>
+    @endscript
+
+
 
     <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center fixed-top">
         <div class="container-fluid">
@@ -176,17 +208,22 @@
                                 <a href="/register" class="mx-0 item-anchor">register</a>
                             @endguest
                         </li>
-            <!-- Icon Keranjang di Navbar -->
-            <li class="d-none d-lg-block position-relative me-3">
-                <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                        <use xlink:href="#cart"></use>
-                    </svg>
-                <span class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-circle bg-white text-black">
-                    {{ auth()->check() && auth()->user()->cart ? auth()->user()->cart->cartItems->count() : 0 }}
-                </span>
-                </a>
-            </li>
+                        <!-- Icon Keranjang di Navbar -->
+                        <li class="d-none d-lg-block position-relative me-3">
+                            <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasCart">
+                                <svg width="24" height="24" viewBox="0 0 24 24">
+                                    <use xlink:href="#cart"></use>
+                                </svg>
+                                <span
+                                    class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-circle bg-white text-black"
+                                    wire:loading.class="opacity-50">
+                                    {{ $cartCount }}
+                                </span>
+                            </a>
+                        </li>
+
+
                         <li class="search-box" class="mx-2">
                             <a href="#search" class="search-button">
                                 <svg width="24" height="24" viewBox="0 0 24 24">
@@ -202,5 +239,3 @@
         </div>
     </nav>
 </div>
-
-

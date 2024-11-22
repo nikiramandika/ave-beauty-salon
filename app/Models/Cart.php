@@ -9,7 +9,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cart extends Model
 {
+    protected $primaryKey = 'cart_id';
     protected $fillable = ['user_id', 'is_active'];
+
+    public $incrementing = true;
+
+    public $timestamps = false;
+
 
     public function user(): BelongsTo
     {
@@ -22,9 +28,9 @@ class Cart extends Model
         return $this->hasOne(Cart::class);
     }
 
-    public function cartItems(): HasMany
+    public function items()
     {
-        return $this->hasMany(CartItem::class);
+        return $this->hasMany(CartItem::class, 'cart_id');
     }
 }
 

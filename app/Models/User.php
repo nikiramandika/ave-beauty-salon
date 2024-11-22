@@ -52,9 +52,9 @@ class User extends Authenticatable implements MustVerifyEmail
             'is_active' => 'boolean'
         ];
     }
-    public function cart(): HasOne
+    public function cart()
     {
-        return $this->hasOne(Cart::class)->where('is_active', true);
+        return $this->hasOne(Cart::class, 'user_id')->where('is_active', true);
     }
 
 

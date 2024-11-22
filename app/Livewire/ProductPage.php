@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Helpers\CartManagement;
 use Livewire\Component;
 use App\Models\Product;
 use App\Models\Category;
@@ -28,6 +29,12 @@ class ProductPage extends Component
 
         return view('livewire.product-page', compact('products', 'categories'));
     }
+    public function addToCart($product_id)
+    {
+        CartManagement::addItemToCart($product_id);
+        $this->dispatch('cartUpdated'); // Emit event untuk memberi tahu komponen lain
+    }
+
 }
 
 
