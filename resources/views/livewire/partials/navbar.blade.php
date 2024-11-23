@@ -62,25 +62,29 @@
     </div>
 
     @livewire('cart')
-
-
     @script
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                Livewire.on('keepBackdrop', function() {
-                    // Pastikan backdrop tetap muncul
-                    var offcanvasElement = document.getElementById('offcanvasCart');
-                    var offcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
-                    if (!offcanvas) {
-                        offcanvas = new bootstrap.Offcanvas(offcanvasElement);
-                    }
-                    offcanvas.show();
-                });
-            });
+            document.addEventListener('DOMContentLoaded', function () {
+        const closeCartButton = document.querySelector('[data-bs-dismiss="offcanvas"]');
+        const addToCartButton = document.getElementById('addToCartButton');
+        const backdrop = document.createElement('div');
+        backdrop.className = 'manual-backdrop';
+        backdrop.id = 'manualBackdrop';
+        document.body.appendChild(backdrop);
+
+        addToCartButton.addEventListener('click', function () {
+            backdrop.classList.add('show');
+        });
+
+        closeCartButton.addEventListener('click', function () {
+            const backdropElement = document.getElementById('manualBackdrop');
+            if (backdropElement) {
+                backdropElement.remove();
+            }
+        });
+    });
         </script>
     @endscript
-
-
 
     <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center fixed-top">
         <div class="container-fluid">
@@ -154,25 +158,20 @@
                             @endguest
                         </li>
                         <!-- Icon Keranjang di Navbar -->
-                        <li class="d-none d-lg-block position-relative me-3">
-                            <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasCart">
+
+                        <li class="d-none d-lg-block position-relative me-3" >
+                            <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
                                 <svg width="24" height="24" viewBox="0 0 24 24">
                                     <use xlink:href="#cart"></use>
                                 </svg>
                                 @auth
-                                    <span
-                                        class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-circle bg-white text-black"
-                                        wire:loading.class="opacity-50">
+                                    <span class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-circle bg-white text-black"
+                                          wire:loading.class="opacity-50">
                                         {{ $cartCount }}
                                     </span>
                                 @endauth
                             </a>
                         </li>
-
-
-
-
 
                         <li class="search-box" class="mx-2">
                             <a href="#search" class="search-button">

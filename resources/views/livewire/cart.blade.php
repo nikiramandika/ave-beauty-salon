@@ -6,7 +6,7 @@
     </div>
     <div class="offcanvas-body" id="cart-container">
         @auth
-            <div id="cart-loader" class="text-center d-none">
+            <div id="cart-loader" class="text-center d-none mb-3">
                 <div class="spinner-border" role="status">
                     <span class="visually-hidden">Memuat...</span>
                 </div>
@@ -15,47 +15,44 @@
                 @if ($cartItems->isNotEmpty())
                     <ul class="list-group">
                         @foreach ($cartItems as $item)
-                            <li class="list-group-item d-flex justify-content-between align-items-center"
-                                data-id="{{ $item->cart_item_id }}">
-                                <div>
-                                    <h6 class="my-0">
-                                        {{ $item->product->product_name ?? 'Produk tidak ditemukan' }}
-                                    </h6>
-                                    <small class="text-muted">Produk</small>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <button class="btn btn-sm btn-outline-secondary me-2"
-                                        wire:click.prevent="decreaseQuantity({{ $item->cart_item_id }})">-
-                                    </button>
-                                    <span>{{ $item->quantity }}</span>
-                                    <button class="btn btn-sm btn-outline-secondary ms-2"
-                                        wire:click.prevent="increaseQuantity({{ $item->cart_item_id }})">+
-                                    </button>
-                                    <span
-                                        class="ms-3 me-3">Rp{{ number_format(($item->product->price ?? 0) * $item->quantity, 0, ',', '.') }}</span>
-                                    <button class="btn btn-sm btn-danger"
-                                        wire:click.prevent="removeFromCart({{ $item->cart_item_id }})">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </div>
-                            </li>
+                        <li class="list-group-item d-flex align-items-center border-bottom py-3" data-id="{{ $item->cart_item_id }}">
+                            <div style="width: 40%;">
+                                <h6 class="my-0 fw-bold text-truncate" style="max-width: 150px;">
+                                    {{ $item->product->product_name ?? 'Produk tidak ditemukan' }}
+                                </h6>
+                                <small class="text-muted">Produk</small>
+                            </div>
+                            <div style="width: 20%;" class="d-flex align-items-center">
+                                <button class="btn btn-sm btn-outline-secondary me-2" wire:click.prevent="decreaseQuantity({{ $item->cart_item_id }})">-</button>
+                                <span class="text-center" style="min-width: 6px;">{{ $item->quantity }}</span>
+                                <button class="btn btn-sm btn-outline-secondary ms-2" wire:click.prevent="increaseQuantity({{ $item->cart_item_id }})">+</button>
+                            </div>
+                            <div style="width: 30%;" class="text-center">
+                                Rp{{ number_format(($item->product->price ?? 0) * $item->quantity, 0, ',', '.') }}
+                            </div>
+                            <div style="width: 10%;" class="text-center">
+                                <button class="btn btn-sm btn-danger" wire:click.prevent="removeFromCart({{ $item->cart_item_id }})">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </li>
                         @endforeach
                     </ul>
                 @else
-                    <div id="cart-empty" class="text-center">
-                        <p>Your cart is empty</p>
+                    <div id="cart-empty" class="text-center py-5">
+                        <p class="fs-4 text-muted">Your cart is empty</p>
+                        <a href="/" class="btn btn-outline-primary">Start Shopping</a>
                     </div>
                 @endif
             </div>
-            <div class="mt-3">
-                <a href="{{ route('checkout') }}"
-                    class="btn btn-primary w-100 {{ $cartItems->isNotEmpty() ? '' : 'disabled' }}">
+            <div class="mt-4">
+                <a href="{{ route('checkout') }}" class="btn btn-primary w-100 {{ $cartItems->isNotEmpty() ? '' : 'disabled' }}">
                     Checkout
                 </a>
             </div>
         @else
-            <div class="text-center">
-                <a href="/login">Please login to view your cart.</a>
+            <div class="text-center py-5">
+                <p>Please <a href="/login" class="text-decoration-none">login</a> to view your cart.</p>
             </div>
         @endauth
     </div>

@@ -19,12 +19,35 @@
                         {{ $product->description->description }}
                     </p>
                     <div>
-                        <button wire:click="addToCart('{{ $product->product_id }}', 1)" class="btn btn-primary">Add to
-                            Cart</button>
+                        <button
+                            id="addToCartButton"
+                            wire:click="addToCart('{{ $product->product_id }}', 1)"
+                            class="btn btn-primary">Add to Cart</button>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const closeCartButton = document.querySelector('[data-bs-dismiss="offcanvas"]');
+        const addToCartButton = document.getElementById('addToCartButton');
+        const backdrop = document.createElement('div');
+        backdrop.className = 'manual-backdrop';
+        backdrop.id = 'manualBackdrop';
+        document.body.appendChild(backdrop);
+
+        addToCartButton.addEventListener('click', function () {
+            backdrop.classList.add('show');
+        });
+
+        closeCartButton.addEventListener('click', function () {
+            const backdropElement = document.getElementById('manualBackdrop');
+            if (backdropElement) {
+                backdropElement.remove();
+            }
+        });
+    });
+</script>
