@@ -162,7 +162,8 @@
                             <div class="col-12">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" wire:model="email"
-                                    placeholder="you@example.com" required>
+                                    placeholder="{{ auth()->user()->email }}" value="{{ auth()->user()->email }}"
+                                    readonly>
                                 <div class="invalid-feedback">
                                     Please enter a valid email address for shipping updates.
                                 </div>

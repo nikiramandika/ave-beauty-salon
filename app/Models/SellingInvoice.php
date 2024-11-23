@@ -46,4 +46,8 @@ class SellingInvoice extends Model
     {
         return $this->hasMany(SellingInvoiceDetail::class, 'invoice_id', 'selling_invoice_id');
     }
+    public function refunds()
+    {
+        return $this->hasOne(Refund::class, 'refund_id', 'refund_id');
+    }
 }

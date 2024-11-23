@@ -21,6 +21,7 @@
             display: none;
         }
     </style>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
 
@@ -162,11 +163,26 @@
                                         <label for="cash" class="ml-2">Tunai</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input type="radio" name="payment_method" id="cashless" value="cashless"
-                                            class="form-radio h-4 w-4 text-blue-600">
+                                        <input type="radio" name="payment_method" id="cashless"
+                                            value="Bank Transfer" class="form-radio h-4 w-4 text-blue-600">
                                         <label for="cashless" class="ml-2">Non-Tunai</label>
                                     </div>
                                 </div>
+
+                                <!-- Dropdown Bank -->
+                                <div id="bankSelection" class="mt-4 hidden">
+                                    <label for="bank" class="block text-sm font-medium text-gray-700">Pilih
+                                        Bank</label>
+                                    <select id="bank" name="bank"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        <option value="">-- Pilih Bank --</option>
+                                        <option value="Mandiri">Mandiri</option>
+                                        <option value="BNI">BNI</option>
+                                        <option value="BRI">BRI</option>
+                                        <option value="BCA">BCA</option>
+                                    </select>
+                                </div>
+
                             </div>
 
                             <!-- Input Uang Tunai -->
@@ -189,7 +205,7 @@
                                 <label for="userSelect" class="block text-sm font-medium text-gray-700">Pilih
                                     Pelanggan</label>
                                 <select id="userSelect" class="w-full select2">
-                                    <option value="">Pilih Pelanggan...</option>
+                                    <option value=""></option>
                                     @foreach ($users as $user)
                                         <option value="{{ $user->id }}" data-phone="{{ $user->phone ?? '-' }}"
                                             data-email="{{ $user->email ?? '-' }}">
@@ -220,9 +236,8 @@
 
 
                             <!-- Tombol Submit -->
-                            <button type="submit" id="submitBtn"
-                                class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
-                                disabled>
+                            <button type="button" id="confirmPaymentButton"
+                                class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50">
                                 Proses Pembayaran
                             </button>
                         </form>
@@ -231,6 +246,308 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div id="confirmationModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+                <h2 class="text-lg font-bold mb-4">Konfirmasi Pembayaran</h2>
+                <div id="modalContent">
+                    <!-- Konten dinamis akan diisi dengan JavaScript -->
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button id="cancelButton" class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">
+                        Batal
+                    </button>
+                    <button id="printInvoiceButton"
+                        class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                        Cetak Invoice
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cashRadio = document.getElementById('cash');
+            const cashlessRadio = document.getElementById('cashless');
+            const bankSelection = document.getElementById('bankSelection');
+
+            // Fungsi untuk menunjukkan atau menyembunyikan dropdown bank
+            function toggleBankSelection() {
+                if (cashlessRadio.checked) {
+                    bankSelection.classList.remove('hidden'); // Tampilkan dropdown bank
+                } else {
+                    bankSelection.classList.add('hidden'); // Sembunyikan dropdown bank
+                }
+            }
+
+            // Event listener untuk perubahan pada radio button
+            cashRadio.addEventListener('change', toggleBankSelection);
+            cashlessRadio.addEventListener('change', toggleBankSelection);
+        });
+    </script>
+
+
+    <script>
+        const confirmationModal = document.getElementById('confirmationModal');
+        const confirmPaymentButton = document.getElementById('confirmPaymentButton');
+        const cancelButton = document.getElementById('cancelButton');
+        const printInvoiceButton = document.getElementById('printInvoiceButton');
+        const modalContent = document.getElementById('modalContent');
+
+        // ID kasir
+        const cashierId =
+            "{{ auth()->user()->nama_depan }} {{ auth()->user()->nama_belakang }}"; // Pastikan Anda mengambil ID kasir dari backend
+
+        // Fungsi untuk membuka modal
+        confirmPaymentButton.addEventListener('click', function() {
+            // Tampilkan produk dan total harga di modal
+            let cartItems = cart.map((item, index) => `
+        <div class="flex justify-between mb-2">
+            <span>${index + 1}. ${item.name} (x${item.quantity})</span>
+            <span>${formatRupiah(item.price * item.quantity)}</span>
+        </div>
+    `).join('');
+
+            let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            // Ambil jumlah uang tunai dari input
+            let cashAmount = parseInt(document.getElementById('cashAmount').value) || 0;
+
+            // Hitung kembalian
+            let changeAmount = cashAmount - totalPrice;
+            let formattedChangeAmount = formatRupiah(changeAmount > 0 ? changeAmount : 0);
+
+            // Ambil nama pelanggan dari dropdown
+            let userSelect = document.getElementById('userSelect');
+            let selectedUser = userSelect.options[userSelect.selectedIndex].text || "Tidak Ada Pelanggan";
+
+            // Ambil metode pembayaran
+            let paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+            let paymentMethodText = paymentMethod === 'cash' ? 'Tunai' : 'Non-Tunai';
+
+            modalContent.innerHTML = `
+        <div class="mb-4">
+            <strong>ID Kasir:</strong> ${cashierId}
+        </div>
+        <div class="mb-4">
+            <strong>Pelanggan:</strong> ${selectedUser}
+        </div>
+        <div class="mb-4">
+            <h3 class="text-sm font-semibold mb-2">Produk:</h3>
+            ${cartItems}
+        </div>
+        <div class="mb-4">
+            <strong>Metode Pembayaran:</strong> ${paymentMethodText}
+        </div>
+        <div class="mb-4">
+            <strong>Total Harga:</strong> ${formatRupiah(totalPrice)}
+        </div>
+        ${paymentMethod === 'cash' ? `
+                                                                                        <div class="mb-4">
+                                                                                            <strong>Jumlah Tunai:</strong> ${formatRupiah(cashAmount)}
+                                                                                        </div>
+                                                                                        <div class="mb-4">
+                                                                                            <strong>Kembalian:</strong> ${formattedChangeAmount}
+                                                                                        </div>` : ''}
+    `;
+
+            // Tampilkan modal
+            confirmationModal.classList.remove('hidden');
+        });
+
+
+
+        // Fungsi untuk menutup modal
+        cancelButton.addEventListener('click', function() {
+            confirmationModal.classList.add('hidden');
+        });
+
+        printInvoiceButton.addEventListener('click', function() {
+            console.log('Tombol Cetak Invoice diklik');
+
+            // Ambil metode pembayaran
+            let paymentMethodElement = document.querySelector('input[name="payment_method"]:checked');
+            let paymentMethod = paymentMethodElement ? paymentMethodElement.value : null;
+            if (!paymentMethod) {
+                console.error('Metode pembayaran tidak ditemukan!');
+                return;
+            }
+
+            // Ambil bank jika metode pembayaran Non-Tunai
+            let recipientBank = null; // Default null
+            if (paymentMethod === "Bank Transfer") {
+                let bankSelectionElement = document.getElementById('bank');
+                recipientBank = bankSelectionElement ? bankSelectionElement.value : null;
+
+                if (!recipientBank) {
+                    console.error('Bank belum dipilih!');
+                    alert('Harap pilih bank untuk pembayaran Non-Tunai.');
+                    return;
+                }
+            }
+
+            // Ambil data pelanggan dari dropdown
+            let customerSelect = document.getElementById('userSelect');
+            let recipientName = customerSelect && customerSelect.selectedOptions.length > 0 ?
+                customerSelect.selectedOptions[0].textContent.trim() :
+                null;
+
+            let customerId = customerSelect ? customerSelect.value : null;
+
+            // Ambil nomor telepon
+            let recipientPhoneElement = document.getElementById('phoneNumber');
+            let recipientPhone = recipientPhoneElement ? recipientPhoneElement.value.trim() : null;
+
+            // Ambil email
+            let recipientEmailElement = document.getElementById('emailAddress');
+            let recipientEmail = recipientEmailElement ? recipientEmailElement.value.trim() : null;
+
+            // Ambil alamat jika diperlukan
+            let recipientAddress = null; // Default null
+            if ( /* Tambahkan kondisi untuk pesanan online */ false) {
+                let recipientAddressElement = document.getElementById('recipientAddress');
+                recipientAddress = recipientAddressElement ? recipientAddressElement.value.trim() : null;
+            }
+
+            console.log('Recipient Name:', recipientName);
+            console.log('Customer ID:', customerId);
+            console.log('Recipient Phone:', recipientPhone);
+            console.log('Recipient Email:', recipientEmail);
+            console.log('Recipient Address:', recipientAddress);
+            console.log('Recipient Bank:', recipientBank);
+            console.log('Cart Data:', cart);
+            console.log('CSRF Token:', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
+            // Kirim permintaan dengan fetch API
+            fetch('/process-invoice-cashier', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
+                    },
+                    body: JSON.stringify({
+                        cashier_id: "{{ auth()->id() }}",
+                        customer_id: customerId,
+                        recipient_name: recipientName,
+                        recipient_email: recipientEmail,
+                        recipient_phone: recipientPhone,
+                        recipient_address: recipientAddress, // Akan null untuk pesanan offline
+                        recipient_bank: recipientBank, // Tambahkan bank ke body
+                        payment_method: paymentMethod,
+                        cart: cart
+                    })
+                })
+                .then(response => {
+                    console.log('Response Status:', response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Invoice processed:', data);
+
+                    // Sembunyikan modal konfirmasi jika sukses
+                    confirmationModal.classList.add('hidden');
+
+                    // Tampilkan modal alert
+                    showAlertModal();
+                })
+                .catch(error => {
+                    console.error('Error processing invoice:', error);
+                });
+        });
+
+
+        function showAlertModal() {
+            // Buat modal HTML
+            const modalHTML = `
+        <div id="successModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+                <h2 class="text-lg font-bold text-center mb-4">Invoice Berhasil Diproses</h2>
+                <p class="text-sm text-gray-600 text-center mb-6">Silakan pilih untuk mencetak invoice atau menghapus keranjang.</p>
+                <div class="flex justify-around">
+                    <button id="printInvoice" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        Print Invoice
+                    </button>
+                    <button id="okButton" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+            // Tambahkan modal ke body
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+            // Event listener untuk tombol Print Invoice
+            document.getElementById('printInvoice').addEventListener('click', function() {
+                printInvoice(); // Panggil fungsi print
+                clearCart(); // Hapus keranjang
+                closeModal();
+            });
+
+            // Event listener untuk tombol OK
+            document.getElementById('okButton').addEventListener('click', function() {
+                clearCart(); // Hapus keranjang dari localStorage
+                closeModal();
+            });
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function clearCart() {
+            console.log('Menghapus keranjang...');
+            localStorage.removeItem('cart'); // Hapus data keranjang dari localStorage
+            cart = []; // Reset data keranjang di memori
+            updateCartDisplay(); // Perbarui tampilan keranjang
+            updateTotal(); // Perbarui total harga
+        }
+
+        function printInvoice() {
+            console.log('Mencetak invoice...');
+            let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            let invoiceWindow = window.open('', '_blank');
+            invoiceWindow.document.write(`
+        <html>
+        <head>
+            <title>Invoice</title>
+            <style>
+                body { font-family: Arial, sans-serif; padding: 20px; }
+                .invoice-header { text-align: center; margin-bottom: 20px; }
+                .invoice-items { margin-bottom: 20px; }
+                .invoice-total { font-weight: bold; }
+            </style>
+        </head>
+        <body>
+            <div class="invoice-header">
+                <h1>Invoice</h1>
+                <p>Total: Rp ${totalPrice.toLocaleString('id-ID')}</p>
+            </div>
+            <div class="invoice-items">
+                ${cart.map((item, index) => `
+                                            <div>${index + 1}. ${item.name} (x${item.quantity}) - Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</div>
+                                        `).join('')}
+            </div>
+            <div class="invoice-total">
+                <strong>Total:</strong> Rp ${totalPrice.toLocaleString('id-ID')}
+            </div>
+        </body>
+        </html>
+    `);
+            invoiceWindow.document.close();
+            invoiceWindow.print();
+        }
+    </script>
+
     <script>
         $(document).ready(function() {
             // Inisialisasi Select2
@@ -320,8 +637,10 @@
     <script>
         let cart = []; // Array untuk menyimpan produk yang dipilih
         const totalAmountInput = document.getElementById('totalAmount');
-        const submitBtn = document.getElementById('submitBtn');
+        const submitBtn = document.getElementById('confirmationModal'); // Tombol proses pembayaran
         const cartListContainer = document.getElementById('cartList');
+        const cashAmountInput = document.getElementById('cashAmount'); // Input jumlah uang tunai
+        const changeDisplay = document.getElementById('changeDisplay'); // Tampilan kembalian
 
         function saveCartToLocalStorage() {
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -389,10 +708,11 @@
         }
 
         function updateTotal() {
+            // Hitung total belanja
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             console.log('Total sebelum format:', total);
 
-            // Format untuk tampilan
+            // Format total belanja untuk ditampilkan
             const formattedTotal = formatRupiah(total);
             console.log('Total setelah format:', formattedTotal);
 
@@ -403,10 +723,36 @@
             // Set nilai mentah untuk pengiriman form
             const totalAmount = document.getElementById('totalAmount');
             totalAmount.value = total; // Hanya angka
-            submitBtn.disabled = cart.length === 0; // Nonaktifkan tombol jika keranjang kosong
+
+            // Ambil jumlah uang tunai dari input
+            const cashAmountInput = document.getElementById('cashAmount');
+            const cashAmount = parseInt(cashAmountInput?.value) || 0;
+
+            // Hitung kembalian
+            const changeAmount = cashAmount - total;
+
+            // Perbarui tampilan kembalian
+            const changeDisplay = document.getElementById('changeDisplay');
+            if (changeDisplay) {
+                changeDisplay.textContent = `Rp ${changeAmount.toLocaleString('id-ID')}`;
+                changeDisplay.classList.toggle('text-red-600', changeAmount < 0); // Warna merah jika negatif
+                changeDisplay.classList.toggle('text-green-600', changeAmount >= 0); // Warna hijau jika positif
+            }
+
+            // Validasi tombol Proses Pembayaran
+            const confirmPaymentButton = document.getElementById('confirmPaymentButton');
+            const paymentMethod = document.querySelector('input[name="payment_method"]:checked')?.value;
+
+            if (paymentMethod === 'cash') {
+                // Jika metode pembayaran tunai
+                confirmPaymentButton.disabled = changeAmount < 0 || cashAmount <= 0;
+            } else {
+                // Jika metode pembayaran non-tunai
+                confirmPaymentButton.disabled = false;
+            }
+
+            console.log('Button Disabled:', confirmPaymentButton.disabled); // Debugging tombol
         }
-
-
 
 
         function removeFromCart(productId, productType) {
@@ -442,8 +788,26 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             loadCartFromLocalStorage();
+
+            // Event listener untuk memantau input jumlah tunai
+            cashAmountInput.addEventListener('input', updateTotal);
+
+            // Event listener untuk perubahan metode pembayaran
+            document.querySelectorAll('input[name="payment_method"]').forEach((radio) => {
+                radio.addEventListener('change', () => {
+                    if (radio.value === 'cash') {
+                        cashAmountInput.disabled = false; // Aktifkan input uang tunai
+                    } else {
+                        cashAmountInput.disabled =
+                            true; // Nonaktifkan input uang tunai jika Non-Tunai
+                        cashAmountInput.value = ''; // Kosongkan input uang tunai
+                    }
+                    updateTotal(); // Perbarui status tombol
+                });
+            });
         });
     </script>
+
 
 
 
@@ -492,7 +856,7 @@
                 } else {
                     $('#cashInput').hide();
                     $('#changeAmount').hide();
-                    $('#submitBtn').prop('disabled', cart.length === 0);
+                    $('#confirmationModal').prop('disabled', cart.length === 0);
                 }
             });
 
@@ -508,11 +872,11 @@
                 if (change >= 0) {
                     $('#changeAmount').removeClass('bg-red-50').addClass('bg-green-50');
                     $('#changeDisplay').removeClass('text-red-600').addClass('text-green-600');
-                    $('#submitBtn').prop('disabled', false);
+                    $('#confirmationModal').prop('disabled', false);
                 } else {
                     $('#changeAmount').removeClass('bg-green-50').addClass('bg-red-50');
                     $('#changeDisplay').removeClass('text-green-600').addClass('text-red-600');
-                    $('#submitBtn').prop('disabled', true);
+                    $('#confirmationModal').prop('disabled', true);
                 }
             });
 

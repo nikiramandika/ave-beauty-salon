@@ -23,6 +23,7 @@ class CheckoutPage extends Component
     public $proofOfPayment;
     public $recipientPhone;
 
+
     // Cart data
     public $cartItems = [];
     public $cartTotal = 0;
@@ -61,10 +62,12 @@ class CheckoutPage extends Component
 
     public function submitPayment()
     {
-
-
-        // Validasi input
-        $this->validate();
+        $this->email = auth()->user()->email;
+        try {
+            $this->validate();
+        } catch (\Exception $e) {
+            dd($e); // Dump dan hentikan eksekusi untuk melihat informasi lengkap exception
+        }
 
 
         // Gabungkan nama depan dan belakang
@@ -78,24 +81,24 @@ class CheckoutPage extends Component
             dd('Proof of Payment file not provided');
         }
 
+
         $proofPath = $this->proofOfPayment->store('proof_of_payments', 'public');
 
         try {
             DB::transaction(function () use ($recipientName, $recipientAddress, $proofPath) {
 
                 // Panggil stored procedure
-                DB::statement('CALL insertInvoiceProcedure(?, ?, ?, ?, ?, ?, ?, ?)', [
+                DB::statement('CALL insertInvoiceProcedure2(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                     auth()->id(),                  // User ID
                     $recipientName,                // Recipient Name
                     $this->email,                  // Email
                     $this->recipientPhone,         // Recipient Phone
-                    $recipientAddress,             // Recipient Address (gabungan)
+                    $recipientAddress,             // Recipient Address
                     $this->recipientBank,          // Recipient Bank
                     $proofPath,                    // Proof of Payment
+                    'Bank Transfer',               // Payment Method
                     'Pending',                     // Order Status
                 ]);
-
-
             });
 
 
@@ -107,6 +110,8 @@ class CheckoutPage extends Component
             dd('Error during transaction:', $e->getMessage());
         }
     }
+
+
 
 
 

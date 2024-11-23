@@ -33,11 +33,14 @@ use App\Http\Controllers\CartController;
 // Route::get('/users-owner', function () {
 //     return view('owner.pages.users');
 // });
-Route::middleware(['role:Admin'])->group(function () {
+Route::middleware(['role:Cashier'])->group(function () {
     Route::get('/cashiers', [CashierController::class, 'cashierProduct'])->name('cashier.index');
     Route::post('/cashier/process', [CashierController::class, 'process'])->name('cashier.process');
     Route::get('/pesanan-online', [CashierController::class, 'pesananOnline'])->name('cashier.pesananOnline');
     Route::post('/update-order-status', [CashierController::class, 'updateOrderStatus'])->name('updateOrderStatus');
+    Route::post('/refunds/{refund}/upload', [CashierController::class, 'uploadAdminFile'])->name('refunds.upload');
+    Route::post('/process-invoice-cashier', [CashierController::class, 'processInvoiceCashier']);
+
 });
 
 

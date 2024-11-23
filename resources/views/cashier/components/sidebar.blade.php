@@ -15,6 +15,12 @@
                 <i class="fas fa-shopping-bag"></i>
                 <span>Pesanan Online</span>
             </a>
+            <a href="/member"
+                class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 
+                {{ Request::is('member*') ? 'bg-blue-50 text-blue-700' : 'text-gray-700' }}">
+                <i class="fas fa-user"></i>
+                <span>member</span>
+            </a>
             <a href="/laporan"
                 class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 
                 {{ Request::is('laporan*') ? 'bg-blue-50 text-blue-700' : 'text-gray-700' }}">
