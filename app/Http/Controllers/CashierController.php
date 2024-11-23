@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cashier;
 use App\Models\Category;
+use App\Models\Member;
 use App\Models\Product;
 use App\Models\Promo;
 use App\Models\Refund;
@@ -12,6 +13,7 @@ use App\Models\Treatment;
 use App\Models\User;
 use DB;
 use Illuminate\Http\Request;
+use Str;
 
 class CashierController extends Controller
 {
@@ -176,7 +178,7 @@ class CashierController extends Controller
                 'payment_method' => 'required|string',   // Metode pembayaran (wajib)
                 'recipient_bank' => 'nullable|string',   // Bank penerima (opsional)
                 'cart' => 'required|array',              // Data keranjang (wajib)
-                'cart.*.detailId' => 'required|integer', // Setiap item keranjang harus memiliki detail_id
+                'cart.*.detailId' => 'integer', // Setiap item keranjang harus memiliki detail_id
                 'cart.*.name' => 'required|string',      // Nama produk harus ada
                 'cart.*.price' => 'required|numeric',    // Harga produk harus ada
                 'cart.*.quantity' => 'required|integer', // Kuantitas produk harus ada
@@ -237,10 +239,6 @@ class CashierController extends Controller
         }
     }
 
-
-
-
-
     public function process(Request $request)
     {
         $validated = $request->validate([
@@ -261,4 +259,68 @@ class CashierController extends Controller
             'message' => 'Pembayaran berhasil!'
         ]);
     }
+
+    public function member()
+    {
+        // Dapatkan daftar user_id yang sudah menjadi member
+        $memberUserIds = Member::pluck('user_id');
+
+        // Ambil data user dengan role "User" dan is_active = 1, tetapi belum menjadi member
+        $users = User::where('role', 'User')
+            ->where('is_active', 1)
+            ->whereNotIn('id', $memberUserIds) // Mengecualikan user yang sudah menjadi member
+            ->get();
+
+        // Ambil data members
+        $members = Member::with('user') // Mengambil relasi user dari member
+            ->get();
+
+        // Kirim data ke view
+        return view('cashier.member', [
+            'users' => $users,
+            'members' => $members,
+        ]);
+    }
+    public function updateMember(Request $request, Member $member)
+    {
+        $request->validate([
+            'points' => 'required|integer|min:0',
+            'is_active' => 'required|boolean',
+        ]);
+
+        $member->update([
+            'points' => $request->points,
+            'is_active' => $request->is_active,
+            'updated_at' => now(), // Perbarui kolom updated_at secara manual
+        ]);
+
+        return redirect()->back()->with('success', 'Member updated successfully!');
+    }
+
+
+    public function storeMember(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        Member::create([
+            'member_id' => (string) Str::uuid(),
+            'user_id' => $request->user_id,
+            'membership_number' => 'MBR' . rand(10000, 99999),
+            'points' => 0,
+            'joined_date' => now(),
+            'is_active' => 1,
+        ]);
+
+        return redirect()->back()->with('success', 'User has been added as a member.');
+    }
+    public function destroyMember(Member $member)
+    {
+        $member->delete();
+
+        return redirect()->back()->with('success', 'Member has been removed.');
+    }
+
+
 }

@@ -67,4 +67,18 @@ class UserController extends Controller
             ->with('success', 'User berhasil dihapus');
     }
 
+    public function updatePhone(Request $request)
+{
+    $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'phone' => 'required|string|min:10|max:15',
+    ]);
+
+    $user = User::findOrFail($request->user_id);
+    $user->update(['phone' => $request->phone]);
+
+    return redirect()->back()->with('success', 'Phone number updated successfully!');
+}
+
+
 }

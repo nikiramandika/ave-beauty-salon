@@ -8,61 +8,40 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Member extends Model
 {
-    use HasFactory,HasUuids;
+    use HasFactory, HasUuids;
 
-    /**
-     * The primary key for the model.
-     *
-     * @var string
-     */
+    protected $table = 'members';
     protected $primaryKey = 'member_id';
-
-    /**
-     * The "type" of the primary key ID.
-     *
-     * @var string
-     */
+    public $incrementing = false;
     protected $keyType = 'string';
 
     /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
+     * Custom timestamps
      */
-    public $incrementing = false;
+    const CREATED_AT = 'joined_date';
+    const UPDATED_AT = 'updated_at';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'user_id',
         'membership_number',
         'points',
         'joined_date',
-        'is_active'
+        'is_active',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'joined_date' => 'datetime',
-            'is_active' => 'boolean',
-            'points' => 'integer'
-        ];
-    }
+    protected $casts = [
+        'joined_date' => 'datetime',
+        'is_active' => 'boolean',
+        'points' => 'integer',
+    ];
 
-    /**
-     * Get the user that owns the member.
-     */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function pointRedemptions()
+    {
+        return $this->hasMany(PointRedemption::class, 'member_id', 'member_id');
     }
 }

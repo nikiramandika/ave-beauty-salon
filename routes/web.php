@@ -37,6 +37,13 @@ Route::middleware(['role:Cashier'])->group(function () {
     Route::get('/cashiers', [CashierController::class, 'cashierProduct'])->name('cashier.index');
     Route::post('/cashier/process', [CashierController::class, 'process'])->name('cashier.process');
     Route::get('/pesanan-online', [CashierController::class, 'pesananOnline'])->name('cashier.pesananOnline');
+    Route::get('/member', [CashierController::class, 'member'])->name('cashier.pesananOnline');
+    Route::post('/members', [CashierController::class, 'storeMember'])->name('members.store');
+    Route::put('/members/{member}', [CashierController::class, 'updateMember'])->name('members.update');
+    Route::put('/users/update-phone', [UserController::class, 'updatePhone'])->name('users.updatePhone');
+
+    Route::delete('/members/{member}', [CashierController::class, 'destroyMember'])->name('members.destroy');
+
     Route::post('/update-order-status', [CashierController::class, 'updateOrderStatus'])->name('updateOrderStatus');
     Route::post('/refunds/{refund}/upload', [CashierController::class, 'uploadAdminFile'])->name('refunds.upload');
     Route::post('/process-invoice-cashier', [CashierController::class, 'processInvoiceCashier']);
