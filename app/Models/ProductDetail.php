@@ -10,12 +10,17 @@ class ProductDetail extends Model
     use HasFactory;
 
     protected $table = 'product_details';
+    protected $primaryKey = 'detail_id';
+
     public $timestamps = false; // Nonaktifkan timestamps
 
 
     protected $fillable = [
         'product_id',
         'product_stock',
-        'size'
+        'size',
+        'price'
     ];
+
+    
 }

@@ -114,10 +114,14 @@
                             <li class="list-group-item d-flex justify-content-between lh-sm">
                                 <div>
                                     <h6 class="my-0">{{ $item->product->product_name ?? 'Unknown Product' }}</h6>
-                                    <small class="text-body-secondary">Qty: {{ $item->quantity }}</small>
+                                    <small class="text-body-secondary">
+                                        Ukuran: {{ $item->productDetail->size ?? 'N/A' }} <br>
+                                        Qty: {{ $item->quantity }}
+                                    </small>
                                 </div>
-                                <span
-                                    class="text-body-secondary">Rp{{ number_format($item->quantity * ($item->product->price ?? 0), 0, ',', '.') }}</span>
+                                <span class="text-body-secondary">
+                                    Rp{{ number_format($item->quantity * ($item->productDetail->price ?? 0), 0, ',', '.') }}
+                                </span>
                             </li>
                         @empty
                             <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -131,6 +135,7 @@
                             <strong>Rp{{ number_format($cartTotal, 0, ',', '.') }}</strong>
                         </li>
                     </ul>
+
                 </div>
 
                 <div class="col-md-7 col-lg-8">

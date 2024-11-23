@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CartItem extends Model
 {
     protected $primaryKey = 'cart_item_id';
-    protected $fillable = ['cart_id', 'product_id', 'quantity'];
+    protected $fillable = ['cart_id', 'product_id','detail_id', 'quantity'];
     public $timestamps = false;
 
 
@@ -17,9 +17,18 @@ class CartItem extends Model
         return $this->belongsTo(Cart::class);
     }
 
+    // Model CartItem
+// Model CartItem
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'product_id', 'product_id');
     }
+
+    public function productDetail()
+    {
+        return $this->belongsTo(ProductDetail::class, 'detail_id', 'detail_id');
+    }
+
+
 }
 

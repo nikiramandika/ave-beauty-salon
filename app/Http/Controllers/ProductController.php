@@ -22,101 +22,77 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data yang diterima
+        // Validasi input
         $validator = Validator::make($request->all(), [
             'product_name' => 'required|string|max:100',
             'product_slug' => 'required|string|max:100|unique:products,product_slug',
-            'price' => 'required|numeric',
             'category_id' => 'required|integer',
             'is_active' => 'required|boolean',
-            'product_stock' => 'required|integer',
-            'size' => 'required|string|max:50',
+            'sizes' => 'required|array',
+            'sizes.*' => 'required|string|max:50',
+            'stocks' => 'required|array',
+            'stocks.*' => 'required|integer|min:0',
+            'prices' => 'required|array',
+            'prices.*' => 'required|numeric|min:0',
             'product_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'description' => 'required|string'
+            'description' => 'required|string',
         ]);
 
-        // Debugging: Log input awal
-        \Log::info('Input data yang diterima:', $request->all());
-
-        // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
+        // Step 1: Cek validasi
         if ($validator->fails()) {
-            // Debugging: Log error validasi
-            \Log::error('Validasi gagal:', $validator->errors()->toArray());
-
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
+            dd('Validasi gagal', $validator->errors()->toArray()); // Debug hasil validasi
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         try {
-            // Tangani upload gambar produk
+            // Step 2: Upload gambar produk
             $imageUrl = null;
             if ($request->hasFile('product_image')) {
                 $image = $request->file('product_image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
-
-                // Debugging: Log nama file sebelum disimpan
-                \Log::info('Nama file gambar:', ['image_name' => $imageName]);
-
                 $image->storeAs('public/product_images', $imageName);
                 $imageUrl = 'storage/product_images/' . $imageName;
-
-                // Debugging: Log URL file gambar setelah disimpan
-                \Log::info('Gambar berhasil disimpan:', ['image_url' => $imageUrl]);
             }
 
-            // Simpan data ke tabel products
-            $productData = [
+            // Step 3: Simpan data produk ke tabel products
+            $product = Product::create([
                 'product_id' => (string) Str::uuid(),
                 'product_name' => $request->product_name,
                 'product_slug' => $request->product_slug,
-                'price' => $request->price,
                 'category_id' => $request->category_id,
                 'is_active' => $request->is_active,
-            ];
+            ]);
 
-            // Debugging: Log data produk sebelum disimpan
-            \Log::info('Data produk yang akan disimpan:', $productData);
 
-            $product = Product::create($productData);
+            // Step 4: Simpan detail ukuran, stok, dan harga ke tabel product_details
+            $details = [];
+            foreach ($request->sizes as $index => $size) {
+                $details[] = [
+                    'product_id' => $product->product_id,
+                    'size' => $size,
+                    'product_stock' => $request->stocks[$index],
+                    'price' => $request->prices[$index],
+                ];
+            }
 
-            // Simpan data ke tabel product_details
-            $productDetailData = [
-                'product_id' => $product->product_id,
-                'product_stock' => $request->product_stock,
-                'size' => $request->size,
-            ];
 
-            // Debugging: Log data product_details sebelum disimpan
-            \Log::info('Data detail produk yang akan disimpan:', $productDetailData);
+            foreach ($details as $detail) {
+                ProductDetail::create($detail);
+            }
 
-            ProductDetail::create($productDetailData);
-
-            // Simpan data ke tabel product_descriptions
-            $productDescriptionData = [
+            // Step 5: Simpan deskripsi produk ke tabel product_descriptions
+            $description = ProductDescription::create([
                 'product_id' => $product->product_id,
                 'product_image' => $imageUrl,
                 'description' => $request->description,
-            ];
+            ]);
 
-            // Debugging: Log data product_descriptions sebelum disimpan
-            \Log::info('Data deskripsi produk yang akan disimpan:', $productDescriptionData);
-
-            ProductDescription::create($productDescriptionData);
-
-            // Debugging: Log keberhasilan penyimpanan produk
-            \Log::info('Produk berhasil ditambahkan:', ['product_id' => $product->product_id]);
 
             return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan.');
         } catch (\Exception $e) {
-            // Debugging: Log error saat penyimpanan
-            \Log::error('Error saat menyimpan produk:', ['error_message' => $e->getMessage(), 'stack_trace' => $e->getTrace()]);
-
-            return redirect()
-                ->back()
-                ->with('error', 'Error menambahkan produk: ' . $e->getMessage())
-                ->withInput();
+            // Debug jika terjadi error
+            dd('Error saat menyimpan produk', $e->getMessage(), $e->getTrace());
+            return redirect()->back()->with('error', 'Error menambahkan produk: ' . $e->getMessage())->withInput();
         }
     }
 
@@ -139,20 +115,23 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Validasi data yang diterima
+        // Validasi input
         $validator = Validator::make($request->all(), [
             'product_name' => 'required|string|max:100',
             'product_slug' => 'required|string|max:100|unique:products,product_slug,' . $id . ',product_id',
-            'price' => 'required|numeric',
             'category_id' => 'required|integer',
             'is_active' => 'required|boolean',
-            'product_stock' => 'required|integer',
-            'size' => 'required|string|max:50',
+            'sizes' => 'required|array',
+            'sizes.*' => 'required|string|max:50',
+            'stocks' => 'required|array',
+            'stocks.*' => 'required|integer|min:0',
+            'prices' => 'required|array',
+            'prices.*' => 'required|numeric|min:0',
             'product_image' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'description' => 'required|string'
+            'description' => 'required|string',
         ]);
 
-        // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
+        // Jika validasi gagal
         if ($validator->fails()) {
             return redirect()
                 ->back()
@@ -182,22 +161,28 @@ class ProductController extends Controller
             $product->update([
                 'product_name' => $request->product_name,
                 'product_slug' => $request->product_slug,
-                'price' => $request->price,
                 'category_id' => $request->category_id,
                 'is_active' => $request->is_active,
             ]);
 
-            // Update data pada tabel product_details
-            $product->details()->update([
-                'product_stock' => $request->product_stock,
-                'size' => $request->size,
-            ]);
+            // Hapus semua detail ukuran lama dan simpan ulang data ukuran baru
+            $product->details()->delete(); // Menghapus semua detail lama
+            foreach ($request->sizes as $index => $size) {
+                $product->details()->create([
+                    'size' => $size,
+                    'product_stock' => $request->stocks[$index],
+                    'price' => $request->prices[$index],
+                ]);
+            }
 
             // Update data pada tabel product_descriptions
-            $product->description()->update([
-                'product_image' => $imageUrl,
-                'description' => $request->description,
-            ]);
+            $product->description()->updateOrCreate(
+                ['product_id' => $product->product_id], // Kondisi pencarian
+                [
+                    'product_image' => $imageUrl,
+                    'description' => $request->description,
+                ]
+            );
 
             return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui.');
         } catch (\Exception $e) {

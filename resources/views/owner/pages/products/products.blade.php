@@ -80,17 +80,17 @@
                                                 <th>Gambar</th>
                                                 <th>Nama Produk</th>
                                                 <th>Slug</th>
-                                                <th>Harga</th>
                                                 <th>Kategori</th>
                                                 <th>Deskripsi</th>
-                                                <th>Detail (Stok, Ukuran)</th>
+                                                <th>Detail Produk</th>
                                                 <th>Status</th>
-                                                <th>Actions</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             @forelse($products as $product)
                                                 <tr>
+                                                    <!-- Gambar -->
                                                     <td>
                                                         @if ($product->description && $product->description->product_image)
                                                             <img src="{{ asset($product->description->product_image) }}"
@@ -100,32 +100,59 @@
                                                             <span>-</span>
                                                         @endif
                                                     </td>
+
+                                                    <!-- Nama Produk -->
                                                     <td>{{ $product->product_name }}</td>
+
+                                                    <!-- Slug -->
                                                     <td>{{ $product->product_slug }}</td>
-                                                    <td>{{ $product->price }}</td>
+
+                                                    <!-- Kategori -->
                                                     <td>{{ optional($product->category)->category_name ?? 'No Category' }}
                                                     </td>
+
+                                                    <!-- Deskripsi -->
                                                     <td>
-                                                        @if ($product->description)
-                                                            {{ $product->description->description }}
+                                                        {{ $product->description->description ?? '-' }}
+                                                    </td>
+
+                                                    <!-- Detail Produk (Ukuran, Stok, Harga) -->
+                                                    <td>
+                                                        @if ($product->details->count() > 0)
+                                                            @foreach ($product->details->take(2) as $detail)
+                                                                <!-- Tampilkan hanya 2 data pertama -->
+                                                                <div>
+                                                                    <strong>Ukuran:</strong> {{ $detail->size }} <br>
+                                                                    <strong>Stok:</strong> {{ $detail->product_stock }}
+                                                                    <br>
+                                                                    <strong>Harga:</strong>
+                                                                    {{ number_format($detail->price, 2) }} <br>
+                                                                    <hr>
+                                                                </div>
+                                                            @endforeach
+
+                                                            <!-- Jika ada lebih dari 2, tampilkan tombol See More -->
+                                                            @if ($product->details->count() > 2)
+                                                                <button type="button" class="btn btn-link p-0"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#detailsModal-{{ $product->product_id }}">
+                                                                    See More
+                                                                </button>
+                                                            @endif
                                                         @else
-                                                            -
+                                                            <span>-</span>
                                                         @endif
                                                     </td>
-                                                    <td>
-                                                        @if ($product->details)
-                                                            Stok: {{ $product->details->product_stock }} <br>
-                                                            Ukuran: {{ $product->details->size }} <br>
-                                                        @else
-                                                            -
-                                                        @endif
-                                                    </td>
+
+                                                    <!-- Status -->
                                                     <td>
                                                         <span
                                                             style="color: {{ $product->is_active ? 'green' : 'red' }}">
-                                                            {{ $product->is_active ? 'Active' : 'Inactive' }}
+                                                            {{ $product->is_active ? 'Aktif' : 'Nonaktif' }}
                                                         </span>
                                                     </td>
+
+                                                    <!-- Aksi -->
                                                     <td>
                                                         <div class="dropdown">
                                                             <button type="button"
@@ -134,29 +161,29 @@
                                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                <a href="javascript:void(0);"
-                                                                    class="dropdown-item"
+                                                                <!-- Lihat -->
+                                                                <a href="javascript:void(0);" class="dropdown-item"
                                                                     onclick="viewProductDetails(this)"
                                                                     data-name="{{ $product->product_name }}"
                                                                     data-slug="{{ $product->product_slug }}"
-                                                                    data-price="{{ $product->price }}"
                                                                     data-category="{{ optional($product->category)->category_name ?? 'No Category' }}"
                                                                     data-image="{{ asset($product->description->product_image ?? 'path/to/default/image.jpg') }}"
                                                                     data-description="{{ $product->description->description ?? '-' }}"
-                                                                    data-stock="{{ $product->details->product_stock ?? 'N/A' }}"
-                                                                    data-size="{{ $product->details->size ?? 'N/A' }}"
+                                                                    data-details='@json($product->details)'
                                                                     data-status="{{ $product->is_active ? 'Aktif' : 'Nonaktif' }}">
                                                                     <i class="bx bx-show-alt me-2"></i> Lihat
                                                                 </a>
 
-
+                                                                <!-- Edit -->
                                                                 <a class="dropdown-item"
                                                                     href="{{ route('products.edit', $product->product_id) }}">
                                                                     <i class="bx bx-edit-alt me-2"></i> Edit
                                                                 </a>
+
+                                                                <!-- Hapus -->
                                                                 <button type="button" class="dropdown-item"
                                                                     onclick="confirmDelete('{{ $product->product_id }}', '{{ $product->product_name }}')">
-                                                                    <i class="bx bx-trash me-2"></i> Delete
+                                                                    <i class="bx bx-trash me-2"></i> Hapus
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -164,7 +191,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="9" class="text-center">Tidak ada data produk</td>
+                                                    <td colspan="8" class="text-center">Tidak ada data produk</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -215,7 +242,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="viewProductModalLabel">Detail Produk</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <img id="modalProductImage" src="" alt="Gambar Produk" class="img-fluid mb-2">
@@ -257,6 +285,34 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-danger">Hapus</button>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Detail Produk -->
+        <div class="modal fade" id="detailsModal-{{ $product->product_id }}" tabindex="-1"
+            aria-labelledby="detailsModalLabel-{{ $product->product_id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detailsModalLabel-{{ $product->product_id }}">Detail Produk -
+                            {{ $product->product_name }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @foreach ($product->details as $detail)
+                            <div>
+                                <strong>Ukuran:</strong> {{ $detail->size }} <br>
+                                <strong>Stok:</strong> {{ $detail->product_stock }} <br>
+                                <strong>Harga:</strong> {{ number_format($detail->price, 2) }} <br>
+                                <hr>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

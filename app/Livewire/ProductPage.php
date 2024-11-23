@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Helpers\CartManagement;
+use App\Models\ProductDetail;
 use Livewire\Component;
 use App\Models\Product;
 use App\Models\Category;
@@ -29,11 +30,23 @@ class ProductPage extends Component
 
         return view('livewire.product-page', compact('products', 'categories'));
     }
-    public function addToCart($product_id)
+    public function addToCart($product_id, $size)
     {
-        CartManagement::addItemToCart($product_id);
-        $this->dispatch('cartUpdated'); // Emit event untuk memberi tahu komponen lain
+        // Cari detail produk berdasarkan ukuran
+        $productDetail = ProductDetail::where('product_id', $product_id)
+            ->where('size', $size)
+            ->first();
+
+        if (!$productDetail) {
+            session()->flash('error', 'Ukuran yang dipilih tidak tersedia.');
+            return;
+        }
+
+        // Tambahkan ke keranjang menggunakan CartManagement
+        CartManagement::addItemToCart($product_id, 1, $productDetail->detail_id);
+        $this->emit('cartUpdated'); // Emit event untuk memperbarui keranjang
     }
+
 
 }
 

@@ -13,7 +13,7 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('Logo.png') }}" />
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -62,8 +62,8 @@
                                 <form action="{{ route('products.update', $product->product_id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    @method('PUT') 
-                                    <div class="mb-3">
+                                    @method('PUT')
+                                    <div class="mb-4">
                                         <label for="product_name" class="form-label">Nama Produk</label>
                                         <input type="text" class="form-control" id="product_name" name="product_name"
                                             value="{{ $product->product_name }}" required oninput="generateSlug()">
@@ -73,43 +73,31 @@
                                         <input type="text" class="form-control slug-input" id="product_slug"
                                             name="product_slug" value="{{ $product->product_slug }}" required readonly>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="price" class="form-label">Harga</label>
-                                        <input type="number" class="form-control" id="price" name="price"
-                                            value="{{ $product->price }}" required>
+
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label for="category_id" class="form-label">Kategori</label>
+                                            <select class="form-control" id="category_id" name="category_id" required>
+                                                @foreach ($categories as $category)
+                                                    <option value="{{ $category->category_id }}"
+                                                        {{ $product->category_id == $category->category_id ? 'selected' : '' }}>
+                                                        {{ $category->category_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="is_active" class="form-label">Status Aktif</label>
+                                            <select class="form-control" id="is_active" name="is_active">
+                                                <option value="1" {{ $product->is_active ? 'selected' : '' }}>
+                                                    Aktif</option>
+                                                <option value="0" {{ !$product->is_active ? 'selected' : '' }}>
+                                                    Nonaktif</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="category_id" class="form-label">Kategori</label>
-                                        <select class="form-control" id="category_id" name="category_id" required>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->category_id }}"
-                                                    {{ $product->category_id == $category->category_id ? 'selected' : '' }}>
-                                                    {{ $category->category_name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="is_active" class="form-label">Status Aktif</label>
-                                        <select class="form-control" id="is_active" name="is_active">
-                                            <option value="1" {{ $product->is_active ? 'selected' : '' }}>Aktif
-                                            </option>
-                                            <option value="0" {{ !$product->is_active ? 'selected' : '' }}>
-                                                Nonaktif</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="product_stock" class="form-label">Stok Detail</label>
-                                        <input type="number" class="form-control" id="product_stock"
-                                            name="product_stock" value="{{ $product->details->product_stock ?? '' }}"
-                                            required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="size" class="form-label">Ukuran</label>
-                                        <input type="text" class="form-control" id="size" name="size"
-                                            value="{{ $product->details->size ?? '' }}" required>
-                                    </div>
-                                    <div class="mb-3">
+
+                                    <div class="mb-4">
                                         <label for="product_image" class="form-label">Gambar Produk</label>
                                         <input type="file" class="form-control" id="product_image"
                                             name="product_image" accept="image/*">
@@ -119,15 +107,87 @@
                                                 style="width: 100px; height: 100px; object-fit: cover; margin-top: 10px;">
                                         @endif
                                     </div>
-                                    <div class="mb-3">
+
+                                    <div class="mb-4">
                                         <label for="description" class="form-label">Deskripsi Produk</label>
-                                        <textarea class="form-control" id="description" name="description" required>{{ $product->description->description ?? '' }}</textarea>
+                                        <textarea class="form-control" id="description" name="description" rows="4" required>{{ $product->description->description ?? '' }}</textarea>
                                     </div>
-                                    <div class="mb-3">
-                                        <button type="submit" class="btn btn-primary">Update Produk</button>
-                                        <a href="{{ route('products.index') }}" class="btn btn-secondary">Kembali</a>
+
+                                    <!-- Section for Multiple Sizes -->
+                                    <div id="size-section" class="mb-4">
+                                        <label class="form-label">Detail Ukuran, Stok, dan Harga</label>
+                                        @if ($product->details->count() > 0)
+                                            @foreach ($product->details as $detail)
+                                                <div class="size-row d-flex align-items-center mb-3">
+                                                    <input type="text" class="form-control me-2" name="sizes[]"
+                                                        value="{{ $detail->size }}"
+                                                        placeholder="Ukuran (contoh: S, M, L)" required>
+                                                    <input type="number" class="form-control me-2" name="stocks[]"
+                                                        value="{{ $detail->product_stock }}" placeholder="Stok"
+                                                        required>
+                                                    <input type="number" class="form-control me-2" name="prices[]"
+                                                        value="{{ $detail->price }}"
+                                                        placeholder="Harga (contoh: 100000)" required>
+                                                    <button type="button" class="btn btn-danger"
+                                                        onclick="removeSizeRow(this)">
+                                                        <i class="fas fa-minus"></i> Hapus
+                                                    </button>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <!-- Input kosong jika koleksi tidak ada -->
+                                            <div class="size-row d-flex align-items-center mb-3">
+                                                <input type="text" class="form-control me-2" name="sizes[]"
+                                                    placeholder="Ukuran (contoh: S, M, L)" required>
+                                                <input type="number" class="form-control me-2" name="stocks[]"
+                                                    placeholder="Stok" required>
+                                                <input type="number" class="form-control me-2" name="prices[]"
+                                                    placeholder="Harga (contoh: 100000)" required>
+                                                <button type="button" class="btn btn-success mb-3"
+                                                    onclick="addSizeRow()">
+                                                    <i class="fas fa-plus"></i> Tambah
+                                                </button>
+                                            </div>
+                                        @endif
+
+                                        <div class="d-flex align-items-center mt-3">
+                                            <button type="button" class="btn btn-success" onclick="addSizeRow()">
+                                                <i class="fas fa-plus"></i> Tambah Ukuran
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <button type="submit" class="btn btn-primary w-100">Update Produk</button>
+                                        <a href="{{ route('products.index') }}"
+                                            class="btn btn-secondary w-100 mt-2">Kembali</a>
                                     </div>
                                 </form>
+
+                                <script>
+                                    function addSizeRow() {
+                                        const sizeSection = document.getElementById('size-section');
+                                        const newRow = document.createElement('div');
+                                        newRow.classList.add('size-row', 'd-flex', 'align-items-center', 'mb-3', 'mt-3');
+                                        newRow.innerHTML = `
+                                            <input type="text" class="form-control me-2" name="sizes[]" placeholder="Ukuran (contoh: S, M, L)" required>
+                                            <input type="number" class="form-control me-2" name="stocks[]" placeholder="Stok" required>
+                                            <input type="number" class="form-control me-2" name="prices[]" placeholder="Harga (contoh: 100000)" required>
+                                            <button type="button" class="btn btn-danger" onclick="removeSizeRow(this)">
+                                                <i class="fas fa-minus"></i> Hapus
+                                            </button>
+                                        `;
+                                        sizeSection.appendChild(newRow);
+                                    }
+
+                                    function removeSizeRow(button) {
+                                        const row = button.parentElement;
+                                        row.remove();
+                                    }
+                                </script>
+
+
+
                             </div>
                         </div>
 

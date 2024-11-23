@@ -52,13 +52,15 @@ class CheckoutPage extends Component
         if (auth()->check()) {
             $this->cartItems = CartManagement::getCartItems();
             $this->cartTotal = $this->cartItems->sum(function ($item) {
-                return $item->quantity * $item->product->price;
+                // Ambil harga dari relasi productDetail
+                return $item->quantity * ($item->productDetail->price ?? 0);
             });
         } else {
             $this->cartItems = [];
             $this->cartTotal = 0;
         }
     }
+
 
     public function submitPayment()
     {
@@ -88,7 +90,7 @@ class CheckoutPage extends Component
             DB::transaction(function () use ($recipientName, $recipientAddress, $proofPath) {
 
                 // Panggil stored procedure
-                DB::statement('CALL insertInvoiceProcedure2(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+                DB::statement('CALL proses_invoice(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                     auth()->id(),                  // User ID
                     $recipientName,                // Recipient Name
                     $this->email,                  // Email

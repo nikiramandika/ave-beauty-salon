@@ -94,9 +94,9 @@ class CashierController extends Controller
     {
         // Ambil semua data invoices
         $invoices = SellingInvoice::with('details')
-        ->whereNull('refund_id') // Hanya ambil data yang refund_id-nya NULL
-        ->where('recipient_address', '!=', 'Pesanan Offline') // Tidak ambil jika alamat adalah 'Pesanan Offline'
-        ->get();    
+            ->whereNull('refund_id') // Hanya ambil data yang refund_id-nya NULL
+            ->where('recipient_address', '!=', 'Pesanan Offline') // Tidak ambil jika alamat adalah 'Pesanan Offline'
+            ->get();
 
         // Ambil hanya invoices yang memiliki refund_id
         $refunds = SellingInvoice::whereNotNull('refund_id') // Ambil hanya invoice yang memiliki refund_id
@@ -167,16 +167,23 @@ class CashierController extends Controller
 
             // Validasi input
             $data = $request->validate([
-                'cashier_id' => 'required',             // ID kasir (wajib)
-                'customer_id' => 'nullable',            // ID pelanggan (opsional)
-                'recipient_name' => 'nullable',         // Nama penerima (opsional)
-                'recipient_email' => 'nullable|email',  // Email (opsional)
-                'recipient_phone' => 'nullable',        // Nomor telepon (opsional)
-                'recipient_address' => 'nullable',      // Alamat (opsional)
-                'payment_method' => 'required',         // Metode pembayaran (wajib)
-                'recipient_bank' => 'nullable|string',  // Bank penerima (opsional, hanya untuk Non-Tunai)
-                'cart' => 'required|array',             // Data keranjang (wajib, harus array)
+                'cashier_id' => 'required',              // ID kasir (wajib)
+                'customer_id' => 'nullable',             // ID pelanggan (opsional)
+                'recipient_name' => 'nullable',          // Nama penerima (opsional)
+                'recipient_email' => 'nullable|email',   // Email (opsional)
+                'recipient_phone' => 'nullable',         // Nomor telepon (opsional)
+                'recipient_address' => 'nullable|string',// Alamat (opsional)
+                'payment_method' => 'required|string',   // Metode pembayaran (wajib)
+                'recipient_bank' => 'nullable|string',   // Bank penerima (opsional)
+                'cart' => 'required|array',              // Data keranjang (wajib)
+                'cart.*.detailId' => 'required|integer', // Setiap item keranjang harus memiliki detail_id
+                'cart.*.name' => 'required|string',      // Nama produk harus ada
+                'cart.*.price' => 'required|numeric',    // Harga produk harus ada
+                'cart.*.quantity' => 'required|integer', // Kuantitas produk harus ada
+                'cart.*.size' => 'nullable|string',      // Ukuran produk (opsional)
+                'cart.*.type' => 'required|string',      // Tipe item harus ada
             ]);
+
 
             // Debug data setelah validasi
             \Log::info('Data setelah validasi:', $data);
@@ -198,20 +205,11 @@ class CashierController extends Controller
                 }
 
                 // Debug data sebelum memanggil prosedur
-                \Log::info('Sebelum memanggil prosedur:', [
-                    'cashier_id' => $data['cashier_id'],            // ID kasir
-                    'customer_id' => $data['customer_id'] ?? null,  // ID pelanggan (bisa NULL)
-                    'recipient_name' => $data['recipient_name'],    // Recipient Name
-                    'recipient_email' => $data['recipient_email'],  // Email
-                    'recipient_phone' => $data['recipient_phone'],  // Phone
-                    'recipient_address' => $recipientAddress,       // Address (dengan nilai default)
-                    'recipient_bank' => $recipientBank,             // Bank penerima
-                    'payment_method' => $data['payment_method'],    // Payment Method
-                    'cart' => $cartJson                             // Cart in JSON format
-                ]);
+                \Log::info('Data sebelum prosedur:', $data);
+
 
                 // Panggil prosedur MySQL
-                DB::statement('CALL insertInvoiceProcedurecashier1(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+                DB::statement('CALL insertInvoiceProcedurecashier2(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                     $data['cashier_id'],            // ID kasir
                     $data['customer_id'] ?? null,   // ID pelanggan (bisa NULL)
                     $data['recipient_name'],        // Recipient Name
@@ -238,6 +236,7 @@ class CashierController extends Controller
             return response()->json(['error' => 'Something went wrong'], 500);
         }
     }
+
 
 
 

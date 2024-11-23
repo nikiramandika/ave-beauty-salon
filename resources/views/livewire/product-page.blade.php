@@ -35,9 +35,9 @@
                                 </h5>
                                 <a class="text-decoration-none" data-after="Add to cart"
                                     wire:click.prevent="addToCart('{{ $product->product_id }}', 1)">
-                                    <span>Rp{{ number_format($product->price, 0, ',', '.') }}</span>
+                                    <!-- Gunakan price_range -->
+                                    <span>{{ $product->price_range ?? 'Harga tidak tersedia' }}</span>
                                 </a>
-
                             </div>
                         </div>
                     </div>

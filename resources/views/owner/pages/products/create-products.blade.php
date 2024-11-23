@@ -20,6 +20,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('owner/dashboard/assets/vendor/fonts/boxicons.css') }}" />
 
@@ -62,61 +63,97 @@
                                 <form action="{{ route('products.store') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    <div class="mb-3">
+                                    <div class="mb-4">
                                         <label for="product_name" class="form-label">Nama Produk</label>
                                         <input type="text" class="form-control" id="product_name" name="product_name"
-                                            required oninput="generateSlug()">
+                                            placeholder="Masukkan nama produk" required oninput="generateSlug()">
                                     </div>
                                     <div class="mb-3">
                                         <label for="product_slug" class="form-label">Slug</label>
                                         <input type="text" class="form-control slug-input" id="product_slug"
                                             name="product_slug" required readonly>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="price" class="form-label">Harga</label>
-                                        <input type="number" class="form-control" id="price" name="price"
-                                            required>
+
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label for="category_id" class="form-label">Kategori</label>
+                                            <select class="form-control" id="category_id" name="category_id" required>
+                                                <option value="" selected disabled>Pilih kategori</option>
+                                                @foreach ($categories as $category)
+                                                    <option value="{{ $category->category_id }}">
+                                                        {{ $category->category_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="is_active" class="form-label">Status Aktif</label>
+                                            <select class="form-control" id="is_active" name="is_active">
+                                                <option value="1" selected>Aktif</option>
+                                                <option value="0">Nonaktif</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="category_id" class="form-label">Kategori</label>
-                                        <select class="form-control" id="category_id" name="category_id" required>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->category_id }}">
-                                                    {{ $category->category_name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="is_active" class="form-label">Status Aktif</label>
-                                        <select class="form-control" id="is_active" name="is_active">
-                                            <option value="1">Aktif</option>
-                                            <option value="0">Nonaktif</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="product_stock" class="form-label">Stok Detail</label>
-                                        <input type="number" class="form-control" id="product_stock"
-                                            name="product_stock" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="size" class="form-label">Ukuran</label>
-                                        <input type="text" class="form-control" id="size" name="size"
-                                            required>
-                                    </div>
-                                    <div class="mb-3">
+
+                                    <div class="mb-4">
                                         <label for="product_image" class="form-label">Gambar Produk</label>
                                         <input type="file" class="form-control" id="product_image"
                                             name="product_image" accept="image/*" required>
                                     </div>
-                                    <div class="mb-3">
+
+                                    <div class="mb-4">
                                         <label for="description" class="form-label">Deskripsi Produk</label>
-                                        <textarea class="form-control" id="description" name="description" required></textarea>
+                                        <textarea class="form-control" id="description" name="description" rows="4"
+                                            placeholder="Masukkan deskripsi produk" required></textarea>
                                     </div>
-                                    <div class="mb-3">
-                                        <button type="submit" class="btn btn-primary">Simpan Produk</button>
-                                        <a href="{{ route('products.index') }}" class="btn btn-secondary">Kembali</a>
+
+                                    <!-- Section for Multiple Sizes -->
+                                    <div id="size-section" class="mb-4">
+                                        <label class="form-label">Detail Ukuran, Stok, dan Harga</label>
+                                        <div class="size-row d-flex align-items-center mb-3">
+                                            <input type="text" class="form-control me-2" name="sizes[]"
+                                                placeholder="Ukuran (contoh: S, M, L)" required>
+                                            <input type="number" class="form-control me-2" name="stocks[]"
+                                                placeholder="Stok" required>
+                                            <input type="number" class="form-control me-2" name="prices[]"
+                                                placeholder="Harga (contoh: 100000)" required>
+                                            <button type="button" class="btn btn-success" onclick="addSizeRow()">
+                                                <i class="fas fa-plus"></i> Tambah
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <button type="submit" class="btn btn-primary w-100">Simpan Produk</button>
+                                        <a href="{{ route('products.index') }}"
+                                            class="btn btn-secondary w-100 mt-2">Kembali</a>
                                     </div>
                                 </form>
+
+                                <script>
+                                    function addSizeRow() {
+                                        const sizeSection = document.getElementById('size-section');
+                                        const newRow = document.createElement('div');
+                                        newRow.classList.add('size-row', 'd-flex', 'align-items-center', 'mb-3');
+                                        newRow.innerHTML = `
+                                            <input type="text" class="form-control me-2" name="sizes[]" placeholder="Ukuran (contoh: S, M, L)" required>
+                                            <input type="number" class="form-control me-2" name="stocks[]" placeholder="Stok" required>
+                                            <input type="number" class="form-control me-2" name="prices[]" placeholder="Harga (contoh: 100000)" required>
+                                            <button type="button" class="btn btn-danger" onclick="removeSizeRow(this)">
+                                                <i class="fas fa-minus"></i> Hapus
+                                            </button>
+                                        `;
+                                        sizeSection.appendChild(newRow);
+                                    }
+
+                                    function removeSizeRow(button) {
+                                        const row = button.parentElement;
+                                        row.remove();
+                                    }
+                                </script>
+
+
+                                <!-- Include FontAwesome for icons -->
+
                             </div>
                         </div>
                     </div>

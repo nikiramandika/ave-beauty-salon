@@ -67,22 +67,46 @@
                     <div id="productsSection" class="section block">
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                             @foreach ($products as $product)
-                                <div class="bg-white border rounded-lg overflow-hidden hover:shadow-md cursor-pointer"
-                                    data-id="{{ $product->product_id }}" data-name="{{ $product->product_name }}"
-                                    data-price="{{ $product->price }}" data-type="product" onclick="addToCart(this)">
-                                    <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
-                                        alt="{{ $product->product_name }}" class="w-full h-32 object-cover">
-                                    <div class="p-3">
-                                        <h3 class="font-semibold">{{ $product->product_name }}</h3>
-                                        <p class="text-green-600 font-bold">Rp
-                                            {{ number_format($product->price, 0, ',', '.') }}</p>
-                                        <p class="text-sm text-gray-500">Stock: {{ $product->details->product_stock }}
-                                        </p>
+                                @if ($product->details->isNotEmpty())
+                                    @foreach ($product->details as $detail)
+                                        <div class="bg-white border rounded-lg overflow-hidden hover:shadow-md cursor-pointer"
+                                            data-id="{{ $product->product_id }}"
+                                            data-name="{{ $product->product_name }}"
+                                            data-price="{{ $detail->price ?? 0 }}"
+                                            data-detail-id="{{ $detail->detail_id ?? '' }}"
+                                            data-stock="{{ $detail->product_stock ?? 0 }}"
+                                            data-size="{{ $detail->size ?? 'N/A' }}" data-type="product"
+                                            onclick="addToCart(this)">
+                                            <!-- Gambar Produk -->
+                                            <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
+                                                alt="{{ $product->product_name }}" class="w-full h-32 object-cover">
+                                            <!-- Informasi Detail Produk -->
+                                            <div class="p-3">
+                                                <h3 class="font-semibold">{{ $product->product_name }}</h3>
+                                                <p class="text-sm text-gray-500">
+                                                    Size: {{ $detail->size ?? 'N/A' }}
+                                                </p>
+                                                <p class="text-green-600 font-bold">
+                                                    Rp{{ number_format($detail->price ?? 0, 0, ',', '.') }}
+                                                </p>
+                                                <p class="text-sm text-gray-500">
+                                                    Stock: {{ $detail->product_stock ?? 0 }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <!-- Tampilkan Pesan Jika Tidak Ada Detail -->
+                                    <div class="bg-red-100 border border-red-300 rounded-lg p-3 text-center">
+                                        <h3 class="font-semibold text-red-500">{{ $product->product_name }}</h3>
+                                        <p class="text-sm text-red-400">Detail produk tidak tersedia.</p>
                                     </div>
-                                </div>
+                                @endif
                             @endforeach
                         </div>
                     </div>
+
+
                     <!-- Treatment Grid -->
                     <div id="treatmentsSection" class="section hidden">
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -346,12 +370,12 @@
             <strong>Total Harga:</strong> ${formatRupiah(totalPrice)}
         </div>
         ${paymentMethod === 'cash' ? `
-                                                                                        <div class="mb-4">
-                                                                                            <strong>Jumlah Tunai:</strong> ${formatRupiah(cashAmount)}
-                                                                                        </div>
-                                                                                        <div class="mb-4">
-                                                                                            <strong>Kembalian:</strong> ${formattedChangeAmount}
-                                                                                        </div>` : ''}
+                                                                                                                                        <div class="mb-4">
+                                                                                                                                            <strong>Jumlah Tunai:</strong> ${formatRupiah(cashAmount)}
+                                                                                                                                        </div>
+                                                                                                                                        <div class="mb-4">
+                                                                                                                                            <strong>Kembalian:</strong> ${formattedChangeAmount}
+                                                                                                                                        </div>` : ''}
     `;
 
             // Tampilkan modal
@@ -534,8 +558,8 @@
             </div>
             <div class="invoice-items">
                 ${cart.map((item, index) => `
-                                            <div>${index + 1}. ${item.name} (x${item.quantity}) - Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</div>
-                                        `).join('')}
+                                                                                            <div>${index + 1}. ${item.name} (x${item.quantity}) - Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</div>
+                                                                                        `).join('')}
             </div>
             <div class="invoice-total">
                 <strong>Total:</strong> Rp ${totalPrice.toLocaleString('id-ID')}
@@ -656,23 +680,33 @@
         }
 
         function addToCart(productElement) {
-            const productId = productElement.dataset.id;
-            const productName = productElement.dataset.name;
-            const productPrice = parseInt(productElement.dataset.price);
-            const productType = productElement.dataset.type;
+            const productId = productElement.dataset.id; // Product ID
+            const productName = productElement.dataset.name; // Product Name
+            const productPrice = parseInt(productElement.dataset.price); // Product Price
+            const productType = productElement.dataset.type; // Product Type
+            const detailId = productElement.dataset.detailId; // Detail ID (unique variation)
+            const productSize = productElement.dataset.size; // Product Size
 
+            // Cari produk di keranjang berdasarkan product_id, detail_id, dan productType
             const existingProductIndex = cart.findIndex(
-                (item) => item.id == productId && item.type === productType
+                (item) =>
+                item.id == productId &&
+                item.detailId == detailId && // Tambahkan pengecekan detailId
+                item.type === productType
             );
 
             if (existingProductIndex !== -1) {
+                // Jika produk sudah ada di keranjang, tambahkan kuantitas
                 cart[existingProductIndex].quantity++;
             } else {
+                // Jika produk belum ada, tambahkan sebagai item baru
                 cart.push({
                     id: productId,
+                    detailId: detailId, // Simpan detail ID
                     name: productName,
                     price: productPrice,
                     type: productType,
+                    size: productSize, // Simpan ukuran produk (jika ada)
                     quantity: 1,
                 });
             }
@@ -681,6 +715,7 @@
             updateTotal();
             saveCartToLocalStorage();
         }
+
 
         function updateCartDisplay() {
             cartListContainer.innerHTML = "";

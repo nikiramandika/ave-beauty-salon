@@ -158,11 +158,11 @@
 <div>
     <div class="container">
         <h2 class="mt-5">Search Results for "{{ $query }}"</h2>
-        
+
         <!-- Jika Produk Kosong dan Treatment Ada -->
         @if ($products->isEmpty() && !$treatments->isEmpty())
-        <!-- Treatment Section -->
-        <section id="related-treatments"
+            <!-- Treatment Section -->
+            <section id="related-treatments"
                 class="related-treatments treatment-carousel py-5 position-relative overflow-hidden">
                 <h3>Treatments</h3>
                 <div class="treatment-grid open-up" data-aos="zoom-out">
@@ -200,9 +200,11 @@
                         <div class="product-item image-zoom-effect link-effect">
                             <div class="image-holder">
                                 <a href="{{ url('products/' . $product->product_slug) }}">
-                                    <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
-                                        style="width: 250px; height:250px; object-fit:cover;"
-                                        alt="{{ $product->product_name }}" class="product-image img-fluid">
+                                    <div>
+                                        <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
+                                            style="width: 250px; height:250px; object-fit:cover;"
+                                            alt="{{ $product->product_name }}" class="product-image img-fluid">
+                                    </div>
                                 </a>
                                 <div class="product-content">
                                     <h5 class="text-uppercase fs-5 mt-3">
@@ -210,8 +212,10 @@
                                             {{ $product->product_name }}
                                         </a>
                                     </h5>
-                                    <a href="#" class="text-decoration-none" data-after="Add to cart">
-                                        <span>Rp{{ number_format($product->price, 0, ',', '.') }}</span>
+                                    <a class="text-decoration-none" data-after="Add to cart"
+                                        wire:click.prevent="addToCart('{{ $product->product_id }}', 1)">
+                                        <!-- Gunakan price_range -->
+                                        <span>{{ $product->price_range ?? 'Harga tidak tersedia' }}</span>
                                     </a>
                                 </div>
                             </div>
@@ -232,9 +236,11 @@
                         <div class="product-item image-zoom-effect link-effect">
                             <div class="image-holder">
                                 <a href="{{ url('products/' . $product->product_slug) }}">
-                                    <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
-                                        style="width: 250px; height:250px; object-fit:cover;"
-                                        alt="{{ $product->product_name }}" class="product-image img-fluid">
+                                    <div>
+                                        <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
+                                            style="width: 250px; height:250px; object-fit:cover;"
+                                            alt="{{ $product->product_name }}" class="product-image img-fluid">
+                                    </div>
                                 </a>
                                 <div class="product-content">
                                     <h5 class="text-uppercase fs-5 mt-3">
@@ -242,8 +248,10 @@
                                             {{ $product->product_name }}
                                         </a>
                                     </h5>
-                                    <a href="#" class="text-decoration-none" data-after="Add to cart">
-                                        <span>Rp{{ number_format($product->price, 0, ',', '.') }}</span>
+                                    <a class="text-decoration-none" data-after="Add to cart"
+                                        wire:click.prevent="addToCart('{{ $product->product_id }}', 1)">
+                                        <!-- Gunakan price_range -->
+                                        <span>{{ $product->price_range ?? 'Harga tidak tersedia' }}</span>
                                     </a>
                                 </div>
                             </div>
