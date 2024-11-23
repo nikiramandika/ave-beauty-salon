@@ -62,29 +62,39 @@
     </div>
 
     @livewire('cart')
-    @script
-        <script>
+    <script>
             document.addEventListener('DOMContentLoaded', function () {
-        const closeCartButton = document.querySelector('[data-bs-dismiss="offcanvas"]');
-        const addToCartButton = document.getElementById('addToCartButton');
-        const backdrop = document.createElement('div');
-        backdrop.className = 'manual-backdrop';
-        backdrop.id = 'manualBackdrop';
-        document.body.appendChild(backdrop);
+            const cartIcon = document.getElementById('cartIcon');
+            const closeCartButton = document.querySelector('[data-bs-dismiss="offcanvas"]');
+            const backdrop = document.createElement('div');
+            backdrop.className = 'manual-backdrop';
+            backdrop.id = 'manualBackdrop';
+            document.body.appendChild(backdrop);
 
-        addToCartButton.addEventListener('click', function () {
-            backdrop.classList.add('show');
-        });
+            cartIcon.addEventListener('click', function () {
+                backdrop.classList.add('show');
+            });
 
-        closeCartButton.addEventListener('click', function () {
-            const backdropElement = document.getElementById('manualBackdrop');
-            if (backdropElement) {
-                backdropElement.remove();
-            }
+            closeCartButton.addEventListener('click', function () {
+                const backdropElement = document.getElementById('manualBackdrop');
+                if (backdropElement) {
+                    backdropElement.remove();
+                }
+            });
+
+            document.querySelectorAll('[wire\\:click*="removeFromCart"]').forEach(button => {
+                button.addEventListener('click', function () {
+                    setTimeout(() => {
+                        const backdropElement = document.getElementById('manualBackdrop');
+                        if (!backdropElement) {
+                            document.body.appendChild(backdrop);
+                            backdrop.classList.add('show');
+                        }
+                    }, 100);
+                });
+            });
         });
-    });
-        </script>
-    @endscript
+    </script>
 
     <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center fixed-top">
         <div class="container-fluid">
@@ -157,19 +167,19 @@
                                 <a href="/register" class="mx-0 item-anchor">register</a>
                             @endguest
                         </li>
-                        <!-- Icon Keranjang di Navbar -->
 
-                        <li class="d-none d-lg-block position-relative me-3" >
-                            <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
-                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                    <use xlink:href="#cart"></use>
-                                </svg>
-                                @auth
-                                    <span class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-circle bg-white text-black"
-                                          wire:loading.class="opacity-50">
-                                        {{ $cartCount }}
-                                    </span>
-                                @endauth
+                        <!-- Icon Keranjang di Navbar -->
+                        <li class="d-none d-lg-block position-relative me-3">
+                            <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" id="cartIcon">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                            <use xlink:href="#cart"></use>
+                            </svg>
+                        @auth
+                            <span class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-circle bg-white text-black"
+                            wire:loading.class="opacity-50">
+                            {{ $cartCount }}
+                            </span>
+                        @endauth
                             </a>
                         </li>
 
