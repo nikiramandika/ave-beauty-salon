@@ -21,7 +21,7 @@ class ProductDetailPage extends Component
     public function addToCart($product_id)
     {
         CartManagement::addItemToCart($product_id);
-        $this->dispatch('cartUpdated'); // Emit event untuk memberi tahu komponen lain
+        $this->dispatch('cartUpdated');
     }
 
 
