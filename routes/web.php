@@ -24,9 +24,10 @@ use App\Livewire\PromoPage;
 use App\Livewire\SearchPage;
 use App\Livewire\TreatmentDetailPage;
 use App\Livewire\TreatmentPage;
+// use App\Livewire\SuccessPage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
-
+use SebastianBergmann\CodeCoverage\Test\TestStatus\Success;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -62,10 +63,14 @@ Route::get('/user.pages.home', function () {
 Route::get('/checkout', function () {
     return view('user.pages.checkout');
 })->name('checkout');
+
 Route::get('/verification', function () {
     return view('user.pages.verif-email');
 });
 
+Route::get('/success', function () {
+    return view('user.pages.success');
+});
 
 // User Livewire
 Route::get('/', HomePage::class)->name('home');
@@ -83,6 +88,7 @@ Route::get('/checkout', CheckoutPage::class)->name('checkout');
 Route::get('/payment/{invoiceId}', PaymentPage::class)->name('payment.upload');
 Route::get('/checkoutCourse/{course_slug}', CheckoutCourse::class)->name('checkoutCourse');
 
+// Route::get('/success', SuccessPage::class);
 
 
 
