@@ -57,7 +57,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Cart::class, 'user_id')->where('is_active', true);
     }
 
-
+    public function member()
+    {
+        return $this->hasOne(Member::class, 'user_id', 'id'); // Relasi ke tabel members
+    }
     /**
      * The attributes that should be cast to enum.
      *
