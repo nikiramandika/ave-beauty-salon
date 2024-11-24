@@ -140,7 +140,7 @@
 
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Billing address</h4>
-                    <form wire:submit.prevent="submitPayment" class="needs-validation" novalidate>
+                    <form wire:submit.prevent="showModal" class="needs-validation" novalidate>
                         <div class="row g-3">
                             <!-- First Name -->
                             <div class="col-sm-6">
@@ -170,7 +170,6 @@
                                     readonly>
                             </div>
 
-                            <!-- Phone Number -->
                             <div class="col-12">
                                 <label for="recipientPhone" class="form-label">Phone Number</label>
                                 <input type="text" class="form-control" id="recipientPhone"
@@ -245,6 +244,7 @@
                             </div>
                         </div>
 
+
                         <!-- Bank Selection -->
                         <div class="col-12">
                             <label for="bank" class="form-label">Choose Your Bank</label>
@@ -263,15 +263,107 @@
                         <hr class="my-4">
 
                         <!-- Submit Button -->
-                        <button type="submit" class="w-100 btn btn-primary btn-lg">Submit Payment</button>
+                        <button type="button" class="w-100 btn btn-primary btn-lg" wire:click="showModal">Submit
+                            Payment</button>
                     </form>
                 </div>
             </div>
         </main>
     </div>
+    <!-- Modal -->
+    <div wire:ignore.self class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Upload Proof of Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="closeModal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Timer -->
+                    <div class="alert alert-warning text-center">
+                        <h4>Time Remaining:
+                            <span id="timer" data-time-left="{{ $remainingTime }}">
+                                {{ gmdate('i:s', $remainingTime) }}
+                            </span>
+                        </h4>
+                    </div>
+
+                    <!-- Bank Selection Display -->
+                    <div class="mb-3">
+                        <h5>Selected Bank:
+                            <strong>{{ $recipientBank ?: 'Not Selected' }}</strong>
+                        </h5>
+                    </div>
 
 
+                    <!-- Upload Proof of Payment -->
+                    <div>
+                        <label for="proofOfPayment" class="form-label">Upload Proof of Payment</label>
+                        <input type="file" class="form-control" id="proofOfPayment" wire:model="proofOfPayment"
+                            accept="image/*" required>
+                        @error('proofOfPayment')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- Cancel Order -->
+                    <button type="button" class="btn btn-danger" wire:click="cancelOrder">Cancel Order</button>
+
+                    <!-- Submit Payment -->
+                    <button type="button" class="btn btn-success" wire:click="submitPayment">Sudah Dibayar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('user/js/checkout.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('paymentModal');
+
+            // Show modal
+            window.addEventListener('show-modal', () => {
+                const bsModal = new bootstrap.Modal(modal);
+                bsModal.show();
+            });
+
+            // Close modal
+            window.addEventListener('close-modal', () => {
+                const bsModal = bootstrap.Modal.getInstance(modal);
+                if (bsModal) bsModal.hide();
+            });
+
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const timerElement = document.getElementById('timer');
+            if (timerElement) {
+                // Ambil waktu tersisa dari atribut data-time-left
+                let timeLeft = parseInt(timerElement.getAttribute('data-time-left'), 10);
+
+                // Format waktu dalam menit:detik
+                const formatTime = (seconds) => {
+                    const minutes = Math.floor(seconds / 60);
+                    const secs = seconds % 60;
+                    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+                };
+
+                // Update UI setiap detik
+                const interval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft -= 1;
+                        timerElement.textContent = formatTime(timeLeft);
+                    } else {
+                        clearInterval(interval); // Hentikan timer jika habis
+                        timerElement.textContent = "Time's up!";
+                    }
+                }, 1000);
+            }
+        });
+    </script>
 
 </div>

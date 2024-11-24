@@ -38,14 +38,17 @@ class CheckoutPage extends Component
         'state' => 'required|string',
         'zip' => 'required|string|max:10',
         'recipientBank' => 'required|string',
-        'proofOfPayment' => 'required|file|mimes:jpeg,png,jpg',
+        'proofOfPayment' => 'nullable|file|mimes:jpeg,png,jpg',
     ];
 
 
     public function mount()
     {
+        // Load data keranjang tanpa memulai timer
         $this->loadCartData();
     }
+
+
 
     public function loadCartData()
     {
@@ -65,63 +68,77 @@ class CheckoutPage extends Component
     public function submitPayment()
     {
         $this->email = auth()->user()->email;
+
+        // Validasi Input
         try {
-            $this->validate();
+            $this->validate([
+                'firstName' => 'required|string',
+                'lastName' => 'required|string',
+                'recipientPhone' => 'required|string',
+                'address' => 'required|string',
+                'state' => 'required|string',
+                'country' => 'required|string',
+                'zip' => 'required|string',
+                'recipientBank' => 'required|string',
+            ]);
         } catch (\Exception $e) {
-            dd($e); // Dump dan hentikan eksekusi untuk melihat informasi lengkap exception
+            // Debug hanya untuk pengembangan
+            logger()->error('Validation error: ' . $e->getMessage());
+            session()->flash('error', 'Validation failed. Please check your input.');
+            return back();
         }
 
-
-        // Gabungkan nama depan dan belakang
         $recipientName = $this->firstName . ' ' . $this->lastName;
-
-        // Gabungkan Address, Country, State, dan Zip ke dalam satu string
         $recipientAddress = $this->address . ', ' . $this->state . ', ' . $this->country . ', ' . $this->zip;
-
-        // Upload file proof of payment
-        if (!$this->proofOfPayment) {
-            dd('Proof of Payment file not provided');
-        }
-
-
-        $proofPath = $this->proofOfPayment->store('proof_of_payments', 'public');
+        $proofPath = null; // Bukti pembayaran belum diunggah
 
         try {
-            DB::transaction(function () use ($recipientName, $recipientAddress, $proofPath) {
-
+            DB::transaction(function () use ($recipientName, $recipientAddress, &$invoiceId) {
                 // Panggil stored procedure
-                DB::statement('CALL proses_invoice(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-                    auth()->id(),                  // User ID
-                    $recipientName,                // Recipient Name
-                    $this->email,                  // Email
-                    $this->recipientPhone,         // Recipient Phone
-                    $recipientAddress,             // Recipient Address
-                    $this->recipientBank,          // Recipient Bank
-                    $proofPath,                    // Proof of Payment
-                    'Bank Transfer',               // Payment Method
-                    'Pending',                     // Order Status
+                $result = DB::select('CALL proses_invoice(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+                    auth()->id(),           // User ID
+                    $recipientName,         // Nama penerima
+                    $this->email,           // Email penerima
+                    $this->recipientPhone,  // Telepon penerima
+                    $recipientAddress,      // Alamat penerima
+                    $this->recipientBank,   // Bank penerima
+                    null,                   // Proof of Payment
+                    'Bank Transfer',        // Metode pembayaran
+                    'Pending',              // Status pesanan
                 ]);
+
+                if (empty($result)) {
+                    throw new \Exception('Stored procedure did not return any result.');
+                }
+
+                $invoiceId = $result[0]->selling_invoice_id ?? null;
+
+                if (!$invoiceId) {
+                    throw new \Exception('Failed to retrieve selling_invoice_id from stored procedure.');
+                }
             });
 
-
-            // Set pesan sukses
-            session()->flash('success', 'Payment submitted successfully!');
-            $this->reset(); // Reset form input setelah sukses
+            // Redirect ke halaman pembayaran
+            return redirect()->route('payment.upload', ['invoiceId' => $invoiceId]);
         } catch (\Exception $e) {
-            // Debug: Jika terjadi error
-            dd('Error during transaction:', $e->getMessage());
+            // Log error untuk debugging
+            logger()->error('Transaction error: ' . $e->getMessage());
+
+            // Flash pesan error untuk pengguna
+            session()->flash('error', 'An error occurred while processing your payment. Please try again later.');
+            return back();
         }
     }
-
-
-
 
 
     public function render()
     {
+
         return view('livewire.checkout-page', [
-            'cartItems' => $this->cartItems,
-            'cartTotal' => $this->cartTotal,
+            'cartItems' => [], // Contoh data keranjang
+            'cartTotal' => 0, // Contoh total keranjang
         ]);
     }
+
+
 }

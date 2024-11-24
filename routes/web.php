@@ -15,6 +15,7 @@ use App\Livewire\CheckoutPage;
 use App\Livewire\CourseDetailPage;
 use App\Livewire\CoursePage;
 use App\Livewire\HomePage;
+use App\Livewire\PaymentPage;
 use App\Livewire\ProductDetailPage;
 use App\Livewire\ProductPage;
 use App\Livewire\PromoDetailPage;
@@ -66,7 +67,7 @@ Route::get('/verification', function () {
 
 
 // User Livewire
-Route::get('/', HomePage::class);
+Route::get('/', HomePage::class)->name('home');
 Route::get('/products', ProductPage::class);
 Route::get('/products/{product_slug}', ProductDetailPage::class);
 Route::get('/treatment', TreatmentPage::class);
@@ -78,6 +79,7 @@ Route::get('/course/{course_slug}', CourseDetailPage::class);
 Route::get('/about', AboutPage::class);
 Route::get('/search', SearchPage::class)->name('search');
 Route::get('/checkout', CheckoutPage::class)->name('checkout');
+Route::get('/payment/{invoiceId}', PaymentPage::class)->name('payment.upload');
 
 
 Route::middleware(['role:Admin'])->group(function () {

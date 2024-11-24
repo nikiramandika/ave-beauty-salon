@@ -32,6 +32,7 @@ class CartManagement
             ->where('detail_id', $detail_id)
             ->first();
 
+
         if ($cart_item) {
             // Tambahkan kuantitas jika item sudah ada
             $cart_item->quantity += $quantity;
@@ -44,6 +45,7 @@ class CartManagement
                 'product_id' => $product_id,
                 'detail_id' => $detail_id, // Pastikan detail_id disertakan
                 'quantity' => $quantity,
+                'size' => $productDetail->size,
                 'price' => $productDetail->price, // Simpan harga dari detail produk
             ]);
         }

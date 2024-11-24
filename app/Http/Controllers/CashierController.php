@@ -211,7 +211,7 @@ class CashierController extends Controller
 
 
                 // Panggil prosedur MySQL
-                DB::statement('CALL insertInvoiceProcedurecashier2(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+                DB::statement('CALL insertInvoiceProcedurecashier1(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                     $data['cashier_id'],            // ID kasir
                     $data['customer_id'] ?? null,   // ID pelanggan (bisa NULL)
                     $data['recipient_name'],        // Recipient Name
