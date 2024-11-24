@@ -73,20 +73,45 @@
 
                                     <div class="mb-3">
                                         <label for="treatment_slug" class="form-label">Slug</label>
-                                        <input type="text" class="form-control slug-input" id="treatment_slug"
+                                        <input type="text" class="form-control" id="treatment_slug"
                                             name="treatment_slug" value="{{ $treatment->treatment_slug }}" required
                                             readonly>
                                     </div>
 
                                     <div class="mb-3">
+                                        <label class="form-label">Pilih Harga</label>
+                                        <div class="d-flex gap-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="price_option"
+                                                    id="fixed_price" value="fixed"
+                                                    {{ $treatment->price !== null ? 'checked' : '' }}
+                                                    onclick="togglePriceInput()">
+                                                <label class="form-check-label" for="fixed_price">
+                                                    Harga Tetap
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="price_option"
+                                                    id="variable_price" value="variable"
+                                                    {{ $treatment->price === null ? 'checked' : '' }}
+                                                    onclick="togglePriceInput()">
+                                                <label class="form-check-label" for="variable_price">
+                                                    Harga Variatif
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3" id="price_input_container">
                                         <label for="price" class="form-label">Harga</label>
                                         <input type="number" class="form-control" id="price" name="price"
-                                            value="{{ $treatment->price }}" required>
+                                            value="{{ $treatment->price }}"
+                                            {{ $treatment->price !== null ? 'required' : '' }}>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="is_active" class="form-label">Status Aktif</label>
-                                        <select class="form-control" id="is_active" name="is_active">
+                                        <select class="form-select" id="is_active" name="is_active">
                                             <option value="1" {{ $treatment->is_active ? 'selected' : '' }}>Aktif
                                             </option>
                                             <option value="0" {{ !$treatment->is_active ? 'selected' : '' }}>
@@ -98,7 +123,6 @@
                                         <label for="treatment_image" class="form-label">Gambar Treatment</label>
                                         <input type="file" class="form-control" id="treatment_image"
                                             name="treatment_image" accept="image/*">
-
                                         @if ($treatment->description && $treatment->description->treatment_image)
                                             <div class="mt-2">
                                                 <img src="{{ asset($treatment->description->treatment_image) }}"
@@ -119,7 +143,7 @@
                                             value="{{ $treatment->description->duration }}" required>
                                     </div>
 
-                                    <div class="mb-3">
+                                    <div class="d-flex gap-3">
                                         <button type="submit" class="btn btn-primary">Perbarui Treatment</button>
                                         <a href="{{ route('treatments.index') }}"
                                             class="btn btn-secondary">Kembali</a>
@@ -152,7 +176,27 @@
 
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+    <script>
+        function togglePriceInput() {
+            const fixedPriceRadio = document.getElementById('fixed_price');
+            const priceInputContainer = document.getElementById('price_input_container');
+            const priceInput = document.getElementById('price');
 
+            if (fixedPriceRadio.checked) {
+                // Show price input
+                priceInputContainer.style.display = 'block';
+                priceInput.required = true;
+            } else {
+                // Hide price input and clear value
+                priceInputContainer.style.display = 'none';
+                priceInput.value = '';
+                priceInput.required = false;
+            }
+        }
+
+        // Initialize the form state based on current data
+        togglePriceInput();
+    </script>
     <!-- Core JS -->
     <script src="{{ asset('owner/dashboard/assets/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('owner/dashboard/assets/vendor/libs/popper/popper.js') }}"></script>
