@@ -15,6 +15,7 @@
     <!-- Select2 JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
 
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         .hidden {
@@ -113,18 +114,25 @@
                             @foreach ($treatments as $treatment)
                                 <div class="bg-white border rounded-lg overflow-hidden hover:shadow-md cursor-pointer"
                                     data-id="{{ $treatment->treatment_id }}"
-                                    data-name="{{ $treatment->treatment_name }}" data-type="treatment"
-                                    data-price="{{ $treatment->price }}" onclick="addToCart(this)">
+                                    data-name="{{ $treatment->treatment_name }}"
+                                    data-type="treatment"
+                                    data-price="{{ $treatment->price ?? '' }}"
+                                    onclick="{{ $treatment->price !== null ? 'addToCart(this)' : 'openPriceModal(this)' }}">
                                     <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}"
                                         alt="{{ $treatment->treatment_name }}" class="w-full h-32 object-cover">
                                     <div class="p-3">
                                         <h3 class="font-semibold">{{ $treatment->treatment_name }}</h3>
-                                        <p class="text-green-600 font-bold">Rp
-                                            {{ number_format($treatment->price, 0, ',', '.') }}</p>
+                                        @if ($treatment->price !== null)
+                                            <p class="text-green-600 font-bold">Rp
+                                                {{ number_format($treatment->price, 0, ',', '.') }}</p>
+                                        @else
+                                            <p class="text-red-600 font-bold">Variable Price</p>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
                         </div>
+
                     </div>
                     <!-- Promo Grid -->
                     <div id="promosSection" class="section hidden">
@@ -272,7 +280,37 @@
     </div>
 
     <!-- Modal -->
-    <div id="confirmationModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
+    <div id="priceModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg shadow-lg w-96 p-6 transform transition-transform scale-95 duration-300">
+            <h2 class="text-lg font-semibold mb-4">Enter Price</h2>
+            <form id="priceForm">
+                <div class="mb-4">
+                    <label for="modalTreatmentName" class="block text-sm font-medium text-gray-700">Treatment
+                        Name</label>
+                    <input type="text" id="modalTreatmentName"
+                        class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        readonly>
+                </div>
+                <div class="mb-4">
+                    <label for="modalPrice" class="block text-sm font-medium text-gray-700">Price</label>
+                    <input type="number" id="modalPrice"
+                        class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        placeholder="Enter price" required>
+                </div>
+                <input type="hidden" id="modalTreatmentId">
+            </form>
+            <div class="flex justify-end gap-2">
+                <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+                    onclick="closePriceModal()">Cancel</button>
+                <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                    onclick="savePrice()">Save</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div id="confirmationModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden z-50">
         <div class="flex items-center justify-center min-h-screen">
             <div class="bg-white rounded-lg shadow-lg p-6 w-96">
                 <h2 class="text-lg font-bold mb-4">Konfirmasi Pembayaran</h2>
@@ -292,6 +330,65 @@
         </div>
     </div>
 
+    <script>
+        let currentElement = null;
+
+        function openPriceModal(element) {
+            currentElement = element;
+
+            // Ambil data dari elemen yang diklik
+            const treatmentName = element.getAttribute('data-name');
+            const treatmentId = element.getAttribute('data-id');
+
+            // Isi data modal
+            document.getElementById('modalTreatmentName').value = treatmentName;
+            document.getElementById('modalTreatmentId').value = treatmentId;
+
+            // Tampilkan modal
+            const modal = document.getElementById('priceModal');
+            modal.classList.remove('hidden');
+
+            // Tambahkan kelas untuk animasi masuk
+            const modalContent = modal.querySelector('.transform');
+            modalContent.classList.add('scale-100'); // Skala akhir
+            modalContent.classList.remove('scale-95'); // Hapus skala awal
+            modalContent.classList.add('transition-transform'); // Pastikan transisi aktif
+            modal.focus();
+        }
+
+
+        function closePriceModal() {
+            // Sembunyikan modal
+            const modal = document.getElementById('priceModal');
+            // Tambahkan animasi keluar
+            const modalContent = modal.querySelector('.transform');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+
+            // Sembunyikan modal setelah animasi selesai
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 150); // Sesuaikan dengan durasi animasi Tailwind
+        }
+
+        function savePrice() {
+            const enteredPrice = document.getElementById('modalPrice').value;
+
+            // Validasi input harga
+            if (enteredPrice !== "" && !isNaN(enteredPrice) && parseFloat(enteredPrice) > 0) {
+                // Set data-price pada elemen yang sedang diproses
+                currentElement.setAttribute('data-price', enteredPrice);
+
+                // Panggil fungsi addToCart (sudah ada di sistem Anda)
+                addToCart(currentElement);
+
+                // Tutup modal
+                closePriceModal();
+            } else {
+                alert("Please enter a valid price.");
+            }
+        }
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const cashRadio = document.getElementById('cash');
@@ -370,12 +467,12 @@
             <strong>Total Harga:</strong> ${formatRupiah(totalPrice)}
         </div>
         ${paymentMethod === 'cash' ? `
-                                                                                                                                        <div class="mb-4">
-                                                                                                                                            <strong>Jumlah Tunai:</strong> ${formatRupiah(cashAmount)}
-                                                                                                                                        </div>
-                                                                                                                                        <div class="mb-4">
-                                                                                                                                            <strong>Kembalian:</strong> ${formattedChangeAmount}
-                                                                                                                                        </div>` : ''}
+                                                                                                                                                                                                <div class="mb-4">
+                                                                                                                                                                                                    <strong>Jumlah Tunai:</strong> ${formatRupiah(cashAmount)}
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                                <div class="mb-4">
+                                                                                                                                                                                                    <strong>Kembalian:</strong> ${formattedChangeAmount}
+                                                                                                                                                                                                </div>` : ''}
     `;
 
             // Tampilkan modal
@@ -558,8 +655,8 @@
             </div>
             <div class="invoice-items">
                 ${cart.map((item, index) => `
-                                                                                            <div>${index + 1}. ${item.name} (x${item.quantity}) - Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</div>
-                                                                                        `).join('')}
+                                                                                                                                                    <div>${index + 1}. ${item.name} (x${item.quantity}) - Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</div>
+                                                                                                                                                `).join('')}
             </div>
             <div class="invoice-total">
                 <strong>Total:</strong> Rp ${totalPrice.toLocaleString('id-ID')}

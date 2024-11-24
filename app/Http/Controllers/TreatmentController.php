@@ -27,7 +27,7 @@ class TreatmentController extends Controller
         $validator = Validator::make($request->all(), [
             'treatment_name' => 'required|string|max:100',
             'treatment_slug' => 'required|string|max:100|unique:treatments,treatment_slug',
-            'price' => 'required|numeric',
+            'price' => 'nullable|numeric',
             'is_active' => 'required|boolean',
             'treatment_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'description' => 'required|string',
@@ -110,7 +110,7 @@ class TreatmentController extends Controller
         $validator = Validator::make($request->all(), [
             'treatment_name' => 'required|string|max:100',
             'treatment_slug' => 'required|string|max:100|unique:treatments,treatment_slug,' . $id . ',treatment_id',
-            'price' => 'required|numeric',
+            'price' => 'nullable|numeric',
             'is_active' => 'required|boolean',
             'treatment_image' => 'image|mimes:jpeg,png,jpg|max:2048', // Optional image
             'description' => 'required|string',

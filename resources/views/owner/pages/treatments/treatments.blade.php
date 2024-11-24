@@ -101,7 +101,13 @@
                                                     </td>
                                                     <td>{{ $treatment->treatment_name }}</td>
                                                     <td>{{ $treatment->treatment_slug }}</td>
-                                                    <td>{{ $treatment->price }}</td>
+                                                    <td>
+                                                        @if ($treatment->price !== null)
+                                                            Rp{{ number_format($treatment->price, 0, ',', '.') }}
+                                                        @else
+                                                            <strong>Variable Price</strong>
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         @if ($treatment->description)
                                                             {{ $treatment->description->description }}
