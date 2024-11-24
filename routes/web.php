@@ -11,6 +11,7 @@ use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\SearchResult;
 use App\Livewire\AboutPage;
+use App\Livewire\CheckoutCourse;
 use App\Livewire\CheckoutPage;
 use App\Livewire\CourseDetailPage;
 use App\Livewire\CoursePage;
@@ -80,6 +81,9 @@ Route::get('/about', AboutPage::class);
 Route::get('/search', SearchPage::class)->name('search');
 Route::get('/checkout', CheckoutPage::class)->name('checkout');
 Route::get('/payment/{invoiceId}', PaymentPage::class)->name('payment.upload');
+Route::get('/checkoutCourse/{course_slug}', CheckoutCourse::class)->name('checkoutCourse');
+
+
 
 
 Route::middleware(['role:Admin'])->group(function () {

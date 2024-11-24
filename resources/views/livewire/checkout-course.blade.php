@@ -106,41 +106,43 @@
             <div class="row g-5">
                 <div class="col-md-5 col-lg-4 order-md-last">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
-                        <span>Your cart</span>
-                        <span class="badge bg-primary rounded-pill">{{ count($cartItems) }}</span>
+                        <span>Your Course</span>
+                        <span class="badge bg-primary rounded-pill">1</span>
                     </h4>
                     <ul class="list-group mb-3">
-                        @forelse ($cartItems as $item)
-                            <li class="list-group-item d-flex justify-content-between lh-sm">
-                                <div>
-                                    <h6 class="my-0">{{ $item->product->product_name ?? 'Unknown Product' }}</h6>
-                                    <small class="text-body-secondary">
-                                        Ukuran: {{ $item->productDetail->size ?? 'N/A' }} <br>
-                                        Qty: {{ $item->quantity }}
-                                    </small>
-                                </div>
-                                <span class="text-body-secondary">
-                                    Rp{{ number_format($item->quantity * ($item->productDetail->price ?? 0), 0, ',', '.') }}
-                                </span>
-                            </li>
-                        @empty
-                            <li class="list-group-item d-flex justify-content-between lh-sm">
-                                <div class="text-center w-100">
-                                    <small class="text-body-secondary">Your cart is empty</small>
-                                </div>
-                            </li>
-                        @endforelse
+                        <!-- Course Image -->
+                        <li class="list-group-item text-center">
+                            <div class="course-image">
+                                <img src="{{ asset($course->description->course_image) }}"
+                                    alt="{{ $course->course_name }}" class="img-fluid rounded">
+                            </div>
+                        </li>
+
+                        <!-- Course Info -->
+                        <li class="list-group-item">
+                            <h6 class="course-title">{{ $course->course_name }}</h6>
+                            <p class="course-price">Price: Rp{{ number_format($course->price, 0, ',', '.') }}</p>
+                            <p class="course-sessions"><strong>Sessions:</strong> {{ $course->sessions }}</p>
+                            <p class="course-benefits"><strong>Benefits:</strong> {{ $course->description->benefits }}
+                            </p>
+                            <p class="course-free-items"><strong>Free Items:</strong>
+                                {{ $course->description->free_items }}</p>
+                            <p class="course-description" align="justify">{{ $course->description->description }}</p>
+                        </li>
+
+                        <!-- Total -->
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total (Rp)</span>
-                            <strong>Rp{{ number_format($cartTotal, 0, ',', '.') }}</strong>
+                            <strong>Rp{{ number_format($course->price, 0, ',', '.') }}</strong>
                         </li>
                     </ul>
-
                 </div>
+
+
 
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Billing address</h4>
-                    <form wire:submit.prevent="showModal" class="needs-validation" novalidate>
+                    <form wire:submit.prevent="submitPaymentCourse" class="needs-validation" novalidate>
                         <div class="row g-3">
                             <!-- First Name -->
                             <div class="col-sm-6">
@@ -170,6 +172,7 @@
                                     readonly>
                             </div>
 
+                            <!-- Phone Number -->
                             <div class="col-12">
                                 <label for="recipientPhone" class="form-label">Phone Number</label>
                                 <input type="text" class="form-control" id="recipientPhone"
@@ -185,6 +188,25 @@
                                 <input type="text" class="form-control" id="address" wire:model="address"
                                     placeholder="1234 Main St" required>
                                 @error('address')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <!-- Start Date -->
+                            <div class="col-6">
+                                <label for="startDate" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="startDate" wire:model="startDate"
+                                    required>
+                                @error('startDate')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <!-- End Date -->
+                            <div class="col-6">
+                                <label for="endDate" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="endDate" wire:model="endDate" required>
+                                @error('endDate')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -244,7 +266,6 @@
                             </div>
                         </div>
 
-
                         <!-- Bank Selection -->
                         <div class="col-12">
                             <label for="bank" class="form-label">Choose Your Bank</label>
@@ -263,107 +284,14 @@
                         <hr class="my-4">
 
                         <!-- Submit Button -->
-                        <button type="button" class="w-100 btn btn-primary btn-lg" wire:click="showModal">Submit
-                            Payment</button>
+                        <button type="submit" class="w-100 btn btn-primary btn-lg">Submit Payment</button>
                     </form>
                 </div>
             </div>
         </main>
     </div>
-    <!-- Modal -->
-    <div wire:ignore.self class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="paymentModalLabel">Upload Proof of Payment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        wire:click="closeModal"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Timer -->
-                    <div class="alert alert-warning text-center">
-                        <h4>Time Remaining:
-                            <span id="timer" data-time-left="{{ $remainingTime }}">
-                                {{ gmdate('i:s', $remainingTime) }}
-                            </span>
-                        </h4>
-                    </div>
 
-                    <!-- Bank Selection Display -->
-                    <div class="mb-3">
-                        <h5>Selected Bank:
-                            <strong>{{ $recipientBank ?: 'Not Selected' }}</strong>
-                        </h5>
-                    </div>
-
-
-                    <!-- Upload Proof of Payment -->
-                    <div>
-                        <label for="proofOfPayment" class="form-label">Upload Proof of Payment</label>
-                        <input type="file" class="form-control" id="proofOfPayment" wire:model="proofOfPayment"
-                            accept="image/*" required>
-                        @error('proofOfPayment')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <!-- Cancel Order -->
-                    <button type="button" class="btn btn-danger" wire:click="cancelOrder">Cancel Order</button>
-
-                    <!-- Submit Payment -->
-                    <button type="button" class="btn btn-success" wire:click="submitPayment">Sudah Dibayar</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('user/js/checkout.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.getElementById('paymentModal');
-
-            // Show modal
-            window.addEventListener('show-modal', () => {
-                const bsModal = new bootstrap.Modal(modal);
-                bsModal.show();
-            });
-
-            // Close modal
-            window.addEventListener('close-modal', () => {
-                const bsModal = bootstrap.Modal.getInstance(modal);
-                if (bsModal) bsModal.hide();
-            });
-
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const timerElement = document.getElementById('timer');
-            if (timerElement) {
-                // Ambil waktu tersisa dari atribut data-time-left
-                let timeLeft = parseInt(timerElement.getAttribute('data-time-left'), 10);
-
-                // Format waktu dalam menit:detik
-                const formatTime = (seconds) => {
-                    const minutes = Math.floor(seconds / 60);
-                    const secs = seconds % 60;
-                    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-                };
-
-                // Update UI setiap detik
-                const interval = setInterval(() => {
-                    if (timeLeft > 0) {
-                        timeLeft -= 1;
-                        timerElement.textContent = formatTime(timeLeft);
-                    } else {
-                        clearInterval(interval); // Hentikan timer jika habis
-                        timerElement.textContent = "Time's up!";
-                    }
-                }, 1000);
-            }
-        });
-    </script>
 
 </div>
