@@ -95,20 +95,35 @@ class CashierController extends Controller
 
     public function pesananOnline()
     {
-        // Ambil semua data invoices
+        // Ambil semua data invoices (tanpa refund dan bukan pesanan offline)
         $invoices = SellingInvoice::with('details')
             ->whereNull('refund_id') // Hanya ambil data yang refund_id-nya NULL
             ->where('recipient_address', '!=', 'Pesanan Offline') // Tidak ambil jika alamat adalah 'Pesanan Offline'
-            ->get();
-
-        // Ambil hanya invoices yang memiliki refund_id
+            ->get()
+            ->map(function ($invoice) {
+                // Hitung total harga untuk invoice ini
+                $invoice->total_price = $invoice->details->sum(function ($detail) {
+                    return $detail->quantity * $detail->price;
+                });
+                return $invoice;
+            });
+    
+        // Ambil data refunds (pesanan yang direfund)
         $refunds = SellingInvoice::whereNotNull('refund_id') // Ambil hanya invoice yang memiliki refund_id
-            ->with('refunds') // Pastikan Anda memuat relasi details untuk detail pesanan
-            ->get();
-
+            ->with('details') // Pastikan Anda memuat relasi details untuk detail pesanan
+            ->get()
+            ->map(function ($invoice) {
+                // Hitung total harga untuk invoice ini
+                $invoice->total_price = $invoice->details->sum(function ($detail) {
+                    return $detail->quantity * $detail->price;
+                });
+                return $invoice;
+            });
+    
         // Kirim kedua data ke view
         return view('cashier.pesanan-online', compact('invoices', 'refunds'));
     }
+    
 
     public function uploadAdminFile(Request $request, $refundId)
     {
