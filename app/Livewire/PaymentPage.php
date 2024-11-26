@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\SellingInvoice;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentPage extends Component
 {
@@ -17,11 +18,19 @@ class PaymentPage extends Component
     public function mount($invoiceId)
     {
         // Ambil data invoice berdasarkan ID
-        $invoice = SellingInvoice::findOrFail($invoiceId);
+        $invoice = SellingInvoice::where('selling_invoice_id', $invoiceId)
+                    ->where('user_id', Auth::id()) // Pastikan hanya user yang memiliki invoice dapat mengakses
+                    ->firstOrFail();
+
+                            // Jika recipient_file sudah ada, redirect ke halaman lain
+        if ($invoice->recipient_file) {
+            return redirect()->route('home'); // Perbaiki penggunaan redirect di sini
+        }
 
         $this->invoiceId = $invoice->selling_invoice_id;
         $this->recipientBank = $invoice->recipient_bank;
     }
+
     public function uploadProofOfPayment()
     {
         // Validasi file
@@ -35,6 +44,13 @@ class PaymentPage extends Component
 
             // Update kolom recipient_file di database
             $invoice = SellingInvoice::findOrFail($this->invoiceId);
+
+            // Pastikan user hanya bisa memperbarui invoice miliknya
+            if ($invoice->user_id !== Auth::id()) {
+                session()->flash('error', 'Unauthorized action.');
+                return;
+            }
+
             $invoice->update([
                 'recipient_file' => $filePath,
             ]);
@@ -43,7 +59,7 @@ class PaymentPage extends Component
             session()->flash('success', 'Proof of payment uploaded successfully!');
 
             // Emit event untuk redirect setelah 3 detik
-            $this->dispatch('redirectAfterDelay');
+            $this->dispatch('paymentUploaded', $invoice->selling_invoice_id); // Emit event untuk redirect ke halaman success
         } catch (\Exception $e) {
             // Tangani error jika terjadi
             session()->flash('error', 'An error occurred while uploading the proof of payment: ' . $e->getMessage());
@@ -52,16 +68,15 @@ class PaymentPage extends Component
 
     public function render()
     {
-        $invoice = SellingInvoice::findOrFail($this->invoiceId);
+        $invoice = SellingInvoice::where('selling_invoice_id', $this->invoiceId)
+                    ->where('user_id', Auth::id()) // Pastikan hanya user yang memiliki invoice dapat melihat
+                    ->firstOrFail();
+    
 
-        // Jika recipient_file sudah ada, redirect ke halaman lain
-        if ($invoice->recipient_file) {
-         redirect()->route('home')->with('error', 'Proof of payment has already been uploaded.');
-        }
-
+    
         return view('livewire.payment-page', [
             'invoice' => $invoice,
         ]);
     }
-
+    
 }

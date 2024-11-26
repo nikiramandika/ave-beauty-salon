@@ -15,6 +15,8 @@ use App\Livewire\CheckoutCourse;
 use App\Livewire\CheckoutPage;
 use App\Livewire\CourseDetailPage;
 use App\Livewire\CoursePage;
+use App\Livewire\HistoryCoursePage;
+use App\Livewire\HistoryOrderPage;
 use App\Livewire\HomePage;
 use App\Livewire\PaymentPage;
 use App\Livewire\ProductDetailPage;
@@ -22,6 +24,7 @@ use App\Livewire\ProductPage;
 use App\Livewire\PromoDetailPage;
 use App\Livewire\PromoPage;
 use App\Livewire\SearchPage;
+use App\Livewire\SuccessPage;
 use App\Livewire\TreatmentDetailPage;
 use App\Livewire\TreatmentPage;
 // use App\Livewire\SuccessPage;
@@ -60,17 +63,10 @@ Route::get('/user.pages.home', function () {
     return view('user.pages.home');
 });
 
-Route::get('/checkout', function () {
-    return view('user.pages.checkout');
-})->name('checkout');
-
 Route::get('/verification', function () {
     return view('user.pages.verif-email');
 });
 
-Route::get('/success', function () {
-    return view('user.pages.success');
-});
 
 // User Livewire
 Route::get('/', HomePage::class)->name('home');
@@ -87,6 +83,9 @@ Route::get('/search', SearchPage::class)->name('search');
 Route::get('/checkout', CheckoutPage::class)->name('checkout');
 Route::get('/payment/{invoiceId}', PaymentPage::class)->name('payment.upload');
 Route::get('/checkoutCourse/{course_slug}', CheckoutCourse::class)->name('checkoutCourse');
+Route::get('/success/{invoiceId}', SuccessPage::class)->name('success');
+Route::get('/my-orders', HistoryOrderPage::class)->name('historyOrder');
+Route::get('/course-history', HistoryCoursePage::class)->name('course.history');
 
 // Route::get('/success', SuccessPage::class);
 

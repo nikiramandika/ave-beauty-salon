@@ -36,6 +36,7 @@
             display: none;
         }
     </style>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
 
@@ -52,7 +53,7 @@
         <div class="min-h-screen bg-gray-100 p-6">
             <div class="container mx-auto p-6">
                 <h1 class="text-2xl font-bold mb-6">Pesanan Online</h1>
-                <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
                     <div class="overflow-x-auto">
                         <table id="example" class="table table-striped">
                             <thead class="bg-gray-50">
@@ -61,85 +62,124 @@
                                     <th class="text-left p-4 font-semibold text-sm text-gray-600">Nama Penerima</th>
                                     <th class="text-left p-4 font-semibold text-sm text-gray-600">Nomor Telepon</th>
                                     <th class="text-left p-4 font-semibold text-sm text-gray-600">Alamat</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Tanggal Pesanan
-                                    </th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Status Pesanan
-                                    </th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Detail Pesanan
-                                    </th>
+                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Tanggal Pesanan</th>
+                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Status</th>
+                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Aksi</th>
                                     <th class="text-left p-4 font-semibold text-sm text-gray-600">Bukti Pembayaran
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($invoices as $invoice)
-                                    <tr class="hover:bg-gray-50">
-                                        <!-- Data dari SellingInvoice -->
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                            {{ $invoice->invoice_code }}</td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                            {{ $invoice->recipient_name }}</td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                            {{ $invoice->recipient_phone }}</td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                            {{ $invoice->recipient_address }}</td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                            {{ $invoice->order_date }}</td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                            <select
-                                                class="border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
-                                                data-previous-value="{{ $invoice->order_status }}"
-                                                onchange="updateOrderStatus(this, '{{ $invoice->selling_invoice_id }}'); updateColor(this);">
+                                    @if ($invoice->order_status != 'Cancelled')
+                                        <!-- Hanya tampilkan selain Cancelled -->
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                                {{ $invoice->invoice_code }}
+                                            </td>
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                                {{ $invoice->recipient_name }}
+                                            </td>
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                                {{ $invoice->recipient_phone }}
+                                            </td>
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                                {{ $invoice->recipient_address }}
+                                            </td>
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                                {{ $invoice->order_date }}
+                                            </td>
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                                {{ $invoice->order_status }}
+                                            </td>
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                                <div>
+                                                    @if ($invoice->order_status == 'Pending')
+                                                        <button
+                                                            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                                                            onclick="changeOrderStatus('{{ $invoice->selling_invoice_id }}', 'On Process')">
+                                                            On Process
+                                                        </button>
+                                                        <button
+                                                            class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
+                                                            onclick="changeOrderStatus('{{ $invoice->selling_invoice_id }}', 'Cancelled')">
+                                                            Cancelled
+                                                        </button>
+                                                    @elseif ($invoice->order_status == 'On Process')
+                                                        <button
+                                                            class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+                                                            onclick="changeOrderStatus('{{ $invoice->selling_invoice_id }}', 'Pesanan Dikirim')">
+                                                            Pesanan Dikirim
+                                                        </button>
+                                                        <button
+                                                            class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
+                                                            onclick="changeOrderStatus('{{ $invoice->selling_invoice_id }}', 'Cancelled')">
+                                                            Cancelled
+                                                        </button>
+                                                    @elseif ($invoice->order_status == 'Pesanan Dikirim')
+                                                        <span class="text-gray-500">Menunggu pesanan diterima</span>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                                <button
+                                                    class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                                    onclick="showPaymentProofModal('storage/{{ $invoice->recipient_file }}', '{{ $invoice->recipient_bank }}', {{ $invoice->total_price }})">
+                                                    Lihat Bukti
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-                                                <option value="Pending"
-                                                    {{ $invoice->order_status == 'Pending' ? 'selected' : '' }}>
-                                                    Pending
-                                                </option>
-                                                <option value="Cancelled"
-                                                    {{ $invoice->order_status == 'Cancelled' ? 'selected' : '' }}>
-                                                    Cancelled
-                                                </option>
-                                                <option value="On Process"
-                                                    {{ $invoice->order_status == 'On Process' ? 'selected' : '' }}>
-                                                    On Process
-                                                </option>
-                                                <option value="Order Completed"
-                                                    {{ $invoice->order_status == 'Order Completed' ? 'selected' : '' }}>
-                                                    Order Completed
-                                                </option>
-                                            </select>
-                                        </td>
+                <!-- Tabel Baru untuk Pesanan Cancelled -->
+                <h1 class="text-2xl font-bold mb-6">Pesanan Cancelled</h1>
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="overflow-x-auto">
+                        <table id="cancelledTable" class="table table-striped">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Kode Faktur</th>
+                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nama Penerima</th>
+                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nomor Telepon</th>
+                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Alamat</th>
+                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Tanggal Pesanan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($invoices as $invoice)
+                                    @if ($invoice->order_status == 'Cancelled')
+                                        <!-- Hanya tampilkan Cancelled -->
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                                {{ $invoice->invoice_code }}
+                                            </td>
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                                {{ $invoice->recipient_name }}
+                                            </td>
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                                {{ $invoice->recipient_phone }}
+                                            </td>
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                                {{ $invoice->recipient_address }}
+                                            </td>
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                                {{ $invoice->order_date }}
+                                            </td>
 
-                                        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-                                        <!-- Data dari SellingInvoiceDetails -->
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                            <ul>
-                                                @foreach ($invoice->details as $detail)
-                                                    <li class="mb-2">
-                                                        <strong>{{ $detail->product_name ?? $detail->treatment_name }}</strong>
-                                                        -
-                                                        {{ $detail->quantity }} x
-                                                        Rp {{ number_format($detail->price, 2, ',', '.') }}
-                                                        = Rp {{ number_format($detail->subtotal, 2, ',', '.') }}
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                            <button
-                                                class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                                                onclick="showPaymentProofModal('storage/{{ $invoice->recipient_file }}', '{{ $invoice->recipient_bank }}')">
-                                                Lihat Bukti
-                                            </button>
-                                        </td>
-                                    </tr>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+
             <div class="container mx-auto p-6">
                 <h1 class="text-2xl font-bold mb-6">Pesanan Online Refund</h1>
                 <div class="bg-white rounded-xl shadow-md p-6">
@@ -227,6 +267,9 @@
             <div class="mb-2">
                 <span class="font-bold">Bank Transfer: </span><span class="font-italic" id="paymentProofBank"></span>
             </div>
+            <div class="mb-2">
+                <span class="font-bold">Total Harga: </span><span id="paymentProofTotal"></span>
+            </div>
             <!-- Tempat untuk menampilkan file -->
             <img id="paymentProofImage" class="w-full rounded-md" src="" alt="Bukti Pembayaran">
         </div>
@@ -238,28 +281,26 @@
 </div>
 
 <!-- Modal Konfirmasi -->
-<div id="confirmationModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
-    <div class="bg-white rounded-xl shadow-md w-96 p-6">
-        <h2 class="text-lg font-bold text-gray-800 mb-4">Konfirmasi Perubahan</h2>
-        <p class="text-gray-600 mb-6">Apakah Anda yakin ingin mengubah status menjadi <span id="selectedStatusText"
-                class="font-bold text-blue-600"></span>?</p>
-        <div class="flex justify-end gap-4">
-            <button id="cancelButton"
-                class="px-4 py-2 bg-gray-300 rounded-md text-gray-800 hover:bg-gray-400">Batal</button>
-            <button id="confirmButton" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Ya,
-                Ubah</button>
+<div id="confirmationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white rounded-md shadow-lg p-6">
+        <p class="mb-4 text-gray-700">Apakah Anda yakin ingin mengubah status menjadi <span id="selectedStatusText"
+                class="font-bold"></span>?</p>
+        <div class="flex justify-end">
+            <button id="confirmButton"
+                class="bg-blue-600 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-700">Konfirmasi</button>
+            <button id="cancelButton" class="bg-gray-300 px-4 py-2 rounded-md hover:bg-gray-400">Batal</button>
         </div>
     </div>
 </div>
+
 <!-- Modal Notifikasi -->
-<div id="notificationModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
-    <div class="bg-white rounded-xl shadow-md w-96 p-6">
-        <h2 class="text-lg font-bold text-gray-800 mb-4">Status Diperbarui</h2>
-        <p class="text-gray-600 mb-6">Status berhasil diperbarui menjadi <span id="updatedStatusText"
-                class="font-bold text-blue-600"></span>.</p>
+<div id="notificationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white rounded-md shadow-lg p-6">
+        <p class="text-gray-700">Status berhasil diubah menjadi <span id="updatedStatusText"
+                class="font-bold"></span>.</p>
         <div class="flex justify-end">
             <button id="closeNotificationButton"
-                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Tutup</button>
+                class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Tutup</button>
         </div>
     </div>
 </div>
@@ -284,11 +325,15 @@
 
 <!-- Modal Bukti Pembayaran -->
 <script>
-    function showPaymentProofModal(fileUrl, bankName) {
+    function showPaymentProofModal(fileUrl, bankName, totalPrice) {
+        console.log('Modal function triggered'); // Tambahkan ini
+
         // Set src untuk image modal
         document.getElementById('paymentProofImage').src = fileUrl;
         // Set text untuk bank modal
         document.getElementById('paymentProofBank').textContent = bankName;
+        document.getElementById('paymentProofTotal').textContent =
+            `Rp ${new Intl.NumberFormat('id-ID').format(totalPrice)}`;
 
         // Tampilkan modal
         document.getElementById('paymentProofModal').classList.remove('hidden');
@@ -305,20 +350,50 @@
     let selectedElement = null;
     let selectedInvoiceId = null;
 
-    function updateOrderStatus(selectElement, invoiceId) {
-        // Simpan elemen yang dipilih dan ID faktur
-        selectedElement = selectElement;
-        selectedInvoiceId = invoiceId;
-
-        // Ambil nilai status yang dipilih
-        const selectedStatus = selectElement.value;
-
-        // Tampilkan status di dalam modal
-        document.getElementById('selectedStatusText').textContent = selectedStatus;
-
+    function changeOrderStatus(invoiceId, status) {
         // Tampilkan modal konfirmasi
+        document.getElementById('selectedStatusText').textContent = status;
         document.getElementById('confirmationModal').classList.remove('hidden');
+
+        // Tambahkan event listener pada tombol konfirmasi
+        document.getElementById('confirmButton').onclick = function() {
+            // Kirim permintaan ke server untuk memperbarui status
+            fetch('{{ route('updateOrderStatus') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content'),
+                    },
+                    body: JSON.stringify({
+                        invoice_id: invoiceId,
+                        order_status: status,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Perbarui tampilan UI (reload halaman atau ubah status di tabel)
+                        location.reload();
+                    } else {
+                        alert('Gagal memperbarui status.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan saat memperbarui status.');
+                });
+
+            // Tutup modal konfirmasi
+            document.getElementById('confirmationModal').classList.add('hidden');
+        };
+
+        // Batalkan perubahan status
+        document.getElementById('cancelButton').onclick = function() {
+            document.getElementById('confirmationModal').classList.add('hidden');
+        };
     }
+
 
     // Fungsi untuk mengonfirmasi perubahan status
     document.getElementById('confirmButton').addEventListener('click', function() {

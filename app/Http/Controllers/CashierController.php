@@ -85,6 +85,7 @@ class CashierController extends Controller
             ->where('is_active', 1)
             ->get();
         $users = User::where('is_active', 1)
+            ->with('member')
             ->where('role', 'User')
             ->select('id', 'nama_depan', 'nama_belakang', 'phone', 'email')
             ->get();
@@ -94,20 +95,35 @@ class CashierController extends Controller
 
     public function pesananOnline()
     {
-        // Ambil semua data invoices
+        // Ambil semua data invoices (tanpa refund dan bukan pesanan offline)
         $invoices = SellingInvoice::with('details')
             ->whereNull('refund_id') // Hanya ambil data yang refund_id-nya NULL
             ->where('recipient_address', '!=', 'Pesanan Offline') // Tidak ambil jika alamat adalah 'Pesanan Offline'
-            ->get();
-
-        // Ambil hanya invoices yang memiliki refund_id
+            ->get()
+            ->map(function ($invoice) {
+                // Hitung total harga untuk invoice ini
+                $invoice->total_price = $invoice->details->sum(function ($detail) {
+                    return $detail->quantity * $detail->price;
+                });
+                return $invoice;
+            });
+    
+        // Ambil data refunds (pesanan yang direfund)
         $refunds = SellingInvoice::whereNotNull('refund_id') // Ambil hanya invoice yang memiliki refund_id
-            ->with('refunds') // Pastikan Anda memuat relasi details untuk detail pesanan
-            ->get();
-
+            ->with('details') // Pastikan Anda memuat relasi details untuk detail pesanan
+            ->get()
+            ->map(function ($invoice) {
+                // Hitung total harga untuk invoice ini
+                $invoice->total_price = $invoice->details->sum(function ($detail) {
+                    return $detail->quantity * $detail->price;
+                });
+                return $invoice;
+            });
+    
         // Kirim kedua data ke view
         return view('cashier.pesanan-online', compact('invoices', 'refunds'));
     }
+    
 
     public function uploadAdminFile(Request $request, $refundId)
     {
@@ -166,67 +182,74 @@ class CashierController extends Controller
         try {
             // Debug data request sebelum validasi
             \Log::info('Data sebelum validasi:', $request->all());
-
+    
             // Validasi input
             $data = $request->validate([
-                'cashier_id' => 'required',              // ID kasir (wajib)
-                'customer_id' => 'nullable',             // ID pelanggan (opsional)
-                'recipient_name' => 'nullable',          // Nama penerima (opsional)
-                'recipient_email' => 'nullable|email',   // Email (opsional)
-                'recipient_phone' => 'nullable',         // Nomor telepon (opsional)
-                'recipient_address' => 'nullable|string',// Alamat (opsional)
-                'payment_method' => 'required|string',   // Metode pembayaran (wajib)
-                'recipient_bank' => 'nullable|string',   // Bank penerima (opsional)
-                'cart' => 'required|array',              // Data keranjang (wajib)
-                'cart.*.detailId' => 'integer', // Setiap item keranjang harus memiliki detail_id
-                'cart.*.name' => 'required|string',      // Nama produk harus ada
-                'cart.*.price' => 'required|numeric',    // Harga produk harus ada
-                'cart.*.quantity' => 'required|integer', // Kuantitas produk harus ada
-                'cart.*.size' => 'nullable|string',      // Ukuran produk (opsional)
-                'cart.*.type' => 'required|string',      // Tipe item harus ada
+                'cashier_id' => 'required',               // ID kasir (wajib)
+                'customer_id' => 'nullable',              // ID pelanggan (opsional)
+                'recipient_name' => 'nullable',           // Nama penerima (opsional)
+                'recipient_email' => 'nullable|email',    // Email (opsional)
+                'recipient_phone' => 'nullable',          // Nomor telepon (opsional)
+                'recipient_address' => 'nullable|string', // Alamat (opsional)
+                'payment_method' => 'required|string',    // Metode pembayaran (wajib)
+                'recipient_bank' => 'nullable|string',    // Bank penerima (opsional)
+                'cart' => 'required|array',               // Data keranjang (wajib)
+                'cart.*.detailId' => 'nullable|integer',  // ID detail produk
+                'cart.*.name' => 'required|string',       // Nama produk harus ada
+                'cart.*.price' => 'required|numeric',     // Harga produk harus ada
+                'cart.*.quantity' => 'required|integer',  // Kuantitas produk harus ada
+                'cart.*.size' => 'nullable|string',       // Ukuran produk (opsional)
+                'cart.*.type' => 'required|string',       // Tipe item harus ada
+                'cart.*.used_points' => 'nullable|integer', // Poin yang digunakan per item
+                'cart.*.discount_from_points' => 'nullable|numeric' // Diskon dari poin per item
             ]);
-
-
+    
             // Debug data setelah validasi
             \Log::info('Data setelah validasi:', $data);
-
+    
             // Convert cart array to JSON
             $cartJson = json_encode($data['cart']);
-
-            // Debug JSON hasil konversi dari cart
-            \Log::info('Cart JSON:', ['cart' => $cartJson]);
-
+    
             DB::transaction(function () use ($data, $cartJson) {
                 // Tentukan nilai default untuk recipient_address jika kosong
                 $recipientAddress = $data['recipient_address'] ?? 'Pesanan Offline';
-
+    
                 // Tentukan recipient_bank jika metode pembayaran adalah Non-Tunai
                 $recipientBank = null;
                 if ($data['payment_method'] === 'Bank Transfer') {
                     $recipientBank = $data['recipient_bank'] ?? 'Bank Tidak Ditentukan';
                 }
-
+    
                 // Debug data sebelum memanggil prosedur
-                \Log::info('Data sebelum prosedur:', $data);
-
-
+                \Log::info('Data sebelum prosedur:', [
+                    'cashier_id' => $data['cashier_id'],
+                    'customer_id' => $data['customer_id'],
+                    'recipient_name' => $data['recipient_name'],
+                    'recipient_email' => $data['recipient_email'],
+                    'recipient_phone' => $data['recipient_phone'],
+                    'recipient_address' => $recipientAddress,
+                    'recipient_bank' => $recipientBank,
+                    'payment_method' => $data['payment_method'],
+                    'cart_json' => $cartJson
+                ]);
+    
                 // Panggil prosedur MySQL
-                DB::statement('CALL insertInvoiceProcedurecashier1(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-                    $data['cashier_id'],            // ID kasir
-                    $data['customer_id'] ?? null,   // ID pelanggan (bisa NULL)
-                    $data['recipient_name'],        // Recipient Name
-                    $data['recipient_email'],       // Email
-                    $data['recipient_phone'],       // Phone
-                    $recipientAddress,              // Address (dengan nilai default jika kosong)
-                    $recipientBank,                 // Bank penerima
-                    $data['payment_method'],        // Payment Method
-                    $cartJson                       // Cart in JSON format
+                DB::statement('CALL insertInvoiceProcedurecashier5(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+                    $data['cashier_id'],                 // ID kasir
+                    $data['customer_id'] ?? null,        // ID pelanggan (opsional)
+                    $data['recipient_name'],             // Nama penerima
+                    $data['recipient_email'],            // Email penerima
+                    $data['recipient_phone'],            // Nomor telepon penerima
+                    $recipientAddress,                   // Alamat penerima
+                    $recipientBank,                      // Bank penerima
+                    $data['payment_method'],             // Metode pembayaran
+                    $cartJson                            // Data keranjang dalam JSON
                 ]);
             });
-
+    
             // Debug setelah transaksi selesai
             \Log::info('Transaksi selesai, invoice berhasil diproses');
-
+    
             return response()->json(['message' => 'Invoice processed successfully']);
         } catch (\Throwable $e) {
             // Tangkap error dan log
@@ -234,10 +257,12 @@ class CashierController extends Controller
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
-
+    
             return response()->json(['error' => 'Something went wrong'], 500);
         }
     }
+    
+    
 
     public function process(Request $request)
     {

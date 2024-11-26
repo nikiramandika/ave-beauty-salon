@@ -57,7 +57,7 @@
         function updateCountdown() {
             const now = new Date();
             const timeRemaining = orderDate.getTime() + 24 * 60 * 60 * 1000 - now
-        .getTime(); // Tambah 24 jam ke order_date
+                .getTime(); // Tambah 24 jam ke order_date
 
             if (timeRemaining > 0) {
                 const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
@@ -75,3 +75,12 @@
         updateCountdown(); // Panggil langsung agar tidak menunggu 1 detik pertama
     });
 </script>
+@livewireScripts
+<script>
+    // Mendengarkan event 'paymentUploaded' dari Livewire
+    Livewire.on('paymentUploaded', invoiceId => {
+        // Redirect ke halaman success setelah file berhasil diupload
+        window.location.href = `/success/${invoiceId}`;
+    });
+</script>
+
