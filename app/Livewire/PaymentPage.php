@@ -59,7 +59,7 @@ class PaymentPage extends Component
             session()->flash('success', 'Proof of payment uploaded successfully!');
 
             // Emit event untuk redirect setelah 3 detik
-            $this->dispatch('redirectAfterDelay');
+            $this->dispatch('paymentUploaded', $invoice->selling_invoice_id); // Emit event untuk redirect ke halaman success
         } catch (\Exception $e) {
             // Tangani error jika terjadi
             session()->flash('error', 'An error occurred while uploading the proof of payment: ' . $e->getMessage());
