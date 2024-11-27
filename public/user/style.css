@@ -50,6 +50,13 @@ body {
     background-color: #fdeef4;
 }
 
+.fc-heading {
+    color: var(--heading-color)!important;
+}
+
+.fs-roboto {
+    font-style: var(--bs-body-font-family)!important;
+}
 html {
     scroll-behavior: smooth;
 }

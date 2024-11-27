@@ -66,6 +66,13 @@ Route::get('/user.pages.home', function () {
 Route::get('/verification', function () {
     return view('user.pages.verif-email');
 });
+Route::get('/edit-profile', function () {
+    return view('user.pages.edit-profile');
+});
+Route::get('/order-detail', function () {
+    return view('user.pages.order-detail');
+});
+
 
 
 // User Livewire
@@ -88,6 +95,7 @@ Route::get('/my-orders', HistoryOrderPage::class)->name('historyOrder');
 Route::get('/course-history', HistoryCoursePage::class)->name('course.history');
 
 // Route::get('/success', SuccessPage::class);
+
 
 
 
