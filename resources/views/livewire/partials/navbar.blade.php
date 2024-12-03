@@ -34,6 +34,13 @@
                 <path fill="currentColor"
                     d="M7 4h-2a1 1 0 1 0 0 2h2l1.6 7.6a1 1 0 0 0 .98.8h8.17a1 1 0 0 0 .98-.8l1.5-6.4H6.42L7 4zm0 2h10.35l-1.2 5.1H9.62L7 6zm10.42 11a2 2 0 1 1-3.42 1.42a2 2 0 0 1 3.42-1.42zm-10 0a2 2 0 1 1-3.42 1.42a2 2 0 0 1 3.42-1.42z" />
             </symbol>
+            <symbol xmlns="http://www.w3.org/2000/svg" id="person" viewBox="0 0 24 24">
+                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 8c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z" />
+                    <path d="M6 16c0-1.333 2.667-2 6-2s6 .667 6 2" />
+                </g>
+            </symbol>
         </defs>
     </svg>
 
@@ -96,6 +103,41 @@
         });
     </script>
 
+@livewire('profile')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const cartIcon = document.getElementById('cartIcon');
+    const closeCartButton = document.querySelector('[data-bs-dismiss="offcanvas"]');
+    const backdrop = document.createElement('div');
+    backdrop.className = 'manual-backdrop';
+    backdrop.id = 'manualBackdrop';
+    document.body.appendChild(backdrop);
+
+    cartIcon.addEventListener('click', function () {
+        backdrop.classList.add('show');
+    });
+
+    closeCartButton.addEventListener('click', function () {
+        const backdropElement = document.getElementById('manualBackdrop');
+        if (backdropElement) {
+            backdropElement.remove();
+        }
+    });
+
+    document.querySelectorAll('[wire\\:click*="removeFromCart"]').forEach(button => {
+        button.addEventListener('click', function () {
+            setTimeout(() => {
+                const backdropElement = document.getElementById('manualBackdrop');
+                if (!backdropElement) {
+                    document.body.appendChild(backdrop);
+                    backdrop.classList.add('show');
+                }
+            }, 100);
+        });
+    });
+});
+</script>
+
     <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center fixed-top">
         <div class="container-fluid">
             <div class="row justify-content-between align-items-center w-100">
@@ -146,28 +188,6 @@
 
                 <div class="col-3 col-lg-auto">
                     <ul class="list-unstyled d-flex m-0 justify-content-end">
-                        <li class="d-none d-lg-block position-relative me-3 border-animation-left">
-                            @auth
-
-                                <!-- Tombol Logout -->
-                                <form method="POST" action="{{ route('logout') }}" class="d-inline">
-                                    @csrf
-                                    <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); this.closest('form').submit();"
-                                        class="mx-0 item-anchor">
-                                        Log Out
-                                    </a>
-                                </form>
-                            @endauth
-
-                            <!-- Menampilkan login dan register jika belum login -->
-                            @guest
-                                <a href="/login" class="mx-0 item-anchor">login</a>
-                                <a>/</a>
-                                <a href="/register" class="mx-0 item-anchor">register</a>
-                            @endguest
-                        </li>
-
                         <!-- Icon Keranjang di Navbar -->
                         <li class="d-none d-lg-block position-relative me-3">
                             <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" id="cartIcon">
@@ -182,13 +202,27 @@
                         @endauth
                             </a>
                         </li>
-
                         <li class="search-box" class="mx-2">
                             <a href="#search" class="search-button">
                                 <svg width="24" height="24" viewBox="0 0 24 24">
                                     <use xlink:href="#search"></use>
                                 </svg>
                             </a>
+                        </li>
+                        <li class="d-none d-lg-block position-relative me-3 border-animation-left">
+                            @auth
+                            <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasProfile">
+                                <svg width="24" height="24" viewBox="0 0 24 24">
+                                    <use xlink:href="#person"></use>
+                                </svg>
+                            </a>
+                    @endauth
+                            <!-- Menampilkan login dan register jika belum login -->
+                            @guest
+                                <a href="/login" class="mx-0 item-anchor">login</a>
+                                <a>/</a>
+                                <a href="/register" class="mx-0 item-anchor">register</a>
+                            @endguest
                         </li>
                     </ul>
                 </div>
@@ -198,3 +232,4 @@
         </div>
     </nav>
 </div>
+

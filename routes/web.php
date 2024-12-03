@@ -163,7 +163,7 @@ Route::middleware(['role:Admin'])->group(function () {
     Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
     //owner-treatment
-    Route::get('/treatments-owner', [TreatmentController::class, 'index'])->name('treatments.index');
+    Route::get('/trexatments-owner', [TreatmentController::class, 'index'])->name('treatments.index');
     // Route untuk menampilkan form create treatments
     Route::get('/treatments-owner/create', [TreatmentController::class, 'create'])->name('treatments.create');
     // Route untuk menyimpan treatments
