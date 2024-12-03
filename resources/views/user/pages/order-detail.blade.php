@@ -16,7 +16,7 @@
                       <div>
                         <h4 class="mb-1">Order #no</h4>
                         <div class="d-flex align-items-center mb-2 fc-heading">
-                          <small>Order Date: October 03,2023 at 6:31 pm</small>
+                          <small>Order Date: Octobesr 03,2023 at 6:31 pm</small>
                         </div>
                       </div>
                       <div><span class="fs-6 badge bg-warning rounded-pill p-2 px-3" style="color: white">On Process</span>

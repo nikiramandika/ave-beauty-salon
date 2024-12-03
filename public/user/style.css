@@ -175,7 +175,7 @@ h6,
 }
 
 .btn-primary {
-    background-color: var(--accent);
+    background-color: var(--accent)!important;
 }
 
 .item-anchor:hover {
