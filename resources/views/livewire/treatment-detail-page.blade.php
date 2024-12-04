@@ -8,7 +8,7 @@
                 </div>
                 <div class="treatment-info">
                     <h1 class="treatment-title">{{ $treatment->treatment_name }}</h1>
-                    <p class="treatment-price">Rp{{ number_format($treatment->price, 0, ',', '.') }}</p>
+                    <p class="treatment-price">{{ $treatment->price ? 'Rp' . number_format($treatment->price, 0, ',', '.') : 'Variable price' }}</p>
                     <p class="treatment-duration">
                         Duration: <span>{{ $treatment->description->duration }}</span> minutes
                     </p>

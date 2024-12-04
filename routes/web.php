@@ -16,6 +16,7 @@ use App\Livewire\CheckoutPage;
 use App\Livewire\CourseDetailPage;
 use App\Livewire\CoursePage;
 use App\Livewire\HistoryCoursePage;
+use App\Livewire\HistoryOrderDetailPage;
 use App\Livewire\HistoryOrderPage;
 use App\Livewire\HomePage;
 use App\Livewire\PaymentPage;
@@ -51,6 +52,7 @@ Route::middleware(['role:Cashier'])->group(function () {
     Route::delete('/members/{member}', [CashierController::class, 'destroyMember'])->name('members.destroy');
 
     Route::post('/update-order-status', [CashierController::class, 'updateOrderStatus'])->name('updateOrderStatus');
+    Route::post('/update-refund-status', [CashierController::class, 'updateRefundStatus'])->name('updateRefundStatus');
     Route::post('/refunds/{refund}/upload', [CashierController::class, 'uploadAdminFile'])->name('refunds.upload');
     Route::post('/process-invoice-cashier', [CashierController::class, 'processInvoiceCashier']);
 
@@ -92,6 +94,8 @@ Route::get('/payment/{invoiceId}', PaymentPage::class)->name('payment.upload');
 Route::get('/checkoutCourse/{course_slug}', CheckoutCourse::class)->name('checkoutCourse');
 Route::get('/success/{invoiceId}', SuccessPage::class)->name('success');
 Route::get('/my-orders', HistoryOrderPage::class)->name('historyOrder');
+Route::get('/my-orders/{invoiceId}', HistoryOrderDetailPage::class)->name('detailInvoice');
+
 Route::get('/course-history', HistoryCoursePage::class)->name('course.history');
 
 // Route::get('/success', SuccessPage::class);
@@ -163,7 +167,7 @@ Route::middleware(['role:Admin'])->group(function () {
     Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
     //owner-treatment
-    Route::get('/trexatments-owner', [TreatmentController::class, 'index'])->name('treatments.index');
+    Route::get('/treatments-owner', [TreatmentController::class, 'index'])->name('treatments.index');
     // Route untuk menampilkan form create treatments
     Route::get('/treatments-owner/create', [TreatmentController::class, 'create'])->name('treatments.create');
     // Route untuk menyimpan treatments

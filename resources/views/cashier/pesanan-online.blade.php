@@ -96,28 +96,30 @@
                                                 <div>
                                                     @if ($invoice->order_status == 'Pending')
                                                         <button
-                                                            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                                                            class="bg-blue-600 text-white px-4 py-2 mb-2 rounded-md hover:bg-blue-700 w-full"
                                                             onclick="changeOrderStatus('{{ $invoice->selling_invoice_id }}', 'On Process')">
                                                             On Process
                                                         </button>
                                                         <button
-                                                            class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
-                                                            onclick="changeOrderStatus('{{ $invoice->selling_invoice_id }}', 'Cancelled')">
+                                                            class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 w-full"
+                                                            onclick="openCancelModal('{{ $invoice->selling_invoice_id }}')">
                                                             Cancelled
                                                         </button>
                                                     @elseif ($invoice->order_status == 'On Process')
                                                         <button
-                                                            class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+                                                            class="bg-green-600 text-white px-4 py-2 mb-2 rounded-md hover:bg-green-700 w-full"
                                                             onclick="changeOrderStatus('{{ $invoice->selling_invoice_id }}', 'Pesanan Dikirim')">
                                                             Pesanan Dikirim
                                                         </button>
                                                         <button
-                                                            class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
-                                                            onclick="changeOrderStatus('{{ $invoice->selling_invoice_id }}', 'Cancelled')">
+                                                            class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 w-full"
+                                                            onclick="openCancelModal('{{ $invoice->selling_invoice_id }}')">
                                                             Cancelled
                                                         </button>
                                                     @elseif ($invoice->order_status == 'Pesanan Dikirim')
                                                         <span class="text-gray-500">Menunggu pesanan diterima</span>
+                                                        @elseif ($invoice->order_status == 'Complete')
+                                                        <span class="text-gray-500">Pesanan diterima</span>
                                                     @endif
                                                 </div>
                                             </td>
@@ -136,7 +138,7 @@
                     </div>
                 </div>
 
-                <!-- Tabel Baru untuk Pesanan Cancelled -->
+                {{-- <!-- Tabel Baru untuk Pesanan Cancelled -->
                 <h1 class="text-2xl font-bold mb-6">Pesanan Cancelled</h1>
                 <div class="bg-white rounded-xl shadow-md p-6">
                     <div class="overflow-x-auto">
@@ -177,7 +179,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <div class="container mx-auto p-6">
@@ -195,6 +197,8 @@
                                     <th class="text-left p-4 font-semibold text-sm text-gray-600">Status Refund</th>
                                     <th class="text-left p-4 font-semibold text-sm text-gray-600">Alasan Refund</th>
                                     <th class="text-left p-4 font-semibold text-sm text-gray-600">File User Refund</th>
+                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">File Admin Refund</th>
+                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Aksi</th>
                                     <th class="text-left p-4 font-semibold text-sm text-gray-600">File Admin Refund</th>
                                 </tr>
                             </thead>
@@ -214,28 +218,59 @@
 
                                         <!-- Data Refund -->
                                         <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                            {{ $refund->refund->refund_status ?? 'N/A' }}
+                                            {{ $refund->refunds->refund_status ?? 'N/A' }}
                                         </td>
                                         <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                            {{ $refund->refund->refund_reason ?? 'N/A' }}
+                                            {{ $refund->refunds->refund_reason ?? 'N/A' }}
                                         </td>
                                         <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                            @if ($refund->refund && $refund->refund->user_refund_file)
-                                                <a href="{{ asset('storage/' . $refund->refund->user_refund_file) }}"
+                                            @if ($refund->refunds && $refund->refunds->user_refund_file)
+                                                <a href="{{ asset('storage/' . $refund->refunds->user_refund_file) }}"
                                                     class="text-blue-600 underline" target="_blank">Lihat File</a>
                                             @else
                                                 N/A
                                             @endif
                                         </td>
                                         <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                            @if ($refund->refund && $refund->refund->user_refund_file)
-                                                <a href="{{ asset('storage/' . $refund->refund->user_refund_file) }}"
+                                            @if ($refund->refunds->admin_refund_file)
+                                                <a href="{{ asset('storage/' . $refund->refunds->admin_refund_file) }}"
                                                     class="text-blue-600 underline" target="_blank">Lihat File</a>
                                             @else
                                                 N/A
                                             @endif
+                                        </td>
+                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <div>
+                                                @if ($refund->refunds->refund_status == 'Pending')
+                                                    <button
+                                                        class="bg-blue-600 text-white px-4 py-2 mb-2 rounded-md hover:bg-blue-700 w-full"
+                                                        onclick="changeRefundStatus('{{ $refund->refund_id }}', 'Refund on Process')">
+                                                        Accepted
+                                                    </button>
+                                                    <button
+                                                        class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 w-full"
+                                                        onclick="changeRefundStatus('{{ $refund->refund_id }}', 'Cancelled')">
+                                                        Cancelled
+                                                    </button>
+                                                @elseif ($refund->refunds->refund_status == 'Refund on Process')
+                                                    <button
+                                                        class="bg-green-600 text-white px-4 py-2 mb-2 rounded-md hover:bg-green-700 w-full"
+                                                        onclick="changeRefundStatus('{{ $refund->refund_id }}', 'Refund Success')">
+                                                        Refund Success
+                                                    </button>
+                                                    <button
+                                                        class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 w-full"
+                                                        onclick="changeRefundStatus('{{ $refund->refund_id }}', 'Cancelled')">
+                                                        Cancelled
+                                                    </button>
+                                                @elseif ($refund->refunds->refund_status == 'Refund Success')
+                                                    <span class="text-gray-500">Refund Success</span>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
 
-                                            <!-- Form Upload File untuk Admin -->
+
                                             <form action="{{ route('refunds.upload', $refund->refunds->refund_id) }}"
                                                 method="POST" enctype="multipart/form-data" class="mt-2">
                                                 @csrf
@@ -246,6 +281,7 @@
                                                     Upload Bukti
                                                 </button>
                                             </form>
+
                                         </td>
 
                                     </tr>
@@ -259,6 +295,43 @@
     </div>
 
 </body>
+<!-- Modal Bukti Pembayaran -->
+
+<!-- Modal untuk Alasan dan Bukti Pengembalian -->
+<div id="cancelModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg w-1/3">
+        <h3 class="text-xl mb-4">Alasan Pembatalan dan Bukti Pengembalian</h3>
+
+        <!-- Form -->
+        <form action="{{ route('updateOrderStatus') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" id="invoiceId" name="invoice_id">
+            <input type="hidden" name="order_status" value="Refund">
+
+            <div class="mb-4">
+                <label for="refundReason" class="block text-sm font-medium text-gray-700">Alasan Pembatalan</label>
+                <textarea id="refundReason" name="refundReason" rows="4" class="w-full border-gray-300 rounded-md" required></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="refundFile" class="block text-sm font-medium text-gray-700">Bukti Pengembalian
+                    Pembayaran</label>
+                <input type="file" id="refundFile" name="refundFile" class="w-full border-gray-300 rounded-md"
+                    required>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">Kirim
+                    Refund</button>
+                <button type="button" onclick="closeCancelModal()"
+                    class="ml-2 bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">Tutup</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
 <!-- Modal Bukti Pembayaran -->
 <div id="paymentProofModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
     <div class="bg-white rounded-xl shadow-md w-96 p-6">
@@ -304,7 +377,19 @@
         </div>
     </div>
 </div>
+<script>
+    function openCancelModal(invoiceId) {
+        // Set ID faktur di form
+        document.getElementById('invoiceId').value = invoiceId;
 
+        // Tampilkan modal cancel
+        document.getElementById('cancelModal').classList.remove('hidden');
+    }
+
+    function closeCancelModal() {
+        document.getElementById('cancelModal').classList.add('hidden');
+    }
+</script>
 <!-- DataTable -->
 <script>
     $('#example').DataTable({
@@ -380,8 +465,10 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('Terjadi kesalahan saat memperbarui status.');
+                    // console.error('Error:', error);
+                    // alert('Terjadi kesalahan saat memperbarui status.');
+                    // Perbarui tampilan UI (reload halaman atau ubah status di tabel)
+                    location.reload();
                 });
 
             // Tutup modal konfirmasi
@@ -499,4 +586,49 @@
 
     // Terapkan warna saat halaman dimuat
     document.querySelectorAll('select').forEach(select => updateColor(select));
+
+    function changeRefundStatus(refundId, status) {
+        // Tampilkan modal konfirmasi
+        document.getElementById('selectedStatusText').textContent = status;
+        document.getElementById('confirmationModal').classList.remove('hidden');
+
+        // Tambahkan event listener pada tombol konfirmasi
+        document.getElementById('confirmButton').onclick = function() {
+            // Kirim permintaan ke server untuk memperbarui status refund
+            fetch('{{ route('updateRefundStatus') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content'),
+                    },
+                    body: JSON.stringify({
+                        refund_id: refundId,
+                        refund_status: status,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Perbarui tampilan UI (reload halaman atau ubah status di tabel)
+                        location.reload();
+                    } else {
+                        // Tampilkan pesan error yang lebih spesifik
+                        alert('Gagal memperbarui status refund: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan saat memperbarui status refund.');
+                });
+
+            // Tutup modal konfirmasi
+            document.getElementById('confirmationModal').classList.add('hidden');
+        };
+
+        // Batalkan perubahan status
+        document.getElementById('cancelButton').onclick = function() {
+            document.getElementById('confirmationModal').classList.add('hidden');
+        };
+    }
 </script>

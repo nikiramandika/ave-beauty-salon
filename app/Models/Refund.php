@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Refund extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'refund_id'; // Gantilah dengan nama kolom yang sesuai
+
 
     protected $fillable = [
         'refund_id',

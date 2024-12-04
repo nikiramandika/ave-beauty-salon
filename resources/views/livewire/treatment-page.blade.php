@@ -7,7 +7,9 @@
                         <div class="image-holder">
                             <a href="{{ url('treatment/' . $treatment->treatment_slug) }}">
                                 <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}"
-                                    alt="{{ $treatment->treatment_name }}" class="bd-placeholder-img card-img-top product-image img-fluid" width="100%" style="aspect-ratio: 1 / 1;">
+                                    alt="{{ $treatment->treatment_name }}"
+                                    class="bd-placeholder-img card-img-top product-image img-fluid" width="100%"
+                                    style="aspect-ratio: 1 / 1;">
                             </a>
                             <div class="treatment-content">
                                 <h5 class="text-uppercase fs-5 mt-3">
@@ -15,7 +17,9 @@
                                         href="{{ url('treatment/' . $treatment->treatment_slug) }}">{{ $treatment->treatment_name }}</a>
                                 </h5>
                                 <a href="#" class="text-decoration-none" data-after="View Details">
-                                    <span>Rp{{ number_format($treatment->price, 0, ',', '.') }}</span>
+                                    <span>
+                                        {{$treatment->price ? 'Rp' . number_format($treatment->price, 0, ',', '.') : 'Variable price' }}
+                                    </span>
                                 </a>
                             </div>
                         </div>

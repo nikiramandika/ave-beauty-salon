@@ -37,14 +37,16 @@
                     </li>
                     <li>
                         <div class="dropdown-divider my-1"></div>
+                        <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                            @csrf
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); this.closest('form').submit();"
+                                    class=" dropdown-item mx-0 item-anchor">
+                                    Log Out
+                                </a>
+                        </form>
                     </li>
-                        <a class="dropdown-item" href="javascript:void(0);">
-                            <i class="bx bx-power-off bx-md me-3"></i><span>Log Out</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
-            <!--/ User -->
         </ul>
     </div>
 </nav>

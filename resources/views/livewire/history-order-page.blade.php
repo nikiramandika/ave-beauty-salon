@@ -32,9 +32,17 @@
                     <td>{{ $invoice->recipient_name }}</td>
                     <td>
                         @foreach ($invoice->details as $detail)
-                            <p>{{ $detail->product_name }} ({{ $detail->quantity }} x
-                                Rp{{ number_format($detail->price, 0, ',', '.') }})</p>
+                            @if (isset($detail->product_name))
+                                <p>{{ $detail->product_name }} ({{ $detail->quantity }} x
+                                    Rp{{ number_format($detail->price, 0, ',', '.') }})</p>
+                            @elseif (isset($detail->treatment_name))
+                                @foreach ($invoice->details as $detail)
+                                    <p>{{ $detail->treatment_name }} ({{ $detail->quantity }} x
+                                        Rp{{ number_format($detail->price, 0, ',', '.') }})</p>
+                                @endforeach
+                            @endif
                         @endforeach
+
                     </td>
                     <td>
                         @php
@@ -46,12 +54,12 @@
                     </td>
                     <td>{{ ucfirst($invoice->order_status) }}</td>
                     <td>
-                        @if ($invoice->address !== 'Pesanan Offline' && empty($invoice->recipient_file))
+                        @if ($invoice->recipient_address !== 'Pesanan Offline' && empty($invoice->recipient_file))
                             <a href="{{ route('payment.upload', $invoice->selling_invoice_id) }}"
                                 class="btn btn-success">Pay Now</a>
                         @else
-                            {{-- {{ route('invoice.show', $invoice->id) }} --}}
-                            <a href="" class="btn btn-info">View</a>
+                            <a href="{{ route('detailInvoice', $invoice->selling_invoice_id) }}"
+                                class="btn btn-info">View</a>
                         @endif
                     </td>
                 </tr>

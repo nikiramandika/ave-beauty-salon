@@ -29,10 +29,12 @@ class HistoryOrderPage extends Component
             $query->where(function ($query) {
                 $query->where('invoice_code', 'like', '%' . $this->search . '%')
                     ->orWhereHas('details', function ($query) {
-                        $query->where('product_name', 'like', '%' . $this->search . '%');
+                        $query->where('product_name', 'like', '%' . $this->search . '%')
+                              ->orWhere('treatment_name', 'like', '%' . $this->search . '%'); // Perbaikan di sini
                     });
             });
         }
+        
 
         // First, add a condition to prioritize invoices where recipient_address is not "Pesanan Offline" 
         // or recipient_file is not null
