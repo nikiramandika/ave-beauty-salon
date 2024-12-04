@@ -1,6 +1,13 @@
 <div class="container">
     <h1>Your Course History</h1>
 
+    @if ($courses->isEmpty())
+    <div class="text-center my-5">
+        <p>You don't have any course history yet</p>
+        <a href="/course" class="btn btn-outline-primary">View Course</a>
+    </div>
+    @else
+
     <!-- Form Pencarian -->
     <form wire:submit.prevent="render">
         <div class="input-group mb-3">
@@ -44,4 +51,5 @@
     <div class="d-flex justify-content-center">
         {{ $courses->links('pagination::bootstrap-4') }}
     </div>
+@endif
 </div>

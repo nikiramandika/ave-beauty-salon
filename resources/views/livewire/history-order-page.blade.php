@@ -1,6 +1,13 @@
 <div class="container">
     <h1>Your Order History</h1>
 
+    @if ($invoices->isEmpty())
+        <div class="text-center my-5">
+            <p>You don't have any order history yet</p>
+            <a href="/products" class="btn btn-outline-primary">Shop Product</a>
+        </div>
+    @else
+
     <!-- Form Pencarian -->
     <form wire:submit.prevent="submitSearch">
         <div class="input-group mb-3">
@@ -71,5 +78,5 @@
     <div class="d-flex justify-content-center">
         {{ $invoices->links('pagination::bootstrap-4') }}
     </div>
-
+@endif
 </div>

@@ -16,13 +16,13 @@
                     <ul class="list-group">
                         @foreach ($cartItems as $item)
                             <li class="list-group-item d-flex align-items-center border-bottom py-3">
-                                <div style="width: 40%;">
+                                <div style="width: 35%;">
                                     <h6 class="my-0 fw-bold text-truncate" style="max-width: 150px;">
                                         {{ $item->product->product_name ?? 'Produk tidak ditemukan' }}
                                     </h6>
                                     <small class="text-muted">Ukuran: {{ $item->productDetail->size ?? '-' }}</small>
                                 </div>
-                                <div style="width: 20%;" class="d-flex align-items-center">
+                                <div style="width: 25%;" class="d-flex align-items-center">
                                     <button class="btn btn-sm btn-outline-secondary me-2"
                                         wire:click.prevent="decreaseQuantity({{ $item->cart_item_id }})">-</button>
                                     <span class="text-center">{{ $item->quantity }}</span>
@@ -48,12 +48,14 @@
                     </div>
                 @endif
             </div>
+            @if ($cartItems->isNotEmpty())
             <div class="mt-4">
                 <a href="{{ route('checkout') }}"
                     class="btn btn-primary w-100 {{ $cartItems->isNotEmpty() ? '' : 'disabled' }}">
                     Checkout
                 </a>
             </div>
+            @endif
         @else
             <div class="text-center py-5">
                 <p>Please <a href="/login" class="text-decoration-none">login</a> to view your cart.</p>
