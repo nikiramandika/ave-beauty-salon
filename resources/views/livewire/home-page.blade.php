@@ -233,7 +233,7 @@
                 <div class="insta-item">
                     <a href="https://www.instagram.com/ave.beautysalon?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                         target="_blank">
-                        <img src="user/images/insta-item1.jpg" alt="instagram" class="insta-image img-fluid">
+                        <img src="user/images/instagram1.jpg" alt="instagram" class="insta-image img-fluid">
                     </a>
                 </div>
             </div>
@@ -241,7 +241,7 @@
                 <div class="insta-item">
                     <a href="https://www.instagram.com/ave.beautysalon?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                         target="_blank">
-                        <img src="user/images/insta-item2.jpg" alt="instagram" class="insta-image img-fluid">
+                        <img src="user/images/instagram2.jpg" alt="instagram" class="insta-image img-fluid">
                     </a>
                 </div>
             </div>
@@ -249,7 +249,7 @@
                 <div class="insta-item">
                     <a href="https://www.instagram.com/ave.beautysalon?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                         target="_blank">
-                        <img src="user/images/insta-item3.jpg" alt="instagram" class="insta-image img-fluid">
+                        <img src="user/images/instagram3.jpg" alt="instagram" class="insta-image img-fluid">
                     </a>
                 </div>
             </div>
@@ -257,7 +257,7 @@
                 <div class="insta-item">
                     <a href="https://www.instagram.com/ave.beautysalon?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                         target="_blank">
-                        <img src="user/images/insta-item4.jpg" alt="instagram" class="insta-image img-fluid">
+                        <img src="user/images/instagram4.jpg" alt="instagram" class="insta-image img-fluid">
                     </a>
                 </div>
             </div>
@@ -265,7 +265,7 @@
                 <div class="insta-item">
                     <a href="https://www.instagram.com/ave.beautysalon?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                         target="_blank">
-                        <img src="user/images/insta-item5.jpg" alt="instagram" class="insta-image img-fluid">
+                        <img src="user/images/instagram5.jpg" alt="instagram" class="insta-image img-fluid">
                     </a>
                 </div>
             </div>
@@ -273,7 +273,7 @@
                 <div class="insta-item">
                     <a href="https://www.instagram.com/ave.beautysalon?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                         target="_blank">
-                        <img src="user/images/insta-item6.jpg" alt="instagram" class="insta-image img-fluid">
+                        <img src="user/images/instagram6.jpg" alt="instagram" class="insta-image img-fluid">
                     </a>
                 </div>
             </div>
