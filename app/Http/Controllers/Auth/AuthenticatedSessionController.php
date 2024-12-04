@@ -37,6 +37,8 @@ class AuthenticatedSessionController extends Controller
                 return redirect()->intended('/dashboard-owner');  // Jika pengguna adalah Admin
             } elseif (Auth::user()->role === 'Cashier') {
                 return redirect()->intended('/cashiers');  // Jika pengguna adalah Cashier
+            } elseif (Auth::user()->role === 'User') {
+                return redirect()->intended('/');  // Jika pengguna adalah User atau peran lain
             } else {
                 return redirect()->intended('/');  // Jika pengguna adalah User atau peran lain
             }

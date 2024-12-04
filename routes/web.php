@@ -76,30 +76,30 @@ Route::get('/order-detail', function () {
 });
 
 
-
-// User Livewire
 Route::get('/', HomePage::class)->name('home');
 Route::get('/products', ProductPage::class);
-Route::get('/products/{product_slug}', ProductDetailPage::class);
 Route::get('/treatment', TreatmentPage::class);
-Route::get('/treatment/{treatment_slug}', TreatmentDetailPage::class);
 Route::get('/promo', PromoPage::class);
-Route::get('/promo/{promo_slug}', PromoDetailPage::class);
 Route::get('/course', CoursePage::class);
-Route::get('/course/{course_slug}', CourseDetailPage::class);
 Route::get('/about', AboutPage::class);
 Route::get('/search', SearchPage::class)->name('search');
-Route::get('/checkout', CheckoutPage::class)->name('checkout');
-Route::get('/payment/{invoiceId}', PaymentPage::class)->name('payment.upload');
-Route::get('/checkoutCourse/{course_slug}', CheckoutCourse::class)->name('checkoutCourse');
-Route::get('/success/{invoiceId}', SuccessPage::class)->name('success');
-Route::get('/my-orders', HistoryOrderPage::class)->name('historyOrder');
-Route::get('/my-orders/{invoiceId}', HistoryOrderDetailPage::class)->name('detailInvoice');
 
-Route::get('/course-history', HistoryCoursePage::class)->name('course.history');
+// User Livewire
+Route::middleware(['role:User', 'verified'])->group(function () {
 
-// Route::get('/success', SuccessPage::class);
-
+    Route::get('/products/{product_slug}', ProductDetailPage::class);
+    Route::get('/treatment/{treatment_slug}', TreatmentDetailPage::class);
+    Route::get('/promo/{promo_slug}', PromoDetailPage::class);
+    Route::get('/course/{course_slug}', CourseDetailPage::class);
+    Route::get('/checkout', CheckoutPage::class)->name('checkout');
+    Route::get('/payment/{invoiceId}', PaymentPage::class)->name('payment.upload');
+    Route::get('/checkoutCourse/{course_slug}', CheckoutCourse::class)->name('checkoutCourse');
+    Route::get('/success/{invoiceId}', SuccessPage::class)->name('success');
+    Route::get('/my-orders', HistoryOrderPage::class)->name('historyOrder');
+    Route::get('/my-orders/{invoiceId}', HistoryOrderDetailPage::class)->name('detailInvoice');
+    Route::get('/course-history', HistoryCoursePage::class)->name('course.history');
+    // Route::get('/success', SuccessPage::class);
+});
 
 
 
