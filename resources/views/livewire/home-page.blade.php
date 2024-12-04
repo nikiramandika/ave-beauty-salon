@@ -70,7 +70,7 @@
                                 </a>
                             </div>
                             <div class="category-content">
-                                <div class="product-button">
+                                <div class="product-button" style="margin-left: 12px;">
                                     <a class="nav-link" href="/products">Shop Product</a>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                 </a>
                             </div>
                             <div class="category-content">
-                                <div class="product-button">
+                                <div class="product-button" style="margin-left: 2px;">
                                     <a href="/treatment" class="btn btn-common text-uppercase">Treatment Details</a>
                                 </div>
                             </div>
@@ -121,7 +121,7 @@
                 <div class="title-xlarge text-uppercase txt-fx domino">Collection</div>
                 <div class="collection-item d-flex flex-wrap my-5">
                     <div class="col-md-6 column-container">
-                        <div class="image-holder">
+                        <div class="image-holderr">
                             <img src="user/images/salon-essentials.jpg" alt="collection" class="product-image img-fluid">
                         </div>
                     </div>
