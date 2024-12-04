@@ -12,6 +12,10 @@ class HistoryCoursePage extends Component
     use WithPagination;
 
     public $search = ''; // Untuk menyimpan input pencarian
+    public function submitSearch()
+    {
+        $this->resetPage(); // Reset pagination saat pencarian dimulai
+    }
 
     public function render()
     {
@@ -25,8 +29,13 @@ class HistoryCoursePage extends Component
             })
             ->paginate(10);
 
+        // Cek apakah hasil query kosong dan tambahkan pesan jika kosong
+        $message = $courses->isEmpty() ? "Pesan yang Anda cari tidak ada." : null;
+
         return view('livewire.history-course-page', [
             'courses' => $courses,
+            'message' => $message, // Kirim pesan ke view
         ]);
     }
 }
+

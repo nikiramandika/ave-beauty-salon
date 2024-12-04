@@ -196,6 +196,7 @@
                             <div class="col-6">
                                 <label for="startDate" class="form-label">Start Date</label>
                                 <input type="date" class="form-control" id="startDate" wire:model="startDate"
+                                min="{{ date('Y-m-d') }}"
                                     required>
                                 @error('startDate')
                                     <span class="text-danger">{{ $message }}</span>
