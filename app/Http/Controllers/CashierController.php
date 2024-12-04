@@ -245,23 +245,23 @@ class CashierController extends Controller
 
             // Validasi input
             $data = $request->validate([
-                'cashier_id' => 'required',               // ID kasir (wajib)
-                'customer_id' => 'nullable',              // ID pelanggan (opsional)
-                'recipient_name' => 'nullable',           // Nama penerima (opsional)
-                'recipient_email' => 'nullable|email',    // Email (opsional)
-                'recipient_phone' => 'nullable',          // Nomor telepon (opsional)
-                'recipient_address' => 'nullable|string', // Alamat (opsional)
-                'payment_method' => 'required|string',    // Metode pembayaran (wajib)
-                'recipient_bank' => 'nullable|string',    // Bank penerima (opsional)
-                'cart' => 'required|array',               // Data keranjang (wajib)
-                'cart.*.detailId' => 'nullable|integer',  // ID detail produk
-                'cart.*.name' => 'required|string',       // Nama produk harus ada
-                'cart.*.price' => 'required|numeric',     // Harga produk harus ada
-                'cart.*.quantity' => 'required|integer',  // Kuantitas produk harus ada
-                'cart.*.size' => 'nullable|string',       // Ukuran produk (opsional)
-                'cart.*.type' => 'required|string',       // Tipe item harus ada
-                'cart.*.used_points' => 'nullable|integer', // Poin yang digunakan per item
-                'cart.*.discount_from_points' => 'nullable|numeric' // Diskon dari poin per item
+                'cashier_id' => 'required',
+                'customer_id' => 'nullable',
+                'recipient_name' => 'nullable',
+                'recipient_email' => 'nullable|email',
+                'recipient_phone' => 'nullable',
+                'recipient_address' => 'nullable|string',
+                'payment_method' => 'required|string',
+                'recipient_bank' => 'nullable|string',
+                'cart' => 'required|array',
+                'cart.*.detailId' => 'nullable|integer',
+                'cart.*.name' => 'required|string',
+                'cart.*.price' => 'required|numeric',
+                'cart.*.quantity' => 'required|integer',
+                'cart.*.size' => 'nullable|string',
+                'cart.*.type' => 'required|string',
+                'cart.*.used_points' => 'nullable|integer',
+                'cart.*.discount_from_points' => 'nullable|numeric'
             ]);
 
             // Debug data setelah validasi
@@ -273,13 +273,13 @@ class CashierController extends Controller
             DB::transaction(function () use ($data, $cartJson) {
                 // Tentukan nilai default untuk recipient_address jika kosong
                 $recipientAddress = $data['recipient_address'] ?? 'Pesanan Offline';
-
+            
                 // Tentukan recipient_bank jika metode pembayaran adalah Non-Tunai
                 $recipientBank = null;
                 if ($data['payment_method'] === 'Bank Transfer') {
                     $recipientBank = $data['recipient_bank'] ?? 'Bank Tidak Ditentukan';
                 }
-
+            
                 // Debug data sebelum memanggil prosedur
                 \Log::info('Data sebelum prosedur:', [
                     'cashier_id' => $data['cashier_id'],
@@ -292,25 +292,46 @@ class CashierController extends Controller
                     'payment_method' => $data['payment_method'],
                     'cart_json' => $cartJson
                 ]);
-
-                // Panggil prosedur MySQL
+            
+                // Panggil prosedur MySQL untuk memproses invoice
                 DB::statement('CALL insertInvoiceProcedurecashier5(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-                    $data['cashier_id'],                 // ID kasir
-                    $data['customer_id'] ?? null,        // ID pelanggan (opsional)
-                    $data['recipient_name'],             // Nama penerima
-                    $data['recipient_email'],            // Email penerima
-                    $data['recipient_phone'],            // Nomor telepon penerima
-                    $recipientAddress,                   // Alamat penerima
-                    $recipientBank,                      // Bank penerima
-                    $data['payment_method'],             // Metode pembayaran
-                    $cartJson                            // Data keranjang dalam JSON
+                    $data['cashier_id'],
+                    $data['customer_id'] ?? null,
+                    $data['recipient_name'],
+                    $data['recipient_email'],
+                    $data['recipient_phone'],
+                    $recipientAddress,
+                    $recipientBank,
+                    $data['payment_method'],
+                    $cartJson
                 ]);
+            
+// Loop untuk memanggil prosedur pengurangan stok produk
+foreach ($data['cart'] as $cartItem) {
+    if (isset($cartItem['detailId']) && isset($cartItem['quantity'])) {
+        // Call the stored procedure to update product stock
+        DB::statement('CALL update_product_stock(?, ?)', [
+            $cartItem['detailId'],    // ID produk
+            $cartItem['quantity']     // Kuantitas produk yang dibeli
+        ]);
+        
+        // Log the success with the details of the operation
+        \Log::info('Successfully updated product stock', [
+            'product_id' => $cartItem['detailId'],
+            'quantity' => $cartItem['quantity']
+        ]);
+    } else {
+        // Log a warning if detailId or quantity is missing
+        \Log::warning('Missing detailId or quantity in cart item:', $cartItem);
+    }
+}
+
             });
-
+            
             // Debug setelah transaksi selesai
-            \Log::info('Transaksi selesai, invoice berhasil diproses');
+            \Log::info('Transaksi selesai, invoice berhasil diproses dan stok produk diperbarui');
 
-            return response()->json(['message' => 'Invoice processed successfully']);
+            return response()->json(['message' => 'Invoice processed and product stock updated successfully']);
         } catch (\Throwable $e) {
             // Tangkap error dan log
             \Log::error('Error processing invoice:', [
@@ -321,6 +342,7 @@ class CashierController extends Controller
             return response()->json(['error' => 'Something went wrong'], 500);
         }
     }
+
 
 
 
