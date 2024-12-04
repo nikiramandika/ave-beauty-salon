@@ -64,14 +64,14 @@
                     <div class="col-md-4">
                         <div class="cat-item image-zoom-effect">
                             <div class="image-holder">
-                                <a href="/product">
-                                    <img src="user/images/cat-item1.jpg" alt="categories"
+                                <a href="/products">
+                                    <img src="user/images/shop-product.jpg" alt="categories"
                                         class="product-image img-fluid">
                                 </a>
                             </div>
                             <div class="category-content">
                                 <div class="product-button">
-                                    <a class="nav-link" href="/product">Shop Product</a>
+                                    <a class="nav-link" href="/products">Shop Product</a>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                         <div class="cat-item image-zoom-effect">
                             <div class="image-holder">
                                 <a href="/treatment">
-                                    <img src="user/images/cat-item2.jpg" alt="categories"
+                                    <img src="user/images/treatment-details.jpg" alt="categories"
                                         class="product-image img-fluid">
                                 </a>
                             </div>
@@ -95,7 +95,7 @@
                         <div class="cat-item image-zoom-effect">
                             <div class="image-holder">
                                 <a href="/course">
-                                    <img src="user/images/cat-item3.jpg" alt="categories"
+                                    <img src="user/images/course-details.jpg" alt="categories"
                                         class="product-image img-fluid">
                                 </a>
                             </div>
@@ -122,7 +122,7 @@
                 <div class="collection-item d-flex flex-wrap my-5">
                     <div class="col-md-6 column-container">
                         <div class="image-holder">
-                            <img src="user/images/single-image-2.jpg" alt="collection" class="product-image img-fluid">
+                            <img src="user/images/salon-essentials.jpg" alt="collection" class="product-image img-fluid">
                         </div>
                     </div>
                     <div class="col-md-6 column-container bg-white">

@@ -44,7 +44,7 @@
                 @else
                     <div id="cart-empty" class="text-center py-5">
                         <p class="fs-4 text-muted">Your cart is empty</p>
-                        <a href="/" class="btn btn-outline-primary">Start Shopping</a>
+                        <a href="/products" class="btn btn-outline-primary">Start Shopping</a>
                     </div>
                 @endif
             </div>
