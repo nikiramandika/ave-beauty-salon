@@ -27,6 +27,7 @@ class HistoryCoursePage extends Component
                 $query->where('full_course_name', 'like', '%' . $this->search . '%')
                     ->orWhere('invoice_code', 'like', '%' . $this->search . '%');
             })
+            ->select('invoice_code', 'full_course_name', 'course_price', 'total_sessions', 'registration_status', 'start_date', 'end_date', 'sessions_completed')
             ->paginate(10);
 
         // Cek apakah hasil query kosong dan tambahkan pesan jika kosong

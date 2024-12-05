@@ -204,4 +204,5 @@ class CourseController extends Controller
         return view('user.pages.course-details', compact('course'));
     }
 
+
 }

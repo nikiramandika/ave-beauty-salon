@@ -29,6 +29,7 @@
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Sessions Completed</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,6 +48,10 @@
                         <td>{{ \Carbon\Carbon::parse($course->start_date)->format('l, d F Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($course->end_date)->format('l, d F Y') }}</td>
                         <td>{{ $course->sessions_completed }}</td>
+                        <td>
+                            <a href="{{ route('detailCourse', ['invoiceCode' => $course->invoice_code]) }}" class="btn btn-info">View</a>
+                        </td>
+
                     </tr>
                 @endforeach
             </tbody>

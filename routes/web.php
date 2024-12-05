@@ -16,6 +16,7 @@ use App\Livewire\CheckoutPage;
 use App\Livewire\CourseDetailPage;
 use App\Livewire\CoursePage;
 use App\Livewire\HistoryCoursePage;
+use App\Livewire\HistoryCourseDetailPage;
 use App\Livewire\HistoryOrderDetailPage;
 use App\Livewire\HistoryOrderPage;
 use App\Livewire\HomePage;
@@ -98,6 +99,7 @@ Route::middleware(['role:User', 'verified'])->group(function () {
     Route::get('/my-orders', HistoryOrderPage::class)->name('historyOrder');
     Route::get('/my-orders/{invoiceId}', HistoryOrderDetailPage::class)->name('detailInvoice');
     Route::get('/course-history', HistoryCoursePage::class)->name('course.history');
+    Route::get('/course-history/{invoiceCode}', HistoryCourseDetailPage::class)->name('detailCourse');
     // Route::get('/success', SuccessPage::class);
 });
 
