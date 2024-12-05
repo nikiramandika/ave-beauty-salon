@@ -33,7 +33,7 @@ use App\Livewire\TreatmentPage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use SebastianBergmann\CodeCoverage\Test\TestStatus\Success;
-
+use App\Livewire\SettingsPage;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -69,9 +69,7 @@ Route::get('/user.pages.home', function () {
 Route::get('/verification', function () {
     return view('user.pages.verif-email');
 });
-Route::get('/edit-profile', function () {
-    return view('user.pages.edit-profile');
-});
+
 Route::get('/order-detail', function () {
     return view('user.pages.order-detail');
 });
@@ -84,6 +82,7 @@ Route::get('/promo', PromoPage::class);
 Route::get('/course', CoursePage::class);
 Route::get('/about', AboutPage::class);
 Route::get('/search', SearchPage::class)->name('search');
+Route::get('/settings', SettingsPage::class);
 
 // User Livewire
 Route::middleware(['role:User', 'verified'])->group(function () {
@@ -100,7 +99,7 @@ Route::middleware(['role:User', 'verified'])->group(function () {
     Route::get('/my-orders/{invoiceId}', HistoryOrderDetailPage::class)->name('detailInvoice');
     Route::get('/course-history', HistoryCoursePage::class)->name('course.history');
     Route::get('/course-history/{invoiceCode}', HistoryCourseDetailPage::class)->name('detailCourse');
-    // Route::get('/success', SuccessPage::class);
+    Route::get('/settings', SettingsPage::class)->name('settings');
 });
 
 

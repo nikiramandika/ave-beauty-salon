@@ -8,26 +8,25 @@
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
-        <a href="" class="navbar-brand">Owner</a>
+        <p class="navbar-brand disabled py-auto my-auto">Owner</p>
         <ul class="navbar-nav flex-row align-items-center ms-auto">
 
             <!-- User -->
+            
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                        <img src="owner/dashboard/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                
+                <a class="nav-link dropdown-toggle hide-arrow p-0 d-flex" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    
+                    
+                    <div class="px-0 my-auto">
+                        
+                        <i class='bx bx-user bx-md'></i>
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
                         <a class="dropdown-item" href="#">
                             <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <div class="avatar avatar-online">
-                                        <img src="owner/dashboard/assets/img/avatars/1.png" alt
-                                            class="w-px-40 h-auto rounded-circle" />
-                                    </div>
-                                </div>
                                 <div class="flex-grow-1">
                                     <h6 class="mb-0">papi</h6>
                                     <small class="text-muted">Admin</small>

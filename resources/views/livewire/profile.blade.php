@@ -16,7 +16,7 @@
 
         <ul class="list-group mt-4">
             <li class="list-group-item">
-                <a href="edit-profile" class="text-decoration-none">Edit Profile</a>
+                <a href="{{ route('settings') }}"" class="text-decoration-none">Settings</a>
             </li>
             <li class="list-group-item">
                 <a href="{{ route('historyOrder') }}" class="text-decoration-none">Order History</a>
