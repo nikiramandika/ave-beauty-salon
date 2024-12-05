@@ -11,10 +11,13 @@ use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\SearchResult;
 use App\Livewire\AboutPage;
+use App\Livewire\AccountSettings;
+use App\Livewire\ChangePassword;
 use App\Livewire\CheckoutCourse;
 use App\Livewire\CheckoutPage;
 use App\Livewire\CourseDetailPage;
 use App\Livewire\CoursePage;
+use App\Livewire\DeleteAccount;
 use App\Livewire\HistoryCoursePage;
 use App\Livewire\HistoryCourseDetailPage;
 use App\Livewire\HistoryOrderDetailPage;
@@ -74,7 +77,6 @@ Route::get('/order-detail', function () {
     return view('user.pages.order-detail');
 });
 
-
 Route::get('/', HomePage::class)->name('home');
 Route::get('/products', ProductPage::class);
 Route::get('/treatment', TreatmentPage::class);
@@ -82,8 +84,13 @@ Route::get('/promo', PromoPage::class);
 Route::get('/course', CoursePage::class);
 Route::get('/about', AboutPage::class);
 Route::get('/search', SearchPage::class)->name('search');
-Route::get('/settings', SettingsPage::class);
 
+Route::middleware(['role:User'])->group(function () {
+    Route::get('/settings', SettingsPage::class)->name('settings');
+    Route::get('/settings/account', AccountSettings::class)->name('settings.account');
+    Route::get('/settings/change-password', ChangePassword::class)->name('settings.change-password');
+    Route::get('/settings/delete-account', DeleteAccount::class)->name('settings.delete-account');
+});
 // User Livewire
 Route::middleware(['role:User', 'verified'])->group(function () {
 
@@ -99,7 +106,8 @@ Route::middleware(['role:User', 'verified'])->group(function () {
     Route::get('/my-orders/{invoiceId}', HistoryOrderDetailPage::class)->name('detailInvoice');
     Route::get('/course-history', HistoryCoursePage::class)->name('course.history');
     Route::get('/course-history/{invoiceCode}', HistoryCourseDetailPage::class)->name('detailCourse');
-    Route::get('/settings', SettingsPage::class)->name('settings');
+
+
 });
 
 

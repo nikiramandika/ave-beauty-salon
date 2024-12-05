@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -29,8 +28,21 @@ class AuthenticatedSessionController extends Controller
             'password' => 'required|string',
         ]);
 
+        // Coba autentikasi pengguna
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
+
+            // Cek apakah akun pengguna aktif
+            if (Auth::user()->is_active == 0) {
+                // Jika akun tidak aktif, logout dan tampilkan pesan
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return back()->withErrors([
+                    'email' => 'Your email or password is incorrect. Please try again.',
+                ]);
+            }
 
             // Menambahkan pengecekan role di sini
             if (Auth::user()->role === 'Admin') {
@@ -45,7 +57,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Your email or password is incorret. Please try again.',
+            'email' => 'Your email or password is incorrect. Please try again.',
         ]);
     }
 

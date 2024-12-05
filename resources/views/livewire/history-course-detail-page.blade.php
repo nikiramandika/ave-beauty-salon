@@ -11,69 +11,42 @@
                             <div class="card-header p-0" style="background-color: transparent;">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <h4 class="mb-1">Order #{{ $invoice->invoice_code }}</h4>
+                                        <h4 class="mb-1">Order #{{ $courseHistory->invoice_code }}</h4>
                                         <div class="d-flex align-items-center mb-2 fc-heading">
                                             <small>Order Date:
-                                                {{ \Carbon\Carbon::parse($invoice->order_date)->format('l, d-F-y H:i:s') }}</small>
+                                                {{ \Carbon\Carbon::parse($courseHistory->order_date)->format('l, d-F-y H:i:s') }}</small>
                                         </div>
                                     </div>
                                     <div>
                                         <span class="fs-6 badge bg-warning rounded-pill p-2 px-3" style="color: white">
-                                            {{ ucfirst($invoice->order_status) }}
+                                            {{ ucfirst($courseHistory->registration_status) }}
                                         </span>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Product Details -->
+                            <!-- Course Details -->
                             <table class="table table-borderless mt-2">
                                 <tbody>
-                                    @foreach ($details as $detail)
-                                        <tr>
-                                            <td class="ps-0">
-                                                <div class="d-flex mb-2">
-                                                    @if (isset($detail->product_name))
-                                                        <div class="flex-shrink-0">
-                                                            <!-- Display the product image if available -->
-                                                            <img src="{{ $detail->product_image ? asset($detail->product_image) : '/noImage.jpeg' }}"
-                                                                alt="Product Image" width="75" class="img-fluid">
-                                                        </div>
-                                                    @endif
-                                                    @if (isset($detail->treatment_name))
-                                                        <!-- For Treatment Image -->
-                                                        <div class="flex-shrink-0">
-                                                            <!-- Display the treatment image if available -->
-                                                            <img src="{{ $detail->treatment_image ? asset($detail->treatment_image) : '/noImage.jpeg' }}"
-                                                                alt="Treatment Image" width="75" class="img-fluid">
-                                                        </div>
-                                                    @endif
-                                                    <div class="flex-lg-grow-1 ms-3">
-                                                        <h6 class="small mb-0">
-                                                            @if (isset($detail->product_name))
-                                                                <a href="#"
-                                                                    class="text-reset">{{ $detail->product_name }}</a>
-                                                            @elseif (isset($detail->treatment_name))
-                                                                <a href="#"
-                                                                    class="text-reset">{{ $detail->treatment_name }}</a>
-                                                            @endif
-                                                        </h6>
-                                                    </div>
-
-                                                </div>
-                                            </td>
-                                            <td>x{{ $detail->quantity }}</td>
-                                            <td class="text-end pe-0">
-                                                Rp{{ number_format($detail->price, 0, ',', '.') }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    <tr>
+                                        <td class="ps-0">
+                                            <div class="d-flex mb-2">
+                                                    <h6 class="small mb-0">
+                                                        <a href="#"
+                                                            class="text-reset"><strong>Course : </strong>{{ $courseHistory->full_course_name }}</a>
+                                                    </h6>
+                                            </div>
+                                        </td>
+                                        <td>x{{ $courseHistory->total_sessions }}</td>
+                                        <td class="text-end pe-0">
+                                            Rp{{ number_format($courseHistory->course_price, 0, ',', '.') }}
+                                        </td>
+                                    </tr>
                                 </tbody>
                                 <tfoot>
-                                    <!-- Calculate the Subtotal -->
+                                    <!-- Calculate the Total -->
                                     @php
-                                        $total = $details->sum(function ($detail) {
-                                            return $detail->quantity * $detail->price;
-                                        });
+                                        $total = $courseHistory->total_sessions * $courseHistory->course_price;
                                     @endphp
 
                                     <tr class="fw-bold">
@@ -94,7 +67,7 @@
                                 </div>
                             </div>
                             <!-- Complete Order Button -->
-                            @if ($invoice->order_status === 'Pesanan Dikirim')
+                            @if ($courseHistory->registration_status === 'Pesanan Dikirim')
                                 <div class="d-flex justify-content-end mt-2">
                                     <div>
                                         <button type="button"
@@ -118,9 +91,9 @@
                                 <div>
                                     <span class="fs-6 badge bg-success rounded-pill py-2 px-3 ms-2 fs-roboto"
                                         style="color: white">
-                                        @if ($invoice->recipient_address == 'Pesanan Offline')
+                                        @if ($courseHistory->registration_status == 'Pesanan Offline')
                                             Paid
-                                        @elseif($invoice->recipient_file)
+                                        @elseif($courseHistory->end_date)
                                             Paid
                                         @else
                                             Unpaid
@@ -129,8 +102,15 @@
 
                                 </div>
                             </div>
-
-                            <p>{{ $invoice->recipient_payment }}</p>
+                            <p>{{ $courseHistory->recipient_payment }}</p>
+                            <hr>
+                            <h4 class="mb-3">Course Detail</h4>
+                            <p><strong>Start Date:</strong> {{ \Carbon\Carbon::parse($courseHistory->start_date)->format('d F Y') }}</p>
+                            <p><strong>End Date:</strong> {{ \Carbon\Carbon::parse($courseHistory->end_date)->format('d F Y') }}</p>
+                            <h5>Session</h5>
+                            <p><strong>Total Session:</strong> {{ $courseHistory->total_sessions }}</p>
+                            <p><strong>Session Completed:</strong> {{ $courseHistory->sessions_completed }}</p>
+                            
 
                         </div>
                     </div>

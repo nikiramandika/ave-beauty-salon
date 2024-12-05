@@ -11,94 +11,41 @@ use Illuminate\Support\Facades\DB;
 class HistoryCourseDetailPage extends Component
 {
     use WithFileUploads;
-
-    public $invoiceCode;
-    public $invoice;
-    public $refundReason;
-    public $refundFile;
-    public $invoiceDetails;
-    public $courseDetails;
-
-
-    // Menangani pengajuan refund
-    public function requestRefund()
-    {
-        $validatedData = $this->validate([
-            'refundReason' => 'required|string',
-            'refundFile' => 'required|file|max:2048',
-        ]);
-
-        $path = $this->refundFile->store('refund-files', 'public');
-
-        $refund = $this->invoice->refunds()->create([
-            'refund_reason' => $this->refundReason,
-            'user_refund_file' => $path,
-            'refund_status' => 'Pending',
-        ]);
-
-        $this->invoice->update(['refund_id' => $refund->id]);
-
-        session()->flash('success', 'Refund request submitted successfully.');
-        return redirect()->route('detailCourse', $this->invoiceCode);
-    }
-
-    // Menangani perubahan status order menjadi Complete
-    public function completeOrder()
-    {
-        if ($this->invoice->order_status !== 'Complete') {
-            $this->invoice->update(['order_status' => 'Complete']);
-        }
-
-        session()->flash('message', 'Order has been completed successfully.');
-    }
-
+    public $courseHistory; // Properti untuk menyimpan data course history
     public function mount($invoiceCode)
     {
-        $courseHistory = DB::table('course_history1')
-        ->where('invoice_code', $invoiceCode)
-        ->first();
+        // Mengambil data dari database berdasarkan invoiceCode
+        $this->courseHistory = DB::table('course_history1')
+            ->select(
+                'course_history1.invoice_code',
+                'full_course_name',
+                'course_price',
+                'total_sessions',
+                'registration_status',
+                'start_date',
+                'end_date',
+                'sessions_completed',
+                'selling_invoices.order_date',
+                'selling_invoices.recipient_payment'
+            ) // Menambahkan order_date dari tabel selling_invoice
+            ->join('selling_invoices', 'course_history1.invoice_code', '=', 'selling_invoices.invoice_code') // Melakukan join dengan tabel selling_invoice
+            ->where('course_history1.invoice_code', $invoiceCode)
+            ->first(); // Ambil satu data saja berdasarkan invoice_code
 
-        if ($courseHistory) {
-        $invoice = DB::table('selling_invoices')
-            ->where('invoice_code', $invoiceCode)
-            ->first();
-
-        if ($invoice) {
-            $sellingInvoiceId = $invoice->selling_invoice_id;
-
-            $invoiceDetails = DB::table('selling_invoice_details')
-                ->where('invoice_id', $sellingInvoiceId)
-                ->get();
-
-            $this->invoiceDetails = $invoiceDetails;
-            $this->invoice = $invoice;
-
-            // Ambil detail course menggunakan course_id
-            $courseDetails = DB::table('courses')
-                ->where('course_id', $courseHistory->course_id) // Ubah dari `id` menjadi `course_id`
-                ->first();
-
-            if ($courseDetails) {
-                $this->courseDetails = $courseDetails;
-            } else {
-                session()->flash('error', 'Course details not found.');
-                return redirect()->route('course-history');
-            }
-        } else {
-            session()->flash('error', 'Invoice data not found.');
-            return redirect()->route('course-history');
-        }
-        } else {
-        session()->flash('error', 'Course history not found.');
-        return redirect()->route('course-history');
+        // Cek apakah data ditemukan, jika tidak, bisa diberi nilai default atau lakukan penanganan
+        if (!$this->courseHistory) {
+            // Misalnya, alihkan ke halaman error atau beri pesan error
+            abort(404, 'Invoice not found');
         }
     }
 
     public function render()
     {
+        // Mengembalikan tampilan dan mengirimkan data ke view
         return view('livewire.history-course-detail-page', [
-        'invoice' => $this->invoice,
-        'details' => $this->invoiceDetails,
+            'courseHistory' => $this->courseHistory, // Pastikan menggunakan properti ini
         ]);
     }
+
+
 }

@@ -70,7 +70,7 @@
 
     @livewire('cart')
     <script>
-            document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const cartIcon = document.getElementById('cartIcon');
             const closeCartButton = document.querySelector('[data-bs-dismiss="offcanvas"]');
             const backdrop = document.createElement('div');
@@ -78,11 +78,11 @@
             backdrop.id = 'manualBackdrop';
             document.body.appendChild(backdrop);
 
-            cartIcon.addEventListener('click', function () {
+            cartIcon.addEventListener('click', function() {
                 backdrop.classList.add('show');
             });
 
-            closeCartButton.addEventListener('click', function () {
+            closeCartButton.addEventListener('click', function() {
                 const backdropElement = document.getElementById('manualBackdrop');
                 if (backdropElement) {
                     backdropElement.remove();
@@ -90,7 +90,7 @@
             });
 
             document.querySelectorAll('[wire\\:click*="removeFromCart"]').forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     setTimeout(() => {
                         const backdropElement = document.getElementById('manualBackdrop');
                         if (!backdropElement) {
@@ -103,40 +103,40 @@
         });
     </script>
 
-@livewire('profile')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const cartIcon = document.getElementById('cartIcon');
-    const closeCartButton = document.querySelector('[data-bs-dismiss="offcanvas"]');
-    const backdrop = document.createElement('div');
-    backdrop.className = 'manual-backdrop';
-    backdrop.id = 'manualBackdrop';
-    document.body.appendChild(backdrop);
+    @livewire('profile')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartIcon = document.getElementById('cartIcon');
+            const closeCartButton = document.querySelector('[data-bs-dismiss="offcanvas"]');
+            const backdrop = document.createElement('div');
+            backdrop.className = 'manual-backdrop';
+            backdrop.id = 'manualBackdrop';
+            document.body.appendChild(backdrop);
 
-    cartIcon.addEventListener('click', function () {
-        backdrop.classList.add('show');
-    });
+            cartIcon.addEventListener('click', function() {
+                backdrop.classList.add('show');
+            });
 
-    closeCartButton.addEventListener('click', function () {
-        const backdropElement = document.getElementById('manualBackdrop');
-        if (backdropElement) {
-            backdropElement.remove();
-        }
-    });
-
-    document.querySelectorAll('[wire\\:click*="removeFromCart"]').forEach(button => {
-        button.addEventListener('click', function () {
-            setTimeout(() => {
+            closeCartButton.addEventListener('click', function() {
                 const backdropElement = document.getElementById('manualBackdrop');
-                if (!backdropElement) {
-                    document.body.appendChild(backdrop);
-                    backdrop.classList.add('show');
+                if (backdropElement) {
+                    backdropElement.remove();
                 }
-            }, 100);
+            });
+
+            document.querySelectorAll('[wire\\:click*="removeFromCart"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    setTimeout(() => {
+                        const backdropElement = document.getElementById('manualBackdrop');
+                        if (!backdropElement) {
+                            document.body.appendChild(backdrop);
+                            backdrop.classList.add('show');
+                        }
+                    }, 100);
+                });
+            });
         });
-    });
-});
-</script>
+    </script>
 
     <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center fixed-top">
         <div class="container-fluid">
@@ -190,16 +190,18 @@
                     <ul class="list-unstyled d-flex m-0 justify-content-end">
                         <!-- Icon Keranjang di Navbar -->
                         <li class="d-none d-lg-block position-relative me-3">
-                            <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" id="cartIcon">
-                            <svg width="24" height="24" viewBox="0 0 24 24">
-                            <use xlink:href="#cart"></use>
-                            </svg>
-                        @auth
-                            <span class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-circle bg-white text-black"
-                            wire:loading.class="opacity-50">
-                            {{ $cartCount }}
-                            </span>
-                        @endauth
+                            <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasCart" id="cartIcon">
+                                <svg width="24" height="24" viewBox="0 0 24 24">
+                                    <use xlink:href="#cart"></use>
+                                </svg>
+                                @auth
+                                    <span
+                                        class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-circle bg-white text-black"
+                                        wire:loading.class="opacity-50">
+                                        {{ $cartCount }}
+                                    </span>
+                                @endauth
                             </a>
                         </li>
                         <li class="search-box" class="mx-2">
@@ -211,12 +213,20 @@
                         </li>
                         <li class="d-none d-lg-block position-relative me-3 border-animation-left">
                             @auth
-                            <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasProfile">
-                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                    <use xlink:href="#person"></use>
-                                </svg>
-                            </a>
-                    @endauth
+                                <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvasProfile">
+                                    <svg width="24" height="24" viewBox="0 0 24 24">
+                                        <use xlink:href="#person"></use>
+                                    </svg>
+                                    @if (Auth::user()->phone == null || Auth::user()->email_verified_at == null)
+                                        <span
+                                            class=" position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger text-white"
+                                            wire:loading.class="opacity-50">
+                                            !
+                                        </span>
+                                    @endif
+                                </a>
+                            @endauth
                             <!-- Menampilkan login dan register jika belum login -->
                             @guest
                                 <a href="/login" class="mx-0 item-anchor">login</a>
@@ -232,4 +242,3 @@
         </div>
     </nav>
 </div>
-
