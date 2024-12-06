@@ -4,10 +4,13 @@
             @foreach ($courses as $course)
                 <div class="course-item image-zoom-effect link-effect">
                     <div class="image-holder">
-                        <a href="{{ url('course/' . $course->course_slug) }}">
-                            <img src="{{ asset($course->description->course_image ?? 'user/images/default.jpg') }}"
-                                alt="{{ $course->course_name }}"class="bd-placeholder-img card-img-top product-image img-fluid" width="100%" style="aspect-ratio: 1 / 1;">
-                        </a>
+                        <div class="img-cont">
+                            <a href="{{ url('course/' . $course->course_slug) }}">
+                                <img src="{{ asset($course->description->course_image ?? 'user/images/default.jpg') }}"
+                                    alt="{{ $course->course_name }}"class="bd-placeholder-img card-img-top product-image img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
+                            </a>
+                        </div>
+                        
                         <div class="course-content">
                             <h5 class="text-uppercase fs-5 mt-3">
                                 <a href="{{ url('course/' . $course->course_slug) }}">{{ $course->course_name }}</a>

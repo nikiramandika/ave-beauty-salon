@@ -146,9 +146,6 @@
                                                     <select class="form-select @error('role') is-invalid @enderror"
                                                         id="role" name="role">
                                                         <option value="">Select Role</option>
-                                                        <option value="admin"
-                                                            {{ old('role', $user->role) == 'Admin' ? 'selected' : '' }}>
-                                                            Admin</option>
                                                         <option value="user"
                                                             {{ old('role', $user->role) == 'User' ? 'selected' : '' }}>
                                                             User</option>

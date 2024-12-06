@@ -21,10 +21,9 @@
                     <div class="product-item image-zoom-effect link-effect">
                         <div class="image-holder">
                             <a href="{{ url('products/' . $product->product_slug) }}">
-                                <div>
+                                <div class="img-cont">
                                     <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
-                                        style="width: 250px; height:250px; object-fit:cover;"
-                                        alt="{{ $product->product_name }}" class="product-image img-fluid">
+                                        alt="{{ $product->product_name }}" class="product-image img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                 </div>
                             </a>
                             <div class="product-content">

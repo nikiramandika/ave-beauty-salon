@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-6 bsb-tpl-bg-lotion">
-                    <div class="p-3 p-md-4 p-xl-5">
+                    <div class="py-3 py-md-4 py-xl-5 pe-3 pe-md-4 pe-xl-5">
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-4">
@@ -53,7 +53,7 @@
                 <div class="col-12 col-md-6 bsb-tpl-bg-platinum">
                     <div class="d-flex flex-column h-100 p-3 p-md-4 p-xl-5">
                         <img class="d-none d-md-block img-fluid rounded mx-auto my-4" loading="lazy"
-                            src="user/images/single-image-2.jpg" width="100%" height="100%" alt="ave">
+                            src="user/images/banner-image-6.jpg" width="100%" height="100%" alt="ave">
                     </div>
                 </div>
             </div>

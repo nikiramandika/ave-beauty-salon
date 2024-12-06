@@ -4,10 +4,13 @@
             @foreach ($promos as $promo)
                 <div class="promo-item image-zoom-effect link-effect">
                     <div class="image-holder">
-                        <a href="{{ url('promo/' . $promo->promo_slug) }}">
-                            <img src="{{ asset($promo->description->promo_image ?? 'user/images/default.jpg') }}"
-                                alt="{{ $promo->promo_name }}" class="bd-placeholder-img card-img-top product-image img-fluid" width="100%" style="width: 250px; height:250px; object-fit:cover;">
-                        </a>
+                        <div class="img-cont">
+                            <a href="{{ url('promo/' . $promo->promo_slug) }}">
+                                <img src="{{ asset($promo->description->promo_image ?? 'user/images/default.jpg') }}"
+                                    alt="{{ $promo->promo_name }}" class="bd-placeholder-img card-img-top product-image img-fluid" width="100%" style="width: 250px; height:250px; object-fit:cover;" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
+                            </a>
+                        </div>
+                        
                         <div class="promo-content">
                             <h5 class="text-uppercase fs-5 mt-3">
                                 <a href="{{ url('promo/' . $promo->promo_slug) }}">{{ $promo->promo_name }}</a>

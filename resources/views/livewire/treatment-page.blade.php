@@ -5,12 +5,13 @@
                 @foreach ($treatments as $treatment)
                     <div class="treatment-item image-zoom-effect link-effect">
                         <div class="image-holder">
-                            <a href="{{ url('treatment/' . $treatment->treatment_slug) }}">
+                            <div class="img-cont"><a href="{{ url('treatment/' . $treatment->treatment_slug) }}">
                                 <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}"
                                     alt="{{ $treatment->treatment_name }}"
                                     class="bd-placeholder-img card-img-top product-image img-fluid" width="100%"
-                                    style="aspect-ratio: 1 / 1;">
-                            </a>
+                                    style="aspect-ratio: 1 / 1;" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
+                            </a></div>
+                            
                             <div class="treatment-content">
                                 <h5 class="text-uppercase fs-5 mt-3">
                                     <a

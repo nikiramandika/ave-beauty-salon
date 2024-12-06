@@ -154,24 +154,23 @@
 </div> --}}
 
 
-
 <div>
-    <div class="container">
-        <h2 class="mt-5">Search Results for "{{ $query }}"</h2>
+    <div class="container" style="min-height: 50vh;">
+        <h3 class="mt-5">Search Results for "{{ $query }}"</h3>
 
         <!-- Jika Produk Kosong dan Treatment Ada -->
         @if ($products->isEmpty() && !$treatments->isEmpty())
             <!-- Treatment Section -->
             <section id="related-treatments"
                 class="related-treatments treatment-carousel py-5 position-relative overflow-hidden">
-                <h3>Treatments</h3>
+                <h4>Treatments</h4>
                 <div class="treatment-grid open-up" data-aos="zoom-out">
                     @foreach ($treatments as $treatment)
                         <div class="treatment-item image-zoom-effect link-effect">
                             <div class="image-holder">
                                 <a href="{{ url('treatment/' . $treatment->treatment_slug) }}">
                                     <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}"
-                                        alt="{{ $treatment->treatment_name }}" class="treatment-image img-fluid">
+                                        alt="{{ $treatment->treatment_name }}" class="treatment-image img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                 </a>
                                 <div class="treatment-content">
                                     <h5 class="text-uppercase fs-5 mt-3">
@@ -194,18 +193,21 @@
             <!-- Produk Section -->
             <section id="related-products"
                 class="related-products product-carousel py-5 position-relative overflow-hidden">
-                <h3>Products</h3>
+                <h4>Products</h4>
                 <div class="product-grid open-up" data-aos="zoom-out">
                     @foreach ($products as $product)
                         <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder">
-                                <a href="{{ url('products/' . $product->product_slug) }}">
-                                    <div>
-                                        <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
-                                            style="width: 250px; height:250px; object-fit:cover;"
-                                            alt="{{ $product->product_name }}" class="product-image img-fluid">
-                                    </div>
-                                </a>
+                            <div class="image-holder" style="">
+                                <div class="img-cont">
+                                    <a href="{{ url('products/' . $product->product_slug) }}">
+                                        <div>
+                                            <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
+                                                {{-- style="width: 250px; height:250px; object-fit:cover;" --}}
+                                                alt="{{ $product->product_name }}" class="product-image img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
+                                        </div>
+                                    </a>
+                                </div>
+                                
                                 <div class="product-content">
                                     <h5 class="text-uppercase fs-5 mt-3">
                                         <a href="{{ url('products/' . $product->product_slug) }}">
@@ -230,7 +232,7 @@
             <!-- Produk Section -->
             <section id="related-products"
                 class="related-products product-carousel py-5 position-relative overflow-hidden">
-                <h3>Products</h3>
+                <h4>Products</h4>
                 <div class="product-grid open-up" data-aos="zoom-out">
                     @foreach ($products as $product)
                         <div class="product-item image-zoom-effect link-effect">
@@ -239,7 +241,7 @@
                                     <div>
                                         <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
                                             style="width: 250px; height:250px; object-fit:cover;"
-                                            alt="{{ $product->product_name }}" class="product-image img-fluid">
+                                            alt="{{ $product->product_name }}" class="product-image img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                     </div>
                                 </a>
                                 <div class="product-content">
@@ -263,14 +265,14 @@
             <!-- Treatment Section -->
             <section id="related-treatments"
                 class="related-treatments treatment-carousel py-5 position-relative overflow-hidden">
-                <h3>Treatments</h3>
+                <h4>Treatments</h4>
                 <div class="treatment-grid open-up" data-aos="zoom-out">
                     @foreach ($treatments as $treatment)
                         <div class="treatment-item image-zoom-effect link-effect">
                             <div class="image-holder">
                                 <a href="{{ url('treatment/' . $treatment->treatment_slug) }}">
                                     <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}"
-                                        alt="{{ $treatment->treatment_name }}" class="treatment-image img-fluid">
+                                        alt="{{ $treatment->treatment_name }}" class="treatment-image img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                 </a>
                                 <div class="treatment-content">
                                     <h5 class="text-uppercase fs-5 mt-3">

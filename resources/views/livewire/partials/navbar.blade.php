@@ -49,7 +49,7 @@
             <form role="search" method="get" class="form-group" action="{{ route('search') }}">
                 <input type="search" id="search-form" class="form-control border-0 border-bottom"
                     placeholder="Type and press enter" value="{{ request('query') }}" name="query" />
-                <button type="submit" class="search-submit border-0 position-absolute bg-white"
+                <button type="submit" class="search-submit border-0 position-absolute bg-transparent"
                     style="top: 15px; right: 15px;">
                     <svg class="search" width="24" height="24">
                         <use xlink:href="#search"></use>
@@ -141,7 +141,7 @@
     <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center fixed-top">
         <div class="container-fluid justify-content-around">
             <div class="row justify-content-between align-items-center w-100 ">
-                <div class="col-2">
+                <div class="col-2 col-lg-3">
                     <a class="navbar-brand text-white" href="home">
                         <img src="{{ asset('user/images/logo.png') }}" alt="Logo" style="width: 60px; height: auto">
                     </a>
@@ -186,13 +186,13 @@
                     </div>
                 </div>
 
-                <div class="col-2 col-lg-2">
+                <div class="col-2 col-lg-3">
                     <ul class="list-unstyled d-flex m-0 justify-content-end">
                         <!-- Icon Keranjang di Navbar -->
                         <li class="d-none d-lg-block position-relative me-3">
-                            <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas"
+                            <a href="javascript:void(0)" class="" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasCart" id="cartIcon">
-                                <svg width="24" height="24" viewBox="0 0 24 24">
+                                <svg width="24" height="24" viewBox="0 0 24 24" class="pb-1">
                                     <use xlink:href="#cart"></use>
                                 </svg>
                                 @auth
@@ -204,9 +204,9 @@
                                 @endauth
                             </a>
                         </li>
-                        <li class="search-box" class="mx-2">
+                        <li class="search-box" class="mx-2 ">
                             <a href="#search" class="search-button">
-                                <svg width="24" height="24" viewBox="0 0 24 24">
+                                <svg width="24" height="24" viewBox="0 0 24 24" class="pb-1">
                                     <use xlink:href="#search"></use>
                                 </svg>
                             </a>

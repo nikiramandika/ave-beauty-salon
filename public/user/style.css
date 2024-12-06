@@ -169,7 +169,13 @@ h6,
     /* Microsoft Edge */
     color: var(--bs-body-color);
 }
-
+.product-content, .treatment-content, .course-content, .promo-content {
+    padding-left: 10px;
+    font-family: var(--bs-body-font-family)!important;
+}
+.product-content h5 {
+    font-family: var(--bs-body-font-family)!important;
+}
 .product-content h5 a {
     color: var(--bs-body-color);
 }
@@ -802,6 +808,7 @@ a {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 produk per baris */
     gap: 20px; /* Jarak antar produk */
+    width: 100%;
 }
 
 .related-products .product-item {
@@ -1449,10 +1456,16 @@ a.btn-link.text-light:after {
 }
 
 /* Gambar Produk */
-.product-image {
+.product-image, .treatment-image {
     flex: 0 1 350px;
-    max-width: 350px;
-    padding-right: 10px;
+    aspect-ratio: 1 / 1; /* Ensures a 1:1 aspect ratio */
+    object-fit: cover;
+
+}
+
+.img-cont{
+    aspect-ratio: 1 / 1; 
+    min-height: auto;
 }
 
 .product-image img {
@@ -1599,11 +1612,6 @@ a.btn-link.text-light:after {
 }
 
 /* Gambar Produk */
-.treatment-image {
-    flex: 0 1 350px;
-    max-width: 350px;
-    padding-right: 10px;
-}
 
 .treatment-image img {
     max-width: 100%;
@@ -1897,6 +1905,7 @@ a.btn-link.text-light:after {
 
 .intro-text {
     margin-bottom: 1rem;
+    margin-top: 2rem;
     line-height: 1.6;
     max-width: 800px;
     margin-left: auto;
@@ -1995,7 +2004,7 @@ a.btn-link.text-light:after {
         var(--bs-light) 0%,
         var(--bs-primary) 100%
     );
-    padding: 2rem;
+    padding: 4rem;
     width: 100%;
     max-width: 1200px;
 }
