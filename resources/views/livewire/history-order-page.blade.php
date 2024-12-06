@@ -2,7 +2,7 @@
 
     <h1>Your Order History</h1>
 
-    @if ($invoices->isEmpty() && !isset($message))
+    @if ($invoices->isEmpty())
         <div class="text-center my-5">
             <p>You don't have any order history yet</p>
             <a href="/products" class="btn btn-outline-primary">Shop Product</a>

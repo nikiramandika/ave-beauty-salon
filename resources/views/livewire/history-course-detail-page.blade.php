@@ -31,10 +31,7 @@
                                     <tr>
                                         <td class="ps-0">
                                             <div class="d-flex mb-2">
-                                                    <h6 class="small mb-0">
-                                                        <a href="#"
-                                                            class="text-reset"><strong>Course : </strong>{{ $courseHistory->full_course_name }}</a>
-                                                    </h6>
+                                                    Course : {{ $courseHistory->full_course_name }}
                                             </div>
                                         </td>
                                         <td>x{{ $courseHistory->total_sessions }}</td>
@@ -46,7 +43,7 @@
                                 <tfoot>
                                     <!-- Calculate the Total -->
                                     @php
-                                        $total = $courseHistory->total_sessions * $courseHistory->course_price;
+                                        $total = $courseHistory->course_price;
                                     @endphp
 
                                     <tr class="fw-bold">
@@ -87,7 +84,7 @@
                     <div class="card mb-4">
                         <div class="card-body p-4">
                             <div class="d-flex justify-content-between">
-                                <h4 class="h5 fw-normal fc-heading">Payment Method</h4>
+                                <h4 class="mb-3">Payment Method</h4>
                                 <div>
                                     <span class="fs-6 badge bg-success rounded-pill py-2 px-3 ms-2 fs-roboto"
                                         style="color: white">
@@ -99,7 +96,6 @@
                                             Unpaid
                                         @endif
                                     </span>
-
                                 </div>
                             </div>
                             <p>{{ $courseHistory->recipient_payment }}</p>
@@ -107,10 +103,9 @@
                             <h4 class="mb-3">Course Detail</h4>
                             <p><strong>Start Date:</strong> {{ \Carbon\Carbon::parse($courseHistory->start_date)->format('d F Y') }}</p>
                             <p><strong>End Date:</strong> {{ \Carbon\Carbon::parse($courseHistory->end_date)->format('d F Y') }}</p>
-                            <h5>Session</h5>
                             <p><strong>Total Session:</strong> {{ $courseHistory->total_sessions }}</p>
                             <p><strong>Session Completed:</strong> {{ $courseHistory->sessions_completed }}</p>
-                            
+
 
                         </div>
                     </div>

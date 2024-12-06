@@ -1,4 +1,4 @@
-<div>
+<div style="background-color: #fdeef4">
     <section id="treatment-details" class="treatment-detail full-screen">
         <div class="container-fluid">
             <div class="content d-flex align-items-center justify-content-center gap-5">
