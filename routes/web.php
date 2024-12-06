@@ -3,6 +3,7 @@
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -220,10 +221,18 @@ Route::middleware(['role:Admin'])->group(function () {
     Route::put('/course-registration/{invoiceId}/update-status', [CourseController::class, 'updateStatus'])->name('invoice.updateStatus');
     Route::put('/course-registration/{registrationId}/update-session-plus', [CourseController::class, 'updateSessionPlus'])->name('course.updateSessionPlus');
     Route::put('/course-registration/{registrationId}/update-session-minus', [CourseController::class, 'updateSessionMinus'])->name('course.updateSessionMinus');
-    
+
 
 
 });
+
+
+// Route untuk menampilkan invoice
+Route::get('/invoice/view/{invoiceCode}', [InvoiceController::class, 'viewInvoice'])->name('invoice.view');
+
+// Route untuk mendownload invoice dalam bentuk PDF
+Route::get('/invoice/download/{invoiceCode}', [InvoiceController::class, 'downloadInvoice'])->name('invoice.download');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

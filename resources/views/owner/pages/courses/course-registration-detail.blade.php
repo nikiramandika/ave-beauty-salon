@@ -144,197 +144,194 @@
                                             aria-label="Close"></button>
                                     </div>
                                 @endif
-                                    <div class="table-responsive text-nowrap">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nama Penerima</th>
-                                                    <th>Email Penerima</th>
-                                                    <th>Telepon Penerima</th>
-                                                    <th>Alamat Penerima</th>
-                                                    <th>Status Pembayaran</th>
-                                                    <th>Gambar Bukti Pembayaran</th>
-                                                    <!-- Menambahkan kolom untuk Gambar -->
-                                                </tr>
-                                            </thead>
-                                            <tbody class="table-border-bottom-0">
-                                                <tr>
+                                <div class="table-responsive text-nowrap">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nama Penerima</th>
+                                                <th>Email Penerima</th>
+                                                <th>Telepon Penerima</th>
+                                                <th>Alamat Penerima</th>
+                                                <th>Status Pembayaran</th>
+                                                <th>Gambar Bukti Pembayaran</th>
+                                                <!-- Menambahkan kolom untuk Gambar -->
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-border-bottom-0">
+                                            <tr>
 
-                                                    <!-- Nama Penerima -->
-                                                    <td>{{ $invoice->recipient_name ?? '-' }}</td>
+                                                <!-- Nama Penerima -->
+                                                <td>{{ $invoice->recipient_name ?? '-' }}</td>
 
-                                                    <!-- Email Penerima -->
-                                                    <td>{{ $invoice->recipient_email ?? '-' }}</td>
+                                                <!-- Email Penerima -->
+                                                <td>{{ $invoice->recipient_email ?? '-' }}</td>
 
-                                                    <!-- Telepon Penerima -->
-                                                    <td>{{ $invoice->recipient_phone ?? '-' }}</td>
+                                                <!-- Telepon Penerima -->
+                                                <td>{{ $invoice->recipient_phone ?? '-' }}</td>
 
-                                                    <!-- Alamat Penerima -->
-                                                    <td>{{ $invoice->recipient_address ?? '-' }}</td>
+                                                <!-- Alamat Penerima -->
+                                                <td>{{ $invoice->recipient_address ?? '-' }}</td>
 
-                                                    <!-- Status Pembayaran -->
-                                                    <td>
-                                                        <span
-                                                            class="badge {{ $invoice->order_status == 'Pending' ? 'bg-warning' : ($invoice->order_status == 'Complete' ? 'bg-success' : 'bg-danger') }}">
-                                                            {{ ucfirst($invoice->order_status) }}
-                                                        </span>
-                                                    </td>
+                                                <!-- Status Pembayaran -->
+                                                <td>
+                                                    <span
+                                                        class="badge {{ $invoice->order_status == 'Pending' ? 'bg-warning' : ($invoice->order_status == 'Complete' ? 'bg-success' : 'bg-danger') }}">
+                                                        {{ ucfirst($invoice->order_status) }}
+                                                    </span>
+                                                </td>
 
-                                                    <!-- Gambar Bukti Pembayaran (Modal) -->
-                                                    <td>
-                                                        @if ($invoice->recipient_file)
-                                                            <!-- Tombol untuk membuka modal -->
-                                                            <button type="button" class="btn btn-primary"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#paymentProofModal">
-                                                                Lihat Bukti Pembayaran
-                                                            </button>
+                                                <!-- Gambar Bukti Pembayaran (Modal) -->
+                                                <td>
+                                                    @if ($invoice->recipient_file)
+                                                        <!-- Tombol untuk membuka modal -->
+                                                        <button type="button" class="btn btn-primary"
+                                                            data-bs-toggle="modal" data-bs-target="#paymentProofModal">
+                                                            Lihat Bukti Pembayaran
+                                                        </button>
 
-                                                            <!-- Modal -->
-                                                            <div class="modal fade" id="paymentProofModal"
-                                                                tabindex="-1" aria-labelledby="paymentProofModalLabel"
-                                                                aria-hidden="true">
-                                                                <div class="modal-dialog modal-lg">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title"
-                                                                                id="paymentProofModalLabel">Bukti
-                                                                                Pembayaran</h5>
-                                                                            <button type="button" class="btn-close"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <img src="{{ asset('/storage/' . $invoice->recipient_file) }}"
-                                                                                alt="Bukti Pembayaran"
-                                                                                class="img-fluid">
-                                                                        </div>
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="paymentProofModal" tabindex="-1"
+                                                            aria-labelledby="paymentProofModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="paymentProofModalLabel">Bukti
+                                                                            Pembayaran</h5>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <img src="{{ asset('/storage/' . $invoice->recipient_file) }}"
+                                                                            alt="Bukti Pembayaran" class="img-fluid">
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        @else
-                                                            -
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="flex">
-                                    <a class="btn btn-primary mt-4 mb-2 text-white"
-                                    >View Invoice</a>
-                                <a class="btn btn-warning mt-4 mb-2 text-white"
-                                   >Download Invoice</a>
+                                                        </div>
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="flex">
+                                    <a href="{{ route('invoice.view', $invoiceCode) }}" class="btn btn-primary mt-4 mb-2 text-white">View Invoice</a>
+                                    <a target="_blank" href="{{ route('invoice.download', $invoiceCode) }}" class="btn btn-warning mt-4 mb-2 text-white">Download Invoice</a>
                                 </div>
                             </div>
                         </div>
 
 
-                @if ($invoice->order_status == 'Pending')
-                    <!-- Tombol "Accepted" -->
-                    <button type="button" class="btn btn-success mt-5" data-bs-toggle="modal"
-                        data-bs-target="#acceptOrderModal">
-                        Terima Pesanan
-                    </button>
-                @endif
+                        @if ($invoice->order_status == 'Pending')
+                            <!-- Tombol "Accepted" -->
+                            <button type="button" class="btn btn-success mt-5" data-bs-toggle="modal"
+                                data-bs-target="#acceptOrderModal">
+                                Terima Pesanan
+                            </button>
+                        @endif
 
 
 
-                <!-- Content wrapper -->
+                        <!-- Content wrapper -->
+                    </div>
+                    <!-- / Layout page -->
+                </div>
+
+                <!-- Overlay -->
+                <div class="layout-overlay layout-menu-toggle"></div>
             </div>
-            <!-- / Layout page -->
-        </div>
-
-        <!-- Overlay -->
-        <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
-    <!-- Modal Konfirmasi Terima Pesanan -->
-    <div class="modal fade" id="acceptOrderModal" tabindex="-1" aria-labelledby="acceptOrderModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="acceptOrderModalLabel">Konfirmasi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Apakah Anda yakin ingin menerima pesanan ini dan mengubah status menjadi
-                    <strong>Complete</strong>?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <form id="acceptOrderForm"
-                        action="{{ route('invoice.updateStatus', $invoice->selling_invoice_id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="status" value="Complete">
-                        <button type="submit" class="btn btn-primary">Ya, Terima Pesanan</button>
-                    </form>
+            <!-- Modal Konfirmasi Terima Pesanan -->
+            <div class="modal fade" id="acceptOrderModal" tabindex="-1" aria-labelledby="acceptOrderModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="acceptOrderModalLabel">Konfirmasi</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Apakah Anda yakin ingin menerima pesanan ini dan mengubah status menjadi
+                            <strong>Complete</strong>?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <form id="acceptOrderForm"
+                                action="{{ route('invoice.updateStatus', $invoice->selling_invoice_id) }}"
+                                method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="status" value="Complete">
+                                <button type="submit" class="btn btn-primary">Ya, Terima Pesanan</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
 
 
-    <script>
-        $('#updateSessionButtonPlus').click(function() {
-            $.ajax({
-                url: '/course-registration/' + {{ $courseRegistration->registration_id }} +
-                    '/update-session-plus',
-                type: 'PUT',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                },
-                success: function(response) {
-                    if (response.success) {
-                        alert("Sesi berhasil ditambahkan!");
-                        location.reload(); // Reload halaman untuk memperbarui data
-                    } else {
-                        alert(response.error);
-                    }
-                }
-            });
-        });
+            <script>
+                $('#updateSessionButtonPlus').click(function() {
+                    $.ajax({
+                        url: '/course-registration/' + {{ $courseRegistration->registration_id }} +
+                            '/update-session-plus',
+                        type: 'PUT',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                alert("Sesi berhasil ditambahkan!");
+                                location.reload(); // Reload halaman untuk memperbarui data
+                            } else {
+                                alert(response.error);
+                            }
+                        }
+                    });
+                });
 
-        $('#updateSessionButtonMinus').click(function() {
-            $.ajax({
-                url: '/course-registration/' + {{ $courseRegistration->registration_id }} +
-                    '/update-session-minus',
-                type: 'PUT',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                },
-                success: function(response) {
-                    if (response.success) {
-                        alert("Sesi berhasil dikurangi!");
-                        location.reload(); // Reload halaman untuk memperbarui data
-                    } else {
-                        alert(response.error);
-                    }
-                }
-            });
-        });
-    </script>
+                $('#updateSessionButtonMinus').click(function() {
+                    $.ajax({
+                        url: '/course-registration/' + {{ $courseRegistration->registration_id }} +
+                            '/update-session-minus',
+                        type: 'PUT',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                alert("Sesi berhasil dikurangi!");
+                                location.reload(); // Reload halaman untuk memperbarui data
+                            } else {
+                                alert(response.error);
+                            }
+                        }
+                    });
+                });
+            </script>
 
 
-    <script src="{{ asset('owner/dashboard/assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('owner/dashboard/assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('owner/dashboard/assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('owner/dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-    <script src="{{ asset('owner/dashboard/assets/vendor/js/menu.js') }}"></script>
+            <script src="{{ asset('owner/dashboard/assets/vendor/libs/jquery/jquery.js') }}"></script>
+            <script src="{{ asset('owner/dashboard/assets/vendor/libs/popper/popper.js') }}"></script>
+            <script src="{{ asset('owner/dashboard/assets/vendor/js/bootstrap.js') }}"></script>
+            <script src="{{ asset('owner/dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+            <script src="{{ asset('owner/dashboard/assets/vendor/js/menu.js') }}"></script>
 
-    <!-- endbuild -->
+            <!-- endbuild -->
 
-    <!-- Vendors JS -->
+            <!-- Vendors JS -->
 
-    <!-- Main JS -->
-    <script src="{{ asset('owner/dashboard/assets/js/main.js') }}"></script>
+            <!-- Main JS -->
+            <script src="{{ asset('owner/dashboard/assets/js/main.js') }}"></script>
 
-    <!-- Page JS -->
+            <!-- Page JS -->
 
-    <!-- Place this tag before closing body tag for github widget button. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+            <!-- Place this tag before closing body tag for github widget button. -->
+            <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 </body>
 

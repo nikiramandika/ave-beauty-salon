@@ -57,10 +57,12 @@
 
                             <div class="d-flex justify-content-end">
                                 <div>
-                                    <a href="" class="btn btn-primary mx-2">View Invoice</a>
+                                    <a href='{{ route('invoice.view', $courseHistory->invoice_code) }}''
+                                        class="btn btn-primary mx-2">View Invoice</a>
                                 </div>
                                 <div>
-                                    <a href="" class="btn btn-primary">Download Invoice</a>
+                                    <a href="{{ route('invoice.download', $courseHistory->invoice_code) }}"
+                                      target="_blank"  class="btn btn-primary">Download Invoice</a>
                                 </div>
                             </div>
                             <!-- Complete Order Button -->
