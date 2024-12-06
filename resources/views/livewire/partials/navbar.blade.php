@@ -139,9 +139,9 @@
     </script>
 
     <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center fixed-top">
-        <div class="container-fluid">
-            <div class="row justify-content-between align-items-center w-100">
-                <div class="col-auto">
+        <div class="container-fluid justify-content-around">
+            <div class="row justify-content-between align-items-center w-100 ">
+                <div class="col-2">
                     <a class="navbar-brand text-white" href="home">
                         <img src="{{ asset('user/images/logo.png') }}" alt="Logo" style="width: 60px; height: auto">
                     </a>
@@ -162,7 +162,7 @@
                         </div>
 
                         <div class="offcanvas-body">
-                            <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-3 pe-3">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-3">
                                 <li class="nav-item dropdown border-animation-left">
                                     <a class="my-0 nav-link item-anchor" href="/">Home</a>
                                 </li>
@@ -186,7 +186,7 @@
                     </div>
                 </div>
 
-                <div class="col-3 col-lg-auto">
+                <div class="col-2 col-lg-2">
                     <ul class="list-unstyled d-flex m-0 justify-content-end">
                         <!-- Icon Keranjang di Navbar -->
                         <li class="d-none d-lg-block position-relative me-3">

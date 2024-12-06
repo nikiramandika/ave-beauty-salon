@@ -1,3 +1,26 @@
+<style>
+    .image-holder {
+        border-radius: 10px!important;
+
+        
+    }
+    .product-image {
+        border-radius: 10px 10px 10px 10px!important;
+        padding-right: 0px!important;
+        
+    }
+    .category-content {
+    margin: auto; /* Ensures content within this div is centered */
+    }
+
+    .salon-essentials {
+        max-width: none!important;
+    }
+    .rounded {
+        border-radius: 10px!important;
+    }
+</style>
+
 <div>
     <section id="billboard" class="bg-light full-screen">
         <div class="container h-100 d-flex flex-column justify-content-center align-items-center">
@@ -31,7 +54,7 @@
                         <svg width="38" height="38" viewBox="0 0 24 24">
                             <use xlink:href="#shopping-bag"></use>
                         </svg>
-                        <h4 class="element-title text-capitalize my-3">Shop Salon Products</h4>
+                        <h4 class="element-title text-capitalize my-3">Shop Products</h4>
                         <p>Explore a curated selection of beauty and hair products available in-store.</p>
                     </div>
                 </div>
@@ -60,50 +83,43 @@
     <section class="categories overflow-hidden">
         <div class="container">
             <div class="open-up" data-aos="zoom-out">
-                <div class="row">
+                <div class="row g-4"> <!-- Add `g-4` for consistent gap -->
                     <div class="col-md-4">
-                        <div class="cat-item image-zoom-effect">
+                        <div class="cat-item image-zoom-effect text-center"> <!-- Added text-center for alignment -->
                             <div class="image-holder">
                                 <a href="/products">
                                     <img src="user/images/shop-product.jpg" alt="categories"
-                                        class="product-image img-fluid">
+                                        class="product-image img-fluid rounded">
                                 </a>
                             </div>
-                            <div class="category-content">
-                                <div class="product-button" style="margin-left: 12px;">
-                                    <a class="nav-link" href="/products">Shop Product</a>
-                                </div>
+                            <div class="category-content mt-3"> <!-- Added margin for spacing -->
+                                <a href="/products" class="btn btn-common text-uppercase">Shop Product</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="cat-item image-zoom-effect">
+                        <div class="cat-item image-zoom-effect text-center">
                             <div class="image-holder">
                                 <a href="/treatment">
                                     <img src="user/images/treatment-details.jpg" alt="categories"
-                                        class="product-image img-fluid">
+                                        class="product-image img-fluid rounded">
                                 </a>
                             </div>
-                            <div class="category-content">
-                                <div class="product-button" style="margin-left: 2px;">
-                                    <a href="/treatment" class="btn btn-common text-uppercase">Treatment Details</a>
-                                </div>
+                            <div class="category-content mt-3">
+                                <a href="/treatment" class="btn btn-common text-uppercase">Treatment Details</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="cat-item image-zoom-effect">
+                        <div class="cat-item image-zoom-effect text-center">
                             <div class="image-holder">
                                 <a href="/course">
                                     <img src="user/images/course-details.jpg" alt="categories"
-                                        class="product-image img-fluid">
+                                        class="product-image img-fluid rounded">
                                 </a>
                             </div>
-                            <div class="category-content">
-                                <div class="product-button">
-                                    <a href="/course" class="btn btn-common text-uppercase">Course
-                                        Details</a>
-                                </div>
+                            <div class="category-content mt-3">
+                                <a href="/course" class="btn btn-common text-uppercase text-center">Course Details</a>
                             </div>
                         </div>
                     </div>
@@ -111,6 +127,7 @@
             </div>
         </div>
     </section>
+    
 
     <section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
     </section>
@@ -119,15 +136,15 @@
         <div class="container">
             <div class="row">
                 <div class="title-xlarge text-uppercase txt-fx domino">Collection</div>
-                <div class="collection-item d-flex flex-wrap my-5">
+                <div class="collection-item d-flex flex-wrap my-5 rounded bg-white px-0 mx-2">
                     <div class="col-md-6 column-container">
-                        <div class="image-holderr">
-                            <img src="user/images/salon-essentials.jpg" alt="collection" class="product-image img-fluid">
+                        <div class=" ">
+                            <img src="user/images/salon-essentials.jpg" alt="collection" class="product-image img-fluid w-100 salon-essentials">
                         </div>
                     </div>
-                    <div class="col-md-6 column-container bg-white">
+                    <div class="col-md-6 column-container bg-white rounded">
                         <div class="collection-content p-5 m-0 m-md-">
-                            <h3 class="element-title text-uppercase">Salon Essentials</h3>
+                            <h3 class="element-title text-uppercase">About Ave Beauty</h3>
                             <p align="justify">A curated collection of premium salon-quality hair care products,
                                 including
                                 nourishing shampoo, hydrating conditioner,

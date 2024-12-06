@@ -4,9 +4,9 @@
             <div class="col-md-3 col-sm-6">
                 <div class="footer-menu footer-menu-001">
                     <div class="footer-intro mb-4">
-                        <a href="{{ url('/') }}">
+                        <a href="{{ url('/') }}" class="h5 mb-4">
                             <img src="{{ asset('user/images/logo.png') }}" alt="logo"
-                                style="width: 100px; height: auto;">
+                                style="width: 50px; height: auto; margin-right:10px;"> Ave Beauty Salon
                         </a>
                     </div>
                     <p>Experience premium salon care with a range of professional treatments tailored to enhance your

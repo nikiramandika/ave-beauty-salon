@@ -154,7 +154,7 @@
 
                                                     <!-- Aksi -->
                                                     <td>
-                                                        <div class="dropdown">
+                                                        <div class="dropdown px-5">
                                                             <button type="button"
                                                                 class="btn p-0 dropdown-toggle hide-arrow"
                                                                 data-bs-toggle="dropdown">

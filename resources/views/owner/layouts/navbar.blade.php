@@ -28,8 +28,8 @@
                         <a class="dropdown-item" href="#">
                             <div class="d-flex">
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-0">papi</h6>
-                                    <small class="text-muted">Admin</small>
+                                    <h6 class="mb-0">{{ auth()->user()->nama_depan }} {{ auth()->user()->nama_belakang }}</h6>
+                                    <small class="text-muted">{{ Auth::user()->role }}</small>
                                 </div>
                             </div>
                         </a>

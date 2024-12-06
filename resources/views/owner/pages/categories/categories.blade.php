@@ -90,9 +90,9 @@
 
                                                     </td>
                                                     <td>
-                                                        <div class="dropdown">
+                                                        <div class="dropdown px-5">
                                                             <button type="button"
-                                                                class="btn p-0 dropdown-toggle hide-arrow"
+                                                                class="btn p-0 dropdown-toggle hide-arrow m"
                                                                 data-bs-toggle="dropdown">
                                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                                             </button>
