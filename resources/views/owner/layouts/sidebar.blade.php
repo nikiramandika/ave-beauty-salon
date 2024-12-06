@@ -1,8 +1,7 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="/dashboard-owner" class="app-brand-link">
-            <img src="{{ asset('user/images/logo.png') }}"
-                style="width: 50px; border-radius:15px" alt="Ave-Beauy">
+            <img src="{{ asset('user/images/logo.png') }}" style="width: 50px; border-radius:15px" alt="Ave-Beauy">
             <span class="app-brand-text demo menu-text fw-bold ms-2" style="font-size: 17px;">Ave Beauty Salon</span>
         </a>
 
@@ -109,6 +108,15 @@
             </a>
         </li>
 
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Courses</span>
+        </li>
+        <li class="menu-item {{ Request::is('course-registration*') ? 'active' : '' }}">
+            <a href="/course-registration" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div class="text-truncate" data-i18n="Basic">Course Registration</div>
+            </a>
+        </li>
         <!-- Logs -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Logs</span>

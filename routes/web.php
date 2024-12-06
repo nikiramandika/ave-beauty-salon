@@ -213,6 +213,16 @@ Route::middleware(['role:Admin'])->group(function () {
     Route::put('/promos-owner/{promo_id}', [PromoController::class, 'update'])->name('promos.update');
     // Route untuk menghapus
     Route::delete('/promos/{id}', [PromoController::class, 'destroy'])->name('promos.destroy');
+
+    Route::get('/course-registration', [CourseController::class, 'courseRegistration'])->name('course.registration');
+
+    Route::get('/course-registration/{registration_id}', [CourseController::class, 'viewCourseHistory'])->name('course.history.view');
+    Route::put('/course-registration/{invoiceId}/update-status', [CourseController::class, 'updateStatus'])->name('invoice.updateStatus');
+    Route::put('/course-registration/{registrationId}/update-session-plus', [CourseController::class, 'updateSessionPlus'])->name('course.updateSessionPlus');
+    Route::put('/course-registration/{registrationId}/update-session-minus', [CourseController::class, 'updateSessionMinus'])->name('course.updateSessionMinus');
+    
+
+
 });
 
 Route::get('/dashboard', function () {

@@ -61,6 +61,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Member::class, 'user_id', 'id'); // Relasi ke tabel members
     }
+
+    // App\Models\User.php
+    public function courseRegistrations()
+    {
+        return $this->hasMany(CourseRegistration::class, 'user_id');
+    }
+
     /**
      * The attributes that should be cast to enum.
      *

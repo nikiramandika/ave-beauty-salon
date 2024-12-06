@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseDescription;
+use App\Models\CourseHistory1;
+use App\Models\CourseRegistration;
+use App\Models\SellingInvoice;
 use Illuminate\Http\Request;
 use Log;
 use Str;
@@ -204,5 +207,115 @@ class CourseController extends Controller
         return view('user.pages.course-details', compact('course'));
     }
 
+    public function courseRegistration()
+    {
+        // Ambil data CourseDescription, CourseRegistration, dan CourseHistory1 dengan relasi yang diperlukan
+        $courseDescriptions = CourseDescription::with('course')->get();
+
+        // Ambil CourseRegistrations dan relasi yang dibutuhkan
+        $courseRegistrations = CourseRegistration::with('course', 'user')->get();
+
+        // Mengambil data CourseHistory1 dan mencocokkannya dengan registration_id dari CourseRegistration
+        $courseHistory1 = CourseHistory1::with('course', 'user')->get();
+
+        // Menambahkan invoice_code ke setiap courseRegistration berdasarkan registration_id yang cocok di courseHistory1
+        foreach ($courseRegistrations as $registration) {
+            // Mencari data history yang terkait dengan registration_id
+            $history = $courseHistory1->where('registration_id', $registration->id)->first();
+            if ($history) {
+                $registration->invoice_code = $history->invoice_code;
+            } else {
+                $registration->invoice_code = null; // Jika tidak ditemukan, set invoice_code sebagai null
+            }
+        }
+
+        // Mengirimkan data ke view
+        return view('owner.pages.courses.course-registration', compact('courseDescriptions', 'courseRegistrations', 'courseHistory1'));
+    }
+
+    public function viewCourseHistory($registration_id)
+    {
+        // Ambil data dari CourseRegistration dan CourseHistory1 berdasarkan registration_id
+        $courseRegistration = CourseRegistration::with('course', 'user')->find($registration_id);
+
+        // dd($courseRegistration);
+        if (!$courseRegistration) {
+            return redirect()->back()->with('error', 'Course registration not found.');
+        }
+
+        $courseHistory = CourseHistory1::where('registration_id', $registration_id)->first();
+
+        if (!$courseHistory) {
+            return redirect()->back()->with('error', 'Course history not found.');
+        }
+
+        // Mengambil invoice_code dari course history
+        $invoiceCode = $courseHistory->invoice_code;
+
+        $invoice = SellingInvoice::with('details')->where('invoice_code', $invoiceCode)->first();
+        // Kirim data ke view
+        return view('owner.pages.courses.course-registration-detail', compact('courseRegistration', 'invoice', 'courseHistory', 'invoiceCode'));
+    }
+
+    public function updateStatus(Request $request, $invoiceId)
+    {
+        $invoice = SellingInvoice::find($invoiceId);
+
+        if ($invoice) {
+            // Update status pesanan
+            $invoice->order_status = $request->input('status');
+            $invoice->save();
+
+            return redirect()->back()->with('success', 'Pesanan telah diterima dan status diubah menjadi Completed');
+        }
+
+        return redirect()->back()->with('error', 'Pesanan tidak ditemukan');
+    }
+    public function updateSessionPlus(Request $request, $registrationId)
+    {
+        \Log::info("updateSessionPlus called for registrationId: $registrationId"); // Log untuk debugging
+    
+        // Temukan data course registration berdasarkan ID
+        $registration = CourseRegistration::find($registrationId);
+    
+        if ($registration) {
+            // Ambil total sessions dari course yang terkait
+            $totalSessions = $registration->course->sessions;
+    
+            // Pastikan sesi belum mencapai total
+            if ($registration->sessions_completed < $totalSessions) {
+                $registration->sessions_completed += 1;
+                $registration->save();
+    
+                return response()->json(['success' => true]);
+            }
+    
+            return response()->json(['error' => 'Jumlah sesi sudah mencapai total.']);
+        }
+    
+        return response()->json(['error' => 'Registrasi tidak ditemukan.']);
+    }
+    public function updateSessionMinus(Request $request, $registrationId)
+    {
+        \Log::info("updateSessionMinus called for registrationId: $registrationId"); // Log untuk debugging
+    
+        // Temukan data course registration berdasarkan ID
+        $registration = CourseRegistration::find($registrationId);
+    
+        if ($registration) {
+            // Pastikan sesi tidak kurang dari 0
+            if ($registration->sessions_completed > 0) {
+                $registration->sessions_completed -= 1;
+                $registration->save();
+    
+                return response()->json(['success' => true]);
+            }
+    
+            return response()->json(['error' => 'Jumlah sesi tidak bisa kurang dari 0.']);
+        }
+    
+        return response()->json(['error' => 'Registrasi tidak ditemukan.']);
+    }
+        
 
 }
