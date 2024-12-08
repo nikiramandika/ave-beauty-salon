@@ -21,17 +21,11 @@
                 <i class="fas fa-user"></i>
                 <span>member</span>
             </a>
-            <a href="/laporan"
+            <a href="/laporan-kasir"
                 class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 
                 {{ Request::is('laporan*') ? 'bg-blue-50 text-blue-700' : 'text-gray-700' }}">
                 <i class="fas fa-chart-bar"></i>
                 <span>Laporan</span>
-            </a>
-            <a href="/setting"
-                class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 
-                {{ Request::is('setting*') ? 'bg-blue-50 text-blue-700' : 'text-gray-700' }}">
-                <i class="fas fa-cog"></i>
-                <span>Pengaturan</span>
             </a>
         </nav>
     </div>

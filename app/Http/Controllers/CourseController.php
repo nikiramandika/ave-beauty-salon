@@ -273,7 +273,7 @@ class CourseController extends Controller
     }
     public function updateSessionPlus(Request $request, $registrationId)
     {
-        \Log::info("updateSessionPlus called for registrationId: $registrationId"); // Log untuk debugging
+        Log::info("updateSessionPlus called for registrationId: $registrationId"); // Log untuk debugging
     
         // Temukan data course registration berdasarkan ID
         $registration = CourseRegistration::find($registrationId);
@@ -297,7 +297,7 @@ class CourseController extends Controller
     }
     public function updateSessionMinus(Request $request, $registrationId)
     {
-        \Log::info("updateSessionMinus called for registrationId: $registrationId"); // Log untuk debugging
+        Log::info("updateSessionMinus called for registrationId: $registrationId"); // Log untuk debugging
     
         // Temukan data course registration berdasarkan ID
         $registration = CourseRegistration::find($registrationId);

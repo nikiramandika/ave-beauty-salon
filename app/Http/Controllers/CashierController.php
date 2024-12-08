@@ -22,6 +22,7 @@ class CashierController extends Controller
      */
     public function index()
     {
+
         $cashiers = Cashier::with('user')->paginate(10);
         return view('owner.pages.cashiers.cashiers', compact('cashiers'));
     }
@@ -90,6 +91,7 @@ class CashierController extends Controller
             ->select('id', 'nama_depan', 'nama_belakang', 'phone', 'email')
             ->get();
         $categories = Category::all();
+
         return view('cashier.index', compact('products', 'categories', 'treatments', 'promos', 'users'));
     }
 
@@ -273,13 +275,13 @@ class CashierController extends Controller
             DB::transaction(function () use ($data, $cartJson) {
                 // Tentukan nilai default untuk recipient_address jika kosong
                 $recipientAddress = $data['recipient_address'] ?? 'Pesanan Offline';
-            
+
                 // Tentukan recipient_bank jika metode pembayaran adalah Non-Tunai
                 $recipientBank = null;
                 if ($data['payment_method'] === 'Bank Transfer') {
                     $recipientBank = $data['recipient_bank'] ?? 'Bank Tidak Ditentukan';
                 }
-            
+
                 // Debug data sebelum memanggil prosedur
                 \Log::info('Data sebelum prosedur:', [
                     'cashier_id' => $data['cashier_id'],
@@ -292,7 +294,7 @@ class CashierController extends Controller
                     'payment_method' => $data['payment_method'],
                     'cart_json' => $cartJson
                 ]);
-            
+
                 // Panggil prosedur MySQL untuk memproses invoice
                 DB::statement('CALL insertInvoiceProcedurecashier5(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                     $data['cashier_id'],
@@ -305,33 +307,42 @@ class CashierController extends Controller
                     $data['payment_method'],
                     $cartJson
                 ]);
-            
-// Loop untuk memanggil prosedur pengurangan stok produk
-foreach ($data['cart'] as $cartItem) {
-    if (isset($cartItem['detailId']) && isset($cartItem['quantity'])) {
-        // Call the stored procedure to update product stock
-        DB::statement('CALL update_product_stock(?, ?)', [
-            $cartItem['detailId'],    // ID produk
-            $cartItem['quantity']     // Kuantitas produk yang dibeli
-        ]);
-        
-        // Log the success with the details of the operation
-        \Log::info('Successfully updated product stock', [
-            'product_id' => $cartItem['detailId'],
-            'quantity' => $cartItem['quantity']
-        ]);
-    } else {
-        // Log a warning if detailId or quantity is missing
-        \Log::warning('Missing detailId or quantity in cart item:', $cartItem);
-    }
-}
+
+                // Loop untuk memanggil prosedur pengurangan stok produk
+                foreach ($data['cart'] as $cartItem) {
+                    if (isset($cartItem['detailId']) && isset($cartItem['quantity'])) {
+                        // Call the stored procedure to update product stock
+                        DB::statement('CALL update_product_stock(?, ?)', [
+                            $cartItem['detailId'],    // ID produk
+                            $cartItem['quantity']     // Kuantitas produk yang dibeli
+                        ]);
+
+                        // Log the success with the details of the operation
+                        \Log::info('Successfully updated product stock', [
+                            'product_id' => $cartItem['detailId'],
+                            'quantity' => $cartItem['quantity']
+                        ]);
+                    } else {
+                        // Log a warning if detailId or quantity is missing
+                        \Log::warning('Missing detailId or quantity in cart item:', $cartItem);
+                    }
+                }
 
             });
-            
+            $invoiceCode = DB::table('selling_invoices')
+                ->where('recipient_address', 'Pesanan Offline')  // Menambahkan kondisi filter untuk recipient_address
+                ->orderBy('order_date', 'desc')  // Mengurutkan berdasarkan order_date secara descending
+                ->first()
+                ->invoice_code;  // Mengambil invoice_code dari data pertama yang sesuai
+            // Mengambil invoice_code dari data pertama
+
             // Debug setelah transaksi selesai
             \Log::info('Transaksi selesai, invoice berhasil diproses dan stok produk diperbarui');
 
-            return response()->json(['message' => 'Invoice processed and product stock updated successfully']);
+            return response()->json([
+                'message' => 'Invoice processed and product stock updated successfully',
+                'invoice_code' => $invoiceCode  // Return invoice_code to the frontend
+            ]);
         } catch (\Throwable $e) {
             // Tangkap error dan log
             \Log::error('Error processing invoice:', [

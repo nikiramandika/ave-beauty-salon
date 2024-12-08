@@ -341,41 +341,40 @@
         </div>
     </div>
     <script>
-$(document).ready(function () {
-    // Variabel untuk nilai konversi poin ke rupiah
-    const pointValue = 5000; // 1 poin = Rp 5.000
+        $(document).ready(function() {
+            // Variabel untuk nilai konversi poin ke rupiah
+            const pointValue = 5000; // 1 poin = Rp 5.000
 
-    // Simpan total belanja asli saat halaman dimuat
-    const originalTotalAmount = parseInt($('#totalAmount').val()) || 0;
+            // Simpan total belanja asli saat halaman dimuat
+            const originalTotalAmount = parseInt($('#totalAmount').val()) || 0;
 
-    // Event listener untuk input poin
-    $('#poinUsed').on('input', function () {
-        const usedPoints = parseInt($(this).val()) || 0; // Jumlah poin yang dimasukkan
-        const availablePoints = parseInt($('#availablePoin').text()) || 0; // Poin yang tersedia
+            // Event listener untuk input poin
+            $('#poinUsed').on('input', function() {
+                const usedPoints = parseInt($(this).val()) || 0; // Jumlah poin yang dimasukkan
+                const availablePoints = parseInt($('#availablePoin').text()) || 0; // Poin yang tersedia
 
-        // Validasi agar tidak melebihi poin yang tersedia
-        if (usedPoints > availablePoints) {
-            alert("Jumlah poin yang dimasukkan melebihi poin yang tersedia.");
-            $(this).val(availablePoints); // Atur nilai maksimum
-            return;
-        }
+                // Validasi agar tidak melebihi poin yang tersedia
+                if (usedPoints > availablePoints) {
+                    alert("Jumlah poin yang dimasukkan melebihi poin yang tersedia.");
+                    $(this).val(availablePoints); // Atur nilai maksimum
+                    return;
+                }
 
-        // Hitung total pengurangan
-        const discount = usedPoints * pointValue;
+                // Hitung total pengurangan
+                const discount = usedPoints * pointValue;
 
-        // Perbarui nilai totalAmountDisplay dan totalAmount
-        const newTotal = originalTotalAmount - discount > 0 ? originalTotalAmount - discount : 0; // Pastikan tidak negatif
-        $('#totalAmountDisplay').val(formatRupiah(newTotal));
-        $('#totalAmount').val(newTotal);
-    });
+                // Perbarui nilai totalAmountDisplay dan totalAmount
+                const newTotal = originalTotalAmount - discount > 0 ? originalTotalAmount - discount :
+                    0; // Pastikan tidak negatif
+                $('#totalAmountDisplay').val(formatRupiah(newTotal));
+                $('#totalAmount').val(newTotal);
+            });
 
-    // Fungsi untuk memformat angka menjadi format Rupiah
-    function formatRupiah(angka) {
-        return "Rp " + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }
-});
-
-
+            // Fungsi untuk memformat angka menjadi format Rupiah
+            function formatRupiah(angka) {
+                return "Rp " + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+        });
     </script>
 
 
@@ -473,43 +472,43 @@ $(document).ready(function () {
 
         // Fungsi untuk membuka modal
         confirmPaymentButton.addEventListener('click', function() {
-    // Tampilkan produk dan total harga di modal
-    let cartItems = cart.map((item, index) => `
+            // Tampilkan produk dan total harga di modal
+            let cartItems = cart.map((item, index) => `
         <div class="flex justify-between mb-2">
             <span>${index + 1}. ${item.name} (x${item.quantity})</span>
             <span>${formatRupiah(item.price * item.quantity)}</span>
         </div>
     `).join('');
 
-    // Total harga asli (sebelum diskon poin)
-    let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            // Total harga asli (sebelum diskon poin)
+            let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-    // Ambil poin yang digunakan dari input
-    let poinUsed = parseInt(document.getElementById('poinUsed').value) || 0;
-    const pointValue = 5000; // Nilai 1 poin dalam rupiah
-    let discountFromPoints = poinUsed * pointValue;
+            // Ambil poin yang digunakan dari input
+            let poinUsed = parseInt(document.getElementById('poinUsed').value) || 0;
+            const pointValue = 5000; // Nilai 1 poin dalam rupiah
+            let discountFromPoints = poinUsed * pointValue;
 
-    // Total harga setelah diskon poin
-    let discountedPrice = totalPrice - discountFromPoints;
-    discountedPrice = discountedPrice > 0 ? discountedPrice : 0; // Pastikan tidak negatif
+            // Total harga setelah diskon poin
+            let discountedPrice = totalPrice - discountFromPoints;
+            discountedPrice = discountedPrice > 0 ? discountedPrice : 0; // Pastikan tidak negatif
 
-    // Ambil jumlah uang tunai dari input
-    let cashAmount = parseInt(document.getElementById('cashAmount').value) || 0;
+            // Ambil jumlah uang tunai dari input
+            let cashAmount = parseInt(document.getElementById('cashAmount').value) || 0;
 
-    // Hitung kembalian
-    let changeAmount = cashAmount - discountedPrice;
-    let formattedChangeAmount = formatRupiah(changeAmount > 0 ? changeAmount : 0);
+            // Hitung kembalian
+            let changeAmount = cashAmount - discountedPrice;
+            let formattedChangeAmount = formatRupiah(changeAmount > 0 ? changeAmount : 0);
 
-    // Ambil nama pelanggan dari dropdown
-    let userSelect = document.getElementById('userSelect');
-    let selectedUser = userSelect.options[userSelect.selectedIndex].text || "Tidak Ada Pelanggan";
+            // Ambil nama pelanggan dari dropdown
+            let userSelect = document.getElementById('userSelect');
+            let selectedUser = userSelect.options[userSelect.selectedIndex].text || "Tidak Ada Pelanggan";
 
-    // Ambil metode pembayaran
-    let paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
-    let paymentMethodText = paymentMethod === 'cash' ? 'Tunai' : 'Non-Tunai';
+            // Ambil metode pembayaran
+            let paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+            let paymentMethodText = paymentMethod === 'cash' ? 'Tunai' : 'Non-Tunai';
 
-    // Perbarui konten modal
-    modalContent.innerHTML = `
+            // Perbarui konten modal
+            modalContent.innerHTML = `
         <div class="mb-4">
             <strong>ID Kasir:</strong> ${cashierId}
         </div>
@@ -533,17 +532,17 @@ $(document).ready(function () {
             <strong>Total Harga Setelah Diskon:</strong> ${formatRupiah(discountedPrice)}
         </div>
         ${paymentMethod === 'cash' ? `
-        <div class="mb-4">
-            <strong>Jumlah Tunai:</strong> ${formatRupiah(cashAmount)}
-        </div>
-        <div class="mb-4">
-            <strong>Kembalian:</strong> ${formattedChangeAmount}
-        </div>` : ''}
+                            <div class="mb-4">
+                                <strong>Jumlah Tunai:</strong> ${formatRupiah(cashAmount)}
+                            </div>
+                            <div class="mb-4">
+                                <strong>Kembalian:</strong> ${formattedChangeAmount}
+                            </div>` : ''}
     `;
 
-    // Tampilkan modal
-    confirmationModal.classList.remove('hidden');
-});
+            // Tampilkan modal
+            confirmationModal.classList.remove('hidden');
+        });
 
 
 
@@ -553,154 +552,158 @@ $(document).ready(function () {
             confirmationModal.classList.add('hidden');
         });
 
-        printInvoiceButton.addEventListener('click', function () {
-    console.log('Tombol Cetak Invoice diklik');
+        printInvoiceButton.addEventListener('click', function() {
+            console.log('Tombol Cetak Invoice diklik');
 
-    try {
-        // Ambil metode pembayaran
-        let paymentMethodElement = document.querySelector('input[name="payment_method"]:checked');
-        let paymentMethod = paymentMethodElement ? paymentMethodElement.value : null;
-        if (!paymentMethod) {
-            console.error('Metode pembayaran tidak ditemukan!');
-            alert('Harap pilih metode pembayaran.');
-            return;
-        }
+            try {
+                // Ambil metode pembayaran
+                let paymentMethodElement = document.querySelector('input[name="payment_method"]:checked');
+                let paymentMethod = paymentMethodElement ? paymentMethodElement.value : null;
+                if (!paymentMethod) {
+                    console.error('Metode pembayaran tidak ditemukan!');
+                    alert('Harap pilih metode pembayaran.');
+                    return;
+                }
 
-        // Ambil bank jika metode pembayaran Non-Tunai
-        let recipientBank = null; // Default null
-        if (paymentMethod === "Bank Transfer") {
-            let bankSelectionElement = document.getElementById('bank');
-            recipientBank = bankSelectionElement ? bankSelectionElement.value : null;
+                // Ambil bank jika metode pembayaran Non-Tunai
+                let recipientBank = null; // Default null
+                if (paymentMethod === "Bank Transfer") {
+                    let bankSelectionElement = document.getElementById('bank');
+                    recipientBank = bankSelectionElement ? bankSelectionElement.value : null;
 
-            if (!recipientBank) {
-                console.error('Bank belum dipilih!');
-                alert('Harap pilih bank untuk pembayaran Non-Tunai.');
-                return;
+                    if (!recipientBank) {
+                        console.error('Bank belum dipilih!');
+                        alert('Harap pilih bank untuk pembayaran Non-Tunai.');
+                        return;
+                    }
+                }
+
+                // Ambil data pelanggan dari dropdown
+                let customerSelect = document.getElementById('userSelect');
+                let recipientName = customerSelect && customerSelect.selectedOptions.length > 0 ?
+                    customerSelect.selectedOptions[0].textContent.trim() :
+                    null;
+
+                let customerId = customerSelect ? customerSelect.value : null;
+
+                // Ambil nomor telepon
+                let recipientPhoneElement = document.getElementById('phoneNumber');
+                let recipientPhone = recipientPhoneElement ? recipientPhoneElement.value.trim() : null;
+
+                // Ambil email
+                let recipientEmailElement = document.getElementById('emailAddress');
+                let recipientEmail = recipientEmailElement ? recipientEmailElement.value.trim() : null;
+
+                // Total harga asli (sebelum diskon poin)
+                let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+                // Ambil poin yang digunakan dari input
+                let poinUsed = parseInt(document.getElementById('poinUsed').value) || 0;
+                if (poinUsed < 0) poinUsed = 0; // Pastikan poin tidak negatif
+                const pointValue = 5000; // Nilai 1 poin dalam rupiah
+                let discountFromPoints = poinUsed * pointValue;
+
+                // Total harga setelah diskon poin
+                let discountedPrice = totalPrice - discountFromPoints;
+                discountedPrice = discountedPrice > 0 ? discountedPrice : 0; // Pastikan tidak negatif
+
+                // Ambil jumlah uang tunai dari input
+                let cashAmount = parseInt(document.getElementById('cashAmount').value) || 0;
+                if (cashAmount < 0) cashAmount = 0; // Pastikan uang tunai tidak negatif
+
+                // Hitung kembalian
+                let changeAmount = cashAmount - discountedPrice;
+                let formattedChangeAmount = formatRupiah(changeAmount > 0 ? changeAmount : 0);
+
+                // Masukkan used_points dan discount_from_points ke dalam cart
+                cart = cart.map(item => {
+                    return {
+                        ...item,
+                        used_points: poinUsed, // Seluruh poin digunakan didistribusikan ke keranjang
+                        discount_from_points: discountFromPoints // Diskon total yang digunakan
+                    };
+                });
+
+                console.log('Updated Cart:', cart);
+                console.log('Recipient Name:', recipientName);
+                console.log('Customer ID:', customerId);
+                console.log('Recipient Phone:', recipientPhone);
+                console.log('Recipient Email:', recipientEmail);
+                console.log('Recipient Bank:', recipientBank);
+                console.log('Cart Data:', cart);
+                console.log('Total Price (Before Discount):', totalPrice);
+                console.log('Total Discount from Points:', discountFromPoints);
+                console.log('Total Price (After Discount):', discountedPrice);
+                console.log('Cash Amount:', cashAmount);
+                console.log('Change Amount:', formattedChangeAmount);
+
+                // Pastikan cart tidak kosong
+                if (!cart || cart.length === 0) {
+                    console.error('Keranjang belanja kosong!');
+                    alert('Keranjang belanja kosong. Harap tambahkan item sebelum melanjutkan.');
+                    return;
+                }
+
+                // Kirim permintaan dengan fetch API
+                fetch('/process-invoice-cashier', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify({
+                            cashier_id: "{{ auth()->id() }}",
+                            customer_id: customerId,
+                            recipient_name: recipientName,
+                            recipient_email: recipientEmail,
+                            recipient_phone: recipientPhone,
+                            recipient_bank: recipientBank,
+                            payment_method: paymentMethod,
+                            cart: cart // Keranjang yang sudah termasuk poin dan diskon
+                        })
+                    })
+                    .then(response => {
+                        console.log('Response Status:', response.status);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Invoice processed:', data);
+
+                        // Sembunyikan modal konfirmasi jika sukses
+                        confirmationModal.classList.add('hidden');
+
+                        // Ambil invoice_code dari data yang dikembalikan dari server
+                        const invoiceCode = data.invoice_code;
+
+                        // Tampilkan modal alert dengan membawa invoiceCode
+                        showAlertModal(invoiceCode); // Pass invoiceCode ke showAlertModal
+                    })
+                    .catch(error => {
+                        console.error('Error processing invoice:', error);
+                        alert('Terjadi kesalahan saat memproses invoice. Silakan coba lagi.');
+                    });
+            } catch (error) {
+                console.error('Unhandled error:', error);
+                alert('Terjadi kesalahan yang tidak terduga. Harap periksa input Anda.');
             }
-        }
-
-        // Ambil data pelanggan dari dropdown
-        let customerSelect = document.getElementById('userSelect');
-        let recipientName = customerSelect && customerSelect.selectedOptions.length > 0 ?
-            customerSelect.selectedOptions[0].textContent.trim() :
-            null;
-
-        let customerId = customerSelect ? customerSelect.value : null;
-
-        // Ambil nomor telepon
-        let recipientPhoneElement = document.getElementById('phoneNumber');
-        let recipientPhone = recipientPhoneElement ? recipientPhoneElement.value.trim() : null;
-
-        // Ambil email
-        let recipientEmailElement = document.getElementById('emailAddress');
-        let recipientEmail = recipientEmailElement ? recipientEmailElement.value.trim() : null;
-
-        // Total harga asli (sebelum diskon poin)
-        let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-        // Ambil poin yang digunakan dari input
-        let poinUsed = parseInt(document.getElementById('poinUsed').value) || 0;
-        if (poinUsed < 0) poinUsed = 0; // Pastikan poin tidak negatif
-        const pointValue = 5000; // Nilai 1 poin dalam rupiah
-        let discountFromPoints = poinUsed * pointValue;
-
-        // Total harga setelah diskon poin
-        let discountedPrice = totalPrice - discountFromPoints;
-        discountedPrice = discountedPrice > 0 ? discountedPrice : 0; // Pastikan tidak negatif
-
-        // Ambil jumlah uang tunai dari input
-        let cashAmount = parseInt(document.getElementById('cashAmount').value) || 0;
-        if (cashAmount < 0) cashAmount = 0; // Pastikan uang tunai tidak negatif
-
-        // Hitung kembalian
-        let changeAmount = cashAmount - discountedPrice;
-        let formattedChangeAmount = formatRupiah(changeAmount > 0 ? changeAmount : 0);
-
-        // Masukkan used_points dan discount_from_points ke dalam cart
-        cart = cart.map(item => {
-            return {
-                ...item,
-                used_points: poinUsed, // Seluruh poin digunakan didistribusikan ke keranjang
-                discount_from_points: discountFromPoints // Diskon total yang digunakan
-            };
         });
 
-        console.log('Updated Cart:', cart);
-        console.log('Recipient Name:', recipientName);
-        console.log('Customer ID:', customerId);
-        console.log('Recipient Phone:', recipientPhone);
-        console.log('Recipient Email:', recipientEmail);
-        console.log('Recipient Bank:', recipientBank);
-        console.log('Cart Data:', cart);
-        console.log('Total Price (Before Discount):', totalPrice);
-        console.log('Total Discount from Points:', discountFromPoints);
-        console.log('Total Price (After Discount):', discountedPrice);
-        console.log('Cash Amount:', cashAmount);
-        console.log('Change Amount:', formattedChangeAmount);
 
-        // Pastikan cart tidak kosong
-        if (!cart || cart.length === 0) {
-            console.error('Keranjang belanja kosong!');
-            alert('Keranjang belanja kosong. Harap tambahkan item sebelum melanjutkan.');
-            return;
-        }
-
-        // Kirim permintaan dengan fetch API
-        fetch('/process-invoice-cashier', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({
-                cashier_id: "{{ auth()->id() }}",
-                customer_id: customerId,
-                recipient_name: recipientName,
-                recipient_email: recipientEmail,
-                recipient_phone: recipientPhone,
-                recipient_bank: recipientBank,
-                payment_method: paymentMethod,
-                cart: cart // Keranjang yang sudah termasuk poin dan diskon
-            })
-        })
-            .then(response => {
-                console.log('Response Status:', response.status);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Invoice processed:', data);
-
-                // Sembunyikan modal konfirmasi jika sukses
-                confirmationModal.classList.add('hidden');
-
-                // Tampilkan modal alert
-                showAlertModal();
-            })
-            .catch(error => {
-                console.error('Error processing invoice:', error);
-                alert('Terjadi kesalahan saat memproses invoice. Silakan coba lagi.');
-            });
-    } catch (error) {
-        console.error('Unhandled error:', error);
-        alert('Terjadi kesalahan yang tidak terduga. Harap periksa input Anda.');
-    }
-});
-
-
-        function showAlertModal() {
-            // Buat modal HTML
+        function showAlertModal(invoiceCode) {
+            // Buat modal HTML dengan memasukkan invoiceCode ke dalam URL untuk cetak invoice
             const modalHTML = `
         <div id="successModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div class="bg-white rounded-lg shadow-lg p-6 w-96">
                 <h2 class="text-lg font-bold text-center mb-4">Invoice Berhasil Diproses</h2>
                 <p class="text-sm text-gray-600 text-center mb-6">Silakan pilih untuk mencetak invoice atau menghapus keranjang.</p>
                 <div class="flex justify-around">
-                    <button id="printInvoice" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    <a target="_blank" href="/receipt/download/${invoiceCode}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                         Print Invoice
-                    </button>
+                    </a>
                     <button id="okButton" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
                         OK
                     </button>
@@ -712,12 +715,6 @@ $(document).ready(function () {
             // Tambahkan modal ke body
             document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-            // Event listener untuk tombol Print Invoice
-            document.getElementById('printInvoice').addEventListener('click', function() {
-                printInvoice(); // Panggil fungsi print
-                clearCart(); // Hapus keranjang
-                closeModal();
-            });
 
             // Event listener untuk tombol OK
             document.getElementById('okButton').addEventListener('click', function() {
@@ -740,135 +737,99 @@ $(document).ready(function () {
             updateCartDisplay(); // Perbarui tampilan keranjang
             updateTotal(); // Perbarui total harga
         }
-
-        function printInvoice() {
-            console.log('Mencetak invoice...');
-            let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-            let invoiceWindow = window.open('', '_blank');
-            invoiceWindow.document.write(`
-        <html>
-        <head>
-            <title>Invoice</title>
-            <style>
-                body { font-family: Arial, sans-serif; padding: 20px; }
-                .invoice-header { text-align: center; margin-bottom: 20px; }
-                .invoice-items { margin-bottom: 20px; }
-                .invoice-total { font-weight: bold; }
-            </style>
-        </head>
-        <body>
-            <div class="invoice-header">
-                <h1>Invoice</h1>
-                <p>Total: Rp ${totalPrice.toLocaleString('id-ID')}</p>
-            </div>
-            <div class="invoice-items">
-                ${cart.map((item, index) => `
-                                                                                                                                                            <div>${index + 1}. ${item.name} (x${item.quantity}) - Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</div>
-                                                                                                                                                        `).join('')}
-            </div>
-            <div class="invoice-total">
-                <strong>Total:</strong> Rp ${totalPrice.toLocaleString('id-ID')}
-            </div>
-        </body>
-        </html>
-    `);
-            invoiceWindow.document.close();
-            invoiceWindow.print();
-        }
     </script>
 
-<script>
-    $(document).ready(function () {
-    // Inisialisasi Select2
-    $('#userSelect').select2({
-        placeholder: "Pilih Pelanggan...",
-        allowClear: true
-    });
+    <script>
+        $(document).ready(function() {
+            // Inisialisasi Select2
+            $('#userSelect').select2({
+                placeholder: "Pilih Pelanggan...",
+                allowClear: true
+            });
 
-    // Muat data yang tersimpan di localStorage saat halaman dimuat
-    const savedUserId = localStorage.getItem('selectedUserId');
-    if (savedUserId) {
-        $('#userSelect').val(savedUserId).trigger('change'); // Pilih pengguna di dropdown
+            // Muat data yang tersimpan di localStorage saat halaman dimuat
+            const savedUserId = localStorage.getItem('selectedUserId');
+            if (savedUserId) {
+                $('#userSelect').val(savedUserId).trigger('change'); // Pilih pengguna di dropdown
 
-        // Ambil data dari opsi yang sesuai
-        const selectedOption = $('#userSelect').find(`option[value="${savedUserId}"]`);
-        const phone = selectedOption.data('phone') || '-';
-        const email = selectedOption.data('email') || '-';
-        const isMember = selectedOption.data('member') === 1; // Data member
-        const poin = selectedOption.data('poin') || 0; // Data poin
+                // Ambil data dari opsi yang sesuai
+                const selectedOption = $('#userSelect').find(`option[value="${savedUserId}"]`);
+                const phone = selectedOption.data('phone') || '-';
+                const email = selectedOption.data('email') || '-';
+                const isMember = selectedOption.data('member') === 1; // Data member
+                const poin = selectedOption.data('poin') || 0; // Data poin
 
-        // Set nilai pada input dan tampilkan
-        $('#phoneNumber').val(phone);
-        $('#emailAddress').val(email);
-        $('#userDetails').removeClass('hidden');
+                // Set nilai pada input dan tampilkan
+                $('#phoneNumber').val(phone);
+                $('#emailAddress').val(email);
+                $('#userDetails').removeClass('hidden');
 
-        // Tampilkan poin jika user adalah member
-        if (isMember) {
-            $('#memberDetails').removeClass('hidden');
-            $('#availablePoin').text(poin); // Tampilkan poin yang tersedia
-            $('#poinUsed').attr('max', poin); // Batasi input poin hingga jumlah poin yang tersedia
-        } else {
-            $('#memberDetails').addClass('hidden');
-            $('#availablePoin').text('0');
-            $('#poinUsed').val('').attr('max', 0);
-        }
-    }
-
-    // Event listener untuk perubahan dropdown
-    $('#userSelect').on('change', function () {
-        const selectedOption = $(this).find(':selected'); // Opsi yang dipilih
-        const userId = $(this).val(); // ID pengguna yang dipilih
-        const phone = selectedOption.data('phone') || '-';
-        const email = selectedOption.data('email') || '-';
-        const isMember = selectedOption.data('member') === 1; // Data member
-        const poin = selectedOption.data('poin') || 0; // Data poin
-
-        if (userId) {
-            // Simpan ID pengguna ke localStorage
-            localStorage.setItem('selectedUserId', userId);
-
-            // Set nilai pada input dan tampilkan
-            $('#phoneNumber').val(phone);
-            $('#emailAddress').val(email);
-            $('#userDetails').removeClass('hidden');
-
-            // Tampilkan poin jika user adalah member
-            if (isMember) {
-                $('#memberDetails').removeClass('hidden');
-                $('#availablePoin').text(poin); // Tampilkan poin yang tersedia
-                $('#poinUsed').attr('max', poin); // Batasi input poin hingga jumlah poin yang tersedia
-            } else {
-                $('#memberDetails').addClass('hidden');
-                $('#availablePoin').text('0');
-                $('#poinUsed').val('').attr('max', 0);
+                // Tampilkan poin jika user adalah member
+                if (isMember) {
+                    $('#memberDetails').removeClass('hidden');
+                    $('#availablePoin').text(poin); // Tampilkan poin yang tersedia
+                    $('#poinUsed').attr('max', poin); // Batasi input poin hingga jumlah poin yang tersedia
+                } else {
+                    $('#memberDetails').addClass('hidden');
+                    $('#availablePoin').text('0');
+                    $('#poinUsed').val('').attr('max', 0);
+                }
             }
 
-            // Buat input nomor telepon editable jika nilainya adalah '-'
-            if (phone === '-') {
-                $('#phoneNumber').prop('readonly', false).addClass(
-                    'border-blue-500 focus:ring-blue-500');
-            } else {
-                $('#phoneNumber').prop('readonly', true).removeClass(
-                    'border-blue-500 focus:ring-blue-500');
-            }
-        } else {
-            // Hapus data dari localStorage jika tidak ada pengguna yang dipilih
-            localStorage.removeItem('selectedUserId');
+            // Event listener untuk perubahan dropdown
+            $('#userSelect').on('change', function() {
+                const selectedOption = $(this).find(':selected'); // Opsi yang dipilih
+                const userId = $(this).val(); // ID pengguna yang dipilih
+                const phone = selectedOption.data('phone') || '-';
+                const email = selectedOption.data('email') || '-';
+                const isMember = selectedOption.data('member') === 1; // Data member
+                const poin = selectedOption.data('poin') || 0; // Data poin
 
-            // Kosongkan dan sembunyikan input jika tidak ada pilihan
-            $('#phoneNumber').val('').prop('readonly', true);
-            $('#emailAddress').val('');
-            $('#userDetails').addClass('hidden');
+                if (userId) {
+                    // Simpan ID pengguna ke localStorage
+                    localStorage.setItem('selectedUserId', userId);
 
-            // Sembunyikan detail member
-            $('#memberDetails').addClass('hidden');
-            $('#availablePoin').text('0');
-            $('#poinUsed').val('').attr('max', 0);
-        }
-    });
-});
+                    // Set nilai pada input dan tampilkan
+                    $('#phoneNumber').val(phone);
+                    $('#emailAddress').val(email);
+                    $('#userDetails').removeClass('hidden');
 
+                    // Tampilkan poin jika user adalah member
+                    if (isMember) {
+                        $('#memberDetails').removeClass('hidden');
+                        $('#availablePoin').text(poin); // Tampilkan poin yang tersedia
+                        $('#poinUsed').attr('max',
+                            poin); // Batasi input poin hingga jumlah poin yang tersedia
+                    } else {
+                        $('#memberDetails').addClass('hidden');
+                        $('#availablePoin').text('0');
+                        $('#poinUsed').val('').attr('max', 0);
+                    }
+
+                    // Buat input nomor telepon editable jika nilainya adalah '-'
+                    if (phone === '-') {
+                        $('#phoneNumber').prop('readonly', false).addClass(
+                            'border-blue-500 focus:ring-blue-500');
+                    } else {
+                        $('#phoneNumber').prop('readonly', true).removeClass(
+                            'border-blue-500 focus:ring-blue-500');
+                    }
+                } else {
+                    // Hapus data dari localStorage jika tidak ada pengguna yang dipilih
+                    localStorage.removeItem('selectedUserId');
+
+                    // Kosongkan dan sembunyikan input jika tidak ada pilihan
+                    $('#phoneNumber').val('').prop('readonly', true);
+                    $('#emailAddress').val('');
+                    $('#userDetails').addClass('hidden');
+
+                    // Sembunyikan detail member
+                    $('#memberDetails').addClass('hidden');
+                    $('#availablePoin').text('0');
+                    $('#poinUsed').val('').attr('max', 0);
+                }
+            });
+        });
     </script>
 
 
@@ -924,6 +885,13 @@ $(document).ready(function () {
             const productType = productElement.dataset.type; // Product Type
             const detailId = productElement.dataset.detailId; // Detail ID (unique variation)
             const productSize = productElement.dataset.size; // Product Size
+            const productStock = parseInt(productElement.dataset.stock); // Product Stock
+
+            // Cek apakah stok lebih dari 0
+            if (productStock <= 0) {
+                alert('Stok produk habis');
+                return;
+            }
 
             // Cari produk di keranjang berdasarkan product_id, detail_id, dan productType
             const existingProductIndex = cart.findIndex(
@@ -934,10 +902,14 @@ $(document).ready(function () {
             );
 
             if (existingProductIndex !== -1) {
-                // Jika produk sudah ada di keranjang, tambahkan kuantitas
-                cart[existingProductIndex].quantity++;
+                // Jika produk sudah ada di keranjang, cek apakah kuantitas lebih dari stok yang tersedia
+                if (cart[existingProductIndex].quantity < productStock) {
+                    cart[existingProductIndex].quantity++;
+                } else {
+                    alert('Stok produk sudah maksimal di keranjang');
+                }
             } else {
-                // Jika produk belum ada, tambahkan sebagai item baru
+                // Jika produk belum ada, tambahkan produk baru dengan kuantitas 1
                 cart.push({
                     id: productId,
                     detailId: detailId, // Simpan detail ID
@@ -945,14 +917,16 @@ $(document).ready(function () {
                     price: productPrice,
                     type: productType,
                     size: productSize, // Simpan ukuran produk (jika ada)
-                    quantity: 1,
+                    quantity: 1, // Mulai dengan kuantitas 1
                 });
             }
 
+            // Pastikan kuantitas produk di keranjang tidak melebihi stok yang ada
             updateCartDisplay();
             updateTotal();
             saveCartToLocalStorage();
         }
+
 
 
         function updateCartDisplay() {

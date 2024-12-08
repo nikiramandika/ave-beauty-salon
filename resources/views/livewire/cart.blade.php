@@ -14,6 +14,12 @@
             <div id="cart-content" wire:key="cart-items">
                 @if ($cartItems->isNotEmpty())
                     <ul class="list-group">
+                        @if (session()->has('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
                         @foreach ($cartItems as $item)
                             <li class="list-group-item d-flex align-items-center border-bottom py-3">
                                 <div style="width: 35%;">
@@ -49,12 +55,12 @@
                 @endif
             </div>
             @if ($cartItems->isNotEmpty())
-            <div class="mt-4">
-                <a href="{{ route('checkout') }}"
-                    class="btn btn-primary w-100 {{ $cartItems->isNotEmpty() ? '' : 'disabled' }}">
-                    Checkout
-                </a>
-            </div>
+                <div class="mt-4">
+                    <a href="{{ route('checkout') }}"
+                        class="btn btn-primary w-100 {{ $cartItems->isNotEmpty() ? '' : 'disabled' }}">
+                        Checkout
+                    </a>
+                </div>
             @endif
         @else
             <div class="text-center py-5">

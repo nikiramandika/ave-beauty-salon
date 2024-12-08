@@ -4,6 +4,7 @@ use App\Http\Controllers\CashierController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\LaporanKasirController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -60,7 +61,12 @@ Route::middleware(['role:Cashier'])->group(function () {
     Route::post('/update-refund-status', [CashierController::class, 'updateRefundStatus'])->name('updateRefundStatus');
     Route::post('/refunds/{refund}/upload', [CashierController::class, 'uploadAdminFile'])->name('refunds.upload');
     Route::post('/process-invoice-cashier', [CashierController::class, 'processInvoiceCashier']);
+    Route::get('/laporan-kasir', [LaporanKasirController::class, 'index']);
+    // Route untuk menampilkan invoice
+    Route::get('/receipt/view/{invoiceCode}', [InvoiceController::class, 'viewReceipt'])->name('receipt.view');
 
+    // Route untuk mendownload invoice dalam bentuk PDF
+    Route::get('/receipt/download/{invoiceCode}', [InvoiceController::class, 'downloadReceipt'])->name('receipt.download');
 });
 
 
