@@ -206,7 +206,7 @@
                 <a href="/treatment" class="btn-link">View All</a>
             </div>
             <div class="row">
-                @foreach($treatments as $treatment)
+                @foreach($treatments->take(6) as $treatment)
                 <div class="col-md-4">
                     <article class="post-item">
                         <div class="post-image">
