@@ -1,17 +1,19 @@
-<div>
+<div class="okela">
     <section id="details" class="details full-screen">
         <div class="container-fluid">
-            <div class="content d-flex align-items-center justify-content-center gap-5">
+            <div class="content d-flex justify-content-between gap-5 p-5 border">
                 <!-- Gambar Produk -->
                 <div class="product-image">
                     <img src="{{ asset($product->description->product_image ?? 'path/to/default/image.jpg') }}"
-                        alt="{{ $product->product_name }}" class="img-fluid">
+                        alt="{{ $product->product_name }}" class="img-fluid product-image">
                 </div>
 
                 <!-- Informasi Produk -->
                 <div class="product-info">
                     <h1 class="product-title">{{ $product->product_name }}</h1>
-
+                    <p class="product-price">
+                        Rp {{ number_format($product->details->first()->price ?? 0, 0, ',', '.') }}
+                    </p>
                     <!-- Pilih Ukuran -->
                     @if ($product->details->count() > 0)
                         <label for="sizeDropdown" class="form-label">Pilih Ukuran:</label>
@@ -28,9 +30,7 @@
                     @endif
 
                     <!-- Harga dan Stok -->
-                    <p class="product-price" id="productPrice">
-                        Harga: Rp{{ number_format($product->details->first()->price ?? 0, 0, ',', '.') }}
-                    </p>
+                    
                     <p class="product-availability" id="productStock" style="color: green; font-weight: bold;">
                         Stock: {{ $product->details->first()->product_stock ?? '0' }}
                     </p>

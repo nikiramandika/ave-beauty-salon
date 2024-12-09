@@ -170,7 +170,6 @@ h6,
     color: var(--bs-body-color);
 }
 .product-content, .treatment-content, .course-content, .promo-content {
-    padding-left: 10px;
     font-family: var(--bs-body-font-family)!important;
 }
 .product-content h5 {
@@ -749,10 +748,15 @@ a {
     overflow: hidden;
     transform: scale(1);
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 10px;
+}
+.image-holder a {
+    border-radius: 10px;
 }
 
 .image-zoom-effect:hover .image-holder {
     transform: scale(0.95);
+    border-radius: 10px;
 }
 
 .image-holderr {
@@ -1432,38 +1436,32 @@ a.btn-link.text-light:after {
     letter-spacing: 0.03rem;
     margin: 0;
     padding: 0;
-    background-color: var(--bs-light);
-    padding-top: 70px;
 }
 
 /* Container dan Konten Produk */
 .details {
-    padding: 10rem;
     max-width: 100%;
 }
-
-.content {
-    display: flex;
-    gap: 3rem;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 1200px;
-    margin: auto;
+.content .product-image img {
+    max-width: 99%;
+    aspect-ratio: 1 / 1;
 }
+.content .product-image img:hover {
+    transform: none;
+}
+
 
 /* Gambar Produk */
 .product-image, .treatment-image {
-    flex: 0 1 350px;
     aspect-ratio: 1 / 1; /* Ensures a 1:1 aspect ratio */
     object-fit: cover;
-
+    border-radius: 10px;
+}
+.img-cont img {
+    border-radius: 10px;
 }
 
-.img-cont{
+.img-cont, .post-image{
     aspect-ratio: 1 / 1; 
     min-height: auto;
 }
@@ -1482,7 +1480,8 @@ a.btn-link.text-light:after {
 /* Informasi Produk */
 .product-info {
     flex: 1;
-    max-width: 500px;
+    min-height: 100%;
+    margin-top: 0;
 }
 
 .product-title {
@@ -1491,12 +1490,12 @@ a.btn-link.text-light:after {
     font-size: 36px;
     font-weight: 500;
     margin-bottom: 15px;
+    margin-top: 0;
 }
 
 .product-price {
     font-size: 28px;
     color: var(--bs-dark);
-    font-weight: bold;
     margin: 15px 0;
 }
 
@@ -1598,18 +1597,6 @@ a.btn-link.text-light:after {
     max-width: 100%;
 }
 
-.content {
-    display: flex;
-    gap: 3rem;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 1200px;
-    margin: auto;
-}
 
 /* Gambar Produk */
 
@@ -1683,19 +1670,6 @@ a.btn-link.text-light:after {
 .course-detail {
     padding: 10rem;
     max-width: 100%;
-}
-
-.content {
-    display: flex;
-    gap: 3rem;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 1200px;
-    margin: auto;
 }
 
 /* Gambar Produk */
@@ -1817,13 +1791,15 @@ a.btn-link.text-light:after {
     display: flex;
     gap: 3rem;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: space-between;
     padding: 1rem;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 1200px;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5rem;
 }
 
 /* Gambar Produk */
@@ -1842,6 +1818,10 @@ a.btn-link.text-light:after {
 
 .promo-image img:hover {
     transform: scale(1.05);
+}
+
+.okela {
+    padding-bottom: 20rem;
 }
 
 /* Informasi Produk */
@@ -2257,6 +2237,5 @@ a.btn-link.text-light:after {
 
 .image-holder img {
     position: relative;
-    left: 10px;
 }
 

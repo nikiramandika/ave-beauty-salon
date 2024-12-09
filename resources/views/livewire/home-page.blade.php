@@ -184,7 +184,7 @@
                                             alt="{{ $category->category_name }}" class="product-image img-fluid">
                                     </a>
                                     <div class="product-content">
-                                        <h5 class="text-uppercase fs-5 mt-3">
+                                       <h5 class="text-capitalize fs-5 mt-3">
                                             <a href="">
                                                 {{ $category->category_name }}
                                             </a>
@@ -212,10 +212,10 @@
                         <div class="post-image">
                             <a>
                                 <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}" alt="image"
-                                    class="post-grid-image img-fluid">
+                                    class="post-grid-image img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                             </a>
                         </div>
-                        <div class="post-content d-flex flex-wrap gap-2 my-3">
+                        <div class="post-content gap-2 my-3">
                             <h5 class="post-title text-uppercase">
                                 <a>{{ $treatment->treatment_name }}</a>
                             </h5>

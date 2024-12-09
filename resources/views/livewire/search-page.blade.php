@@ -17,7 +17,7 @@
                                         alt="{{ $treatment->treatment_name }}" class="treatment-image img-fluid">
                                 </a>
                                 <div class="treatment-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
+                                   <h5 class="text-capitalize fs-5 mt-3">
                                         <a
                                             href="{{ url('treatment/' . $treatment->treatment_slug) }}">{{ $treatment->treatment_name }}</a>
                                     </h5>
@@ -55,7 +55,7 @@
                                         alt="{{ $product->product_name }}" class="product-image img-fluid">
                                 </a>
                                 <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
+                                   <h5 class="text-capitalize fs-5 mt-3">
                                         <a href="{{ url('products/' . $product->product_slug) }}">
                                             {{ $product->product_name }}
                                         </a>
@@ -94,7 +94,7 @@
                                         alt="{{ $product->product_name }}" class="product-image img-fluid">
                                 </a>
                                 <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
+                                   <h5 class="text-capitalize fs-5 mt-3">
                                         <a href="{{ url('products/' . $product->product_slug) }}">
                                             {{ $product->product_name }}
                                         </a>
@@ -122,7 +122,7 @@
                                         alt="{{ $treatment->treatment_name }}" class="treatment-image img-fluid">
                                 </a>
                                 <div class="treatment-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
+                                   <h5 class="text-capitalize fs-5 mt-3">
                                         <a
                                             href="{{ url('treatment/' . $treatment->treatment_slug) }}">{{ $treatment->treatment_name }}</a>
                                     </h5>
@@ -173,7 +173,7 @@
                                         alt="{{ $treatment->treatment_name }}" class="treatment-image img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                 </a>
                                 <div class="treatment-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
+                                   <h5 class="text-capitalize fs-5 mt-3">
                                         <a
                                             href="{{ url('treatment/' . $treatment->treatment_slug) }}">{{ $treatment->treatment_name }}</a>
                                     </h5>
@@ -209,7 +209,7 @@
                                 </div>
                                 
                                 <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
+                                   <h5 class="text-capitalize fs-5 mt-3">
                                         <a href="{{ url('products/' . $product->product_slug) }}">
                                             {{ $product->product_name }}
                                         </a>
@@ -245,7 +245,7 @@
                                     </div>
                                 </a>
                                 <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
+                                   <h5 class="text-capitalize fs-5 mt-3">
                                         <a href="{{ url('products/' . $product->product_slug) }}">
                                             {{ $product->product_name }}
                                         </a>
@@ -275,7 +275,7 @@
                                         alt="{{ $treatment->treatment_name }}" class="treatment-image img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                 </a>
                                 <div class="treatment-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
+                                   <h5 class="text-capitalize fs-5 mt-3">
                                         <a
                                             href="{{ url('treatment/' . $treatment->treatment_slug) }}">{{ $treatment->treatment_name }}</a>
                                     </h5>

@@ -12,7 +12,7 @@
                         </div>
                         
                         <div class="promo-content">
-                            <h5 class="text-uppercase fs-5 mt-3">
+                           <h5 class="text-capitalize fs-5 mt-3">
                                 <a href="{{ url('promo/' . $promo->promo_slug) }}">{{ $promo->promo_name }}</a>
                             </h5>
                             <div class="price-container">

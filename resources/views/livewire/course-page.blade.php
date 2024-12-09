@@ -12,7 +12,7 @@
                         </div>
                         
                         <div class="course-content">
-                            <h5 class="text-uppercase fs-5 mt-3">
+                            <h5 class="fs-5 mt-3">
                                 <a href="{{ url('course/' . $course->course_slug) }}">{{ $course->course_name }}</a>
                             </h5>
                             <a href="#" class="text-decoration-none" data-after="Register Course">
