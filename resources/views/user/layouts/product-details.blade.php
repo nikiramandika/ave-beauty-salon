@@ -1,53 +1,126 @@
-<!DOCTYPE html>
-<html lang="en">
+<style>
+    .form-select {
+        width: max-content!important;
+    }
+    .product-image{
+        width: 50%;
+    }
+    .product-info {
+        width: 50%;
+        div {
+  word-wrap: break-word; /* Allows long words to break */
+  overflow-wrap: break-word; /* Modern equivalent */
+}
+    }
+    </style>
 
-<head>
-    <title>Ave Beauty Salon</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="okela">
+    <section id="details" class="details">
+        <div class="container-fluid">
+            <div class="content d-flex justify-content-between gap-5 p-5 py-3 ">
+                <!-- Gambar Produk -->
+                <div class="product-image">
+                    <img src="{{ asset($product->description->product_image ?? 'path/to/default/image.jpg') }}" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';"
+                        alt="{{ $product->product_name }}" class="img-fluid product-image" >
+                </div>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+                <!-- Informasi Produk -->
+                <div class="product-info">
+                    <h1 class="product-title">{{ $product->product_name }}</h1>
+                    <p class="product-price heading-color" style="font-weight:600;">
+                        Rp {{ number_format($product->details->first()->price ?? 0, 0, ',', '.') }}
+                    </p>
+                    <p class="product-availability" id="productStock" style="">
+                        Stock: {{ $product->details->first()->product_stock ?? '0' }}
+                    </p>
 
-    <!-- Local CSS Files -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('user/css/vendor.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('user/style.css') }}">
+                    <!-- Harga dan Stok -->
+                    
+                    
+                    <hr>
+                    <!-- Deskripsi -->
+                    <p class="heading-color" style="font-weight: 500">
+                        Description
+                    </p>
+                    <p class="product-description" align="justify">
+                        {{ $product->description->description ?? 'Tidak ada deskripsi.' }}euntungan Tabel Log dalam E-Commerce
+                        Audit Trail: Mempermudah pelacakan aktivitas atau perubahan data.
+                        Pemantauan Kinerja: Mengetahui pola penggunaan dan mengidentifikasi masalah.
+                        Keamanan: Membantu mendeteksi aktivitas mencurigakan atau tidak sah.
+                        Pengambilan Keputusan: Memberikan data untuk analisis tren atau evaluasi layanan.
+                        Penerapan tabel log harus disesuaikan dengan kebutuhan spesifik dan skala dari e-commerce Anda.
+                    </p>
+                    <!-- Pilih Ukuran -->
+                    @if ($product->details->count() > 0)
+                        <label for="sizeDropdown" class="form-label" style="font-weight: 500">Pilih Ukuran:</label>
+                        <select id="sizeDropdown" class="form-select">
+                            @foreach ($product->details as $detail)
+                                <option value="{{ $detail->detail_id }}" data-stock="{{ $detail->product_stock }}"
+                                    data-price="{{ $detail->price }}">
+                                    Ukuran: {{ $detail->size }} - Rp{{ number_format($detail->price, 0, ',', '.') }}
+                                </option>
+                            @endforeach
+                        </select>
+                    @else
+                        <p class="text-danger">Ukuran tidak tersedia.</p>
+                    @endif
 
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+                    <!-- Tombol Tambah ke Keranjang -->
+                    <div>
+                        <button id="addToCartButton"
+                            wire:click="addToCart('{{ $product->product_id }}', document.getElementById('sizeDropdown').value)"
+                            class="btn btn-primary mt-4">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Marcellus&display=swap"
-        rel="stylesheet">
-</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sizeDropdown = document.getElementById('sizeDropdown'); // Dropdown ukuran
+        const priceElement = document.getElementById('productPrice'); // Elemen harga
+        const stockElement = document.getElementById('productStock'); // Elemen stok
 
-<body class="product-details">
-    @include('user.components.navbar')
+        function updatePriceAndStock() {
+            const selectedOption = sizeDropdown.options[sizeDropdown.selectedIndex]; // Ambil opsi terpilih
+            const price = selectedOption.getAttribute('data-price'); // Ambil data harga
+            const stock = selectedOption.getAttribute('data-stock'); // Ambil data stok
 
-    @yield('content')
+            // Update elemen harga dan stok
+            priceElement.innerText = `Harga: Rp${new Intl.NumberFormat('id-ID').format(price)}`;
+            stockElement.innerText = `Stock: ${stock}`;
+        }
 
-    @include('user.components.footer')
+        // Jalankan fungsi saat dropdown diubah
+        sizeDropdown.addEventListener('change', updatePriceAndStock);
 
-    <!-- jQuery and Plugin Scripts -->
-    <script src="{{ asset('user/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('user/js/plugins.js') }}"></script>
-    <script src="{{ asset('user/js/SmoothScroll.js') }}"></script>
+        // Jalankan fungsi saat halaman pertama kali dimuat
+        updatePriceAndStock();
+    });
+</script>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const closeCartButton = document.querySelector('[data-bs-dismiss="offcanvas"]');
+        const addToCartButton = document.getElementById('addToCartButton');
+        const backdrop = document.createElement('div');
+        backdrop.className = 'manual-backdrop';
+        backdrop.id = 'manualBackdrop';
+        document.body.appendChild(backdrop);
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+        addToCartButton.addEventListener('click', function() {
+            backdrop.classList.add('show');
+        });
 
-    <!-- Custom Script -->
-    <script src="{{ asset('user/js/script.min.js') }}"></script>
-</body>
-
-</html>
+        closeCartButton.addEventListener('click', function() {
+            const backdropElement = document.getElementById('manualBackdrop');
+            if (backdropElement) {
+                backdropElement.remove();
+            }
+        });
+    });
+</script>

@@ -45,7 +45,7 @@
                         <svg width="38" height="38" viewBox="0 0 24 24">
                             <use xlink:href="#calendar"></use>
                         </svg>
-                        <h4 class="element-title text-capitalize my-3">Book Appointment</h4>
+                        <h4 class="element-title text-capitalize my-3 heading-font">Relax</h4>
                         <p>Make an appointment for personalized salon services tailored to your needs.</p>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         <svg width="38" height="38" viewBox="0 0 24 24">
                             <use xlink:href="#shopping-bag"></use>
                         </svg>
-                        <h4 class="element-title text-capitalize my-3">Shop Products</h4>
+                        <h4 class="element-title text-capitalize my-3 heading-font">Shop Products</h4>
                         <p>Explore a curated selection of beauty and hair products available in-store.</p>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                         <svg width="38" height="38" viewBox="0 0 24 24">
                             <use xlink:href="#gift"></use>
                         </svg>
-                        <h4 class="element-title text-capitalize my-3">Salon Courses</h4>
+                        <h4 class="element-title text-capitalize my-3 heading-font">Salon Courses</h4>
                         <p>Join our courses to learn professional salon skills from experts.</p>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                         <svg width="38" height="38" viewBox="0 0 24 24">
                             <use xlink:href="#heart"></use>
                         </svg>
-                        <h4 class="element-title text-capitalize my-3">Salon Treatments</h4>
+                        <h4 class="element-title text-capitalize my-3 heading-font">Salon Treatments</h4>
                         <p>Indulge in our range of treatments for ultimate relaxation and beauty.</p>
                     </div>
                 </div>
@@ -144,7 +144,7 @@
                     </div>
                     <div class="col-md-6 column-container bg-white rounded">
                         <div class="collection-content p-5 m-0 m-md-">
-                            <h3 class="element-title text-uppercase">About Ave Beauty</h3>
+                            <h4 class="element-title text-uppercase pb-2">About Ave Beauty</h4>
                             <p align="justify">A curated collection of premium salon-quality hair care products,
                                 including
                                 nourishing shampoo, hydrating conditioner,
@@ -157,7 +157,7 @@
                                 helping to repair damage, protect against environmental stressors, and support overall
                                 hair
                                 wellness.</p>
-                            <a href="/about" class="btn btn-dark text-uppercase mt-3">Salon Details</a>
+                            <a href="/about" class="btn btn-dark mt-3 rounded px-4">See more about us</a>
                         </div>
                     </div>
                 </div>
@@ -168,7 +168,7 @@
     <section id="related-products" class="related-products product-carousel py-5 position-relative overflow-hidden">
         <div class="container">
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
-                <h4 class="text-uppercase">Explore Categories Product</h4>
+                <h4 class="">Explore Categories Product</h4>
                 <a href="/product" class="btn-link">View All Products</a>
             </div>
             <section class="categories py-5">
@@ -202,7 +202,7 @@
     <section class="blog py-5">
         <div class="container">
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
-                <h4 class="text-uppercase">Choose the Right Treatment for You</h4>
+                <h4 class="">Choose the Right Treatment for You</h4>
                 <a href="/treatment" class="btn-link">View All</a>
             </div>
             <div class="row">
@@ -216,7 +216,7 @@
                             </a>
                         </div>
                         <div class="post-content gap-2 my-3">
-                            <h5 class="post-title text-uppercase">
+                            <h5 class="post-title text-capitalize">
                                 <a>{{ $treatment->treatment_name }}</a>
                             </h5>
                             <p align="justify">{{ $treatment->description->description }}</p>
@@ -233,7 +233,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8 py-4 my-4">
                     <div class="subscribe-header text-center pb-3">
-                        <h3 class="section-title text-uppercase">Check Our Instagram for Details</h3>
+                        <h3 class="section-title ">Check Our Instagram for Details</h3>
                     </div>
                 </div>
             </div>
@@ -243,7 +243,7 @@
     <section class="instagram position-relative">
         <div class="d-flex justify-content-center w-100 position-absolute bottom-0 z-1">
             <a href="https://www.instagram.com/ave.beautysalon?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                class="btn btn-dark px-5" target="blank">Follow us on Instagram</a>
+                class="btn btn-dark rounded px-5 py-2" target="blank">Follow us on Instagram</a>
         </div>
         <div class="row g-0">
             <div class="col-6 col-sm-4 col-md-2">

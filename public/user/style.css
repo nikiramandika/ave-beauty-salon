@@ -5,9 +5,11 @@
     background-repeat: no-repeat;
 }
 
+
 body {
+    font-family: "Montserrat", Roboto, sans-serif;
     --heading-font: "Marcellus", Roboto, sans-serif;
-    --heading-font-weight: 400;
+    --heading-font-weight: 500;
     --heading-color: #63374d; /* Soft pink heading color */
     --heading-line-height: 1.24;
 
@@ -16,10 +18,10 @@ body {
     --swiper-theme-color: #f6a5c0; /* Soft pink swiper color */
 
     /* bootstrap */
-    --bs-body-font-family: "Jost", Roboto, sans-serif;
+    --bs-body-font-family: "Montserrat", Roboto, sans-serif;
     --bs-body-font-size: 18px;
     --bs-body-font-weight: 400;
-    --bs-body-line-height: 1.5;
+    --bs-body-line-height: 1.7;
     --bs-body-color: #74485d; /* Soft pink body color */
     --bs-body-color-rgb: 168, 115, 143;
 
@@ -46,6 +48,17 @@ body {
     --accent: #751332;
     --accent2: #4b1225;
 }
+.section-title {
+    font-family: "DM Serif Display", sans-serif;
+}
+
+.rounded-full {
+    border-radius: 99999px;
+}
+.heading-font {
+    font-family: var(--heading-font);
+}
+
 #footer {
     background-color: #fdeef4;
 }
@@ -76,9 +89,22 @@ body {
 .badge {
     --bs-badge-color: #63374d !important;
 }
-.form-label {
-    color: var(--heading-color);
+.form-label, .heading-color {
+    color: var(--heading-color)!important;
 }
+
+.content .form-select {
+    width: max-content!important;
+}
+.content .product-image{
+    width: 50%;
+}
+.content .product-info {
+    width: 50%;
+word-wrap: break-word; /* Allows long words to break */
+overflow-wrap: break-word; /* Modern equivalent */
+}
+
 
 h1,
 .h1,
@@ -92,7 +118,7 @@ h5,
 .h5,
 h6,
 .h6 {
-    font-family: var(--heading-font);
+    /* font-family: var(--heading-font); */
     font-weight: var(--heading-font-weight);
     color: var(--heading-color);
     line-height: var(--heading-line-height);
@@ -1444,6 +1470,7 @@ a.btn-link.text-light:after {
 }
 .content .product-image img {
     max-width: 99%;
+    width: 100%;
     aspect-ratio: 1 / 1;
 }
 .content .product-image img:hover {
@@ -1485,10 +1512,8 @@ a.btn-link.text-light:after {
 }
 
 .product-title {
-    font-family: var(--heading-font);
     color: var(--heading-color);
     font-size: 36px;
-    font-weight: 500;
     margin-bottom: 15px;
     margin-top: 0;
 }
@@ -1559,6 +1584,7 @@ a.btn-link.text-light:after {
     .product-image,
     .product-info {
         max-width: 100%;
+        width: 100%;
     }
 }
 
@@ -1618,7 +1644,7 @@ a.btn-link.text-light:after {
 }
 
 .treatment-title {
-    font-family: var(--heading-font);
+    /* font-family: var(--heading-font); */
     color: var(--heading-color);
     font-size: 36px;
     font-weight: 500;
@@ -1697,7 +1723,7 @@ a.btn-link.text-light:after {
 }
 
 .course-title {
-    font-family: var(--heading-font);
+    /* font-family: var(--heading-font); */
     color: var(--heading-color);
     font-size: 36px;
     font-weight: 500;
@@ -1795,7 +1821,6 @@ a.btn-link.text-light:after {
     padding: 1rem;
     background-color: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -1820,9 +1845,6 @@ a.btn-link.text-light:after {
     transform: scale(1.05);
 }
 
-.okela {
-    padding-bottom: 20rem;
-}
 
 /* Informasi Produk */
 .promo-info {
@@ -1831,7 +1853,7 @@ a.btn-link.text-light:after {
 }
 
 .promo-title {
-    font-family: var(--heading-font);
+    /* font-family: var(--heading-font); */
     color: var(--heading-color);
     font-size: 36px;
     font-weight: 500;
@@ -1944,6 +1966,11 @@ a.btn-link.text-light:after {
     .image-large img {
         width: 100%;
         height: auto;
+    }
+    .product-image,
+    .product-info {
+        max-width: 100%;
+        width: 100%;
     }
 }
 

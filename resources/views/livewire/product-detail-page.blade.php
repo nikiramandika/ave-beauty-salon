@@ -1,22 +1,38 @@
+
 <div class="okela">
-    <section id="details" class="details full-screen">
+    <section id="details" class="details">
         <div class="container-fluid">
-            <div class="content d-flex justify-content-between gap-5 p-5 border">
+            <div class="content d-flex justify-content-between gap-5 p-5 py-3 ">
                 <!-- Gambar Produk -->
                 <div class="product-image">
-                    <img src="{{ asset($product->description->product_image ?? 'path/to/default/image.jpg') }}"
-                        alt="{{ $product->product_name }}" class="img-fluid product-image">
+                    <img src="{{ asset($product->description->product_image ?? 'path/to/default/image.jpg') }}" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';"
+                        alt="{{ $product->product_name }}" class="img-fluid product-image" >
                 </div>
 
                 <!-- Informasi Produk -->
                 <div class="product-info">
                     <h1 class="product-title">{{ $product->product_name }}</h1>
-                    <p class="product-price">
+                    <p class="product-price heading-color" style="font-weight:600;">
                         Rp {{ number_format($product->details->first()->price ?? 0, 0, ',', '.') }}
+                    </p>
+                    <p class="product-availability" id="productStock" style="">
+                        Stock: {{ $product->details->first()->product_stock ?? '0' }}
+                    </p>
+
+                    <!-- Harga dan Stok -->
+                    
+                    
+                    <hr>
+                    <!-- Deskripsi -->
+                    <p class="heading-color" style="font-weight: 500">
+                        Description
+                    </p>
+                    <p class="product-description" align="justify">
+                        {{ $product->description->description ?? 'Tidak ada deskripsi.' }}
                     </p>
                     <!-- Pilih Ukuran -->
                     @if ($product->details->count() > 0)
-                        <label for="sizeDropdown" class="form-label">Pilih Ukuran:</label>
+                        <label for="sizeDropdown" class="form-label" style="font-weight: 500">Pilih Ukuran:</label>
                         <select id="sizeDropdown" class="form-select">
                             @foreach ($product->details as $detail)
                                 <option value="{{ $detail->detail_id }}" data-stock="{{ $detail->product_stock }}"
@@ -29,22 +45,11 @@
                         <p class="text-danger">Ukuran tidak tersedia.</p>
                     @endif
 
-                    <!-- Harga dan Stok -->
-                    
-                    <p class="product-availability" id="productStock" style="color: green; font-weight: bold;">
-                        Stock: {{ $product->details->first()->product_stock ?? '0' }}
-                    </p>
-
-                    <!-- Deskripsi -->
-                    <p class="product-description" align="justify">
-                        {{ $product->description->description ?? 'Tidak ada deskripsi.' }}
-                    </p>
-
                     <!-- Tombol Tambah ke Keranjang -->
                     <div>
                         <button id="addToCartButton"
                             wire:click="addToCart('{{ $product->product_id }}', document.getElementById('sizeDropdown').value)"
-                            class="btn btn-primary">
+                            class="btn btn-primary mt-4">
                             Add to Cart
                         </button>
                     </div>
