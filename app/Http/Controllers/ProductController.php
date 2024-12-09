@@ -151,6 +151,7 @@ class ProductController extends Controller
                     Storage::delete(str_replace('storage/', 'public/', $product->description->product_image));
                 }
 
+                // Upload gambar baru
                 $image = $request->file('product_image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
                 $image->storeAs('public/product_images', $imageName);
@@ -175,14 +176,12 @@ class ProductController extends Controller
                 ]);
             }
 
-            // Update data pada tabel product_descriptions
-            $product->description()->updateOrCreate(
-                ['product_id' => $product->product_id], // Kondisi pencarian
-                [
-                    'product_image' => $imageUrl,
-                    'description' => $request->description,
-                ]
-            );
+            // Update data pada tabel product_descriptions (menggunakan update() langsung)
+            // Update data pada tabel product_descriptions (langsung menggunakan update())
+            $product->description()->update([
+                'product_image' => $imageUrl,
+                'description' => $request->description,
+            ]);
 
             return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui.');
         } catch (\Exception $e) {
@@ -192,6 +191,7 @@ class ProductController extends Controller
                 ->withInput();
         }
     }
+
 
 
     public function destroy($id)

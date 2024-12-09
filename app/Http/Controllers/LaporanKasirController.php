@@ -78,11 +78,12 @@ class LaporanKasirController extends Controller
                     ->get();
             }
 
-            $daily_revenue = DB::select('SELECT daily_revenue() AS total_today');
+        }
+        
+        $daily_revenue = DB::select('SELECT daily_revenue() AS total_today');
 
-            // Mengakses nilai total_today dari hasil query
-            $totalToday = $daily_revenue[0]->total_today ?? 0;  // Default ke 0 jika tidak ada hasil
-                    }
+        // Mengakses nilai total_today dari hasil query
+        $totalToday = $daily_revenue[0]->total_today ?? 0;  // Default ke 0 jika tidak ada hasil
 
         return view('cashier.laporan-kasir', compact('offlineOrders', 'onlineOrders', 'totalToday'));
     }

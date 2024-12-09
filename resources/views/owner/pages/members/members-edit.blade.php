@@ -78,7 +78,7 @@
                                     <div class="mb-3">
                                         <label for="membership_number" class="form-label">Membership Number</label>
                                         <input type="text" class="form-control" id="membership_number"
-                                            name="membership_number" value="{{ $member->membership_number }}" required>
+                                            name="membership_number" value="{{ $member->membership_number }}" readonly>
                                     </div>
                                     <div class="mb-3">
                                         <label for="points" class="form-label">Poin</label>
@@ -88,7 +88,7 @@
                                     <div class="mb-3">
                                         <label for="joined_date" class="form-label">Tanggal Bergabung</label>
                                         <input type="date" class="form-control" id="joined_date" name="joined_date"
-                                            value="{{ $member->joined_date->format('Y-m-d') }}" required>
+                                            value="{{ $member->joined_date->format('Y-m-d') }}" readonly>
                                     </div>
                                     <div class="mb-3">
                                         <label for="is_active" class="form-label">Status</label>

@@ -118,7 +118,7 @@
                                                         </button>
                                                     @elseif ($invoice->order_status == 'Pesanan Dikirim')
                                                         <span class="text-gray-500">Menunggu pesanan diterima</span>
-                                                        @elseif ($invoice->order_status == 'Complete')
+                                                    @elseif ($invoice->order_status == 'Complete')
                                                         <span class="text-gray-500">Pesanan diterima</span>
                                                     @endif
                                                 </div>
@@ -265,12 +265,13 @@
                                                     </button>
                                                 @elseif ($refund->refunds->refund_status == 'Refund Success')
                                                     <span class="text-gray-500">Refund Success</span>
+                                                @elseif ($refund->refunds->refund_status == 'Cancelled')
+                                                    <span class="text-gray-500">Cancelled</span>
                                                 @endif
                                             </div>
                                         </td>
                                         <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-
-
+                                            @if($refund->refunds->refund_status == 'Refund on Process')
                                             <form action="{{ route('refunds.upload', $refund->refunds->refund_id) }}"
                                                 method="POST" enctype="multipart/form-data" class="mt-2">
                                                 @csrf
@@ -281,7 +282,9 @@
                                                     Upload Bukti
                                                 </button>
                                             </form>
-
+                                            @else
+                                            <span class="text-gray-500">No Action</span>
+                                            @endif
                                         </td>
 
                                     </tr>
@@ -393,13 +396,28 @@
 <!-- DataTable -->
 <script>
     $('#example').DataTable({
+        order: [
+            [4, 'desc']
+        ], // Mengurutkan berdasarkan kolom "Tanggal Pesanan" (kolom ke-5, karena indeks dimulai dari 0), urutan asc (ascending)
+        columnDefs: [{
+            targets: 4, // Indeks kolom Tanggal Pesanan (dimulai dari 0)
+            type: 'date' // Mengatur DataTables untuk memperlakukan kolom ini sebagai tanggal
+        }],
         layout: {
             topStart: {
                 buttons: ['copy', 'excel', 'pdf', 'colvis']
             }
         }
     });
+
     $('#example1').DataTable({
+        order: [
+            [4, 'desc']
+        ], // Mengurutkan berdasarkan kolom "Tanggal Pesanan" (kolom ke-5, karena indeks dimulai dari 0), urutan asc (ascending)
+        columnDefs: [{
+            targets: 4, // Indeks kolom Tanggal Pesanan (dimulai dari 0)
+            type: 'date' // Mengatur DataTables untuk memperlakukan kolom ini sebagai tanggal
+        }],
         layout: {
             topStart: {
                 buttons: ['copy', 'excel', 'pdf', 'colvis']

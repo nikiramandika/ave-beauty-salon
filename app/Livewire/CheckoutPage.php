@@ -90,44 +90,47 @@ class CheckoutPage extends Component
 
         $recipientName = $this->firstName . ' ' . $this->lastName;
         $recipientAddress = $this->address . ', ' . $this->state . ', ' . $this->country . ', ' . $this->zip;
-        $proofPath = null; // Bukti pembayaran belum diunggah
 
         try {
-            DB::transaction(function () use ($recipientName, $recipientAddress, &$invoiceId) {
-                // Panggil stored procedure
-                $result = DB::select('CALL proses_invoice(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-                    auth()->id(),           // User ID
-                    $recipientName,         // Nama penerima
-                    $this->email,           // Email penerima
-                    $this->recipientPhone,  // Telepon penerima
-                    $recipientAddress,      // Alamat penerima
-                    $this->recipientBank,   // Bank penerima
-                    null,                   // Proof of Payment
-                    'Bank Transfer',        // Metode pembayaran
-                    'Pending',              // Status pesanan
-                ]);
-
-                if (empty($result)) {
-                    throw new \Exception('Stored procedure did not return any result.');
-                }
-
-                $invoiceId = $result[0]->selling_invoice_id ?? null;
-
-                if (!$invoiceId) {
-                    throw new \Exception('Failed to retrieve selling_invoice_id from stored procedure.');
-                }
-            });
-
-            // Redirect ke halaman pembayaran
+            // Panggil stored procedure langsung tanpa transaksi Laravel
+            $result = DB::select('CALL invoice_product_process(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+                auth()->id(),           // User ID
+                $recipientName,         // Nama penerima
+                $this->email,           // Email penerima
+                $this->recipientPhone,  // Telepon penerima
+                $recipientAddress,      // Alamat penerima
+                $this->recipientBank,   // Bank penerima
+                null,                   // Proof of Payment
+                'Bank Transfer',        // Metode pembayaran
+                'Pending',              // Status pesanan
+            ]);
+        
+            // Cek apakah stored procedure mengembalikan hasil
+            if (empty($result)) {
+                throw new \Exception('Stored procedure did not return any result.');
+            }
+        
+            // Ambil selling_invoice_id dari hasil stored procedure
+            $invoiceId = $result[0]->selling_invoice_id ?? null;
+        
+            // Jika invoiceId tidak ditemukan, lempar error
+            if (!$invoiceId) {
+                throw new \Exception('Failed to retrieve selling_invoice_id from stored procedure.');
+            }
+        
+            // Redirect ke halaman pembayaran setelah sukses
             return redirect()->route('payment.upload', ['invoiceId' => $invoiceId]);
         } catch (\Exception $e) {
             // Log error untuk debugging
             logger()->error('Transaction error: ' . $e->getMessage());
-
+        
             // Flash pesan error untuk pengguna
             session()->flash('error', 'An error occurred while processing your payment. Please try again later.');
             return back();
         }
+        
+        
+        
     }
 
 

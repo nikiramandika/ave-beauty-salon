@@ -180,36 +180,6 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="mb-6">
-                                                <label class="form-label" for="password">Password (Optional)</label>
-                                                <div class="input-group input-group-merge">
-                                                    <span class="input-group-text"><i class="bx bx-lock"></i></span>
-                                                    <input type="password"
-                                                        class="form-control @error('password') is-invalid @enderror"
-                                                        id="password" name="password"
-                                                        placeholder="Leave blank to keep current password" />
-                                                </div>
-                                                @error('password')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-
-                                            <!-- Tambahkan setelah field password -->
-                                            <div class="mb-6">
-                                                <label class="form-label" for="password_confirmation">Confirm
-                                                    Password</label>
-                                                <div class="input-group input-group-merge">
-                                                    <span class="input-group-text"><i class="bx bx-lock"></i></span>
-                                                    <input type="password"
-                                                        class="form-control @error('password_confirmation') is-invalid @enderror"
-                                                        id="password_confirmation" name="password_confirmation"
-                                                        placeholder="Confirm new password" />
-                                                </div>
-                                                @error('password_confirmation')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-
                                             <div class="text-end">
                                                 <button type="button" class="btn btn-outline-secondary"
                                                     onclick="history.back()">

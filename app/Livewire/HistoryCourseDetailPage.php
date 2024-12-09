@@ -25,6 +25,7 @@ class HistoryCourseDetailPage extends Component
                 'start_date',
                 'end_date',
                 'sessions_completed',
+                'selling_invoices.order_status',
                 'selling_invoices.order_date',
                 'selling_invoices.recipient_payment'
             ) // Menambahkan order_date dari tabel selling_invoice

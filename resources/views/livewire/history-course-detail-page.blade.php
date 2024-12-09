@@ -19,7 +19,7 @@
                                     </div>
                                     <div>
                                         <span class="fs-6 badge bg-warning rounded-pill p-2 px-3" style="color: white">
-                                            {{ ucfirst($courseHistory->registration_status) }}
+                                            {{ ucfirst($courseHistory->order_status) }}
                                         </span>
                                     </div>
                                 </div>
@@ -103,6 +103,10 @@
                             <p>{{ $courseHistory->recipient_payment }}</p>
                             <hr>
                             <h4 class="mb-3">Course Detail</h4>
+
+                            <p><strong>Status Registration:</strong>
+                                {{ ucfirst($courseHistory->registration_status) }}
+                            </p>
                             <p><strong>Start Date:</strong> {{ \Carbon\Carbon::parse($courseHistory->start_date)->format('d F Y') }}</p>
                             <p><strong>End Date:</strong> {{ \Carbon\Carbon::parse($courseHistory->end_date)->format('d F Y') }}</p>
                             <p><strong>Total Session:</strong> {{ $courseHistory->total_sessions }}</p>

@@ -100,14 +100,17 @@
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->phone }}</td>
                                                 <td>
-     <!-- Add Member Form -->
-<form id="addMemberForm" action="{{ route('members.store') }}" method="POST">
-    @csrf
-    <input type="hidden" name="user_id" id="userId" value="">
-    <button type="button" class="btn btn-primary btn-sm open-modal" data-user-id="{{ $user->id }}">
-        Add to Member
-    </button>
-</form>
+                                                    <!-- Add Member Form -->
+                                                    <form id="addMemberForm" action="{{ route('members.store') }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="user_id" id="userId"
+                                                            value="">
+                                                        <button type="button" class="btn btn-primary btn-sm open-modal"
+                                                            data-user-id="{{ $user->id }}">
+                                                            Add to Member
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -196,74 +199,79 @@
     </div>
 
     <!-- Add Member Modal -->
-<!-- Confirm Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmModalLabel">Confirmation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to add this user as a member?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="confirmAddMember">Confirm</button>
+    <!-- Confirm Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to add this user as a member?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmAddMember">Confirm</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Update Phone Modal -->
-<!-- Modal Update Phone -->
-<div class="modal fade" id="updatePhoneModal" tabindex="-1" aria-labelledby="updatePhoneModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form id="updatePhoneForm">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="updatePhoneModalLabel">Update Phone Number</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="user_id" id="updatePhoneUserId">
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" id="phone" name="phone" required>
+    <!-- Update Phone Modal -->
+    <!-- Modal Update Phone -->
+    <div class="modal fade" id="updatePhoneModal" tabindex="-1" aria-labelledby="updatePhoneModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="updatePhoneForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updatePhoneModalLabel">Update Phone Number</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="savePhoneButton">Save</button>
-                </div>
-            </form>
+                    <div class="modal-body">
+                        <input type="hidden" name="user_id" id="updatePhoneUserId">
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="phone" name="phone" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="savePhoneButton">Save</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<!-- Modal Confirm Phone -->
-<div class="modal fade" id="confirmPhoneModal" tabindex="-1" aria-labelledby="confirmPhoneModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form id="addMemberForm" action="{{ route('members.store') }}" method="POST">
-                @csrf
-                <input type="hidden" name="user_id" id="confirmUserId">
-                <input type="hidden" name="phone" id="confirmPhone">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmPhoneModalLabel">Confirm Phone Number</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>You entered the phone number: <strong id="displayPhone"></strong></p>
-                    <p>Are you sure you want to proceed?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Confirm</button>
-                </div>
-            </form>
+    <!-- Modal Confirm Phone -->
+    <div class="modal fade" id="confirmPhoneModal" tabindex="-1" aria-labelledby="confirmPhoneModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="addMemberForm" action="{{ route('members.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="user_id" id="confirmUserId">
+                    <input type="hidden" name="phone" id="confirmPhone">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmPhoneModalLabel">Confirm Phone Number</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>You entered the phone number: <strong id="displayPhone"></strong></p>
+                        <p>Are you sure you want to proceed?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
     <!-- Edit Member Modal -->
     <div class="modal fade" id="editMemberModal" tabindex="-1" aria-labelledby="editMemberModalLabel"
@@ -286,9 +294,16 @@
                         </div>
                         <div class="mb-3">
                             <label for="is_active" class="form-label">Status</label>
-                            <select class="form-select" id="is_active" name="is_active">
+
+                            <!-- Jika status aktif, tampilkan sebagai readonly -->
+                            <input type="text" class="form-control" id="status" value="Active" readonly
+                                style="display: none;">
+                            <input type="hidden" name="is_active" value="1" id="is_active">
+
+                            <!-- Jika status tidak aktif, tampilkan dropdown -->
+                            <select class="form-select" id="status_select" name="is_active" style="display: none;">
                                 <option value="1">Active</option>
-                                <option value="0">Inactive</option>
+                                <option value="0" selected>Inactive</option>
                             </select>
                         </div>
                     </div>
@@ -322,22 +337,23 @@
 
     <!-- Script untuk menampilkan modal konfirmasi add to member -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const openModalButtons = document.querySelectorAll('.open-modal');
             const updatePhoneModal = new bootstrap.Modal(document.getElementById('updatePhoneModal'));
             const confirmPhoneModal = new bootstrap.Modal(document.getElementById('confirmPhoneModal'));
-    
+
             const userIdInput = document.getElementById('updatePhoneUserId');
             const phoneInput = document.getElementById('phone');
             const confirmUserIdInput = document.getElementById('confirmUserId');
             const confirmPhoneInput = document.getElementById('confirmPhone');
             const displayPhoneElement = document.getElementById('displayPhone');
-    
+
             openModalButtons.forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     const userId = this.getAttribute('data-user-id');
-                    const userPhone = this.closest('tr').querySelector('td:nth-child(5)').textContent.trim();
-    
+                    const userPhone = this.closest('tr').querySelector('td:nth-child(5)')
+                        .textContent.trim();
+
                     if (!userPhone || userPhone === 'null') {
                         // Phone is empty, open update phone modal
                         userIdInput.value = userId;
@@ -351,16 +367,16 @@
                     }
                 });
             });
-    
+
             // Handle Save Phone Button
-            document.getElementById('savePhoneButton').addEventListener('click', function () {
+            document.getElementById('savePhoneButton').addEventListener('click', function() {
                 const phoneValue = phoneInput.value.trim();
                 if (phoneValue) {
                     // Pass phone data to confirm modal
                     confirmUserIdInput.value = userIdInput.value;
                     confirmPhoneInput.value = phoneValue;
                     displayPhoneElement.textContent = phoneValue;
-    
+
                     // Close update phone modal and show confirm modal
                     updatePhoneModal.hide();
                     confirmPhoneModal.show();
@@ -370,7 +386,7 @@
             });
         });
     </script>
-    
+
     <!-- Script untuk menyimpan tab aktif -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -405,17 +421,30 @@
                 // Isi data ke modal
                 $('#memberId').val(memberId);
                 $('#points').val(points);
-                $('#is_active').val(status);
 
                 // Set action form
                 const url = `/members/${memberId}`;
                 $('#editMemberForm').attr('action', url);
+
+                // Cek status dan sesuaikan tampilan form
+                if (status == 1) {
+                    // Jika status "Active", sembunyikan dropdown dan tampilkan status readonly
+                    $('#status').show(); // Tampilkan input readonly "Active"
+                    $('#status_select').hide(); // Sembunyikan dropdown
+                    $('#is_active').val(1); // Set hidden field is_active dengan nilai 1
+                } else {
+                    // Jika status "Inactive", tampilkan dropdown dan sembunyikan status readonly
+                    $('#status').hide(); // Sembunyikan input readonly "Active"
+                    $('#status_select').show(); // Tampilkan dropdown
+                    $('#status_select').val(0); // Set dropdown value menjadi "Inactive"
+                }
 
                 // Tampilkan modal
                 $('#editMemberModal').modal('show');
             });
         });
     </script>
+
 
     <!-- DataTables Script -->
     <script>

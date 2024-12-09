@@ -47,11 +47,8 @@ class UserController extends Controller
             'password_confirmation' => 'nullable|min:6' // Tambahkan ini
         ]);
 
-        $userData = $request->except(['password', 'password_confirmation']);
+        $userData = $request->all();
 
-        if ($request->filled('password')) {
-            $userData['password'] = Hash::make($request->password);
-        }
 
         $user->update($userData);
 

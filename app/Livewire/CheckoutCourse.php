@@ -49,39 +49,38 @@ class CheckoutCourse extends Component
         $recipientAddress = $this->address . ', ' . $this->state . ', ' . $this->country . ', ' . $this->zip;
     
         try {
-            DB::transaction(function () use ($recipientName, $recipientAddress, &$invoiceId) {
-                $result = DB::select('CALL CreateCourseInvoice10(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @selling_invoice_id)', [
-                    auth()->id(),            // User ID
-                    $recipientName,          // Nama penerima
-                    $this->email,            // Email penerima
-                    $this->recipientPhone,   // Telepon penerima
-                    $recipientAddress,       // Alamat penerima
-                    $this->recipientBank,    // Bank penerima
-                    null,                    // Bukti pembayaran (belum ada)
-                    'Bank Transfer',         // Metode pembayaran
-                    'Pending',               // Status pesanan
-                    $this->startDate,        // Start date
-                    $this->endDate,          // End date
-                    $this->course_id,        // ID kursus
-                ]);
-    
-                logger()->info('Procedure result:', ['result' => $result]);
-    
-                $invoiceId = DB::select('SELECT @selling_invoice_id AS selling_invoice_id')[0]->selling_invoice_id ?? null;
-    
-                logger()->info('Output selling_invoice_id:', ['invoiceId' => $invoiceId]);
-    
-                if (!$invoiceId) {
-                    throw new \Exception('Failed to retrieve selling_invoice_id from stored procedure.');
-                }
-            });
-    
+            // Panggil stored procedure tanpa menggunakan transaksi Laravel
+            $result = DB::select('CALL invoice_course_process(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @selling_invoice_id)', [
+                auth()->id(),            // User ID
+                $recipientName,          // Nama penerima
+                $this->email,            // Email penerima
+                $this->recipientPhone,   // Telepon penerima
+                $recipientAddress,       // Alamat penerima
+                $this->recipientBank,    // Bank penerima
+                null,                    // Bukti pembayaran (belum ada)
+                'Bank Transfer',         // Metode pembayaran
+                'Pending',               // Status pesanan
+                $this->course_id,        // ID kursus
+                $this->startDate,        // Start date
+                $this->endDate,          // End date (pastikan ini adalah tanggal yang valid)
+            ]);
+            
+        
+            // Ambil hasil ID faktur dari output parameter
+            $invoiceId = DB::select('SELECT @selling_invoice_id AS selling_invoice_id')[0]->selling_invoice_id ?? null;
+        
+            logger()->info('Output selling_invoice_id:', ['invoiceId' => $invoiceId]);
+        
+            if (!$invoiceId) {
+                throw new \Exception('Failed to retrieve selling_invoice_id from stored procedure.');
+            }
+        
             return redirect()->route('payment.upload', ['invoiceId' => $invoiceId]);
         } catch (\Exception $e) {
             logger()->error('Transaction error: ' . $e->getMessage());
             session()->flash('error', 'An error occurred while processing your payment. Please try again later.');
             return back();
-        }
+        }        
     }
     
     
