@@ -64,7 +64,7 @@
                     </span>
                     <span class="text-xl font-semibold text-green-600">
                         Rp
-                        {{ number_format($offlineOrders->sum('total_amount') + $onlineOrders->sum('total_amount'), 0, ',', '.') }}
+                        {{ number_format($totalToday, 0, ',', '.') }}
                     </span>
                 </div>
             </div>

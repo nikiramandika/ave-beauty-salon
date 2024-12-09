@@ -206,13 +206,13 @@
                 <a href="/treatment" class="btn-link">View All</a>
             </div>
             <div class="row">
-                @foreach($treatments as $treatment)
+                @foreach($treatments->take(6) as $treatment)
                 <div class="col-md-4">
                     <article class="post-item">
                         <div class="post-image">
                             <a>
                                 <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}" alt="image"
-                                    class="post-grid-image img-fluid">
+                                    class="post-grid-image product-image img-fluid">
                             </a>
                         </div>
                         <div class="post-content d-flex flex-wrap gap-2 my-3">
