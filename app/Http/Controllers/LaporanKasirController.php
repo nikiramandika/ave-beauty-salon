@@ -10,7 +10,7 @@ class LaporanKasirController extends Controller
 {
     public function index()
     {
-        $today = Carbon::today();
+        $today = Carbon::today('Asia/Jakarta')->format('Y-m-d');
 
         // Ambil data pesanan Offline
         $offlineOrders = DB::table('invoice_summary')

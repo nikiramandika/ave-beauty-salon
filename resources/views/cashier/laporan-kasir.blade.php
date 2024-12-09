@@ -54,7 +54,7 @@
             <div class="flex justify-between items-center mb-6">
                 <!-- Bagian Kiri: Laporan Kasir -->
                 <h1 class="text-2xl font-bold">
-                    Laporan Kasir - {{ \Carbon\Carbon::today()->toFormattedDateString() }}
+                    Laporan Kasir - {{ \Carbon\Carbon::today('Asia/Jakarta')->toFormattedDateString() }}
                 </h1>
 
                 <!-- Bagian Kanan: Total Pendapatan -->
@@ -104,7 +104,7 @@
                                                 {{ $order->recipient_name }}
                                             </td>
                                             <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                                {{ $order->cashier_name }}
+                                                {{ $order->cashier_name ?? '-' }}
                                             </td>
                                             <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
                                                 {{ $order->recipient_phone }}
@@ -142,7 +142,7 @@
                     <div class="mb-2">
                         <strong class="text-lg">Total Pendapatan Pesanan Online Hari Ini:</strong>
                         <span class="text-lg font-semibold text-green-600">
-                            Rp {{ number_format($onlineOrders->sum('total_amount'), 0, ',', '.') }}
+                            Rp {{ number_format($onlineOrders->where('order_status', '!=', 'Pending')->sum('total_amount'), 0, ',', '.') }}
                         </span>
                     </div>
                     <div class="overflow-x-auto">
@@ -172,7 +172,7 @@
                                                 {{ $order->recipient_name }}
                                             </td>
                                             <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
-                                                {{ $order->cashier_name }}
+                                                {{ $order->cashier_name ?? '-' }}
                                             </td>
                                             <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
                                                 {{ $order->recipient_phone }}
