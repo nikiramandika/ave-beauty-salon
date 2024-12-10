@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LaporanKasirController;
+use App\Http\Controllers\LogsController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -233,6 +234,9 @@ Route::middleware(['role:Admin'])->group(function () {
 
     Route::get('/transaction-report', [TransactionReportController::class, 'index'])->name('transaction-report.index');
 
+    Route::get('/logs/member-logs', [LogsController::class, 'memberLogs'])->name('logs.member');
+    Route::get('/logs/refund-logs', [LogsController::class, 'refundLogs'])->name('logs.refund');
+    Route::get('/logs/order-status-logs', [LogsController::class, 'orderStatusLogs'])->name('logs.order-status');
 
 });
 

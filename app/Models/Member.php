@@ -26,6 +26,7 @@ class Member extends Model
         'membership_number',
         'points',
         'joined_date',
+        'cashier_id',
         'is_active',
     ];
 

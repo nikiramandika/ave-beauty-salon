@@ -303,7 +303,7 @@
                             <!-- Jika status tidak aktif, tampilkan dropdown -->
                             <select class="form-select" id="status_select" name="is_active" style="display: none;">
                                 <option value="1">Active</option>
-                                <option value="0" selected>Inactive</option>
+                                <option value="0">Inactive</option>
                             </select>
                         </div>
                     </div>

@@ -167,7 +167,7 @@ class CashierController extends Controller
             $refund->refund_status = $request->refund_status;
             $refund->save();
 
-            return response()->json(['success' => true]);
+            return response()->json(data: ['success' => true]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
@@ -225,6 +225,7 @@ class CashierController extends Controller
             // Simpan perubahan invoice
             $invoice->save();
 
+            return redirect()->back();
         } catch (\Exception $e) {
             // Menangani error umum
             \Log::error('Error updating order status:', ['error' => $e->getMessage()]);
@@ -406,14 +407,19 @@ class CashierController extends Controller
             'is_active' => 'required|boolean',
         ]);
 
+        // Ambil ID kasir yang sedang login
+        $cashierId = auth()->id(); // Pastikan Auth sudah dikonfigurasi
+        // Perbarui data member, termasuk cashier_id
         $member->update([
             'points' => $request->points,
             'is_active' => $request->is_active,
-            'updated_at' => now(), // Perbarui kolom updated_at secara manual
+            'cashier_id' => $cashierId, // Tambahkan cashier_id di sini
+            'updated_at' => now(),      // Perbarui kolom updated_at
         ]);
 
         return redirect()->back()->with('success', 'Member updated successfully!');
     }
+
 
 
     public function storeMember(Request $request)
@@ -422,6 +428,10 @@ class CashierController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
+        // Ambil ID kasir dari sesi autentikasi (misalnya menggunakan Auth)
+        $cashierId = auth()->id(); // Pastikan autentikasi terkonfigurasi dengan benar
+
+        // Buat data member baru, termasuk cashier_id
         Member::create([
             'member_id' => (string) Str::uuid(),
             'user_id' => $request->user_id,
@@ -429,16 +439,37 @@ class CashierController extends Controller
             'points' => 0,
             'joined_date' => now(),
             'is_active' => 1,
+            'cashier_id' => $cashierId, // Tambahkan cashier_id di sini
         ]);
 
         return redirect()->back()->with('success', 'User has been added as a member.');
     }
+
     public function destroyMember(Member $member)
     {
+        // Ambil ID kasir yang sedang login
+        $cashierId = auth()->id(); // Pastikan Auth sudah dikonfigurasi
+
+        // Simpan log penghapusan ke tabel member_logs sebelum menghapus data
+        DB::table('member_logs')->insert([
+            'log_id' => (string) Str::uuid(),         // ID unik untuk log
+            'log_time' => now(),                     // Waktu penghapusan
+            'user_id' => $member->user_id,           // ID user terkait
+            'member_id' => $member->member_id,       // ID member yang dihapus
+            'membership_number' => $member->membership_number, // Nomor keanggotaan
+            'cashier_id' => $cashierId,              // ID kasir yang melakukan penghapusan
+            'action_type' => 'remove',               // Jenis aksi
+            'old_points' => $member->points,         // Poin saat ini (sebelum dihapus)
+            'new_points' => null,                    // Tidak relevan setelah dihapus
+            'is_active' => $member->is_active        // Status keanggotaan sebelum dihapus
+        ]);
+
+        // Hapus data member
         $member->delete();
 
         return redirect()->back()->with('success', 'Member has been removed.');
     }
+
 
 
 }

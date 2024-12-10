@@ -126,16 +126,36 @@
                 <div class="text-truncate" data-i18n="Basic">Course Registration</div>
             </a>
         </li>
-
-        <!-- Logs -->
+        
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Logs</span>
         </li>
-        <li class="menu-item">
-            <a href="cards-basic.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-notepad"></i>
-                <div class="text-truncate" data-i18n="Basic">Logs</div>
+        <li class="menu-item {{ Request::is('logs*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-category"></i>
+                <div class="text-truncate" data-i18n="Authentications">Logs</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ Request::is('logs/member-logs') ? 'active' : '' }}">
+                    <a href="/logs/member-logs" class="menu-link">
+                        <div class="text-truncate" data-i18n="Basic">Member Logs</div>
+                    </a>
+                </li>
+            </ul>
+            <ul class="menu-sub">
+                <li class="menu-item {{ Request::is('refund-logs') ? 'active' : '' }}">
+                    <a href="/logs/refund-logs" class="menu-link">
+                        <div class="text-truncate" data-i18n="Basic">Refund Logs</div>
+                    </a>
+                </li>
+            </ul>
+            <ul class="menu-sub">
+                <li class="menu-item {{ Request::is('order-status-logs') ? 'active' : '' }}">
+                    <a href="/logs/order-status-logs" class="menu-link">
+                        <div class="text-truncate" data-i18n="Basic">Order Logs</div>
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 
