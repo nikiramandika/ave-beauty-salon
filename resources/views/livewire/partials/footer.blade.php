@@ -20,10 +20,10 @@
                     <h5 class="widget-title text-uppercase mb-4">Quick Links</h5>
                     <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
                         <li class="menu-item">
-                            <a href="home" class="item-anchor">Home</a>
+                            <a href="/" class="item-anchor">Home</a>
                         </li>
                         <li class="menu-item">
-                            <a href="/product" class="item-anchor">Shop</a>
+                            <a href="/products" class="item-anchor">Shop</a>
                         </li>
                         <li class="menu-item">
                             <a href="/treatment" class="item-anchor">Treatment</a>
@@ -33,6 +33,9 @@
                         </li>
                         <li class="menu-item">
                             <a href="/promo" class="item-anchor">Promo</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/termandcondition" class="item-anchor">Terms & Conditions</a>
                         </li>
                     </ul>
                 </div>

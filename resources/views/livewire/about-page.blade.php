@@ -1,5 +1,5 @@
 <div>
-    <section class="about">
+    <section class="about" data-aos="zoom-out" class="position-relative overflow-hidden">
         <header>
             <h1>AVE <br> BEAUTY SALON</h1>
             <p class="intro-text">We redefine beauty through the art of transformation and authentic self-expression.

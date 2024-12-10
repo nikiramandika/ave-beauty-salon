@@ -46,6 +46,11 @@
                     Your phone number must be filled. Updated your phone number.<br>
                 </div>
             @endif
+            @if (!is_null($phone) && (!is_numeric($phone) || strlen($phone) < 10 || strlen($phone) > 13))
+                <div class="alert alert-danger mt-3">
+                    Phone number must contain only numbers and 10 to 13 characters long<br>
+                </div>
+            @endif
         </div>
 
         <div class="text-right mt-4">
