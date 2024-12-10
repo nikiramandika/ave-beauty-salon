@@ -34,6 +34,7 @@ use App\Livewire\SearchPage;
 use App\Livewire\SuccessPage;
 use App\Livewire\TreatmentDetailPage;
 use App\Livewire\TreatmentPage;
+use App\Livewire\TermandconditionPage;
 // use App\Livewire\SuccessPage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
@@ -91,6 +92,7 @@ Route::get('/promo', PromoPage::class);
 Route::get('/course', CoursePage::class);
 Route::get('/about', AboutPage::class);
 Route::get('/search', SearchPage::class)->name('search');
+Route::get('/termandcondition', TermandconditionPage::class);
 
 Route::middleware(['role:User'])->group(function () {
     Route::get('/settings', SettingsPage::class)->name('settings');
