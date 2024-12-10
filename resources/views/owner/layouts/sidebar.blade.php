@@ -2,7 +2,7 @@
     <div class="app-brand demo">
         <a href="/dashboard-owner" class="app-brand-link">
             <img src="{{ asset('user/images/logo.png') }}" style="width: 50px; border-radius:15px" alt="Ave-Beauy">
-            <span class="app-brand-text demo menu-text fw-bold ms-2" style="font-size: 17px;">Ave Beauty Salon</span>
+            <span class="app-brand-text demo menu-text fw-bold ms-2" style="font-family:Arial, Helvetica, sans-serif ; font-size: 17px;">Ave Beauty Salon</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -31,7 +31,7 @@
 
         <!-- Management -->
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Management</span>
+            <span class="menu-header-text" style="color: #74485d">Management</span>
         </li>
 
         <li
@@ -80,7 +80,7 @@
         </li> --}}
 
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Transaction Report</span>
+            <span class="menu-header-text" style="color: #74485d">Transaction Report</span>
         </li>
         <li class="menu-item {{ Request::is('transaction-report*') ? 'active' : '' }}">
             <a href="/transaction-report" class="menu-link">
@@ -90,7 +90,7 @@
         </li>
         <!-- Products & Services -->
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Products &amp; Services</span>
+            <span class="menu-header-text" style="color: #74485d">Products &amp; Services</span>
         </li>
         <li class="menu-item {{ Request::is('products-owner*') ? 'active' : '' }}">
             <a href="/products-owner" class="menu-link">
@@ -118,7 +118,7 @@
         </li>
 
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Courses</span>
+            <span class="menu-header-text" style="color: #74485d">Courses</span>
         </li>
         <li class="menu-item {{ Request::is('course-registration*') ? 'active' : '' }}">
             <a href="/course-registration" class="menu-link">
@@ -128,7 +128,7 @@
         </li>
         
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Logs</span>
+            <span class="menu-header-text" style="color: #74485d">Logs</span>
         </li>
         <li class="menu-item {{ Request::is('logs*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">

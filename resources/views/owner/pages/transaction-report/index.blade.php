@@ -107,8 +107,8 @@
                                 <div class="d-flex align-items-center mt-3">
                                     <i class="bx bx-money" style="font-size: 24px; color: green;"></i>
                                     <!-- Ikon uang -->
-                                    <h4 class="mb-0 ms-2" style="font-weight: bold; color: green;">
-                                        Pendapatan: <span>Rp {{ number_format($totalAmount, 2) }}</span>
+                                    <h4 class="mb-0 ms-2" style="font-weight: bold; color: green; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+                                        Pendapatan: <span>Rp{{ number_format($totalAmount, 2) }}</span>
                                     </h4>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                                 <h6>
                                     Total Invoice Summary:
                                     <span>
-                                        <span style="font-size: 14px; color: grey;">Rp</span>
+                                        <span style="font-size: 14px; color: black;">Rp</span>
                                         <strong
                                             style="font-size: 16px; color: black;">{{ number_format($invoiceTotal, 2) }}</strong>
                                     </span>
@@ -217,7 +217,7 @@
                             </div>
                             <div class="card-body">
                                 <!-- Total Invoice -->
-                                <div class="mt-3">
+                                <div class="mt-0">
                                     <h6>Total Invoice Summary: Rp {{ number_format($courseTotal, 2) }}</h6>
                                 </div>
                                 <div class="mb-3 mt-4">
@@ -320,8 +320,6 @@
             <!-- Overlay -->
             <div class="layout-overlay layout-menu-toggle"></div>
         </div>
-
-
 
         <script>
             $('#example1').DataTable({

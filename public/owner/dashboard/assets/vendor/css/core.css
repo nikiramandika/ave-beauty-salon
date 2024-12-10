@@ -22298,6 +22298,7 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
 
 .layout-container {
   min-height: 100vh;
+  background-color: #fcf4f7;
 }
 
 .layout-wrapper,

@@ -55,13 +55,13 @@
 
         @include('owner.layouts.sidebar')
         <!-- / Menu -->
-        
+
         <!-- Layout container -->
         <div class="layout-page">
           <!-- Navbar -->
-          
+
           @include('owner.layouts.navbar')
-          
+
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
