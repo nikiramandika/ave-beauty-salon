@@ -9,6 +9,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PromoController;
+use App\Http\Controllers\TransactionReportController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\SearchResult;
@@ -228,6 +229,7 @@ Route::middleware(['role:Admin'])->group(function () {
     Route::put('/course-registration/{registrationId}/update-session-plus', [CourseController::class, 'updateSessionPlus'])->name('course.updateSessionPlus');
     Route::put('/course-registration/{registrationId}/update-session-minus', [CourseController::class, 'updateSessionMinus'])->name('course.updateSessionMinus');
 
+    Route::get('/transaction-report', [TransactionReportController::class, 'index'])->name('transaction-report.index');
 
 
 });

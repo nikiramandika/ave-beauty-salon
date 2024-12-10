@@ -79,6 +79,15 @@
             </a>
         </li> --}}
 
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Transaction Report</span>
+        </li>
+        <li class="menu-item {{ Request::is('transaction-report*') ? 'active' : '' }}">
+            <a href="/transaction-report" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-money"></i>
+                <div class="text-truncate" data-i18n="Basic">Transaction Report</div>
+            </a>
+        </li>
         <!-- Products & Services -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Products &amp; Services</span>
@@ -117,6 +126,7 @@
                 <div class="text-truncate" data-i18n="Basic">Course Registration</div>
             </a>
         </li>
+
         <!-- Logs -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Logs</span>

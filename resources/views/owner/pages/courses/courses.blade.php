@@ -39,6 +39,21 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="owner/dashboard/assets/js/config.js"></script>
+    <!-- datatable CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.0/css/buttons.bootstrap5.css">
+    <!-- datatable js -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.bootstrap5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.colVis.min.js"></script>
 </head>
 
 <body>
@@ -73,7 +88,7 @@
                                     <a href="{{ route('courses.create') }}" class="btn btn-primary">Create Course</a>
                                 </div>
                                 <div class="table-responsive text-nowrap">
-                                    <table class="table">
+                                    <table id="example1" class="table">
                                         <thead>
                                             <tr>
                                                 <th>Image</th>
@@ -195,7 +210,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="viewCourseModalLabel">Detail Course</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <img id="modalCourseImage" src="" alt="Course Image" class="img-fluid mb-2">
@@ -244,7 +260,17 @@
         </div>
 
 
-
+        <script>
+            $('#example1').DataTable({
+                order: [
+                    [1, 'desc']
+                ], // Mengurutkan berdasarkan kolom "Tanggal Pesanan" (kolom ke-5, karena indeks dimulai dari 0), urutan asc (ascending)
+                columnDefs: [{
+                    targets: 1, // Indeks kolom Tanggal Pesanan (dimulai dari 0)
+                    type: 'date' // Mengatur DataTables untuk memperlakukan kolom ini sebagai tanggal
+                }],
+            });
+        </script>
 
         <!-- Core JS -->
         <!-- build:js assets/vendor/js/core.js -->

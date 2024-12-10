@@ -39,6 +39,23 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="owner/dashboard/assets/js/config.js"></script>
+
+    <!-- datatable CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.0/css/buttons.bootstrap5.css">
+    <!-- datatable js -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.bootstrap5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.colVis.min.js"></script>
 </head>
 
 <body>
@@ -67,11 +84,11 @@
                             <h5 class="card-header">Daftar Course Registrations</h5>
                             <div class="card-body">
                                 <div class="table-responsive text-nowrap">
-                                    <table class="table">
+                                    <table id="example1" class="table">
                                         <thead>
                                             <tr>
-                                                <th>Nama Course</th>
                                                 <th>Nama Pengguna</th>
+                                                <th>Email</th>
                                                 <th>Start Date</th>
                                                 <th>End Date</th>
                                                 <th>Sessions Completed</th>
@@ -82,10 +99,10 @@
                                         <tbody class="table-border-bottom-0">
                                             @forelse($courseRegistrations as $registration)
                                                 <tr>
-                                                    <td>{{ $registration->course->course_name ?? '-' }}</td>
                                                     <td>{{ $registration->user->nama_depan ?? '-' }}
                                                         {{ $registration->user->nama_belakang ?? '-' }}</td>
 
+                                                    <td>{{ $registration->user->email ?? '-' }}</td>
                                                     <td>{{ $registration->start_date ?? '-' }}</td>
                                                     <td>{{ $registration->end_date ?? '-' }}</td>
                                                     <td>{{ $registration->sessions_completed ?? 0 }}</td>
@@ -160,8 +177,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="deleteCourseModalLabel">Konfirmasi Hapus Course</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p>Apakah Anda yakin ingin menghapus course <strong><span
@@ -181,7 +197,17 @@
 
 
 
-
+        <script>
+            $('#example1').DataTable({
+                order: [
+                    [1, 'desc']
+                ], // Mengurutkan berdasarkan kolom "Tanggal Pesanan" (kolom ke-5, karena indeks dimulai dari 0), urutan asc (ascending)
+                columnDefs: [{
+                    targets: 1, // Indeks kolom Tanggal Pesanan (dimulai dari 0)
+                    type: 'date' // Mengatur DataTables untuk memperlakukan kolom ini sebagai tanggal
+                }],
+            });
+        </script>
 
 
 

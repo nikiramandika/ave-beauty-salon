@@ -35,6 +35,22 @@
     <!-- Helpers -->
     <script src="owner/dashboard/assets/vendor/js/helpers.js"></script>
     <script src="owner/dashboard/assets/js/config.js"></script>
+
+    <!-- datatable CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.0/css/buttons.bootstrap5.css">
+    <!-- datatable js -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.bootstrap5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.colVis.min.js"></script>
 </head>
 
 <body>
@@ -58,7 +74,7 @@
                         <div class="card">
                             <h5 class="card-header">Daftar Anggota</h5>
                             <div class="table-responsive text-nowrap">
-                                <table class="table">
+                                <table id="example1" class="table">
                                     <thead>
                                         <tr>
                                             <th>Nama</th>
@@ -74,7 +90,8 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <span>{{ $member->user->nama_depan }} {{ $member->user->nama_belakang }}</span>
+                                                        <span>{{ $member->user->nama_depan }}
+                                                            {{ $member->user->nama_belakang }}</span>
                                                     </div>
                                                 </td>
                                                 <td>{{ $member->membership_number }}</td>
@@ -96,7 +113,8 @@
                                                         </button>
                                                         <div class="dropdown-menu">
                                                             <a href="javascript:void(0);" class="dropdown-item"
-                                                                data-bs-toggle="modal" data-bs-target="#memberDetailModal"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#memberDetailModal"
                                                                 onclick="viewMemberDetail('{{ $member->user->nama_depan }} {{ $member->user->nama_belakang }}', '{{ $member->membership_number }}', '{{ $member->points }}', '{{ $member->joined_date }}', '{{ $member->is_active ? 'Active' : 'Inactive' }}')">
                                                                 <i class="bx bx-show-alt me-2"></i> View
                                                             </a>
@@ -131,7 +149,8 @@
                     <!-- Footer -->
                     <footer class="content-footer footer bg-footer-theme">
                         <div class="container-xxl">
-                            <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                            <div
+                                class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
                                 <div class="text-body">
                                     ©
                                     <script>
@@ -189,7 +208,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus anggota <strong><span id="deleteMemberName"></span></strong>?</p>
+                    <p>Apakah Anda yakin ingin menghapus anggota <strong><span id="deleteMemberName"></span></strong>?
+                    </p>
                 </div>
                 <div class="modal-footer">
                     <form id="deleteMemberForm" method="POST">
@@ -202,6 +222,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $('#example1').DataTable({
+            order: [
+                [1, 'desc']
+            ], // Mengurutkan berdasarkan kolom "Tanggal Pesanan" (kolom ke-5, karena indeks dimulai dari 0), urutan asc (ascending)
+            columnDefs: [{
+                targets: 1, // Indeks kolom Tanggal Pesanan (dimulai dari 0)
+                type: 'date' // Mengatur DataTables untuk memperlakukan kolom ini sebagai tanggal
+            }],
+        });
+    </script>
 
     <!-- Core JS -->
     <script>
