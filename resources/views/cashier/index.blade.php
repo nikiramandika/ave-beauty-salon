@@ -249,12 +249,6 @@
                             <!-- Input Nomor Telepon dan Email (Default Hidden) -->
                             <div id="userDetails" class="hidden">
                                 <div class="mb-4">
-                                    <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Nomor
-                                        Telepon</label>
-                                    <input type="text" id="phoneNumber" name="phoneNumber"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                </div>
-                                <div class="mb-4">
                                     <label for="emailAddress"
                                         class="block text-sm font-medium text-gray-700">Email</label>
                                     <input type="email" id="emailAddress" name="emailAddress" readonly

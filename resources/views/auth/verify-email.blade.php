@@ -30,7 +30,7 @@
                                     @csrf
                                     <div class="d-grid">
                                         <button class="btn bsb-btn-xl btn-primary"
-                                            type="submit">{{ __('Resend Verification Email') }}</button>
+                                            type="submit">{{ __('Send Verification Email') }}</button>
                                     </div>
                                 </form>
                             </div>

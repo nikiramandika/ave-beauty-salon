@@ -142,7 +142,7 @@
                     <div class="mb-2">
                         <strong class="text-lg">Total Pendapatan Pesanan Online Hari Ini:</strong>
                         <span class="text-lg font-semibold text-green-600">
-                            Rp {{ number_format($onlineOrders->where('order_status', '!=', 'Pending')->sum('total_amount'), 0, ',', '.') }}
+                            Rp {{ number_format($onlineOrders->where('order_status', '==', 'Complete')->sum('total_amount'), 0, ',', '.') }}
                         </span>
                     </div>
                     <div class="overflow-x-auto">

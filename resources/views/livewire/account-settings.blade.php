@@ -40,13 +40,16 @@
 
         <div class="form-group">
             <label class="form-label">Phone Number</label>
-            <input type="text" class="form-control" wire:model="phone" placeholder="Phone number">
+            <input type="tel" class="form-control" wire:model="phone" placeholder="Phone number"
+                pattern="[0-9]{10,13}" minlength="10" maxlength="13" required>
             @if (Auth::user()->phone == null)
                 <div class="alert alert-warning mt-3">
                     Your phone number must be filled. Updated your phone number.<br>
                 </div>
             @endif
-            @if (!is_null($phone) && (!is_numeric($phone) || strlen($phone) < 10 || strlen($phone) > 13))
+            @if (
+                !is_null(Auth::user()->phone) &&
+                    (!is_numeric(Auth::user()->phone) || strlen(Auth::user()->phone) < 10 || strlen(Auth::user()->phone) > 13))
                 <div class="alert alert-danger mt-3">
                     Phone number must contain only numbers and 10 to 13 characters long<br>
                 </div>

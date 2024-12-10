@@ -143,14 +143,14 @@
                 </li>
             </ul>
             <ul class="menu-sub">
-                <li class="menu-item {{ Request::is('refund-logs') ? 'active' : '' }}">
+                <li class="menu-item {{ Request::is('logs/refund-logs') ? 'active' : '' }}">
                     <a href="/logs/refund-logs" class="menu-link">
                         <div class="text-truncate" data-i18n="Basic">Refund Logs</div>
                     </a>
                 </li>
             </ul>
             <ul class="menu-sub">
-                <li class="menu-item {{ Request::is('order-status-logs') ? 'active' : '' }}">
+                <li class="menu-item {{ Request::is('logs/order-status-logs') ? 'active' : '' }}">
                     <a href="/logs/order-status-logs" class="menu-link">
                         <div class="text-truncate" data-i18n="Basic">Order Logs</div>
                     </a>

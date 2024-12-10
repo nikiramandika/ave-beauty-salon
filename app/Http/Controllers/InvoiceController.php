@@ -14,7 +14,6 @@ class InvoiceController extends Controller
     {
         // Mengambil data invoice berdasarkan kolom invoice_code
         $invoice = SellingInvoice::with('details')->where('invoice_code', $invoiceCode)->firstOrFail();
-dd($invoice->details);
         // Debugging untuk memastikan data ditemukan
         // dd($invoice);
 
