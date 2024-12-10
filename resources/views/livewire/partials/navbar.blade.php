@@ -204,7 +204,7 @@
                                 @endauth
                             </a>
                         </li>
-                        <li class="search-box" class="mx-2 ">
+                        <li class="search-box" class="mx-2" style="margin-left:20px; ">
                             <a href="#search" class="search-button">
                                 <svg width="24" height="24" viewBox="0 0 24 24" class="pb-1">
                                     <use xlink:href="#search"></use>

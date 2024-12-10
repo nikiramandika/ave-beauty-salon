@@ -205,21 +205,22 @@
                 <h4 class="">Choose the Right Treatment for You</h4>
                 <a href="/treatment" class="btn-link">View All</a>
             </div>
-            <div class="row">
+            <div class="row g-5">
                 @foreach($treatments->take(6) as $treatment)
                 <div class="col-md-4">
-                    <article class="post-item">
-                        <div class="post-image">
+                    <article class="post-item image-zoom-effect link-effect ">
+                        <div class="post-image rounded image-holder">
                             <a>
                                 <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}" alt="image"
-                                    class="post-grid-image img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
+                                class="product-image img-fluid rounded" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                             </a>
                         </div>
                         <div class="post-content gap-2 my-3">
                             <h5 class="post-title text-capitalize">
                                 <a>{{ $treatment->treatment_name }}</a>
                             </h5>
-                            <p align="justify">{{ $treatment->description->description }}</p>
+                            <p align="justify" >{{ strlen($treatment->description->description) > 200 ? substr($treatment->description->description, 0, 200) . '...' : $treatment->description->description }}</p>
+
                         </div>
                     </article>
                 </div>

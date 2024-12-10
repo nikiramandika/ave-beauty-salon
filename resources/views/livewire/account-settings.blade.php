@@ -33,7 +33,7 @@
             @if (Auth::user()->email_verified_at == null)
                 <div class="alert alert-warning mt-3">
                     Your email is not verified. Please verify your Email.<br>
-                    <a href="/verify-email">Verify Email</a>
+                    <a href="/verify-email">Click here to verify your email</a>
                 </div>
             @endif
         </div>

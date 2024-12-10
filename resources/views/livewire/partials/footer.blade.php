@@ -1,7 +1,7 @@
 <footer id="footer" class="mt-5">
     <div class="container">
         <div class="row d-flex flex-wrap justify-content-between py-5">
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-4 col-sm-6">
                 <div class="footer-menu footer-menu-001">
                     <div class="footer-intro mb-4">
                         <a href="{{ url('/') }}" class="h5 mb-4">

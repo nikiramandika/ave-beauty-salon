@@ -76,6 +76,13 @@
         .bd-mode-toggle .dropdown-menu .active .bi {
             display: block !important;
         }
+        .list-group-item {
+            padding: 0!important;
+        }
+        .list-group-item:hover {
+            background-color: transparent;
+            cursor: auto!important;
+        }
     </style>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
         <symbol id="check2" viewBox="0 0 16 16">
@@ -107,9 +114,9 @@
                 <div class="col-md-5 col-lg-4 order-md-last">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span>Your cart</span>
-                        <span class="badge bg-primary rounded-pill">{{ count($cartItems) }}</span>
+                        <span class="badge bg-dark rounded-pill">{{ count($cartItems) }}</span>
                     </h4>
-                    <ul class="list-group mb-3">
+                    <ul class="list-group mb-3 pt-3">
                         @forelse ($cartItems as $item)
                             <li class="list-group-item d-flex justify-content-between lh-sm">
                                 <div>
@@ -173,7 +180,7 @@
                             <!-- Phone Number -->
                             <div class="col-12">
                                 <label for="recipientPhone" class="form-label">Phone Number</label>
-                                <input type="text" class="form-control" id="recipientPhone"
+                                <input type="number" class="form-control" id="recipientPhone"
                                     wire:model="recipientPhone" placeholder="e.g., 08123456789" required>
                                 @error('recipientPhone')
                                     <span class="text-danger">{{ $message }}</span>
@@ -195,9 +202,7 @@
                                 <label for="country" class="form-label">Country</label>
                                 <select class="form-select" id="country" wire:model="country" required>
                                     <option value="">Choose...</option>
-                                    <option>United States</option>
                                     <option>Indonesia</option>
-                                    <option>Other</option>
                                 </select>
                                 @error('country')
                                     <span class="text-danger">{{ $message }}</span>
@@ -221,7 +226,7 @@
                             <!-- Zip -->
                             <div class="col-md-3">
                                 <label for="zip" class="form-label">Zip</label>
-                                <input type="text" class="form-control" id="zip" wire:model="zip"
+                                <input type="number" class="form-control" id="zip" wire:model="zip"
                                     placeholder="" required>
                                 @error('zip')
                                     <span class="text-danger">{{ $message }}</span>
@@ -260,10 +265,9 @@
                             @enderror
                         </div>
 
-                        <hr class="my-4">
 
                         <!-- Submit Button -->
-                        <button type="submit" class="w-100 btn btn-primary btn-lg">Submit Payment</button>
+                        <button type="submit" class="w-100 btn btn-primary btn-lg my-4">Submit Payment</button>
                     </form>
                 </div>
             </div>

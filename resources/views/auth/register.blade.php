@@ -71,7 +71,7 @@
                                         <input class="form-check-input ms-0" type="checkbox" id="iAgree" name="iAgree"
                                             onchange="toggleButton()" required>
                                         <label class="form-check-label border-animation-left ms-0" for="iAgree">
-                                            I agree to the <a href="#!" class="item-anchor">terms and conditions</a>
+                                            I agree to the <a href="/termandcondition" class="item-anchor">terms and conditions</a>
                                         </label>
                                     </div>
                                 </div>

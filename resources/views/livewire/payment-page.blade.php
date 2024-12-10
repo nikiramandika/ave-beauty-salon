@@ -1,10 +1,10 @@
 <div class="container mt-5">
     <div class="row">
-        <div class="col-lg-6 mx-auto">
+        <div class="col-lg-12 mx-auto">
             <h3 class="mb-4">Upload Proof of Payment</h3>
 
             <!-- Informasi Invoice -->
-            <div class="mb-3">
+            <div class="mb-4">
                 <h5>Invoice ID: <strong>{{ $invoice->invoice_code }}</strong></h5>
                 <h5>Recipient Bank: <strong>{{ $recipientBank }}</strong></h5>
                 <h5>Time Remaining:
@@ -15,8 +15,8 @@
             <!-- Form Upload -->
             <form wire:submit.prevent="uploadProofOfPayment" enctype="multipart/form-data" class="needs-validation"
                 novalidate>
-                <div class="mb-3">
-                    <label for="proofOfPayment" class="form-label">Upload Proof of Payment</label>
+                <div class="mb-4">
+                    <label for="proofOfPayment" class="form-label">Upload Proof of Payment. Please wait untill the image is uploaded.</label>
                     <input type="file" class="form-control" id="proofOfPayment" wire:model="proofOfPayment"
                         accept="image/*" required>
                     @error('proofOfPayment')
@@ -26,16 +26,16 @@
 
                 <!-- Tampilkan Preview jika ada file yang diunggah -->
                 @if ($proofOfPayment)
-                    <div class="mb-3">
-                        <h5>Preview:</h5>
+                    <div class="mb-4">
+                        <p>Preview:</p>
                         <img src="{{ $proofOfPayment->temporaryUrl() }}" class="img-thumbnail"
-                            alt="Proof of Payment Preview">
+                            alt="Proof of Payment Preview" width="25%">
                     </div>
                 @endif
 
                 <!-- Tombol Submit -->
-                <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success">Submit Proof of Payment</button>
+                <div class="mt-4 pt-4">
+                    <button type="submit" class="btn btn-primary">Submit Proof of Payment</button>
                 </div>
             </form>
 

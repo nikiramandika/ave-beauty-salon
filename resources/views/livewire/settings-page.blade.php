@@ -69,31 +69,31 @@
   </style>
 
   <div class="container py-4">
-      <div class="card overflow-hidden my-4">
-          <div class="row no-gutters row-bordered row-border-light my-2 settings">
+      <div class="card overflow-hidden my-4 px-4 py-2">
+          <div class="row no-gutters row-bordered row-border-light settings">
               <div class="col-md-3 pt-0 mt-2">
                   <div class="list-group list-group-flush account-settings-links">
-                      <a class="list-group-item list-group-item-action" data-toggle="list"
+                      <a class="list-group-item list-group-item-action rounded" data-toggle="list"
                           href="#account-general">General</a>
-                      <a class="list-group-item list-group-item-action" data-toggle="list"
+                      <a class="list-group-item list-group-item-action rounded" data-toggle="list"
                           href="#change-password">Change password</a>
-                      <a class="list-group-item list-group-item-action" data-toggle="list"
+                      <a class="list-group-item list-group-item-action rounded" data-toggle="list"
                           href="#delete-account">Delete Account</a>
                   </div>
               </div>
               <div class="col-md-9 p-4">
-                  <div class="tab-content">
+                  <div class="tab-content ">
 
                       <div class="tab-pane fade" id="account-general">
                           <!-- Show success/error message -->
-                          <div class="card-body">
+                          <div class="">
                             <livewire:account-settings />
                           </div>
                         </div>
                         
                         <!-- Change Password Tab -->
                         <div class="tab-pane fade" id="change-password">
-                          <div class="card-body pb-2">
+                          <div class="pb-2">
                             
                             <livewire:change-password />
                           </div>
@@ -101,7 +101,7 @@
 
                       <!-- Delete Account Tab -->
                       <div class="tab-pane fade" id="delete-account">
-                          <div class="card-body pb-2">
+                          <div class="pb-2">
                               <livewire:delete-account />
                           </div>
                       </div>

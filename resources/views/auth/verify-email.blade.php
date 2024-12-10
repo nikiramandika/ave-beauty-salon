@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-4">
-                                    <h3 class="mb-2">Verify your email address.</h3>
+                                    <h3 class="mb-4">Verify your email address.</h3>
                                     <p class="fs-6 fw-normal m-0">
                                         {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
                                     </p>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-12 col-md-6 bsb-tpl-bg-platinum">
                     <div class="d-flex flex-column h-100 p-3 p-md-4 p-xl-5">
-                        <img class="d-none d-md-block img-fluid rounded mx-auto my-4" loading="lazy"
+                        <img class="d-none d-md-block rounded mx-auto my-4" loading="lazy"
                             src="user/images/banner-image-6.jpg" width="100%" height="100%" alt="ave">
                     </div>
                 </div>

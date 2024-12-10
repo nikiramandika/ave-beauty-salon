@@ -4,7 +4,15 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
+img {
+    object-fit: cover;
+}
 
 body {
     font-family: "Montserrat", Roboto, sans-serif;
@@ -48,6 +56,12 @@ body {
     --accent: #751332;
     --accent2: #4b1225;
 }
+
+.item-anchor{
+    line-height: 1.7;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
 .section-title {
     font-family: "DM Serif Display", sans-serif;
 }
@@ -77,6 +91,9 @@ html {
 body {
     letter-spacing: 0.03rem;
     padding-top: 70px;
+}
+.offcanvas-body .list-group-item {
+    border-radius: 10px;
 }
 
 .full-screen {
@@ -179,25 +196,32 @@ h6,
 .h6 {
     font-size: 1rem;
 }
-
+input[readonly]::placeholder {
+    color: var(--bs-body-color)e!important; /* This will style the text of the input value */
+    cursor: not-allowed;
+}
+input[readonly]:hover {
+    cursor: not-allowed;
+}
 .form-control::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: var(--bs-body-color);
+    color: var(--bs-secondary);
     opacity: 1; /* Firefox */
 }
 
 .form-control:-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: var(--bs-body-color);
+    color: var(--bs-secondary);
 }
 
 .form-control::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: var(--bs-body-color);
+    color: var(--bs-secondary);
 }
 .product-content, .treatment-content, .course-content, .promo-content {
     font-family: var(--bs-body-font-family)!important;
 }
+
 .product-content h5 {
     font-family: var(--bs-body-font-family)!important;
 }
@@ -2217,11 +2241,15 @@ a.btn-link.text-light:after {
     font-weight: normal;
 }
 
-.badge.bg-primary {
+.badge .bg-primary {
     font-size: 1.2rem;
     padding: 0.5rem 1rem;
     border-radius: 30px;
     background-color: #f4d0e0;
+    color: white;
+}
+.bg-dark {
+    background-color: #63374d!important;
     color: white;
 }
 
@@ -2229,13 +2257,11 @@ a.btn-link.text-light:after {
     text-align: left;
     font-size: 1.1rem;
     padding: 12px 20px;
-    border: 1px solid #f4d0e0;
     margin-bottom: 10px;
 }
 
 .list-group-item:hover {
     background-color: #f4d0e0;
-    cursor: pointer;
 }
 
 .mt-4 {
@@ -2333,8 +2359,8 @@ a.btn-link.text-light:after {
     text-decoration: underline;
 }
 
-.content p {
+/* .content p {
     margin-top: 2rem;
     text-align: center;
     font-weight: bold;
-}
+} */

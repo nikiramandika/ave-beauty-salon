@@ -1,12 +1,12 @@
-<footer id="footer" class="mt-5">
+<footer id="footer" class="">
     <div class="container">
         <div class="row d-flex flex-wrap justify-content-between py-5">
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-4 col-sm-6">
                 <div class="footer-menu footer-menu-001">
                     <div class="footer-intro mb-4">
-                        <a href="{{ url('/') }}">
+                        <a href="{{ url('/') }}" class="h5 mb-4">
                             <img src="{{ asset('user/images/logo.png') }}" alt="logo"
-                                style="width: 100px; height: auto;">
+                                style="width: 50px; height: auto; margin-right:10px;"> Ave Beauty Salon
                         </a>
                     </div>
                     <p>Experience premium salon care with a range of professional treatments tailored to enhance your
@@ -23,7 +23,7 @@
                             <a href="/" class="item-anchor">Home</a>
                         </li>
                         <li class="menu-item">
-                            <a href="/product" class="item-anchor">Shop</a>
+                            <a href="/products" class="item-anchor">Shop</a>
                         </li>
                         <li class="menu-item">
                             <a href="/treatment" class="item-anchor">Treatment</a>
@@ -33,6 +33,9 @@
                         </li>
                         <li class="menu-item">
                             <a href="/promo" class="item-anchor">Promo</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/termandcondition" class="item-anchor">Terms & Conditions</a>
                         </li>
                     </ul>
                 </div>
