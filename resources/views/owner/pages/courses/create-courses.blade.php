@@ -57,14 +57,14 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Create Course</h5>
+                            <h4 class="card-header">Create Course</h4>
                             <div class="card-body">
                                 <form action="{{ route('courses.store') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="course_name" class="form-label">Nama Course</label>
-                                        <input type="text" class="form-control" id="course_name" name="course_name"
+                                        <label for="course_name" class="form-label">Course Name</label>
+                                        <input type="text" class="form-control" id="course_name" name="course_name"  placeholder="Add course name"
                                             required oninput="generateSlug()">
                                     </div>
                                     <div class="mb-3">
@@ -73,43 +73,43 @@
                                             name="course_slug" required readonly>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="price" class="form-label">Harga</label>
-                                        <input type="number" class="form-control" id="price" name="price"
+                                        <label for="price" class="form-label">Price</label>
+                                        <input type="number" class="form-control" id="price" name="price"  placeholder="Add course price"
                                             required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="sessions" class="form-label">Sessions</label>
-                                        <input type="number" class="form-control" id="sessions" name="sessions"
+                                        <input type="number" class="form-control" id="sessions" name="sessions"  placeholder="Add course sessions"
                                             required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="is_active" class="form-label">Status Aktif</label>
+                                        <label for="is_active" class="form-label">Activity Status</label>
                                         <select class="form-control" id="is_active" name="is_active">
-                                            <option value="1">Aktif</option>
-                                            <option value="0">Nonaktif</option>
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="course_image" class="form-label">Gambar Course</label>
+                                        <label for="course_image" class="form-label">Course Image</label>
                                         <input type="file" class="form-control" id="course_image" name="course_image"
                                             accept="image/*" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="benefits" class="form-label">Benefits</label>
-                                        <textarea class="form-control" id="benefits" name="benefits"></textarea>
+                                        <textarea class="form-control" id="benefits" name="benefits"  placeholder="Add course benefit"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="free_items" class="form-label">Free Items</label>
-                                        <textarea class="form-control" id="free_items" name="free_items"></textarea>
+                                        <textarea class="form-control" id="free_items" name="free_items"  placeholder="Add free items"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="description" class="form-label">Description</label>
-                                        <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
+                                        <textarea class="form-control" id="description" name="description"  placeholder="Add description">{{ old('description') }}</textarea>
                                     </div>
 
                                     <div class="mb-3">
-                                        <button type="submit" class="btn btn-primary">Simpan Course</button>
-                                        <a href="{{ route('courses.index') }}" class="btn btn-secondary">Kembali</a>
+                                        <button type="submit" class="btn btn-primary">Save Course</button>
+                                        <a href="{{ route('courses.index') }}" class="btn btn-secondary">Back</a>
                                     </div>
                                 </form>
                             </div>

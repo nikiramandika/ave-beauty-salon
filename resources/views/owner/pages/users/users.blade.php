@@ -80,36 +80,36 @@
                         <!-- Basic Bootstrap Table -->
                         <!-- resources/views/owner/pages/users.blade.php -->
                         <div class="card">
-                            <h5 class="card-header">Daftar Pengguna</h5>
+                            <h4 class="card-header">Users List</h4>
                             <div class="table-responsive text-nowrap">
                                 <table id="example1" class="table">
                                     <thead>
                                         <tr>
-                                            <th>Nama</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <th style="text-align:center;">Name</th>
+                                            <th style="text-align:center;">Email</th>
+                                            <th style="text-align:center;">Role</th>
+                                            <th style="text-align:center;">Status</th>
+                                            <th style="text-align:center;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
                                         @forelse($users as $user)
                                             <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
+                                                <td style="text-align:center;">
+                                                    <div>
                                                         <span>{{ $user->nama_depan }} {{ $user->nama_belakang }}</span>
                                                     </div>
                                                 </td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->role }}</td>
-                                                <td>
+                                                <td style="text-align:center;">{{ $user->email }}</td>
+                                                <td style="text-align:center;">{{ $user->role }}</td>
+                                                <td style="text-align:center;">
                                                     @if ($user->is_active)
                                                         <span class="badge bg-label-primary me-1">Active</span>
                                                     @else
                                                         <span class="badge bg-label-warning me-1">Inactive</span>
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td style="text-align:center;">
                                                     <div class="dropdown px-5">
                                                         <button type="button"
                                                             class="btn p-0 dropdown-toggle hide-arrow"
@@ -145,7 +145,6 @@
                                 </table>
                             </div>
                             <div class="card-footer">
-                                {{ $users->links() }}
                             </div>
                         </div>
                         <!--/ Basic Bootstrap Table -->

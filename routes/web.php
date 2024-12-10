@@ -7,6 +7,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LaporanKasirController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PromoController;
@@ -130,9 +131,8 @@ Route::middleware(['role:Admin'])->group(function () {
     Route::get('/members-owner', function () {
         return view('owner.pages.members');
     });
-    Route::get('/dashboard-owner', function () {
-        return view('owner.index');
-    });
+    Route::get('/dashboard-owner', [OwnerController::class, 'getDashboardData'])->name('revenue.report');
+
     //owner-users
     Route::get('/users-owner', [UserController::class, 'index'])->name('users.index');
     // Route untuk menampilkan form edit

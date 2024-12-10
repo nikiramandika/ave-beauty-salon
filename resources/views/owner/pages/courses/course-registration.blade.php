@@ -81,38 +81,38 @@
 
                         <!-- Daftar Course Registration -->
                         <div class="card mt-4">
-                            <h5 class="card-header">Daftar Course Registrations</h5>
+                            <h4 class="card-header">Course Registration</h4>
                             <div class="card-body">
                                 <div class="table-responsive text-nowrap">
                                     <table id="example1" class="table">
                                         <thead>
                                             <tr>
-                                                <th>Nama Pengguna</th>
-                                                <th>Email</th>
-                                                <th>Start Date</th>
-                                                <th>End Date</th>
-                                                <th>Sessions Completed</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
+                                                <th style="text-align:center;">Username</th>
+                                                <th style="text-align:center;">Email</th>
+                                                <th style="text-align:center;">Start Date</th>
+                                                <th style="text-align:center;">End Date</th>
+                                                <th style="text-align:center;">Sessions Completed</th>
+                                                <th style="text-align:center;">Status</th>
+                                                <th style="text-align:center;">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             @forelse($courseRegistrations as $registration)
                                                 <tr>
-                                                    <td>{{ $registration->user->nama_depan ?? '-' }}
+                                                    <td style="text-align:center;">{{ $registration->user->nama_depan ?? '-' }}
                                                         {{ $registration->user->nama_belakang ?? '-' }}</td>
 
-                                                    <td>{{ $registration->user->email ?? '-' }}</td>
-                                                    <td>{{ $registration->start_date ?? '-' }}</td>
-                                                    <td>{{ $registration->end_date ?? '-' }}</td>
-                                                    <td>{{ $registration->sessions_completed ?? 0 }}</td>
-                                                    <td>
+                                                    <td style="text-align:center;">{{ $registration->user->email ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $registration->start_date ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $registration->end_date ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $registration->sessions_completed ?? 0 }}</td>
+                                                    <td style="text-align:center;">
                                                         <span
                                                             style="color: {{ $registration->status == 'Registered' ? 'green' : 'red' }}">
                                                             {{ ucfirst($registration->status) }}
                                                         </span>
                                                     </td>
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         <a href="{{ route('course.history.view', ['registration_id' => $registration->registration_id]) }}"
                                                             class="dropdown-item">
                                                             <i class="bx bx-show-alt me-2"></i> View
@@ -121,8 +121,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="7" class="text-center">Tidak ada data registrasi
-                                                        course</td>
+                                                    <td colspan="7" class="text-center">No course registration data available</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -147,21 +146,21 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="viewCourseModalLabel">Detail Course</h5>
+                        <h5 class="modal-title" id="viewCourseModalLabel">Course Detail</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <img id="modalCourseImage" src="" alt="Course Image" class="img-fluid mb-2">
-                        <p><strong>Nama:</strong> <span id="modalCourseName"></span></p>
+                        <p><strong>Name:</strong> <span id="modalCourseName"></span></p>
                         <p><strong>Slug:</strong> <span id="modalCourseSlug"></span></p>
-                        <p><strong>Harga:</strong> <span id="modalCoursePrice"></span></p>
-                        <p><strong>Deskripsi:</strong> <span id="modalCourseDescription"></span></p>
+                        <p><strong>Price:</strong> <span id="modalCoursePrice"></span></p>
+                        <p><strong>Description:</strong> <span id="modalCourseDescription"></span></p>
                         <p><strong>Sessions:</strong> <span id="modalCourseSessions"></span></p>
                         <p><strong>Benefits:</strong> <span id="modalCourseBenefits"></span></p>
                         <p><strong>Status:</strong> <span id="modalCourseStatus"></span></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -176,19 +175,19 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteCourseModalLabel">Konfirmasi Hapus Course</h5>
+                        <h5 class="modal-title" id="deleteCourseModalLabel">Delete Course Confirmation</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus course <strong><span
+                        <p>Are you sure you want to delete <strong><span
                                     id="deleteCourseName"></span></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <form id="deleteCourseForm" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger">Hapus</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </div>
                 </div>

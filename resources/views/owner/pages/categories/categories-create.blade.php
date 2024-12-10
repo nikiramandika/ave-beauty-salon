@@ -57,13 +57,13 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Create Category</h5>
+                            <h4 class="card-header">Create Category</h4>
                             <div class="card-body">
                                 <form action="{{ route('categories.store') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="category_name" class="form-label">Nama Kategori</label>
+                                        <label for="category_name" class="form-label">Category Name</label>
                                         <input type="text" class="form-control" id="category_name"
                                             name="category_name" required oninput="generateSlug()">
                                     </div>
@@ -74,13 +74,13 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="category_image" class="form-label">Gambar Kategori</label>
+                                        <label for="category_image" class="form-label">Category Image</label>
                                         <input type="file" class="form-control" id="category_image"
                                             name="category_image" accept="image/*" required>
                                     </div>
                                     <div class="mb-3">
-                                        <button type="submit" class="btn btn-primary">Simpan Kategori</button>
-                                        <a href="{{ route('categories.index') }}" class="btn btn-secondary">Kembali</a>
+                                        <button type="submit" class="btn btn-primary">Save Category</button>
+                                        <a href="{{ route('categories.index') }}" class="btn btn-secondary">Back</a>
                                     </div>
                                 </form>
                             </div>

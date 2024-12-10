@@ -57,64 +57,64 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Create Treatment</h5>
+                            <h4 class="card-header">Create Treatment</h4>
                             <div class="card-body">
                                 <form action="{{ route('treatments.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="treatment_name" class="form-label">Nama Treatment</label>
-                                        <input type="text" class="form-control" id="treatment_name" name="treatment_name" required oninput="generateSlug()">
+                                        <label for="treatment_name" class="form-label">Treatment Name</label>
+                                        <input type="text" class="form-control" id="treatment_name" name="treatment_name" placeholder="Add treatment name" required oninput="generateSlug()">
                                     </div>
                                     <div class="mb-3">
                                         <label for="treatment_slug" class="form-label">Slug</label>
                                         <input type="text" class="form-control slug-input" id="treatment_slug" name="treatment_slug" required readonly>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Pilih Harga</label>
+                                        <label class="form-label">Select Price</label>
                                         <div class="d-flex gap-3">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="price_option" id="fixed_price" value="fixed" checked onclick="togglePriceInput()">
                                                 <label class="form-check-label" for="fixed_price">
-                                                    Harga Tetap
+                                                    Fixed Price
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="price_option" id="variable_price" value="variable" onclick="togglePriceInput()">
                                                 <label class="form-check-label" for="variable_price">
-                                                    Harga Variatif
+                                                    Variable Price
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mb-3" id="price_input_container">
-                                        <label for="price" class="form-label">Harga</label>
-                                        <input type="number" class="form-control" id="price" name="price" placeholder="Masukkan harga">
+                                        <label for="price" class="form-label">Price</label>
+                                        <input type="number" class="form-control" id="price" name="price" placeholder="Add Price">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="is_active" class="form-label">Status Aktif</label>
+                                        <label for="is_active" class="form-label">Activity Status</label>
                                         <select class="form-select" id="is_active" name="is_active">
-                                            <option value="1">Aktif</option>
-                                            <option value="0">Nonaktif</option>
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="treatment_image" class="form-label">Gambar Treatment</label>
+                                        <label for="treatment_image" class="form-label">Treatment Image</label>
                                         <input type="file" class="form-control" id="treatment_image" name="treatment_image" accept="image/*" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="description" class="form-label">Deskripsi Treatment</label>
-                                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Masukkan deskripsi"></textarea>
+                                        <label for="description" class="form-label">Treatment Description</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Add description"></textarea>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="duration" class="form-label">Durasi (menit)</label>
-                                        <input type="number" class="form-control" id="duration" name="duration" placeholder="Masukkan durasi dalam menit" required>
+                                        <label for="duration" class="form-label">Duration (minute)</label>
+                                        <input type="number" class="form-control" id="duration" name="duration" placeholder="Add duration in minutes" required>
                                     </div>
                                     <div class="d-flex gap-3">
-                                        <button type="submit" class="btn btn-primary">Simpan Treatment</button>
-                                        <a href="{{ route('treatments.index') }}" class="btn btn-secondary">Kembali</a>
+                                        <button type="submit" class="btn btn-primary">Save Treatment</button>
+                                        <a href="{{ route('treatments.index') }}" class="btn btn-secondary">Back</a>
                                     </div>
                                 </form>
-                                
+
                             </div>
                         </div>
 
@@ -153,7 +153,7 @@
         function togglePriceInput() {
             const fixedPriceRadio = document.getElementById('fixed_price');
             const priceInputContainer = document.getElementById('price_input_container');
-    
+
             if (fixedPriceRadio.checked) {
                 // Show price input
                 priceInputContainer.style.display = 'block';
@@ -165,7 +165,7 @@
                 document.getElementById('price').required = false;
             }
         }
-    
+
         // Initialize the form state
         togglePriceInput();
     </script>

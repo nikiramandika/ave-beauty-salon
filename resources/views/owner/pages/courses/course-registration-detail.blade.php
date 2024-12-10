@@ -68,43 +68,43 @@
                     <div class="container-xxl flex-grow-1 container-p-y">
 
                         <div class="card mt-4">
-                            <h5 class="card-header">Detail Course Registration</h5>
+                            <h4 class="card-header">Course Registration Detail</h4>
                             <div class="card-body">
                                 <div class="table-responsive text-nowrap">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Invoice Code</th> <!-- Menambahkan kolom untuk Invoice Code -->
-                                                <th>Nama Course</th>
-                                                <th>Nama Pengguna</th>
-                                                <th>Start Date</th>
-                                                <th>End Date</th>
-                                                <th>Sessions Completed</th>
-                                                <th>Status</th>
+                                                <th style="text-align:center;">Invoice Code</th> <!-- Menambahkan kolom untuk Invoice Code -->
+                                                <th style="text-align:center;">Course Name</th>
+                                                <th style="text-align:center;">Username</th>
+                                                <th style="text-align:center;">Start Date</th>
+                                                <th style="text-align:center;">End Date</th>
+                                                <th style="text-align:center;">Sessions Completed</th>
+                                                <th style="text-align:center;">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             <tr>
-                                                <td>{{ $invoiceCode ?? '-' }}</td> <!-- Menampilkan invoice_code -->
+                                                <td style="text-align:center;">{{ $invoiceCode ?? '-' }}</td> <!-- Menampilkan invoice_code -->
 
                                                 <!-- Nama Course -->
-                                                <td>{{ $courseRegistration->course->course_name ?? '-' }}</td>
+                                                <td style="text-align:center;">{{ $courseRegistration->course->course_name ?? '-' }}</td>
 
                                                 <!-- Nama Pengguna -->
-                                                <td>{{ $courseRegistration->user->nama_depan ?? '-' }}
+                                                <td style="text-align:center;">{{ $courseRegistration->user->nama_depan ?? '-' }}
                                                     {{ $courseRegistration->user->nama_belakang ?? '-' }}</td>
 
                                                 <!-- Start Date -->
-                                                <td>{{ $courseRegistration->start_date ?? '-' }}</td>
+                                                <td style="text-align:center;">{{ $courseRegistration->start_date ?? '-' }}</td>
 
                                                 <!-- End Date -->
-                                                <td>{{ $courseRegistration->end_date ?? '-' }}</td>
+                                                <td style="text-align:center;">{{ $courseRegistration->end_date ?? '-' }}</td>
 
                                                 <!-- Sessions Completed -->
-                                                <td>{{ $courseRegistration->sessions_completed ?? 0 }}</td>
+                                                <td style="text-align:center;">{{ $courseRegistration->sessions_completed ?? 0 }}</td>
 
                                                 <!-- Status -->
-                                                <td>
+                                                <td style="text-align:center;">
                                                     <span
                                                         class="badge {{ $courseRegistration->status == 'Registered' ? 'bg-success' : 'bg-danger' }}">
                                                         {{ ucfirst($courseRegistration->status) }}
@@ -121,11 +121,11 @@
                         @if ($invoice->order_status == 'Complete')
                             <!-- Tombol untuk Absensi +1 -->
                             <button type="button" class="btn btn-primary mt-4 mb-2"
-                                id="updateSessionButtonPlus">Absensi +1</button>
+                                id="updateSessionButtonPlus">Attendance +1</button>
 
                             <!-- Tombol untuk Absensi -1 -->
                             <button type="button" class="btn btn-warning mt-4 mb-2"
-                                id="updateSessionButtonMinus">Absensi -1</button>
+                                id="updateSessionButtonMinus">Attendance -1</button>
                         @endif
 
                         <div class="card mt-4">
@@ -148,12 +148,12 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Nama Penerima</th>
-                                                <th>Email Penerima</th>
-                                                <th>Telepon Penerima</th>
-                                                <th>Alamat Penerima</th>
-                                                <th>Status Pembayaran</th>
-                                                <th>Gambar Bukti Pembayaran</th>
+                                                <th style="text-align:center;">Recipient Name</th>
+                                                <th style="text-align:center;">Recipient Email</th>
+                                                <th style="text-align:center;">Recipient Phone Number</th>
+                                                <th style="text-align:center;">Recipient Address</th>
+                                                <th style="text-align:center;">Payment Status</th>
+                                                <th style="text-align:center;">Payment Receipt Image</th>
                                                 <!-- Menambahkan kolom untuk Gambar -->
                                             </tr>
                                         </thead>
@@ -161,19 +161,19 @@
                                             <tr>
 
                                                 <!-- Nama Penerima -->
-                                                <td>{{ $invoice->recipient_name ?? '-' }}</td>
+                                                <td style="text-align:center;">{{ $invoice->recipient_name ?? '-' }}</td>
 
                                                 <!-- Email Penerima -->
-                                                <td>{{ $invoice->recipient_email ?? '-' }}</td>
+                                                <td style="text-align:center;">{{ $invoice->recipient_email ?? '-' }}</td>
 
                                                 <!-- Telepon Penerima -->
-                                                <td>{{ $invoice->recipient_phone ?? '-' }}</td>
+                                                <td style="text-align:center;">{{ $invoice->recipient_phone ?? '-' }}</td>
 
                                                 <!-- Alamat Penerima -->
-                                                <td>{{ $invoice->recipient_address ?? '-' }}</td>
+                                                <td style="text-align:center;">{{ $invoice->recipient_address ?? '-' }}</td>
 
                                                 <!-- Status Pembayaran -->
-                                                <td>
+                                                <td style="text-align:center;">
                                                     <span
                                                         class="badge {{ $invoice->order_status == 'Pending' ? 'bg-warning' : ($invoice->order_status == 'Complete' ? 'bg-success' : 'bg-danger') }}">
                                                         {{ ucfirst($invoice->order_status) }}
@@ -181,12 +181,12 @@
                                                 </td>
 
                                                 <!-- Gambar Bukti Pembayaran (Modal) -->
-                                                <td>
+                                                <td style="text-align:center;">
                                                     @if ($invoice->recipient_file)
                                                         <!-- Tombol untuk membuka modal -->
                                                         <button type="button" class="btn btn-primary"
                                                             data-bs-toggle="modal" data-bs-target="#paymentProofModal">
-                                                            Lihat Bukti Pembayaran
+                                                            View Payment Receipt
                                                         </button>
 
                                                         <!-- Modal -->
@@ -196,8 +196,7 @@
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title"
-                                                                            id="paymentProofModalLabel">Bukti
-                                                                            Pembayaran</h5>
+                                                                            id="paymentProofModalLabel">Payment Receipt</h5>
                                                                         <button type="button" class="btn-close"
                                                                             data-bs-dismiss="modal"
                                                                             aria-label="Close"></button>
@@ -229,7 +228,7 @@
                             <!-- Tombol "Accepted" -->
                             <button type="button" class="btn btn-success mt-5" data-bs-toggle="modal"
                                 data-bs-target="#acceptOrderModal">
-                                Terima Pesanan
+                                Accept Order
                             </button>
                         @endif
 
@@ -249,23 +248,23 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="acceptOrderModalLabel">Konfirmasi</h5>
+                            <h5 class="modal-title" id="acceptOrderModalLabel">Confirm</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Apakah Anda yakin ingin menerima pesanan ini dan mengubah status menjadi
+                            Are you sure you want to accept this order and change status to
                             <strong>Complete</strong>?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             <form id="acceptOrderForm"
                                 action="{{ route('invoice.updateStatus', $invoice->selling_invoice_id) }}"
                                 method="POST">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="status" value="Complete">
-                                <button type="submit" class="btn btn-primary">Ya, Terima Pesanan</button>
+                                <button type="submit" class="btn btn-primary">Yes, Accept Order</button>
                             </form>
                         </div>
                     </div>

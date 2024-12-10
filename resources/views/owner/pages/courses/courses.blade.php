@@ -81,31 +81,31 @@
                         <!-- resources/views/owner/pages/users.blade.php -->
                         <!-- resources/views/owner/pages/products.blade.php -->
                         <div class="card">
-                            <h5 class="card-header">Daftar Courses</h5>
+                            <h4 class="card-header">Courses List</h4>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="mb-0">Courses</h6>
+                                    <h5 class="mb-0">Courses</h5>
                                     <a href="{{ route('courses.create') }}" class="btn btn-primary">Create Course</a>
                                 </div>
                                 <div class="table-responsive text-nowrap">
                                     <table id="example1" class="table">
                                         <thead>
                                             <tr>
-                                                <th>Image</th>
-                                                <th>Nama Course</th>
-                                                <th>Slug</th>
-                                                <th>Harga</th>
-                                                <th>Deskripsi</th>
-                                                <th>Sessions</th>
-                                                <th>Benefits</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
+                                                <th style="text-align:center;">Image</th>
+                                                <th style="text-align:center;">Course Name</th>
+                                                <th style="text-align:center;">Slug</th>
+                                                <th style="text-align:center;">Price</th>
+                                                <th style="text-align:center;">Desctiption</th>
+                                                <th style="text-align:center;">Sessions</th>
+                                                <th style="text-align:center;">Benefits</th>
+                                                <th style="text-align:center;">Status</th>
+                                                <th style="text-align:center;">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             @forelse($courseDescriptions as $description)
                                                 <tr>
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         @if ($description->course_image)
                                                             <img src="{{ asset($description->course_image) }}"
                                                                 alt="Course Image"
@@ -114,19 +114,19 @@
                                                             <span>-</span>
                                                         @endif
                                                     </td>
-                                                    <td>{{ $description->course->course_name ?? '-' }}</td>
-                                                    <td>{{ $description->course->course_slug ?? '-' }}</td>
-                                                    <td>{{ $description->course->price ?? '-' }}</td>
-                                                    <td>{{ $description->description ?? '-' }}</td>
-                                                    <td>{{ $description->course->sessions ?? '-' }}</td>
-                                                    <td>{{ $description->benefits ?? '-' }}</td>
-                                                    <td>
+                                                    <td style="text-align:center;">{{ $description->course->course_name ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $description->course->course_slug ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $description->course->price ?? '-' }}</td>
+                                                    <td style="min-width: 500px; word-wrap: break-word; white-space: normal; text-align:justify;">{{ $description->description ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $description->course->sessions ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $description->benefits ?? '-' }}</td>
+                                                    <td style="text-align:center;">
                                                         <span
                                                             style="color: {{ $description->course && $description->course->is_active ? 'green' : 'red' }}">
                                                             {{ $description->course && $description->course->is_active ? 'Active' : 'Inactive' }}
                                                         </span>
                                                     </td>
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         <div class="dropdown px-5">
                                                             <button type="button"
                                                                 class="btn p-0 dropdown-toggle hide-arrow"
@@ -144,7 +144,7 @@
                                                                     data-sessions="{{ $description->course->sessions ?? '-' }}"
                                                                     data-benefits="{{ $description->benefits ?? '-' }}"
                                                                     data-status="{{ $description->course && $description->course->is_active ? 'Active' : 'Inactive' }}">
-                                                                    <i class="bx bx-show-alt me-2"></i> Lihat
+                                                                    <i class="bx bx-show-alt me-2"></i> View
                                                                 </a>
 
                                                                 <a class="dropdown-item"
@@ -209,22 +209,22 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="viewCourseModalLabel">Detail Course</h5>
+                        <h4 class="modal-title" id="viewCourseModalLabel">Course Detail</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <img id="modalCourseImage" src="" alt="Course Image" class="img-fluid mb-2">
-                        <p><strong>Nama:</strong> <span id="modalCourseName"></span></p>
+                        <p><strong>Name:</strong> <span id="modalCourseName"></span></p>
                         <p><strong>Slug:</strong> <span id="modalCourseSlug"></span></p>
-                        <p><strong>Harga:</strong> <span id="modalCoursePrice"></span></p>
-                        <p><strong>Deskripsi:</strong> <span id="modalCourseDescription"></span></p>
+                        <p><strong>Price:</strong> <span id="modalCoursePrice"></span></p>
+                        <p><strong>Description:</strong> <span id="modalCourseDescription"></span></p>
                         <p><strong>Sessions:</strong> <span id="modalCourseSessions"></span></p>
                         <p><strong>Benefits:</strong> <span id="modalCourseBenefits"></span></p>
                         <p><strong>Status:</strong> <span id="modalCourseStatus"></span></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -239,20 +239,20 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteCourseModalLabel">Konfirmasi Hapus Course</h5>
+                        <h5 class="modal-title" id="deleteCourseModalLabel">Delete Course Confirmation</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus course <strong><span
+                        <p>Are you sure you want to delete <strong><span
                                     id="deleteCourseName"></span></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <form id="deleteCourseForm" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger">Hapus</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </div>
                 </div>

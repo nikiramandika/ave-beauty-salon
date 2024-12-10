@@ -82,30 +82,30 @@
                         <!-- resources/views/owner/pages/users.blade.php -->
                         <!-- resources/views/owner/pages/products.blade.php -->
                         <div class="card">
-                            <h5 class="card-header">Daftar Promos</h5>
+                            <h4 class="card-header">Promos List</h4>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="mb-0">Promos</h6>
+                                    <h5 class="mb-0">Promos</h5>
                                     <a href="{{ route('promos.create') }}" class="btn btn-primary">Create Promo</a>
                                 </div>
                                 <div class="table-responsive text-nowrap">
                                     <table id="example1" class="table">
                                         <thead>
                                             <tr>
-                                                <th>Gambar</th>
-                                                <th>Nama Promo</th>
-                                                <th>Slug</th>
-                                                <th>Harga Asli</th>
-                                                <th>Harga Promo</th>
-                                                <th>Deskripsi</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
+                                                <th style="text-align:center;">Image</th>
+                                                <th style="text-align:center;">Promo Name</th>
+                                                <th style="text-align:center;">Slug</th>
+                                                <th style="text-align:center;">Original Price</th>
+                                                <th style="text-align:center;">Promo Price</th>
+                                                <th style="text-align:center;">Descriprion</th>
+                                                <th style="text-align:center;">Status</th>
+                                                <th style="text-align:center;">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             @forelse($promos as $promo)
                                                 <tr>
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         @if ($promo->description && $promo->description->promo_image)
                                                             <img src="{{ asset($promo->description->promo_image) }}"
                                                                 alt="Gambar Promo"
@@ -114,17 +114,17 @@
                                                             <span>-</span>
                                                         @endif
                                                     </td>
-                                                    <td>{{ $promo->promo_name }}</td>
-                                                    <td>{{ $promo->promo_slug }}</td>
-                                                    <td>Rp{{ number_format($promo->original_price, 0, ',', '.') }}</td>
-                                                    <td>Rp{{ number_format($promo->promo_price, 0, ',', '.') }}</td>
-                                                    <td>{{ $promo->description->description ?? '-' }}</td>
-                                                    <td>
+                                                    <td style="text-align:center;">{{ $promo->promo_name }}</td>
+                                                    <td style="text-align:center;">{{ $promo->promo_slug }}</td>
+                                                    <td style="text-align:center;">Rp{{ number_format($promo->original_price, 0, ',', '.') }}</td>
+                                                    <td style="text-align:center;">Rp{{ number_format($promo->promo_price, 0, ',', '.') }}</td>
+                                                    <td style="min-width: 500px; word-wrap: break-word; white-space: normal; text-align:justify;">{{ $promo->description->description ?? '-' }}</td>
+                                                    <td style="text-align:center;">
                                                         <span style="color: {{ $promo->is_active ? 'green' : 'red' }}">
                                                             {{ $promo->is_active ? 'Active' : 'Inactive' }}
                                                         </span>
                                                     </td>
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         <div class="dropdown px-5">
                                                             <button type="button"
                                                                 class="btn p-0 dropdown-toggle hide-arrow"
@@ -141,7 +141,7 @@
                                                                     data-image="{{ asset($promo->description->promo_image ?? 'path/to/default/image.jpg') }}"
                                                                     data-description="{{ $promo->description->description ?? '-' }}"
                                                                     data-status="{{ $promo->is_active ? 'Active' : 'Inactive' }}">
-                                                                    <i class="bx bx-show-alt me-2"></i> Lihat
+                                                                    <i class="bx bx-show-alt me-2"></i> View
                                                                 </a>
                                                                 <a href="{{ route('promos.edit', $promo->promo_id) }}"
                                                                     class="dropdown-item">
@@ -200,20 +200,20 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="viewPromoModalLabel">Detail Promo</h5>
+                        <h4 class="modal-title" id="viewPromoModalLabel">Promo Detail</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <img id="modalPromoImage" src="" alt="Gambar Promo" class="img-fluid mb-2">
-                        <p><strong>Nama Promo:</strong> <span id="modalPromoName"></span></p>
+                        <p><strong>Promo Name:</strong> <span id="modalPromoName"></span></p>
                         <p><strong>Slug:</strong> <span id="modalPromoSlug"></span></p>
-                        <p><strong>Harga Asli:</strong> <span id="modalPromoOriginalPrice"></span></p>
-                        <p><strong>Harga Promo:</strong> <span id="modalPromoPrice"></span></p>
-                        <p><strong>Deskripsi:</strong> <span id="modalPromoDescription"></span></p>
+                        <p><strong>Original Price:</strong> <span id="modalPromoOriginalPrice"></span></p>
+                        <p><strong>Promo Price:</strong> <span id="modalPromoPrice"></span></p>
+                        <p><strong>Description:</strong> <span id="modalPromoDescription"></span></p>
                         <p><strong>Status:</strong> <span id="modalPromoStatus"></span></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -228,20 +228,20 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deletePromoModalLabel">Konfirmasi Hapus Promo</h5>
+                        <h5 class="modal-title" id="deletePromoModalLabel">Delete Promo Confirmation</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus promo <strong><span id="deletePromoName"></span></strong>?
+                        <p>Are you sure want to delete <strong><span id="deletePromoName"></span></strong>?
                         </p>
                     </div>
                     <div class="modal-footer">
                         <form id="deletePromoForm" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger">Hapus</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </div>
                 </div>

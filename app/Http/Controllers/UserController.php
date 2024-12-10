@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 
-class UserController extends Controller 
+class UserController extends Controller
 {
     /**
      * Display a listing of users.
@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         // Mengambil semua data user dengan pagination
-        $users = User::paginate(10);
+        $users = User::get();
 
         return view('owner.pages.users.users', compact('users'));
     }

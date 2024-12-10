@@ -77,10 +77,10 @@
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <!-- Categories Table -->
                         <div class="card">
-                            <h5 class="card-header">Daftar Kategori</h5>
+                            <h4 class="card-header">Categories List</h4>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="mb-0">Kategori</h6>
+                                    <h6 class="mb-0">Category</h6>
                                     <a href="{{ route('categories.create') }}" class="btn btn-primary">Create
                                         Category</a>
                                 </div>
@@ -88,23 +88,23 @@
                                     <table id="example1" class="table">
                                         <thead>
                                             <tr>
-                                                <th>Nama Kategori</th>
-                                                <th>Slug</th>
-                                                <th>Gambar Kategori</th>
-                                                <th>Actions</th>
+                                                <th style="text-align:center;">Category Name</th>
+                                                <th style="text-align:center;">Slug</th>
+                                                <th style="text-align:center;">Category Image</th>
+                                                <th style="text-align:center;">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             @forelse($categories as $category)
                                                 <tr>
-                                                    <td>{{ $category->category_name }}</td>
-                                                    <td>{{ $category->category_slug }}</td>
-                                                    <td>
+                                                    <td style="text-align:center;">{{ $category->category_name }}</td>
+                                                    <td style="text-align:center;">{{ $category->category_slug }}</td>
+                                                    <td style="text-align:center;">
                                                         <img src="{{ asset($category->category_image) }}"
                                                             alt="{{ $category->category_name }}" style="width: 100px;">
 
                                                     </td>
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         <div class="dropdown px-5">
                                                             <button type="button"
                                                                 class="btn p-0 dropdown-toggle hide-arrow m"

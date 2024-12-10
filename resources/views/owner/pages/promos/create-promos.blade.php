@@ -114,13 +114,13 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Create Promo</h5>
+                            <h4 class="card-header">Create Promo</h4>
                             <div class="card-body">
                                 <form action="{{ route('promos.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="promo_name" class="form-label">Nama Promo</label>
-                                        <input type="text" class="form-control" id="promo_name" name="promo_name"
+                                        <label for="promo_name" class="form-label">Promo Name</label>
+                                        <input type="text" class="form-control" id="promo_name" name="promo_name" placeholder="Add promo name"
                                             required oninput="generateSlug()">
                                     </div>
                                     <div class="mb-3">
@@ -129,12 +129,12 @@
                                             name="promo_slug" required readonly>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="treatments" class="form-label">Pilih Treatment</label>
+                                        <label for="treatments" class="form-label">Select Treatment</label>
                                         <select class="form-control selectpicker" id="treatments" name="treatments[]"
-                                            title="Pilih Treatment" multiple required data-live-search="true"
+                                            title="Select Treatment" multiple required data-live-search="true"
                                             data-selected-text-format="count > 2" onchange="calculateOriginalPrice()">
                                             @if ($treatments->isEmpty())
-                                                <option disabled>Tidak ada treatment yang aktif</option>
+                                                <option disabled>No active treatments</option>
                                             @else
                                                 @foreach ($treatments as $treatment)
                                                     <option value="{{ $treatment->treatment_id }}"
@@ -149,44 +149,44 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="original_price" class="form-label">Harga Asli</label>
-                                        <input type="number" class="form-control" id="original_price"
+                                        <label for="original_price" class="form-label">Original Price</label>
+                                        <input type="number" class="form-control" id="original_price" placeholder="Enter original price"
                                             name="original_price" readonly>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="promo_price" class="form-label">Harga Promo</label>
-                                        <input type="number" class="form-control" id="promo_price" name="promo_price"
+                                        <label for="promo_price" class="form-label">Promo Price</label>
+                                        <input type="number" class="form-control" id="promo_price" name="promo_price" placeholder="Enter promo price"
                                             required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="start_date" class="form-label">Tanggal Mulai</label>
+                                        <label for="start_date" class="form-label">Start Date</label>
                                         <input type="date" class="form-control" id="start_date" name="start_date"
                                             required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="end_date" class="form-label">Tanggal Berakhir</label>
+                                        <label for="end_date" class="form-label">End Date</label>
                                         <input type="date" class="form-control" id="end_date" name="end_date"
                                             required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="is_active" class="form-label">Status Aktif</label>
+                                        <label for="is_active" class="form-label">Activity Status</label>
                                         <select class="form-control" id="is_active" name="is_active">
-                                            <option value="1">Aktif</option>
-                                            <option value="0">Nonaktif</option>
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="promo_image" class="form-label">Gambar Promo</label>
+                                        <label for="promo_image" class="form-label">Promo Image</label>
                                         <input type="file" class="form-control" id="promo_image"
                                             name="promo_image" accept="image/*">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="description" class="form-label">Deskripsi Promo</label>
-                                        <textarea class="form-control" id="description" name="description"></textarea>
+                                        <label for="description" class="form-label">Promo Description</label>
+                                        <textarea class="form-control" id="description" name="description" placeholder="Add description"></textarea>
                                     </div>
                                     <div class="mb-3">
-                                        <button type="submit" class="btn btn-primary">Simpan Promo</button>
-                                        <a href="{{ route('promos.index') }}" class="btn btn-secondary">Kembali</a>
+                                        <button type="submit" class="btn btn-primary">Save Promo</button>
+                                        <a href="{{ route('promos.index') }}" class="btn btn-secondary">Back</a>
                                     </div>
                                 </form>
                             </div>

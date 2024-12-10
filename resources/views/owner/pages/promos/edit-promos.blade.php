@@ -113,14 +113,14 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Edit Promo</h5>
+                            <h4 class="card-header">Edit Promo</h4>
                             <div class="card-body">
                                 <form action="{{ route('promos.update', $promo->promo_id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-3">
-                                        <label for="promo_name" class="form-label">Nama Promo</label>
+                                        <label for="promo_name" class="form-label">Promo Name</label>
                                         <input type="text" class="form-control" id="promo_name" name="promo_name"
                                             value="{{ $promo->promo_name }}" required oninput="generateSlug()">
                                     </div>
@@ -130,12 +130,12 @@
                                             name="promo_slug" value="{{ $promo->promo_slug }}" required readonly>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="treatments" class="form-label">Pilih Treatment</label>
+                                        <label for="treatments" class="form-label">Select Treatment</label>
                                         <select class="form-control selectpicker" id="treatments" name="treatments[]"
-                                            title="Pilih Treatment" multiple required data-live-search="true"
+                                            title="Select Treatment" multiple required data-live-search="true"
                                             data-selected-text-format="count > 2" onchange="calculateOriginalPrice()">
                                             @if ($treatments->isEmpty())
-                                                <option disabled>Tidak ada treatment yang aktif</option>
+                                                <option disabled>No active treatments</option>
                                             @else
                                                 @foreach ($treatments as $treatment)
                                                     <option value="{{ $treatment->treatment_id }}"
@@ -149,36 +149,36 @@
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="original_price" class="form-label">Harga Asli</label>
+                                        <label for="original_price" class="form-label">Original Price</label>
                                         <input type="number" class="form-control" id="original_price"
                                             name="original_price" value="{{ $promo->original_price }}" readonly>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="promo_price" class="form-label">Harga Promo</label>
+                                        <label for="promo_price" class="form-label">Promo Price</label>
                                         <input type="number" class="form-control" id="promo_price" name="promo_price"
                                             value="{{ $promo->promo_price }}" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="start_date" class="form-label">Tanggal Mulai</label>
+                                        <label for="start_date" class="form-label">Start Date</label>
                                         <input type="date" class="form-control" id="start_date" name="start_date"
                                             value="{{ $promo->start_date }}" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="end_date" class="form-label">Tanggal Berakhir</label>
+                                        <label for="end_date" class="form-label">End Date</label>
                                         <input type="date" class="form-control" id="end_date" name="end_date"
                                             value="{{ $promo->end_date }}" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="is_active" class="form-label">Status Aktif</label>
+                                        <label for="is_active" class="form-label">Activity Status</label>
                                         <select class="form-control" id="is_active" name="is_active">
                                             <option value="1" {{ $promo->is_active == 1 ? 'selected' : '' }}>
-                                                Aktif</option>
+                                                Active</option>
                                             <option value="0" {{ $promo->is_active == 0 ? 'selected' : '' }}>
-                                                Nonaktif</option>
+                                                Inactive</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="promo_image" class="form-label">Gambar Promo</label>
+                                        <label for="promo_image" class="form-label">Promo Image</label>
                                         <input type="file" class="form-control" id="promo_image"
                                             name="promo_image" accept="image/*">
                                         @if ($promo->description && $promo->description->promo_image)
@@ -187,12 +187,12 @@
                                         @endif
                                     </div>
                                     <div class="mb-3">
-                                        <label for="description" class="form-label">Deskripsi Promo</label>
+                                        <label for="description" class="form-label">Promo Description</label>
                                         <textarea class="form-control" id="description" name="description">{{ $promo->description ? $promo->description->description : '' }}</textarea>
                                     </div>
                                     <div class="mb-3">
                                         <button type="submit" class="btn btn-primary">Update Promo</button>
-                                        <a href="{{ route('promos.index') }}" class="btn btn-secondary">Kembali</a>
+                                        <a href="{{ route('promos.index') }}" class="btn btn-secondary">Back</a>
                                     </div>
                                 </form>
                             </div>

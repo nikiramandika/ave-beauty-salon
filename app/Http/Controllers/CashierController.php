@@ -23,7 +23,7 @@ class CashierController extends Controller
     public function index()
     {
 
-        $cashiers = Cashier::with('user')->paginate(10);
+        $cashiers = Cashier::get();
         return view('owner.pages.cashiers.cashiers', compact('cashiers'));
     }
 
