@@ -8,13 +8,13 @@
                 </button>
                 <!-- Logo & Store Name -->
                 <div class="ml-4 flex items-center">
-                    <img src="/logo.png" alt="Logo" class="h-8 w-8 mr-2">
-                    <span class="font-bold text-xl">Ave Beauty Salon</span>
+                    <img src="{{ asset('user/images/logo.png') }}" alt="Logo" class="h-8 w-8 mr-2">
+                    <span class="text-xl">Ave Beauty Salon</span>
                 </div>
             </div>
             <!-- User Profile -->
             <div class="flex items-center">
-                <span class="text-gray-700 mr-2">Halo, {{ Auth::user()->nama_depan }}</span>
+                <span class="text-gray-700 mr-4">Halo, {{ Auth::user()->nama_depan }}</span>
                 @auth
 
                     <!-- Tombol Logout -->

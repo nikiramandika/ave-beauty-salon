@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Kasir</title>
+    <link rel="icon" href="{{ asset('user/images/bg-logo.png') }}" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Select2 CSS -->
@@ -48,7 +49,7 @@
 
     <!-- Main Content -->
     <div id="mainContent" class="min-h-screen pt-16 pl-64 transition-all duration-300">
-        <div class="container mt-5">
+        <div class="container ">
 
             <!-- Tab Content -->
             <div class="tab-content mt-3" id="myTabContent">

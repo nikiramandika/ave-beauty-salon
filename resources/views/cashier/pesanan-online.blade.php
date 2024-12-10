@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Kasir</title>
+    <link rel="icon" href="{{ asset('user/images/bg-logo.png') }}" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Select2 CSS -->
@@ -35,6 +36,22 @@
         .hidden {
             display: none;
         }
+        /* body::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background-color: transparent;
+        }
+
+        body::-webkit-scrollbar {
+            width: 12px;
+            background-color: transparent;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: rgb(31 41 55);
+        } */
     </style>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -57,15 +74,15 @@
                     <div class="overflow-x-auto">
                         <table id="example" class="table table-striped">
                             <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Kode Faktur</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nama Penerima</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nomor Telepon</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Alamat</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Tanggal Pesanan</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Status</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Aksi</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Bukti Pembayaran
+                                <tr class="align-middle text-center">
+                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Kode Faktur</th>
+                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Nama Penerima</th>
+                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Nomor Telepon</th>
+                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Alamat</th>
+                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Tanggal Pesanan</th>
+                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Status</th>
+                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Aksi</th>
+                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Bukti Pembayaran
                                     </th>
                                 </tr>
                             </thead>
@@ -187,7 +204,7 @@
                 <div class="bg-white rounded-xl shadow-md p-6">
                     <div class="overflow-x-auto">
                         <table id="example1" class="table table-striped">
-                            <thead class="bg-gray-50">
+                            <thead class="bg-gray-50 align-middle">
                                 <tr>
                                     <th class="text-left p-4 font-semibold text-sm text-gray-600">Kode Faktur</th>
                                     <th class="text-left p-4 font-semibold text-sm text-gray-600">Nama Penerima</th>

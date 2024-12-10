@@ -19,7 +19,7 @@
                 class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 
                 {{ Request::is('member*') ? 'bg-blue-50 text-blue-700' : 'text-gray-700' }}">
                 <i class="fas fa-user"></i>
-                <span>member</span>
+                <span>Member</span>
             </a>
             <a href="/laporan-kasir"
                 class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 

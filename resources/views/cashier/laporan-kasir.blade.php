@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Kasir</title>
+    <link rel="icon" href="{{ asset('user/images/bg-logo.png') }}" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Select2 CSS -->
@@ -35,6 +36,22 @@
         .hidden {
             display: none;
         }
+        /* body::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background-color: transparent;
+        }
+
+        body::-webkit-scrollbar {
+            width: 12px;
+            background-color: transparent;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: rgb(31 41 55);
+        } */
     </style>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -51,25 +68,25 @@
     <div id="mainContent" class="min-h-screen pt-16 pl-64 transition-all duration-300">
 
         <div class="min-h-screen bg-gray-100 p-6">
-            <div class="flex justify-between items-center mb-6">
-                <!-- Bagian Kiri: Laporan Kasir -->
-                <h1 class="text-2xl font-bold">
-                    Laporan Kasir - {{ \Carbon\Carbon::today('Asia/Jakarta')->toFormattedDateString() }}
-                </h1>
-
-                <!-- Bagian Kanan: Total Pendapatan -->
-                <div class="text-right">
-                    <span class="text-lg font-bold">
-                        Total Pendapatan Hari Ini:
-                    </span>
-                    <span class="text-xl font-semibold text-green-600">
-                        Rp
-                        {{ number_format($totalToday, 0, ',', '.') }}
-                    </span>
-                </div>
-            </div>
+            
             <div class="container mx-auto p-6">
-                <h1 class="text-2xl font-bold mb-6">Laporan Pesanan Offline</h1>
+                <div class="flex justify-between items-center mb-6">
+                    <!-- Bagian Kiri: Laporan Kasir -->
+                    <h1 class="text-2xl font-bold">
+                        Laporan Kasir - {{ \Carbon\Carbon::today('Asia/Jakarta')->toFormattedDateString() }}
+                    </h1>
+    
+                    <!-- Bagian Kanan: Total Pendapatan -->
+                    <div class="text-right">
+                        <span class="text-lg font-bold">
+                            Total Pendapatan Hari Ini:
+                        </span>
+                        <span class="text-xl font-semibold text-green-600">
+                            Rp
+                            {{ number_format($totalToday, 0, ',', '.') }}
+                        </span>
+                    </div>
+                </div>
                 <div class="bg-white rounded-xl shadow-md p-6 mb-8">
                     <!-- Total Pendapatan -->
                     <div class="mb-2">
@@ -136,7 +153,7 @@
 
 
             <div class="container mx-auto p-6">
-                <h1 class="text-2xl font-bold mb-6">Laporan Pesanan Online</h1>
+                {{-- <h1 class="text-2xl font-bold mb-6">Laporan Pesanan Online</h1> --}}
                 <div class="bg-white rounded-xl shadow-md p-6 mb-8">
                     <!-- Total Pendapatan -->
                     <div class="mb-2">

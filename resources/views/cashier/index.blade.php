@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Kasir</title>
+    <link rel="icon" href="{{ asset('user/images/bg-logo.png') }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -40,17 +41,17 @@
                 <div class="bg-white rounded-xl shadow-md p-6">
                     <div class="tabs-nav flex border-b border-gray-300 mb-4">
                         <button
-                            class="tab-link py-2 px-4 font-medium text-blue-600 border-blue-600 border-b-2 focus:outline-none"
+                            class="tab-link pb-2 px-4 font-medium text-blue-600 border-blue-600 border-b-2 focus:outline-none"
                             data-section="productsSection" onclick="showSection('productsSection', this)">
                             Produk
                         </button>
                         <button
-                            class="tab-link py-2 px-4 font-medium text-gray-600 hover:text-blue-600 hover:border-blue-600 border-b-2 border-transparent focus:outline-none"
+                            class="tab-link pb-2 px-4 font-medium text-gray-600 hover:text-blue-600 hover:border-blue-600 border-b-2 border-transparent focus:outline-none"
                             data-section="treatmentsSection" onclick="showSection('treatmentsSection', this)">
                             Treatment
                         </button>
                         <button
-                            class="tab-link py-2 px-4 font-medium text-gray-600 hover:text-blue-600 hover:border-blue-600 border-b-2 border-transparent focus:outline-none"
+                            class="tab-link pb-2 px-4 font-medium text-gray-600 hover:text-blue-600 hover:border-blue-600 border-b-2 border-transparent focus:outline-none"
                             data-section="promosSection" onclick="showSection('promosSection', this)">
                             Promo
                         </button>
@@ -59,7 +60,7 @@
                     <!-- Search Bar -->
                     <div class="mb-4">
                         <div class="relative">
-                            <input type="text" placeholder="Cari produk..."
+                            <input type="text" placeholder="..."
                                 class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
                             <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                         </div>
@@ -80,17 +81,18 @@
                                             onclick="addToCart(this)">
                                             <!-- Gambar Produk -->
                                             <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
-                                                alt="{{ $product->product_name }}" class="w-full h-32 object-cover">
+                                                alt="{{ $product->product_name }}" class="w-full h-32 object-cover" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                             <!-- Informasi Detail Produk -->
                                             <div class="p-3">
                                                 <h3 class="font-semibold">{{ $product->product_name }}</h3>
-                                                <p class="text-sm text-gray-500">
-                                                    Size: {{ $detail->size ?? 'N/A' }}
-                                                </p>
                                                 <p class="text-green-600 font-bold">
                                                     Rp{{ number_format($detail->price ?? 0, 0, ',', '.') }}
                                                 </p>
-                                                <p class="text-sm text-gray-500">
+                                                <p class="mt-1 text-md text-gray-500">
+                                                    Size: {{ $detail->size ?? 'N/A' }}
+                                                </p>
+                                                
+                                                <p class="text-md text-gray-500">
                                                     Stock: {{ $detail->product_stock ?? 0 }}
                                                 </p>
                                             </div>
@@ -118,7 +120,7 @@
                                     data-price="{{ $treatment->price ?? '' }}"
                                     onclick="{{ $treatment->price !== null ? 'addToCart(this)' : 'openPriceModal(this)' }}">
                                     <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}"
-                                        alt="{{ $treatment->treatment_name }}" class="w-full h-32 object-cover">
+                                        alt="{{ $treatment->treatment_name }}" class="w-full h-32 object-cover" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                     <div class="p-3">
                                         <h3 class="font-semibold">{{ $treatment->treatment_name }}</h3>
                                         @if ($treatment->price !== null)
@@ -141,7 +143,7 @@
                                     data-id="{{ $promo->promo_id }}" data-name="{{ $promo->promo_name }}"
                                     data-type="promo" data-price="{{ $promo->promo_price }}" onclick="addToCart(this)">
                                     <img src="{{ asset($promo->description->promo_image ?? 'user/images/default.jpg') }}"
-                                        alt="{{ $promo->promo_name }}" class="w-full h-32 object-cover">
+                                        alt="{{ $promo->promo_name }}" class="w-full h-32 object-cover" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                     <div class="p-3">
                                         <h3 class="font-semibold">{{ $promo->promo_name }}</h3>
                                         <div class="price flex items-center space-x-2">
@@ -162,10 +164,10 @@
             </div>
 
             <!-- Cashier Section -->
-            <div class="w-96">
+            <div class=" w-2/5">
                 <div class="bg-white rounded-xl shadow-md overflow-hidden">
                     <div class="p-6">
-                        <h1 class="text-2xl font-bold text-center mb-6">Kasir</h1>
+                        {{-- <h1 class="text-2xl font-bold text-center mb-6">Kasir</h1> --}}
                         <div id="cartList" class="mb-6 bg-gray-50 p-4 rounded-lg">
                             <h3 class="text-lg font-semibold mb-3">Daftar Produk</h3>
                             <!-- Produk yang dipilih akan ditambahkan di sini -->
@@ -177,7 +179,7 @@
                             <div class="mb-6 bg-blue-50 p-4 rounded-lg">
                                 <label class="block text-sm font-medium text-gray-700">Total Belanja</label>
                                 <input type="text" id="totalAmountDisplay"
-                                    class="mt-1 block w-full text-3xl font-bold text-blue-600 bg-transparent border-none"
+                                    class="mt-1 block w-full text-3xl font-bold text-blue-600 bg-transparent border-none px-0"
                                     value="Rp 0" readonly>
                                 <input type="hidden" id="totalAmount" name="total_amount" value="0">
                             </div>
@@ -205,8 +207,8 @@
                                     <label for="bank" class="block text-sm font-medium text-gray-700">Pilih
                                         Bank</label>
                                     <select id="bank" name="bank"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                        <option value="">-- Pilih Bank --</option>
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-2">
+                                        <option value="">Pilih Bank</option>
                                         <option value="Mandiri">Mandiri</option>
                                         <option value="BNI">BNI</option>
                                         <option value="BRI">BRI</option>
@@ -232,7 +234,7 @@
                                 <div id="changeDisplay" class="text-2xl font-bold text-green-600">Rp 0</div>
                             </div>
                             <!-- Dropdown Pilihan User -->
-                            <div class="mb-6">
+                            <div class="mb-6 w-full">
                                 <select id="userSelect" class="w-full select2">
                                     <option value=""></option>
                                     @foreach ($users as $user)
@@ -933,7 +935,8 @@
                 <span>${index + 1}. ${item.name} (x${item.quantity})</span>
                 <div class="flex items-center gap-2">
                     <span>Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</span>
-                    <button onclick="removeFromCart('${item.id}', '${item.type}')" class="text-red-500 hover:underline">Kurangi</button>
+                    <button onclick="removeFromCart('${item.id}', '${item.type}')" class="text-red-500 hover:underline"><i class="fas fa-minus"></i>
+</button>
                 </div>
             `;
                 cartListContainer.appendChild(productItem);
