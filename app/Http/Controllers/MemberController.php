@@ -13,7 +13,7 @@ class MemberController extends Controller
     public function index()
     {
         // Mengambil data member dengan relasi user
-        $members = Member::with('user')->paginate(10);
+        $members = Member::get();
 
         return view('owner.pages.members.members', compact('members'));
     }

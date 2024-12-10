@@ -70,7 +70,7 @@
                             <div class="col-xl">
                                 <div class="card mb-6">
                                     <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h5 class="mb-0">Edit User</h5>
+                                        <h4 class="mb-0">Edit User</h4>
                                         <small class="text-body float-end">Edit User Information</small>
                                     </div>
                                     <div class="card-body">
@@ -79,7 +79,7 @@
                                             @method('PUT')
 
                                             <div class="mb-6">
-                                                <label class="form-label" for="nama_depan">Nama Depan</label>
+                                                <label class="form-label" for="nama_depan">First Name</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i class="bx bx-user"></i></span>
                                                     <input type="text"
@@ -94,7 +94,7 @@
                                             </div>
 
                                             <div class="mb-6">
-                                                <label class="form-label" for="nama_belakang">Nama Belakang</label>
+                                                <label class="form-label" for="nama_belakang">Last Name</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i class="bx bx-user"></i></span>
                                                     <input type="text"
@@ -124,7 +124,7 @@
                                             </div>
 
                                             <div class="mb-6">
-                                                <label class="form-label" for="phone">Nomor Telepon</label>
+                                                <label class="form-label" for="phone">Phone Number</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i class="bx bx-phone"></i></span>
                                                     <input type="text"
@@ -180,16 +180,9 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="text-end">
-                                                <button type="button" class="btn btn-outline-secondary"
-                                                    onclick="history.back()">
-                                                    <i class="bx bx-x me-1"></i>
-                                                    Cancel
-                                                </button>
-                                                <button type="submit" class="btn btn-primary">
-                                                    <i class="bx bx-save me-1"></i>
-                                                    Update User
-                                                </button>
+                                            <div class="mb-3">
+                                                <button type="submit" class="btn btn-primary">Update User</button>
+                                                <a href="{{ route('users.index') }}" class="btn btn-secondary">Back</a>
                                             </div>
                                         </form>
                                     </div>

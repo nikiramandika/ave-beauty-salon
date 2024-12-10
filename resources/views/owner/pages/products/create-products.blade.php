@@ -58,15 +58,15 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Create Product</h5>
+                            <h4 class="card-header">Create Product</h4>
                             <div class="card-body">
                                 <form action="{{ route('products.store') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-4">
-                                        <label for="product_name" class="form-label">Nama Produk</label>
+                                        <label for="product_name" class="form-label">Product Name</label>
                                         <input type="text" class="form-control" id="product_name" name="product_name"
-                                            placeholder="Masukkan nama produk" required oninput="generateSlug()">
+                                            placeholder="Add product name" required oninput="generateSlug()">
                                     </div>
                                     <div class="mb-3">
                                         <label for="product_slug" class="form-label">Slug</label>
@@ -76,9 +76,9 @@
 
                                     <div class="row mb-4">
                                         <div class="col-md-6">
-                                            <label for="category_id" class="form-label">Kategori</label>
+                                            <label for="category_id" class="form-label">Category</label>
                                             <select class="form-control" id="category_id" name="category_id" required>
-                                                <option value="" selected disabled>Pilih kategori</option>
+                                                <option value="" selected disabled>Select Category</option>
                                                 @foreach ($categories as $category)
                                                     <option value="{{ $category->category_id }}">
                                                         {{ $category->category_name }}</option>
@@ -86,46 +86,46 @@
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="is_active" class="form-label">Status Aktif</label>
+                                            <label for="is_active" class="form-label">Activity Status</label>
                                             <select class="form-control" id="is_active" name="is_active">
-                                                <option value="1" selected>Aktif</option>
-                                                <option value="0">Nonaktif</option>
+                                                <option value="1" selected>Active</option>
+                                                <option value="0">Inactive</option>
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="mb-4">
-                                        <label for="product_image" class="form-label">Gambar Produk</label>
+                                        <label for="product_image" class="form-label">Product Image</label>
                                         <input type="file" class="form-control" id="product_image"
                                             name="product_image" accept="image/*" required>
                                     </div>
 
                                     <div class="mb-4">
-                                        <label for="description" class="form-label">Deskripsi Produk</label>
+                                        <label for="description" class="form-label">Product Description</label>
                                         <textarea class="form-control" id="description" name="description" rows="4"
-                                            placeholder="Masukkan deskripsi produk" required></textarea>
+                                            placeholder="Add description" required></textarea>
                                     </div>
 
                                     <!-- Section for Multiple Sizes -->
                                     <div id="size-section" class="mb-4">
-                                        <label class="form-label">Detail Ukuran, Stok, dan Harga</label>
+                                        <label class="form-label">Size Details, Stock, and Price</label>
                                         <div class="size-row d-flex align-items-center mb-3">
                                             <input type="text" class="form-control me-2" name="sizes[]"
-                                                placeholder="Ukuran (contoh: S, M, L)" required>
+                                                placeholder="Size (ex: S, M, L)" required>
                                             <input type="number" class="form-control me-2" name="stocks[]"
-                                                placeholder="Stok" required>
+                                                placeholder="Stock" required>
                                             <input type="number" class="form-control me-2" name="prices[]"
-                                                placeholder="Harga (contoh: 100000)" required>
+                                                placeholder="Price (ex: 100000)" required>
                                             <button type="button" class="btn btn-success" onclick="addSizeRow()">
-                                                <i class="fas fa-plus"></i> Tambah
+                                                <i class="fas fa-plus"></i> Add
                                             </button>
                                         </div>
                                     </div>
 
                                     <div class="mb-4">
-                                        <button type="submit" class="btn btn-primary w-100">Simpan Produk</button>
+                                        <button type="submit" class="btn btn-primary w-100">Save Product</button>
                                         <a href="{{ route('products.index') }}"
-                                            class="btn btn-secondary w-100 mt-2">Kembali</a>
+                                            class="btn btn-secondary w-100 mt-2">Back</a>
                                     </div>
                                 </form>
 

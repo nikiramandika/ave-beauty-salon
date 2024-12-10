@@ -57,14 +57,14 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Update Category</h5>
+                            <h4 class="card-header">Update Category</h4>
                             <div class="card-body">
                                 <form action="{{ route('categories.update', $category->category_id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-3">
-                                        <label for="category_name" class="form-label">Nama Kategori</label>
+                                        <label for="category_name" class="form-label">Category Name</label>
                                         <input type="text" class="form-control" id="category_name"
                                             name="category_name"
                                             value="{{ old('category_name', $category->category_name) }}" required
@@ -81,13 +81,13 @@
                                     <img class="mt-3" src="{{ asset($category->category_image) }}"
                                         alt="{{ $category->category_name }}" style="width: 100px;">
                                     <div class="my-3">
-                                        <label for="category_image" class="form-label">Gambar Kategori</label>
+                                        <label for="category_image" class="form-label">Category Image</label>
                                         <input type="file" class="form-control" id="category_image"
                                             name="category_image" accept="image/*">
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Update Category</button>
-                                    <a href="{{ route('categories.index') }}" class="btn btn-secondary">Kembali</a>
+                                    <a href="{{ route('categories.index') }}" class="btn btn-secondary">Back</a>
                                 </form>
                             </div>
                         </div>

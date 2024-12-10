@@ -57,7 +57,7 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Edit Course</h5>
+                            <h4 class="card-header">Edit Course</h4>
                             <div class="card-body">
                                 <form action="{{ route('courses.update', $course->course_id) }}" method="POST"
                                     enctype="multipart/form-data">
@@ -65,7 +65,7 @@
                                     @method('PUT')
 
                                     <div class="mb-3">
-                                        <label for="course_name" class="form-label">Nama Course</label>
+                                        <label for="course_name" class="form-label">Course Name</label>
                                         <input type="text" class="form-control" id="course_name" name="course_name"
                                             value="{{ old('course_name', $course->course_name) }}" required
                                             oninput="generateSlug()">
@@ -79,7 +79,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="price" class="form-label">Harga</label>
+                                        <label for="price" class="form-label">Price</label>
                                         <input type="number" class="form-control" id="price" name="price"
                                             value="{{ old('price', $course->price) }}" required>
                                     </div>
@@ -91,19 +91,19 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="is_active" class="form-label">Status Aktif</label>
+                                        <label for="is_active" class="form-label">Activity Status</label>
                                         <select class="form-control" id="is_active" name="is_active">
                                             <option value="1"
-                                                {{ old('is_active', $course->is_active) == 1 ? 'selected' : '' }}>Aktif
+                                                {{ old('is_active', $course->is_active) == 1 ? 'selected' : '' }}>Active
                                             </option>
                                             <option value="0"
                                                 {{ old('is_active', $course->is_active) == 0 ? 'selected' : '' }}>
-                                                Nonaktif</option>
+                                                Inactive</option>
                                         </select>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="course_image" class="form-label">Gambar Course</label>
+                                        <label for="course_image" class="form-label">Course Image</label>
                                         <input type="file" class="form-control" id="course_image" name="course_image"
                                             accept="image/*">
 
@@ -130,7 +130,7 @@
 
                                     <div class="mb-3">
                                         <button type="submit" class="btn btn-primary">Update Course</button>
-                                        <a href="{{ route('courses.index') }}" class="btn btn-secondary">Kembali</a>
+                                        <a href="{{ route('courses.index') }}" class="btn btn-secondary">Back</a>
                                     </div>
                                 </form>
                             </div>

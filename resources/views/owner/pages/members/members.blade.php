@@ -72,39 +72,39 @@
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Daftar Anggota</h5>
+                            <h4 class="card-header">Members List</h4>
                             <div class="table-responsive text-nowrap">
                                 <table id="example1" class="table">
                                     <thead>
                                         <tr>
-                                            <th>Nama</th>
-                                            <th>Membership Number</th>
-                                            <th>Poin</th>
-                                            <th>Tanggal Bergabung</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <th style="text-align:center;">Name</th>
+                                            <th style="text-align:center;">Membership Number</th>
+                                            <th style="text-align:center;">Point</th>
+                                            <th style="text-align:center;">Join Date</th>
+                                            <th style="text-align:center;">Status</th>
+                                            <th style="text-align:center;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
                                         @forelse($members as $member)
                                             <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
+                                                <td style="text-align:center;">
+                                                    <div>
                                                         <span>{{ $member->user->nama_depan }}
                                                             {{ $member->user->nama_belakang }}</span>
                                                     </div>
                                                 </td>
-                                                <td>{{ $member->membership_number }}</td>
-                                                <td>{{ $member->points }}</td>
-                                                <td>{{ $member->joined_date->format('d M Y') }}</td>
-                                                <td>
+                                                <td style="text-align:center;">{{ $member->membership_number }}</td>
+                                                <td style="text-align:center;">{{ $member->points }}</td>
+                                                <td style="text-align:center;">{{ $member->joined_date->format('d M Y') }}</td>
+                                                <td style="text-align:center;">
                                                     @if ($member->is_active)
                                                         <span class="badge bg-label-primary me-1">Active</span>
                                                     @else
                                                         <span class="badge bg-label-warning me-1">Inactive</span>
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td style="text-align:center;">
                                                     <div class="dropdown px-5">
                                                         <button type="button"
                                                             class="btn p-0 dropdown-toggle hide-arrow"
@@ -140,7 +140,6 @@
                                 </table>
                             </div>
                             <div class="card-footer">
-                                {{ $members->links() }}
                             </div>
                         </div>
                     </div>

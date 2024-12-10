@@ -82,10 +82,10 @@
                         <!-- resources/views/owner/pages/users.blade.php -->
                         <!-- resources/views/owner/pages/products.blade.php -->
                         <div class="card">
-                            <h5 class="card-header">Daftar Treatments</h5>
+                            <h4 class="card-header">Treatments List</h4>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="mb-0">Treatments</h6>
+                                    <h5 class="mb-0">Treatments</h5>
                                     <a href="{{ route('treatments.create') }}" class="btn btn-primary">Create
                                         Treatment</a>
                                 </div>
@@ -93,20 +93,20 @@
                                     <table id="example1" class="table">
                                         <thead>
                                             <tr>
-                                                <th>Gambar</th>
-                                                <th>Nama Treatment</th>
-                                                <th>Slug</th>
-                                                <th>Harga</th>
-                                                <th>Deskripsi</th>
-                                                <th>Durasi</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
+                                                <th style="text-align:center;">Image</th>
+                                                <th style="text-align:center;">Treatment Name</th>
+                                                <th style="text-align:center;">Slug</th>
+                                                <th style="text-align:center;">Price</th>
+                                                <th style="text-align:center;">Description</th>
+                                                <th style="text-align:center;">Duration</th>
+                                                <th style="text-align:center;">Status</th>
+                                                <th style="text-align:center;">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             @forelse($treatments as $treatment)
                                                 <tr>
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         @if ($treatment->description && $treatment->description->treatment_image)
                                                             <img src="{{ asset($treatment->description->treatment_image) }}"
                                                                 alt="Gambar Treatment"
@@ -116,36 +116,36 @@
                                                             <span>-</span>
                                                         @endif
                                                     </td>
-                                                    <td>{{ $treatment->treatment_name }}</td>
-                                                    <td>{{ $treatment->treatment_slug }}</td>
-                                                    <td>
+                                                    <td style="text-align:center;">{{ $treatment->treatment_name }}</td>
+                                                    <td style="text-align:center;">{{ $treatment->treatment_slug }}</td>
+                                                    <td style="text-align:center;">
                                                         @if ($treatment->price !== null)
                                                             Rp{{ number_format($treatment->price, 0, ',', '.') }}
                                                         @else
                                                             <strong>Variable Price</strong>
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    <td style="min-width: 500px; word-wrap: break-word; white-space: normal; text-align:justify;">
                                                         @if ($treatment->description)
                                                             {{ $treatment->description->description }}
                                                         @else
                                                             -
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         @if ($treatment->description)
                                                             {{ $treatment->description->duration }}
                                                         @else
                                                             -
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         <span
                                                             style="color: {{ $treatment->is_active ? 'green' : 'red' }}">
                                                             {{ $treatment->is_active ? 'Active' : 'Inactive' }}
                                                         </span>
                                                     </td>
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         <div class="dropdown px-5">
                                                             <button type="button"
                                                                 class="btn p-0 dropdown-toggle hide-arrow"
@@ -162,7 +162,7 @@
                                                                     data-description="{{ $treatment->description->description ?? '-' }}"
                                                                     data-duration="{{ $treatment->description->duration ?? 'N/A' }}"
                                                                     data-status="{{ $treatment->is_active ? 'Active' : 'Inactive' }}">
-                                                                    <i class="bx bx-show-alt me-2"></i> Lihat
+                                                                    <i class="bx bx-show-alt me-2"></i> View
                                                                 </a>
 
                                                                 <a class="dropdown-item"
@@ -180,7 +180,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="8" class="text-center">Tidak ada data treatment</td>
+                                                    <td colspan="8" class="text-center">No treatments data</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -226,21 +226,21 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="viewTreatmentModalLabel">Detail Treatment</h5>
+                        <h4 class="modal-title" id="viewTreatmentModalLabel">Treatment Detail</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <img id="modalTreatmentImage" src="" alt="Gambar Treatment" class="img-fluid mb-2">
-                        <p><strong>Nama:</strong> <span id="modalTreatmentName"></span></p>
+                        <p><strong>Name:</strong> <span id="modalTreatmentName"></span></p>
                         <p><strong>Slug:</strong> <span id="modalTreatmentSlug"></span></p>
-                        <p><strong>Harga:</strong> <span id="modalTreatmentPrice"></span></p>
-                        <p><strong>Deskripsi:</strong> <span id="modalTreatmentDescription"></span></p>
-                        <p><strong>Durasi:</strong> <span id="modalTreatmentDuration"></span></p>
+                        <p><strong>Price:</strong> <span id="modalTreatmentPrice"></span></p>
+                        <p><strong>Description:</strong> <span id="modalTreatmentDescription"></span></p>
+                        <p><strong>Duration:</strong> <span id="modalTreatmentDuration"></span></p>
                         <p><strong>Status:</strong> <span id="modalTreatmentStatus"></span></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -254,20 +254,20 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteTreatmentModalLabel">Konfirmasi Hapus Treatment</h5>
+                        <h5 class="modal-title" id="deleteTreatmentModalLabel">Delete Treatment Confirmation</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus treatment <strong><span
+                        <p>Are you sure want to delete <strong><span
                                     id="deleteTreatmentName"></span></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <form id="deleteTreatmentForm" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger">Hapus</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </div>
                 </div>

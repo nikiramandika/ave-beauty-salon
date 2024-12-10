@@ -60,18 +60,18 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Edit Anggota</h5>
+                            <h4 class="card-header">Edit Member</h4>
                             <div class="card-body">
                                 <form action="{{ route('members.update', $member->member_id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-3">
-                                        <label for="first_name" class="form-label">Nama Depan</label>
+                                        <label for="first_name" class="form-label">First Name</label>
                                         <input type="text" class="form-control" id="first_name" name="first_name"
                                             value="{{ $member->user->nama_depan }}" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="last_name" class="form-label">Nama Belakang</label>
+                                        <label for="last_name" class="form-label">Last Name</label>
                                         <input type="text" class="form-control" id="last_name" name="last_name"
                                             value="{{ $member->user->nama_belakang }}" required>
                                     </div>
@@ -81,12 +81,12 @@
                                             name="membership_number" value="{{ $member->membership_number }}" readonly>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="points" class="form-label">Poin</label>
+                                        <label for="points" class="form-label">Point</label>
                                         <input type="number" class="form-control" id="points" name="points"
                                             value="{{ $member->points }}" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="joined_date" class="form-label">Tanggal Bergabung</label>
+                                        <label for="joined_date" class="form-label">Join Date</label>
                                         <input type="date" class="form-control" id="joined_date" name="joined_date"
                                             value="{{ $member->joined_date->format('Y-m-d') }}" readonly>
                                     </div>
@@ -100,8 +100,8 @@
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <button type="submit" class="btn btn-primary">Update Anggota</button>
-                                        <a href="{{ route('members.index') }}" class="btn btn-secondary">Kembali</a>
+                                        <button type="submit" class="btn btn-primary">Update Member</button>
+                                        <a href="{{ route('members.index') }}" class="btn btn-secondary">Back</a>
                                     </div>
                                 </form>
                             </div>

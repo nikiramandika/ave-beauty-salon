@@ -50,18 +50,18 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Edit Kasir</h5>
+                            <h4 class="card-header">Edit Cashier</h4>
                             <div class="card-body">
                                 <form action="{{ route('cashiers.update', $cashier->cashier_id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-3">
-                                        <label for="first_name" class="form-label">Nama Depan</label>
+                                        <label for="first_name" class="form-label">First Name</label>
                                         <input type="text" class="form-control" id="first_name" name="first_name"
                                             value="{{ $cashier->user->nama_depan }}" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="last_name" class="form-label">Nama Belakang</label>
+                                        <label for="last_name" class="form-label">Last Name</label>
                                         <input type="text" class="form-control" id="last_name" name="last_name"
                                             value="{{ $cashier->user->nama_belakang }}" required>
                                     </div>
@@ -75,8 +75,8 @@
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <button type="submit" class="btn btn-primary">Update Kasir</button>
-                                        <a href="{{ route('cashiers.index') }}" class="btn btn-secondary">Kembali</a>
+                                        <button type="submit" class="btn btn-primary">Update Cashier</button>
+                                        <a href="{{ route('cashiers.index') }}" class="btn btn-secondary">Back</a>
                                     </div>
                                 </form>
                             </div>

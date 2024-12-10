@@ -82,10 +82,10 @@
                         <!-- resources/views/owner/pages/users.blade.php -->
                         <!-- resources/views/owner/pages/products.blade.php -->
                         <div class="card">
-                            <h5 class="card-header">Total Pendapatan</h5>
+                            <h4 class="card-header">Total Revenue</h4>
                             <div class="card-body">
                                 <form method="GET" action="{{ route('transaction-report.index') }}">
-                                    <label for="time_range">Filter Total Pendapatan:</label>
+                                    <label for="time_range">Filter Total Revenue:</label>
                                     <select name="time_range" id="time_range" class="form-control w-auto d-inline-block"
                                         onchange="this.form.submit()">
                                         <option value="daily" {{ request('time_range') == 'daily' ? 'selected' : '' }}>
@@ -108,7 +108,7 @@
                                     <i class="bx bx-money" style="font-size: 24px; color: green;"></i>
                                     <!-- Ikon uang -->
                                     <h4 class="mb-0 ms-2" style="font-weight: bold; color: green; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
-                                        Pendapatan: <span>Rp{{ number_format($totalAmount, 2) }}</span>
+                                        Revenue: <span>Rp{{ number_format($totalAmount, 2) }}</span>
                                     </h4>
                                 </div>
                             </div>
@@ -116,7 +116,7 @@
 
                         <div class="card mt-4">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5>Daftar Invoice Summary</h5>
+                                <h4>Invoice Summary List</h4>
                                 <h6>
                                     Total Invoice Summary:
                                     <span>
@@ -128,8 +128,7 @@
                             </div>
                             <div class="card-body">
                                 <!-- Total Invoice -->
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="mb-0">Invoices</h6>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
                                 </div>
                                 <div class="mb-3">
                                     <form method="GET" action="{{ route('transaction-report.index') }}">
@@ -163,36 +162,36 @@
                                     <table id="example1" class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Invoice Code</th>
-                                                <th>Order Date</th>
-                                                <th>Order Status</th>
-                                                <th>Cashier Name</th>
-                                                <th>Recipient Name</th>
-                                                <th>Recipient Email</th>
-                                                <th>Recipient Phone</th>
-                                                <th>Total Amount</th>
+                                                <th style="text-align:center;">Invoice Code</th>
+                                                <th style="text-align:center;">Order Date</th>
+                                                <th style="text-align:center;">Order Status</th>
+                                                <th style="text-align:center;">Cashier Name</th>
+                                                <th style="text-align:center;">Recipient Name</th>
+                                                <th style="text-align:center;">Recipient Email</th>
+                                                <th style="text-align:center;">Recipient Phone</th>
+                                                <th style="text-align:center;">Total Amount</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             @forelse($invoices as $invoice)
                                                 <tr>
-                                                    <td>{{ $invoice->invoice_code }}</td>
-                                                    <td>{{ $invoice->order_date }}</td>
-                                                    <td>
+                                                    <td style="text-align:center;">{{ $invoice->invoice_code }}</td>
+                                                    <td style="text-align:center;">{{ $invoice->order_date }}</td>
+                                                    <td style="text-align:center;">
                                                         <span
                                                             style="color: {{ $invoice->order_status == 'Complete' ? 'green' : 'red' }}">
                                                             {{ $invoice->order_status }}
                                                         </span>
                                                     </td>
-                                                    <td>{{ $invoice->cashier_name ?? '-' }}</td>
-                                                    <td>{{ $invoice->recipient_name ?? '-' }}</td>
-                                                    <td>{{ $invoice->recipient_email ?? '-' }}</td>
-                                                    <td>{{ $invoice->recipient_phone ?? '-' }}</td>
-                                                    <td>{{ number_format($invoice->total_amount, 2) }}</td>
+                                                    <td style="text-align:center;">{{ $invoice->cashier_name ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $invoice->recipient_name ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $invoice->recipient_email ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $invoice->recipient_phone ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ number_format($invoice->total_amount, 2) }}</td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="8" class="text-center">Tidak ada data invoice</td>
+                                                    <td colspan="8" class="text-center">No invoice data available</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -205,7 +204,7 @@
                         <!-- Tambahan Tabel Course History -->
                         <div class="card mt-4">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5>Daftar Course History</h5>
+                                <h5>Course History List</h5>
                                 <h6>
                                     Total Course Summary:
                                     <span>
@@ -249,35 +248,34 @@
                                     <table id="example" class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Invoice Code</th>
-                                                <th>Order Date</th>
-                                                <th>Order Status</th>
-                                                <th>Course Name</th>
-                                                <th>Total Sessions</th>
-                                                <th>Sessions Completed</th>
-                                                <th>Course Price</th>
+                                                <th style="text-align:center;">Invoice Code</th>
+                                                <th style="text-align:center;">Order Date</th>
+                                                <th style="text-align:center;">Order Status</th>
+                                                <th style="text-align:center;">Course Name</th>
+                                                <th style="text-align:center;">Total Sessions</th>
+                                                <th style="text-align:center;">Sessions Completed</th>
+                                                <th style="text-align:center;">Course Price</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             @forelse($courseHistories as $history)
                                                 <tr>
-                                                    <td>{{ $history->invoice_code }}</td>
-                                                    <td>{{ $history->order_date }}</td>
-                                                    <td>
+                                                    <td style="text-align:center;">{{ $history->invoice_code }}</td>
+                                                    <td style="text-align:center;">{{ $history->order_date }}</td>
+                                                    <td style="text-align:center;">
                                                         <span
                                                             style="color: {{ $history->order_status == 'Complete' ? 'green' : 'red' }}">
                                                             {{ $history->order_status }}
                                                         </span>
                                                     </td>
-                                                    <td>{{ $history->course_name ?? '-' }}</td>
-                                                    <td>{{ $history->total_sessions ?? '-' }}</td>
-                                                    <td>{{ $history->sessions_completed ?? '-' }}</td>
-                                                    <td>{{ number_format($history->course_price, 2) }}</td>
+                                                    <td style="text-align:center;">{{ $history->course_name ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $history->total_sessions ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $history->sessions_completed ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ number_format($history->course_price, 2) }}</td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="7" class="text-center">Tidak ada data course
-                                                        history
+                                                    <td colspan="7" class="text-center">No course history data available
                                                     </td>
                                                 </tr>
                                             @endforelse

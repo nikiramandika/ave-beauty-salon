@@ -57,7 +57,7 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Edit Treatment</h5>
+                            <h4 class="card-header">Edit Treatment</h4>
                             <div class="card-body">
                                 <form action="{{ route('treatments.update', $treatment->treatment_id) }}" method="POST"
                                     enctype="multipart/form-data">
@@ -65,7 +65,7 @@
                                     @method('PUT') <!-- Menggunakan PUT untuk update data -->
 
                                     <div class="mb-3">
-                                        <label for="treatment_name" class="form-label">Nama Treatment</label>
+                                        <label for="treatment_name" class="form-label">Treatment Name</label>
                                         <input type="text" class="form-control" id="treatment_name"
                                             name="treatment_name" value="{{ $treatment->treatment_name }}" required
                                             oninput="generateSlug()">
@@ -79,7 +79,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label">Pilih Harga</label>
+                                        <label class="form-label">Select Price</label>
                                         <div class="d-flex gap-3">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="price_option"
@@ -87,7 +87,7 @@
                                                     {{ $treatment->price !== null ? 'checked' : '' }}
                                                     onclick="togglePriceInput()">
                                                 <label class="form-check-label" for="fixed_price">
-                                                    Harga Tetap
+                                                    Fixed Price
                                                 </label>
                                             </div>
                                             <div class="form-check">
@@ -96,57 +96,57 @@
                                                     {{ $treatment->price === null ? 'checked' : '' }}
                                                     onclick="togglePriceInput()">
                                                 <label class="form-check-label" for="variable_price">
-                                                    Harga Variatif
+                                                    Variable Price
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="mb-3" id="price_input_container">
-                                        <label for="price" class="form-label">Harga</label>
+                                        <label for="price" class="form-label">Price</label>
                                         <input type="number" class="form-control" id="price" name="price"
                                             value="{{ $treatment->price }}"
                                             {{ $treatment->price !== null ? 'required' : '' }}>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="is_active" class="form-label">Status Aktif</label>
+                                        <label for="is_active" class="form-label">Activity Status</label>
                                         <select class="form-select" id="is_active" name="is_active">
-                                            <option value="1" {{ $treatment->is_active ? 'selected' : '' }}>Aktif
+                                            <option value="1" {{ $treatment->is_active ? 'selected' : '' }}>Active
                                             </option>
                                             <option value="0" {{ !$treatment->is_active ? 'selected' : '' }}>
-                                                Nonaktif</option>
+                                                Inactive</option>
                                         </select>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="treatment_image" class="form-label">Gambar Treatment</label>
+                                        <label for="treatment_image" class="form-label">Treatment Image</label>
                                         <input type="file" class="form-control" id="treatment_image"
                                             name="treatment_image" accept="image/*">
                                         @if ($treatment->description && $treatment->description->treatment_image)
                                             <div class="mt-2">
                                                 <img src="{{ asset($treatment->description->treatment_image) }}"
                                                     alt="Current Image" style="max-width: 200px;">
-                                                <p>Gambar saat ini</p>
+                                                <p>Current Image</p>
                                             </div>
                                         @endif
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="description" class="form-label">Deskripsi Treatment</label>
+                                        <label for="description" class="form-label">Treatment Description</label>
                                         <textarea class="form-control" id="description" name="description" required>{{ $treatment->description->description }}</textarea>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="duration" class="form-label">Durasi (menit)</label>
+                                        <label for="duration" class="form-label">Duration (minute)</label>
                                         <input type="number" class="form-control" id="duration" name="duration"
                                             value="{{ $treatment->description->duration }}" required>
                                     </div>
 
                                     <div class="d-flex gap-3">
-                                        <button type="submit" class="btn btn-primary">Perbarui Treatment</button>
+                                        <button type="submit" class="btn btn-primary">Update Treatment</button>
                                         <a href="{{ route('treatments.index') }}"
-                                            class="btn btn-secondary">Kembali</a>
+                                            class="btn btn-secondary">Back</a>
                                     </div>
                                 </form>
                             </div>

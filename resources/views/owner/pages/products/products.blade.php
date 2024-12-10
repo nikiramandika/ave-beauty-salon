@@ -81,10 +81,10 @@
                         <!-- resources/views/owner/pages/users.blade.php -->
                         <!-- resources/views/owner/pages/products.blade.php -->
                         <div class="card">
-                            <h5 class="card-header">Daftar Products</h5>
+                            <h4 class="card-header">Products List</h4>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="mb-0">Products</h6>
+                                    <h5 class="mb-0">Products</h5>
                                     <a href="{{ route('products.create') }}" class="btn btn-primary">Create
                                         Products</a>
                                 </div>
@@ -92,14 +92,14 @@
                                     <table id="example1" class="table">
                                         <thead>
                                             <tr>
-                                                <th>Gambar</th>
-                                                <th>Nama Produk</th>
-                                                <th>Slug</th>
-                                                <th>Kategori</th>
-                                                <th>Deskripsi</th>
-                                                <th>Detail Produk</th>
-                                                <th>Status</th>
-                                                <th>Aksi</th>
+                                                <th style="text-align:center;">Image</th>
+                                                <th style="text-align:center;">Product Name</th>
+                                                <th style="text-align:center;">Slug</th>
+                                                <th style="text-align:center;">Category</th>
+                                                <th style="text-align:center;">Description</th>
+                                                <th style="text-align:center;">Product Detail</th>
+                                                <th style="text-align:center;">Status</th>
+                                                <th style="text-align:center;">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
@@ -117,30 +117,30 @@
                                                     </td>
 
                                                     <!-- Nama Produk -->
-                                                    <td>{{ $product->product_name }}</td>
+                                                    <td style="text-align:center;">{{ $product->product_name }}</td>
 
                                                     <!-- Slug -->
-                                                    <td>{{ $product->product_slug }}</td>
+                                                    <td style="text-align:center;">{{ $product->product_slug }}</td>
 
                                                     <!-- Kategori -->
-                                                    <td>{{ optional($product->category)->category_name ?? 'No Category' }}
+                                                    <td style="text-align:center;">{{ optional($product->category)->category_name ?? 'No Category' }}
                                                     </td>
 
                                                     <!-- Deskripsi -->
-                                                    <td>
+                                                    <td style="min-width: 500px; word-wrap: break-word; white-space: normal; text-align:justify;">
                                                         {{ $product->description->description ?? '-' }}
                                                     </td>
 
                                                     <!-- Detail Produk (Ukuran, Stok, Harga) -->
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         @if ($product->details->count() > 0)
                                                             @foreach ($product->details->take(2) as $detail)
                                                                 <!-- Tampilkan hanya 2 data pertama -->
                                                                 <div>
-                                                                    <strong>Ukuran:</strong> {{ $detail->size }} <br>
-                                                                    <strong>Stok:</strong> {{ $detail->product_stock }}
+                                                                    <strong>Size:</strong> {{ $detail->size }} <br>
+                                                                    <strong>Stock:</strong> {{ $detail->product_stock }}
                                                                     <br>
-                                                                    <strong>Harga:</strong>
+                                                                    <strong>Price:</strong>
                                                                     {{ number_format($detail->price, 2) }} <br>
                                                                     <hr>
                                                                 </div>
@@ -160,15 +160,15 @@
                                                     </td>
 
                                                     <!-- Status -->
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         <span
                                                             style="color: {{ $product->is_active ? 'green' : 'red' }}">
-                                                            {{ $product->is_active ? 'Aktif' : 'Nonaktif' }}
+                                                            {{ $product->is_active ? 'Active' : 'Inactive' }}
                                                         </span>
                                                     </td>
 
                                                     <!-- Aksi -->
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         <div class="dropdown px-5">
                                                             <button type="button"
                                                                 class="btn p-0 dropdown-toggle hide-arrow"
@@ -186,7 +186,7 @@
                                                                     data-description="{{ $product->description->description ?? '-' }}"
                                                                     data-details='@json($product->details)'
                                                                     data-status="{{ $product->is_active ? 'Aktif' : 'Nonaktif' }}">
-                                                                    <i class="bx bx-show-alt me-2"></i> Lihat
+                                                                    <i class="bx bx-show-alt me-2"></i> View
                                                                 </a>
 
                                                                 <!-- Edit -->
@@ -198,7 +198,7 @@
                                                                 <!-- Hapus -->
                                                                 <button type="button" class="dropdown-item"
                                                                     onclick="confirmDelete('{{ $product->product_id }}', '{{ $product->product_name }}')">
-                                                                    <i class="bx bx-trash me-2"></i> Hapus
+                                                                    <i class="bx bx-trash me-2"></i> Delete
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -206,7 +206,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="8" class="text-center">Tidak ada data produk</td>
+                                                    <td colspan="8" class="text-center">No product data</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -256,23 +256,23 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="viewProductModalLabel">Detail Produk</h5>
+                        <h4 class="modal-title" id="viewProductModalLabel">Product Detail</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <img id="modalProductImage" src="" alt="Gambar Produk" class="img-fluid mb-2">
-                        <p><strong>Nama:</strong> <span id="modalProductName"></span></p>
+                        <p><strong>Name:</strong> <span id="modalProductName"></span></p>
                         <p><strong>Slug:</strong> <span id="modalProductSlug"></span></p>
-                        <p><strong>Harga:</strong> <span id="modalProductPrice"></span></p>
-                        <p><strong>Kategori:</strong> <span id="modalProductCategory"></span></p>
-                        <p><strong>Deskripsi:</strong> <span id="modalProductDescription"></span></p>
-                        <p><strong>Stok:</strong> <span id="modalProductStock"></span></p>
-                        <p><strong>Ukuran:</strong> <span id="modalProductSize"></span></p>
+                        <p><strong>Price:</strong> <span id="modalProductPrice"></span></p>
+                        <p><strong>Category:</strong> <span id="modalProductCategory"></span></p>
+                        <p><strong>Description:</strong> <span id="modalProductDescription"></span></p>
+                        <p><strong>Stock:</strong> <span id="modalProductStock"></span></p>
+                        <p><strong>Size:</strong> <span id="modalProductSize"></span></p>
                         <p><strong>Status:</strong> <span id="modalProductStatus"></span></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -285,20 +285,20 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteProductModalLabel">Konfirmasi Hapus Produk</h5>
+                        <h5 class="modal-title" id="deleteProductModalLabel">Delete Product Config</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus produk <strong><span
+                        <p>Are you sure want to delete <strong><span
                                     id="deleteProductName"></span></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <form id="deleteProductForm" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger">Hapus</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </div>
                 </div>
@@ -320,9 +320,9 @@
                         <div class="modal-body">
                             @foreach ($product->details as $detail)
                                 <div>
-                                    <strong>Ukuran:</strong> {{ $detail->size }} <br>
-                                    <strong>Stok:</strong> {{ $detail->product_stock }} <br>
-                                    <strong>Harga:</strong> {{ number_format($detail->price, 2) }} <br>
+                                    <strong>Size:</strong> {{ $detail->size }} <br>
+                                    <strong>Stock:</strong> {{ $detail->product_stock }} <br>
+                                    <strong>Price:</strong> {{ number_format($detail->price, 2) }} <br>
                                     <hr>
                                 </div>
                             @endforeach

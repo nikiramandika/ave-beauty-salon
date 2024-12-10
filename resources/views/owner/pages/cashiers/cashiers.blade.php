@@ -70,21 +70,21 @@
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h5 class="card-header">Daftar Kasir</h5>
+                            <h4 class="card-header">Cashiers List</h4>
                             <div class="table-responsive text-nowrap">
                                 <table id="example1" class="table">
                                     <thead>
                                         <tr>
-                                            <th>Nama</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <th style="text-align:center;">Name</th>
+                                            <th style="text-align:center;">Status</th>
+                                            <th style="text-align:center;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
                                         @forelse($cashiers as $cashier)
                                             <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
+                                                <td style="text-align:center;">
+                                                    <div>
                                                         @if ($cashier->user)
                                                             <span>{{ $cashier->user->nama_depan ?? '' }}
                                                                 {{ $cashier->user->nama_belakang ?? '' }}</span>
@@ -93,14 +93,14 @@
                                                         @endif
                                                     </div>
                                                 </td>
-                                                <td>
+                                                <td style="text-align:center;">
                                                     @if ($cashier->is_active)
                                                         <span class="badge bg-label-primary me-1">Active</span>
                                                     @else
                                                         <span class="badge bg-label-warning me-1">Inactive</span>
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td style="text-align:center;">
                                                     <div class="dropdown">
                                                         <button type="button"
                                                             class="btn p-0 dropdown-toggle hide-arrow"
@@ -135,7 +135,6 @@
                                 </table>
                             </div>
                             <div class="card-footer">
-                                {{ $cashiers->links() }}
                             </div>
                         </div>
                     </div>
