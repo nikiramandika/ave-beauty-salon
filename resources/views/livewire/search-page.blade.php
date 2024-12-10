@@ -154,9 +154,9 @@
 </div> --}}
 
 
-<div>
+<div class=" pt-2">
     <div class="container" style="min-height: 50vh;">
-        <h3 class="mt-5">Search Results for "{{ $query }}"</h3>
+        <h4 class="mt-5">Search Results for "{{ $query }}"</h4>
 
         <!-- Jika Produk Kosong dan Treatment Ada -->
         @if ($products->isEmpty() && !$treatments->isEmpty())

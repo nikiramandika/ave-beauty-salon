@@ -1,8 +1,8 @@
 <div>
-    <section id="related-products" class="related-products product-carousel py-5 position-relative overflow-hidden">
+    <section id="related-products" class="related-products product-carousel py-5 position-relative">
         <div class="container mb-4">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 ps-4">
                     <select id="categoryFilter" class="form-select">
                         <option value="all">All Categories</option>
                         @foreach ($categories as $category)

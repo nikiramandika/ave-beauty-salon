@@ -5,24 +5,25 @@
                 <div class="py-5">
                     <div class="card">
                         <div class="px-5">
-                            <div class="px-2 py-5">
-                                <h4 class="mb-0">Thanks for your Order, {{ $invoice->recipient_name }}!</h4>
-                                <a href="{{ route('historyOrder') }}" class="btn-link">View Order</a>
-                            </div>
-                            <div class="px-3 d-flex justify-content-between">
-                                <h2 class="h5 mb-0">
-                                    <a href="#" class="text-muted"></a> Order #{{ $invoice->invoice_code }}
-                                </h2>
+                            <div class="px-2 pt-5 pb-3 d-flex justify-content-between">
+                                <h4 class="">Thanks for your Order, {{ $invoice->recipient_name }}!</h4>
                                 <p>
                                     <span
-                                        class="px-2 badge rounded-pill 
+                                        class="text-white px-3 py-2 badge rounded-pill 
                                         {{ $invoice->order_status === 'Pending' ? 'bg-warning' : 'bg-success' }}">
                                         {{ ucfirst($invoice->order_status) }}
                                     </span>
                                 </p>
                             </div>
+                            <div class="px-3 d-flex justify-content-between">
+                                <h2 class="h5 mb-0">
+                                    <a href="#" class="text-muted"></a> Order #{{ $invoice->invoice_code }}
+                                </h2>
+                                <a href="{{ route('historyOrder') }}" class="btn-link" style="height: fit-content">View Order</a>
+                                
+                            </div>
 
-                            <div class="card-body">
+                            <div class="card-body pt-5">
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <p class="lead fw-bold mb-0">Products Ordered</p>
                                 </div>
@@ -35,30 +36,30 @@
                                                         <!-- Menampilkan gambar produk dari product_descriptions -->
                                                         @if ($detail->product_image)
                                                             <img src="{{ asset($detail->product_image) }}"
-                                                                class="img-fluid" alt="Product">
+                                                                class="img-fluid rounded" alt="Product" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                                         @else
-                                                            <img src="https://via.placeholder.com/150" class="img-fluid"
+                                                            <img src="{{ asset('user/images/image_not_available.png') }}" class="img-fluid"
                                                                 alt="Product">
                                                             <!-- Placeholder jika tidak ada gambar -->
                                                         @endif
                                                     </div>
                                                     <div
-                                                        class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                                        class="col-md-3 text-center d-flex justify-content-center align-items-center">
                                                         <p class="text-muted mb-0">{{ $detail->product_name }}</p>
                                                     </div>
                                                     <div
-                                                        class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                        <p class="text-muted mb-0 small">Price:
+                                                        class="col-md-3 text-center d-flex justify-content-center align-items-center">
+                                                        <p class="text-muted mb-0 small">
                                                             ${{ number_format((float) $detail->price, 2) }}</p>
                                                     </div>
                                                     <div
                                                         class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                        <p class="text-muted mb-0 small">Qty: {{ $detail->quantity }}
+                                                        <p class="text-muted mb-0 small"> {{ $detail->quantity }}
                                                         </p>
                                                     </div>
                                                     <div
                                                         class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                        <p class="text-muted mb-0 small">Subtotal:
+                                                        <p class="text-muted mb-0 small">
                                                             Rp{{ number_format((float) ($detail->quantity * $detail->price), 0, ',', '.') }}
                                                         </p>
                                                     </div>
@@ -75,7 +76,7 @@
                                 <!-- Customer Notes -->
                                 <div class="card-body">
                                     <p class="lead fw-bold mb-0">Shipping Information</p>
-                                    <address>
+                                    <address class="text-muted">
                                         {{ $invoice->recipient_name }}<br>
                                         {{ $invoice->recipient_address }}<br>
                                         <a title="Phone">Phone:</a> {{ $invoice->recipient_phone }}

@@ -1,7 +1,7 @@
 <div>
     <section class="about" data-aos="zoom-out" class="position-relative overflow-hidden">
         <header>
-            <h1>AVE <br> BEAUTY SALON</h1>
+            <h1 class="section-title pt-3">Ave Beauty Salon</h1>
             <p class="intro-text">We redefine beauty through the art of transformation and authentic self-expression.
                 Drawing inspiration from timeless elegance and a sense of individuality, our salon combines innovative
                 techniques with an unwavering commitment to quality. We embrace each client's unique beauty, crafting

@@ -46,7 +46,7 @@
                             <use xlink:href="#calendar"></use>
                         </svg>
                         <h4 class="element-title text-capitalize my-3 heading-font">Relax</h4>
-                        <p>Make an appointment for personalized salon services tailored to your needs.</p>
+                        <p class="text-muted">Make an appointment for personalized salon services tailored to your needs.</p>
                     </div>
                 </div>
                 <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="300">
@@ -55,7 +55,7 @@
                             <use xlink:href="#shopping-bag"></use>
                         </svg>
                         <h4 class="element-title text-capitalize my-3 heading-font">Shop Products</h4>
-                        <p>Explore a curated selection of beauty and hair products available in-store.</p>
+                        <p class="text-muted">Explore a curated selection of beauty and hair products available in-store.</p>
                     </div>
                 </div>
                 <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="600">
@@ -64,7 +64,7 @@
                             <use xlink:href="#gift"></use>
                         </svg>
                         <h4 class="element-title text-capitalize my-3 heading-font">Salon Courses</h4>
-                        <p>Join our courses to learn professional salon skills from experts.</p>
+                        <p class="text-muted">Join our courses to learn professional salon skills from experts.</p>
                     </div>
                 </div>
                 <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="900">
@@ -73,7 +73,7 @@
                             <use xlink:href="#heart"></use>
                         </svg>
                         <h4 class="element-title text-capitalize my-3 heading-font">Salon Treatments</h4>
-                        <p>Indulge in our range of treatments for ultimate relaxation and beauty.</p>
+                        <p class="text-muted">Indulge in our range of treatments for ultimate relaxation and beauty.</p>
                     </div>
                 </div>
             </div>
@@ -135,7 +135,6 @@
     <section class="collection bg-light position-relative py-5">
         <div class="container">
             <div class="row">
-                <div class="title-xlarge text-uppercase txt-fx domino">Collection</div>
                 <div class="collection-item d-flex flex-wrap my-5 rounded bg-white px-0 mx-2">
                     <div class="col-md-6 column-container">
                         <div class=" ">
@@ -145,7 +144,7 @@
                     <div class="col-md-6 column-container bg-white rounded">
                         <div class="collection-content p-5 m-0 m-md-">
                             <h4 class="element-title text-uppercase pb-2">About Ave Beauty</h4>
-                            <p align="justify">A curated collection of premium salon-quality hair care products,
+                            <p align="justify" class="text-muted">A curated collection of premium salon-quality hair care products,
                                 including
                                 nourishing shampoo, hydrating conditioner,
                                 revitalizing vitamins, smoothing serum, and strengthening tonic. Each product is crafted
@@ -171,8 +170,6 @@
                 <h4 class="">Explore Categories Product</h4>
                 <a href="/product" class="btn-link">View All Products</a>
             </div>
-            <section class="categories py-5">
-            </section>
             <div class="swiper product-swiper open-up" data-aos="zoom-out">
                 <div class="swiper-wrapper d-flex">
                     @foreach ($categories as $category)
@@ -181,7 +178,7 @@
                                 <div class="image-holder">
                                     <a href="/products?category={{ $category->category_slug }}">
                                         <img src="{{ asset($category->category_image ?? 'user/images/default.jpg') }}"
-                                            alt="{{ $category->category_name }}" class="product-image img-fluid">
+                                            alt="{{ $category->category_name }}" class="product-image img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                     </a>
                                     <div class="product-content">
                                        <h5 class="text-capitalize fs-5 mt-3">
@@ -210,7 +207,7 @@
                 <div class="col-md-4">
                     <article class="post-item image-zoom-effect link-effect ">
                         <div class="post-image rounded image-holder">
-                            <a>
+                            <a href="{{ url('treatment/' . $treatment->treatment_slug) }}">
                                 <img src="{{ asset($treatment->description->treatment_image ?? 'user/images/default.jpg') }}" alt="image"
                                 class="product-image img-fluid rounded" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                             </a>
@@ -219,7 +216,7 @@
                             <h5 class="post-title text-capitalize">
                                 <a>{{ $treatment->treatment_name }}</a>
                             </h5>
-                            <p align="justify" >{{ strlen($treatment->description->description) > 200 ? substr($treatment->description->description, 0, 200) . '...' : $treatment->description->description }}</p>
+                            <p align="justify" class="text-muted" >{{ strlen($treatment->description->description) > 200 ? substr($treatment->description->description, 0, 200) . '...' : $treatment->description->description }}</p>
 
                         </div>
                     </article>

@@ -48,16 +48,17 @@
         <div class="search-popup-container">
             <form role="search" method="get" class="form-group" action="{{ route('search') }}">
                 <input type="search" id="search-form" class="form-control border-0 border-bottom"
-                    placeholder="Type and press enter" value="{{ request('query') }}" name="query" />
+                    placeholder="Type and press enter" value="{{ request('query') }}" name="query" style="padding-right: 50px!important;"/>
                 <button type="submit" class="search-submit border-0 position-absolute bg-transparent"
                     style="top: 15px; right: 15px;">
-                    <svg class="search" width="24" height="24">
+                    <a href=""><svg class="search" width="24" height="24">
                         <use xlink:href="#search"></use>
-                    </svg>
+                    </svg></a>
+                    
                 </button>
             </form>
             <h5 class="cat-list-title">Browse Categories</h5>
-            <ul class="cat-list">
+            <ul class="cat-list mt-4">
                 @foreach ($categories as $category)
                     <li class="cat-list-item">
                         <a href="products?category={{ $category->category_slug }}"
@@ -192,7 +193,7 @@
                         <li class="d-none d-lg-block position-relative me-3">
                             <a href="javascript:void(0)" class="" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasCart" id="cartIcon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" class="pb-1">
+                                <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
                                     <use xlink:href="#cart"></use>
                                 </svg>
                                 @auth
@@ -206,7 +207,7 @@
                         </li>
                         <li class="search-box" class="mx-2" style="margin-left:20px; ">
                             <a href="#search" class="search-button">
-                                <svg width="24" height="24" viewBox="0 0 24 24" class="pb-1">
+                                <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
                                     <use xlink:href="#search"></use>
                                 </svg>
                             </a>
@@ -215,7 +216,7 @@
                             @auth
                                 <a href="javascript:void(0)" class="mx-2" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasProfile">
-                                    <svg width="24" height="24" viewBox="0 0 24 24">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
                                         <use xlink:href="#person"></use>
                                     </svg>
                                     @if (Auth::user()->phone == null || Auth::user()->email_verified_at == null)

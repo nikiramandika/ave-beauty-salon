@@ -6,7 +6,7 @@
                     <div class="footer-intro mb-4">
                         <a href="{{ url('/') }}" class="h5 mb-4">
                             <img src="{{ asset('user/images/logo.png') }}" alt="logo"
-                                style="width: 50px; height: auto; margin-right:10px;"> Ave Beauty Salon
+                                style="width: 30px; height: auto; margin-right:10px;"> Ave Beauty Salon
                         </a>
                     </div>
                     <p>Experience premium salon care with a range of professional treatments tailored to enhance your

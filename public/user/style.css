@@ -15,6 +15,8 @@ img {
 }
 
 body {
+    word-wrap: break-word; /* Allows long words to break */
+overflow-wrap: break-word; /* Modern equivalent */
     font-family: "Montserrat", Roboto, sans-serif;
     --heading-font: "Marcellus", Roboto, sans-serif;
     --heading-font-weight: 500;
@@ -63,7 +65,7 @@ body {
     padding-bottom: 8px;
 }
 .section-title {
-    font-family: "DM Serif Display", sans-serif;
+    font-family: "DM Serif Display", sans-serif!important;
 }
 
 .rounded-full {
@@ -116,12 +118,16 @@ body {
 .content .product-image{
     width: 50%;
 }
-.content .product-info {
+.content .product-info, .content .treatment-info{
     width: 50%;
 word-wrap: break-word; /* Allows long words to break */
 overflow-wrap: break-word; /* Modern equivalent */
 }
-
+.product-info, .treatment-info {
+    flex: 1;
+    min-height: 100%;
+    margin-top: 0;
+}
 
 h1,
 .h1,
@@ -245,6 +251,13 @@ a {
     text-decoration: none;
 }
 
+footer .menu-item {
+    padding-bottom: 10px!important;
+}
+footer .widget-title {
+    height: 30px!important;
+    width: 100%!important;
+}
 /* container fluid */
 .container-fluid {
     /* width: 98%; */
@@ -1520,7 +1533,7 @@ a.btn-link.text-light:after {
 .product-image img {
     max-width: 100%;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
     transition: transform 0.3s ease;
 }
 
@@ -1529,20 +1542,16 @@ a.btn-link.text-light:after {
 }
 
 /* Informasi Produk */
-.product-info {
-    flex: 1;
-    min-height: 100%;
-    margin-top: 0;
-}
 
-.product-title {
+
+.product-title, .treatment-title {
     color: var(--heading-color);
     font-size: 36px;
     margin-bottom: 15px;
     margin-top: 0;
 }
 
-.product-price {
+.product-price, .treatment-price {
     font-size: 28px;
     color: var(--bs-dark);
     margin: 15px 0;
@@ -1606,7 +1615,7 @@ a.btn-link.text-light:after {
     }
 
     .product-image,
-    .product-info {
+    .product-info, .treatment-info {
         max-width: 100%;
         width: 100%;
     }
@@ -1662,25 +1671,6 @@ a.btn-link.text-light:after {
 }
 
 /* Informasi Produk */
-.treatment-info {
-    flex: 1;
-    max-width: 500px;
-}
-
-.treatment-title {
-    /* font-family: var(--heading-font); */
-    color: var(--heading-color);
-    font-size: 36px;
-    font-weight: 500;
-    margin-bottom: 15px;
-}
-
-.treatment-price {
-    font-size: 28px;
-    color: var(--bs-dark);
-    font-weight: bold;
-    margin: 15px 0;
-}
 
 .treatment-description {
     font-size: 18px;
@@ -1992,9 +1982,9 @@ a.btn-link.text-light:after {
         height: auto;
     }
     .product-image,
-    .product-info {
+    .product-info, .treatment-info {
         max-width: 100%;
-        width: 100%;
+        width: 100%!important;
     }
 }
 

@@ -36,7 +36,7 @@
                                                         <div class="flex-shrink-0">
                                                             <!-- Display the product image if available -->
                                                             <img src="{{ $detail->product_image ? asset($detail->product_image) : '/noImage.jpeg' }}"
-                                                                alt="Product Image" width="75" class="img-fluid">
+                                                                alt="Product Image" width="75" class="img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                                         </div>
                                                     @endif
                                                     @if (isset($detail->treatment_name))
@@ -44,16 +44,16 @@
                                                         <div class="flex-shrink-0">
                                                             <!-- Display the treatment image if available -->
                                                             <img src="{{ $detail->treatment_image ? asset($detail->treatment_image) : '/noImage.jpeg' }}"
-                                                                alt="Treatment Image" width="75" class="img-fluid">
+                                                                alt="Treatment Image" width="75" class="img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                                         </div>
                                                     @endif
                                                     <div class="flex-lg-grow-1 ms-3">
                                                         <h6 class="small mb-0">
                                                             @if (isset($detail->product_name))
-                                                                <a href="#"
+                                                                <a href="{{ url('products')}}"
                                                                     class="text-reset">{{ $detail->product_name }}</a>
                                                             @elseif (isset($detail->treatment_name))
-                                                                <a href="#"
+                                                                <a href="{{ url('treatments')}}"
                                                                     class="text-reset">{{ $detail->treatment_name }}</a>
                                                             @endif
                                                         </h6>
