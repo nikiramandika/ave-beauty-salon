@@ -118,7 +118,9 @@
                                                     <td>{{ $log->old_refund_id ?? '-' }}</td>
                                                     <td>{{ $log->new_refund_id ?? '-' }}</td>
                                                     <td>
-                                                        {{ $log->refund_status ?? '-' }} <!-- Refund Status -->
+                                                        <span style="color: {{ $log->refund_status == 'Refund Success' ? 'green' : 'red' }}">
+                                                            {{ $log->refund_status ?? '-' }}
+                                                        </span>
                                                     </td>
                                                 </tr>
                                             @empty

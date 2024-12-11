@@ -115,13 +115,13 @@
                                                     </td> <!-- Nama Kasir -->
                                                     <td>
                                                         <span
-                                                            style="color: {{ $log->old_order_status == 'Complete' ? 'green' : 'red' }}">
+                                                            style="color: {{ $log->old_order_status == 'Complete' ? 'green' : ($log->old_order_status == 'Pending' ? 'orange' : 'blue') }}">
                                                             {{ $log->old_order_status }}
                                                         </span>
                                                     </td>
                                                     <td>
                                                         <span
-                                                            style="color: {{ $log->new_order_status == 'Complete' ? 'green' : 'red' }}">
+                                                            style="color: {{ $log->new_order_status == 'Complete' ? 'green' : ($log->new_order_status == 'Refund' ? 'red' : 'blue') }}">
                                                             {{ $log->new_order_status }}
                                                         </span>
                                                     </td>

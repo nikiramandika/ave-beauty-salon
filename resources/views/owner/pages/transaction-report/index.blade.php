@@ -115,7 +115,7 @@
                         </div>
 
                         <div class="card mt-4">
-                            <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="card-header d-flex justify-content-between align-items-center" style="margin-left: -20px;">
                                 <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Invoice Summary List</h3>
                                 <h6>
                                     Total Invoice Summary:
@@ -128,7 +128,7 @@
                             </div>
                             <div class="card-body">
                                 <!-- Total Invoice -->
-                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div class="d-flex justify-content-between align-items-center mb-0">
                                 </div>
                                 <div class="mb-3">
                                     <form method="GET" action="{{ route('transaction-report.index') }}">
@@ -201,8 +201,8 @@
 
                         <!-- Tambahan Tabel Course History -->
                         <div class="card mt-4">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Course History List</h5>
+                            <div class="card-header d-flex justify-content-between align-items-center" style="margin-left: -20px;">
+                                <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Course History List</h3>
                                 <h6>
                                     Total Course Summary:
                                     <span>
@@ -214,10 +214,7 @@
                             </div>
                             <div class="card-body">
                                 <!-- Total Invoice -->
-                                <div class="mt-0">
-                                    <h6>Total Invoice Summary: Rp {{ number_format($courseTotal, 2) }}</h6>
-                                </div>
-                                <div class="mb-3 mt-4">
+                                <div class="mb-2 mt-0">
                                     <form method="GET" action="{{ route('transaction-report.index') }}">
                                         <label for="course_filter">Filter Course History:</label>
                                         <select name="course_filter" id="course_filter"
