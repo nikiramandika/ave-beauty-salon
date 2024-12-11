@@ -2,7 +2,8 @@
     <div class="app-brand demo">
         <a href="/dashboard-owner" class="app-brand-link">
             <img src="{{ asset('user/images/logo.png') }}" style="width: 50px; border-radius:15px" alt="Ave-Beauy">
-            <span class="app-brand-text demo menu-text fw-bold ms-2" style="font-family:Arial, Helvetica, sans-serif ; font-size: 17px;">Ave Beauty Salon</span>
+            <span class="app-brand-text demo menu-text fw-bold ms-2"
+                style="font-family:Arial, Helvetica, sans-serif ; font-size: 17px;">Ave Beauty Salon</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -80,13 +81,28 @@
         </li> --}}
 
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text" style="color: #74485d">Transaction Report</span>
+            <span class="menu-header-text" style="color: #74485d">Report</span>
         </li>
         <li class="menu-item {{ Request::is('transaction-report*') ? 'active' : '' }}">
-            <a href="/transaction-report" class="menu-link">
+        <li class="menu-item {{ Request::is('transaction*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-money"></i>
-                <div class="text-truncate" data-i18n="Basic">Transaction Report</div>
+                <div class="text-truncate" data-i18n="Authentications">Transaction Report</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ Request::is('transaction-report*') ? 'active' : '' }}">
+                    <a href="/transaction-report" class="menu-link">
+
+                        <div class="text-truncate" data-i18n="Basic">Revenue</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ Request::is('transaction-by-time*') ? 'active' : '' }}">
+                    <a href="/transaction-by-time" class="menu-link">
+
+                        <div class="text-truncate" data-i18n="Basic">Report By Time</div>
+                    </a>
+                </li>
+            </ul>
         </li>
         <!-- Products & Services -->
         <li class="menu-header small text-uppercase">
@@ -126,7 +142,7 @@
                 <div class="text-truncate" data-i18n="Basic">Course Registration</div>
             </a>
         </li>
-        
+
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text" style="color: #74485d">Logs</span>
         </li>

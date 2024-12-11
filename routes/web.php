@@ -233,7 +233,7 @@ Route::middleware(['role:Admin'])->group(function () {
     Route::put('/course-registration/{registrationId}/update-session-minus', [CourseController::class, 'updateSessionMinus'])->name('course.updateSessionMinus');
 
     Route::get('/transaction-report', [TransactionReportController::class, 'index'])->name('transaction-report.index');
-
+    Route::get('/transaction-by-time', [TransactionReportController::class, 'reportByTime'])->name('invoice-summary.index');
     Route::get('/logs/member-logs', [LogsController::class, 'memberLogs'])->name('logs.member');
     Route::get('/logs/refund-logs', [LogsController::class, 'refundLogs'])->name('logs.refund');
     Route::get('/logs/order-status-logs', [LogsController::class, 'orderStatusLogs'])->name('logs.order-status');

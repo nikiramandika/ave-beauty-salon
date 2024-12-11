@@ -76,12 +76,14 @@
         .bd-mode-toggle .dropdown-menu .active .bi {
             display: block !important;
         }
+
         .list-group-item {
-            padding: 0!important;
+            padding: 0 !important;
         }
+
         .list-group-item:hover {
             background-color: transparent;
-            cursor: auto!important;
+            cursor: auto !important;
         }
     </style>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -137,9 +139,16 @@
                                 </div>
                             </li>
                         @endforelse
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                                <h6 class="my-0 text-success font-bold">Shipping</h6> <!-- Warna Shipping berbeda -->
+                                <small class="text-body-secondary">Available within Medan</small>
+                            </div>
+                            <span class="text-body-secondary">Rp10.000</span>
+                        </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total (Rp)</span>
-                            <strong>Rp{{ number_format($cartTotal, 0, ',', '.') }}</strong>
+                            <strong>Rp{{ number_format($cartTotal + 10000, 0, ',', '.') }}</strong>
                         </li>
                     </ul>
 

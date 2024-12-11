@@ -3,6 +3,19 @@
     <h4 class="mt-5">Your Course History</h4>
 
     @if ($courses->isEmpty())
+        <!-- Form Pencarian -->
+        <form wire:submit.prevent="submitSearch">
+            <div class="input-group mb-3 mt-3 position-relative">
+                <input type="text" wire:model="search" class="form-control border-0 border-bottom bg-transparent"
+                    placeholder="Search by Invoice Code or Course Name..." style="padding-right: 50px!important;">
+                <button class="search-submit border-0 position-absolute bg-transparent" type="submit"
+                    style=" right: 15px;">
+                    <svg class="search" width="24" height="24">
+                        <use xlink:href="#search"></use>
+                    </svg>
+                </button>
+            </div>
+        </form>
         <div class="text-center my-5">
             <p>You don't have any course history yet</p>
             <a href="/course" class="btn btn-primary">View Course</a>
@@ -12,8 +25,9 @@
         <form wire:submit.prevent="submitSearch">
             <div class="input-group mb-3 mt-3 position-relative">
                 <input type="text" wire:model="search" class="form-control border-0 border-bottom bg-transparent"
-                    placeholder="Search by Invoice Code or Product Name..." style="padding-right: 50px!important;">
-                <button class="search-submit border-0 position-absolute bg-transparent" type="submit" style=" right: 15px;">
+                    placeholder="Search by Invoice Code or Course Name..." style="padding-right: 50px!important;">
+                <button class="search-submit border-0 position-absolute bg-transparent" type="submit"
+                    style=" right: 15px;">
                     <svg class="search" width="24" height="24">
                         <use xlink:href="#search"></use>
                     </svg>
@@ -53,9 +67,16 @@
                             <td>{{ \Carbon\Carbon::parse($course->start_date)->format('l, d F Y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($course->end_date)->format('l, d F Y') }}</td>
                             <td>{{ $course->sessions_completed }}</td>
-                            <td>
-                                <a href="{{ route('detailCourse', ['invoiceCode' => $course->invoice_code]) }}" class="btn btn-link p-0">View</a>
+                            <td style="text-align: center">
+                                @if ($course->recipient_address !== 'Pesanan Offline' && empty($course->recipient_file))
+                                    <a href="{{ route('payment.upload', $course->selling_invoice_id) }}"
+                                        class="btn btn-success">Pay Now</a>
+                                @else
+                                    <a href="{{ route('detailCourse', ['invoiceCode' => $course->invoice_code]) }}"
+                                        class="btn btn-link p-0">View</a>
+                                @endif
                             </td>
+
                         </tr>
                     @endforeach
                 </tbody>

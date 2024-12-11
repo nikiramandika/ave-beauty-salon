@@ -21,15 +21,30 @@ class ProductDetailPage extends Component
 
     public function addToCart($product_id, $detail_id)
     {
-        // Gunakan CartManagement untuk menambahkan item ke keranjang
-        CartManagement::addItemToCart($product_id, 1, $detail_id);
+        try {
+            // Menambahkan item ke keranjang
+            CartManagement::addItemToCart($product_id, 1, $detail_id);
 
-        // Emit event untuk memperbarui keranjang
-        $this->dispatch('cartUpdated');
+            // Emit event untuk memperbarui status keranjang
+            $this->dispatch('cartUpdated');
+
+            // Kirim pesan sukses
+            session()->flash('success', 'Product added to cart successfully.');
+
+            // Emit event sukses
+            $this->dispatch('addToCartSuccess');
+        } catch (\Exception $e) {
+            // Tangani error jika ada masalah
+            if (strpos($e->getMessage(), 'Quantity exceeds available stock') !== false) {
+                session()->flash('error', 'Quantity exceeds available stock.');
+            } else {
+                session()->flash('error', 'Something went wrong, please try again.');
+            }
+
+            // Emit event error
+            $this->dispatch('addToCartError');
+        }
     }
-
-
-
 
     public function render()
     {

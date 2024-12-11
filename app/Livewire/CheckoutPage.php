@@ -104,33 +104,42 @@ class CheckoutPage extends Component
                 'Bank Transfer',        // Metode pembayaran
                 'Pending',              // Status pesanan
             ]);
-        
+
             // Cek apakah stored procedure mengembalikan hasil
             if (empty($result)) {
                 throw new \Exception('Stored procedure did not return any result.');
             }
-        
+
             // Ambil selling_invoice_id dari hasil stored procedure
             $invoiceId = $result[0]->selling_invoice_id ?? null;
-        
+
             // Jika invoiceId tidak ditemukan, lempar error
             if (!$invoiceId) {
                 throw new \Exception('Failed to retrieve selling_invoice_id from stored procedure.');
             }
-        
+
             // Redirect ke halaman pembayaran setelah sukses
             return redirect()->route('payment.upload', ['invoiceId' => $invoiceId]);
         } catch (\Exception $e) {
-            // Log error untuk debugging
-            logger()->error('Transaction error: ' . $e->getMessage());
-        
+            // Cek apakah ini adalah error MySQL
+            if ($e->getPrevious() && $e->getPrevious() instanceof \PDOException) {
+                $mysqlErrorCode = $e->getPrevious()->getCode(); // Kode error MySQL
+                $mysqlErrorMessage = $e->getPrevious()->getMessage(); // Pesan error MySQL
+
+                // Log error MySQL untuk debugging
+                logger()->error('MySQL error code: ' . $mysqlErrorCode . ' - ' . $mysqlErrorMessage);
+            } else {
+                // Log error umum
+                logger()->error('Transaction error: ' . $e->getMessage());
+            }
+
             // Flash pesan error untuk pengguna
             session()->flash('error', 'An error occurred while processing your payment. Please try again later.');
+
+            // Kembali ke halaman sebelumnya
             return back();
         }
-        
-        
-        
+
     }
 
 

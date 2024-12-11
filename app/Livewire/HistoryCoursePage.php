@@ -20,14 +20,27 @@ class HistoryCoursePage extends Component
     public function render()
     {
         $userId = Auth::id();
-        // Query ke view `course_history`
+        // Query untuk mendapatkan data dari tabel `course_history1` dan `selling_invoices`
         $courses = DB::table('course_history1')
-            ->where('user_id', $userId)
+            ->join('selling_invoices', 'course_history1.invoice_code', '=', 'selling_invoices.invoice_code') // Join dengan selling_invoices
+            ->where('course_history1.user_id', $userId)
             ->when($this->search, function ($query) {
-                $query->where('full_course_name', 'like', '%' . $this->search . '%')
-                    ->orWhere('invoice_code', 'like', '%' . $this->search . '%');
+                $query->where('course_history1.full_course_name', 'like', '%' . $this->search . '%')
+                    ->orWhere('course_history1.invoice_code', 'like', '%' . $this->search . '%');
             })
-            ->select('invoice_code', 'full_course_name', 'course_price', 'total_sessions', 'registration_status', 'start_date', 'end_date', 'sessions_completed')
+            ->select(
+                'course_history1.invoice_code',
+                'course_history1.full_course_name',
+                'course_history1.course_price',
+                'course_history1.total_sessions',
+                'course_history1.registration_status',
+                'course_history1.start_date',
+                'course_history1.end_date',
+                'course_history1.sessions_completed',
+                'selling_invoices.selling_invoice_id', // Menambahkan selling_invoice_id ke select
+                'selling_invoices.recipient_address', // Menambahkan selling_invoice_id ke select
+                'selling_invoices.recipient_file' // Menambahkan selling_invoice_id ke select
+            )
             ->paginate(10);
 
         // Cek apakah hasil query kosong dan tambahkan pesan jika kosong
@@ -38,5 +51,6 @@ class HistoryCoursePage extends Component
             'message' => $message, // Kirim pesan ke view
         ]);
     }
+
 }
 

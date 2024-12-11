@@ -50,7 +50,7 @@
                                                     <div
                                                         class="col-md-3 text-center d-flex justify-content-center align-items-center">
                                                         <p class="text-muted mb-0 small">
-                                                            ${{ number_format((float) $detail->price, 2) }}</p>
+                                                            Rp{{ number_format((float) $detail->price, 0, ',', '.') }}</p>
                                                     </div>
                                                     <div
                                                         class="col-md-2 text-center d-flex justify-content-center align-items-center">
@@ -94,6 +94,12 @@
                                         Rp{{ number_format((float) $details->sum(fn($d) => $d->quantity * $d->price), 0, ',', '.') }}
                                     </p>
                                 </div>
+                                <div class="d-flex justify-content-between pt-2">
+                                    <p class="text-muted mb-0">Shipping Fee</p>
+                                    <p class="text-muted mb-0">
+                                        Rp{{ number_format(10000, 0, ',', '.') }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -101,7 +107,7 @@
                         style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
                         <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
                             Total Paid: <span class="px-3 h2 mb-0 ms-2">
-                                Rp{{ number_format((float) $details->sum(fn($d) => $d->quantity * $d->price), 0, ',', '.') }}
+                                Rp{{ number_format((float) $details->sum(fn($d) => $d->quantity * $d->price ) + 10000, 0, ',', '.') }}
                             </span>
                         </h5>
                     </div>

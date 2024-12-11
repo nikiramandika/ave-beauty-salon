@@ -314,20 +314,41 @@ class CashierController extends Controller
                     if (isset($cartItem['detailId']) && isset($cartItem['quantity'])) {
                         // Call the stored procedure to update product stock
                         DB::statement('CALL update_product_stock(?, ?)', [
-                            $cartItem['detailId'],    // ID produk
+                            $cartItem['detailId'],    // ID produk detail
                             $cartItem['quantity']     // Kuantitas produk yang dibeli
                         ]);
 
-                        // Log the success with the details of the operation
-                        \Log::info('Successfully updated product stock', [
-                            'product_id' => $cartItem['detailId'],
-                            'quantity' => $cartItem['quantity']
-                        ]);
+                        // Get the product_id from product_details based on detailId
+                        $productDetail = DB::table('product_details')
+                            ->where('detail_id', $cartItem['detailId'])
+                            ->first();  // Get the product detail record
+
+                        if ($productDetail) {
+                            // Check if the product stock is 0 after the update
+                            if ($productDetail->product_stock == 0) {
+                                // Update the product's is_active to 0 in the products table if stock is 0
+                                DB::table('products')
+                                    ->where('product_id', $productDetail->product_id)
+                                    ->update(['is_active' => 0]);
+
+                                // Log the update action
+                                \Log::info('Product stock is 0, setting is_active to 0', [
+                                    'product_id' => $productDetail->product_id
+                                ]);
+                            }
+
+                            // Log the success with the details of the operation
+                            \Log::info('Successfully updated product stock', [
+                                'product_id' => $cartItem['detailId'],
+                                'quantity' => $cartItem['quantity']
+                            ]);
+                        }
                     } else {
                         // Log a warning if detailId or quantity is missing
                         \Log::warning('Missing detailId or quantity in cart item:', $cartItem);
                     }
                 }
+
 
             });
             $invoiceCode = DB::table('selling_invoices')

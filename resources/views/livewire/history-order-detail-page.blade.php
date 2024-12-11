@@ -81,12 +81,27 @@
                                             Rp{{ number_format($total, 0, ',', '.') }}
                                         </td>
                                     </tr>
+                                    @if($invoice->recipient_address != 'Pesanan Offline')
+                                    <tr>
+                                        <td colspan="2" class="ps-0">Shipping fee</td>
+                                        <td class="text-end pe-0">
+                                            Rp{{ number_format(10000, 0, ',', '.') }}
+                                        </td>
+                                    </tr>
+                                    <tr class="fw-bold">
+                                        <td colspan="2" class="ps-0">TOTAL</td>
+                                        <td class="text-end p-0">
+                                            Rp{{ number_format($total + 10000, 0, ',', '.') }}
+                                        </td>
+                                    </tr>
+                                    @else
                                     <tr class="fw-bold">
                                         <td colspan="2" class="ps-0">TOTAL</td>
                                         <td class="text-end p-0">
                                             Rp{{ number_format($total, 0, ',', '.') }}
                                         </td>
                                     </tr>
+                                    @endif
                                 </tfoot>
                             </table>
 

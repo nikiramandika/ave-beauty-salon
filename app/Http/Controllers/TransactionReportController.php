@@ -81,5 +81,36 @@ class TransactionReportController extends Controller
         return [$startDate, $endDate];
     }
 
+    public function reportByTime(Request $request)
+    {
+        // Ambil input bulan dan tahun dari request
+        $selectedMonth = $request->input('month'); // Bisa NULL jika tidak dipilih
+        $selectedYear = $request->input('year', date('Y')); // Default ke tahun saat ini jika tidak diisi
+
+        // Ambil data dari prosedur GetInvoiceSummary
+        $invoiceSummary = DB::select('CALL GetInvoiceSummary(?, ?)', [$selectedMonth, $selectedYear]);
+
+        // Ubah data menjadi Collection untuk manipulasi lebih lanjut
+        $invoiceSummary = collect($invoiceSummary);
+
+        // Gabungkan dengan tabel selling_invoices dan users
+        $invoices = DB::table('invoice_summary')
+            ->leftJoin('selling_invoices', 'invoice_summary.invoice_code', '=', 'selling_invoices.invoice_code') // Gabungkan dengan selling_invoices
+            ->leftJoin('users', 'selling_invoices.cashier_id', '=', 'users.id') // Gabungkan dengan users
+            ->select(
+                'invoice_summary.*', // Semua kolom dari invoice_summary
+                'selling_invoices.cashier_id', // Ambil cashier_id dari selling_invoices
+                DB::raw("CONCAT(users.nama_depan, ' ', users.nama_belakang) as cashier_name") // Gabungkan nama depan dan belakang dari users
+            )
+            ->whereIn('invoice_summary.invoice_code', $invoiceSummary->pluck('invoice_code')) // Filter berdasarkan hasil dari prosedur
+            ->get();
+
+        // Hitung total amount
+        $invoiceTotal = $invoices->sum('total_amount');
+
+        // Tampilkan ke view
+        return view('owner.pages.transaction-report.transaction-by-time', compact('invoices', 'invoiceTotal', 'selectedMonth', 'selectedYear'));
+    }
+
 
 }

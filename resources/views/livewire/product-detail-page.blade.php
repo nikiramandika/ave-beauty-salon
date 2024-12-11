@@ -1,12 +1,12 @@
-
 <div class="okela">
     <section id="details" class="details">
         <div class="container-fluid">
             <div class="content d-flex justify-content-between gap-5 p-5 py-3 ">
                 <!-- Gambar Produk -->
                 <div class="product-image">
-                    <img src="{{ asset($product->description->product_image ?? 'path/to/default/image.jpg') }}" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';"
-                        alt="{{ $product->product_name }}" class="img-fluid product-image" >
+                    <img src="{{ asset($product->description->product_image ?? 'path/to/default/image.jpg') }}"
+                        onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';"
+                        alt="{{ $product->product_name }}" class="img-fluid product-image">
                 </div>
 
                 <!-- Informasi Produk -->
@@ -20,8 +20,8 @@
                     </p>
 
                     <!-- Harga dan Stok -->
-                    
-                    
+
+
                     <hr>
                     <!-- Deskripsi -->
                     <p class="heading-color" style="font-weight: 500">
@@ -53,6 +53,17 @@
                             Add to Cart
                         </button>
                     </div>
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger alert-dismissible fade show mt-3" style="z-index: 10000"
+                            id="errorMessage" role="alert">
+                            {{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        </div>
+                        <script>
+                            window.isError = true;
+                        </script>
+                    @endif
                 </div>
             </div>
         </div>
@@ -92,8 +103,20 @@
         backdrop.id = 'manualBackdrop';
         document.body.appendChild(backdrop);
 
+        // Cek apakah ada elemen dengan kelas alert-danger
+        const errorAlert = document.querySelector('.alert-danger');
+        if (errorAlert) {
+            const backdropElement = document.getElementById('manualBackdrop');
+            if (backdropElement) {
+                backdropElement.remove();
+            }
+        }
+
         addToCartButton.addEventListener('click', function() {
-            backdrop.classList.add('show');
+            // Menambahkan backdrop hanya jika tidak ada alert-danger
+            if (!errorAlert) {
+                backdrop.classList.add('show');
+            }
         });
 
         closeCartButton.addEventListener('click', function() {
