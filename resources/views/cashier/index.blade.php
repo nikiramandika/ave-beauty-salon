@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <!-- Product Grid -->
-                    <div id="productsSection" class="section block">
+                    <div id="productsSection" class="section block" >
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                             @foreach ($products as $product)
                                 @if ($product->details->isNotEmpty())

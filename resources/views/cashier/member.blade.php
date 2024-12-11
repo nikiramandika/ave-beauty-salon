@@ -54,7 +54,7 @@
             <!-- Tab Content -->
             <div class="tab-content mt-3" id="myTabContent">
                 <div class="container mx-auto p-6">
-                    <h1 class="text-2xl font-bold mb-6">Manage Users and Members</h1>
+                    <h1 class="text-2xl text-uppercase mb-6" style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #63374d;">Manage Users and Members</h1>
 
                     <div class="bg-white rounded-xl shadow-md p-6">
                         <!-- Tabs Navigation -->
@@ -84,12 +84,12 @@
                                     style="width:100%">
                                     <thead class="table-light">
                                         <tr>
-                                            <th class="text-center align-middle">User ID</th>
-                                            <th class="text-center align-middle">First Name</th>
-                                            <th class="text-center align-middle">Last Name</th>
-                                            <th class="text-center align-middle">Email</th>
-                                            <th class="text-center align-middle">Phone</th>
-                                            <th class="text-center align-middle">Actions</th>
+                                            <th class="text-center align-middlefont-semibold text-sm text-gray-600">User ID</th>
+                                            <th class="text-center align-middlefont-semibold text-sm text-gray-600">First Name</th>
+                                            <th class="text-center align-middlefont-semibold text-sm text-gray-600">Last Name</th>
+                                            <th class="text-center align-middlefont-semibold text-sm text-gray-600">Email</th>
+                                            <th class="text-center align-middlefont-semibold text-sm text-gray-600">Phone</th>
+                                            <th class="text-center align-middlefont-semibold text-sm text-gray-600">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
