@@ -101,6 +101,11 @@ body {
     list-style-type: none;
 }
 
+.form-regis .col-12 {
+    margin-top: 1rem;
+    
+}
+
 .full-screen {
     height: 90vh;
     display: flex;
