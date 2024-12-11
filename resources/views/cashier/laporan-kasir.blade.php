@@ -67,19 +67,19 @@
     <!-- Main Content -->
     <div id="mainContent" class="min-h-screen pt-16 pl-64 transition-all duration-300">
 
-        <div class="min-h-screen bg-gray-100 p-6">
-            
+        <div class="min-h-screen bg-pink-50 p-6">
+
             <div class="container mx-auto p-6">
                 <div class="flex justify-between items-center mb-6">
                     <!-- Bagian Kiri: Laporan Kasir -->
                     <h1 class="text-2xl font-bold">
-                        Laporan Kasir - {{ \Carbon\Carbon::today('Asia/Jakarta')->toFormattedDateString() }}
+                        Cashier Report - {{ \Carbon\Carbon::today('Asia/Jakarta')->toFormattedDateString() }}
                     </h1>
-    
+
                     <!-- Bagian Kanan: Total Pendapatan -->
                     <div class="text-right">
                         <span class="text-lg font-bold">
-                            Total Pendapatan Hari Ini:
+                            Total Revenue Today:
                         </span>
                         <span class="text-xl font-semibold text-green-600">
                             Rp
@@ -90,7 +90,7 @@
                 <div class="bg-white rounded-xl shadow-md p-6 mb-8">
                     <!-- Total Pendapatan -->
                     <div class="mb-2">
-                        <strong class="text-lg">Total Pendapatan Pesanan Offline Hari Ini:</strong>
+                        <strong class="text-lg">Total Offline Order Revenue Today:</strong>
                         <span class="text-lg font-semibold text-green-600">
                             Rp {{ number_format($offlineOrders->sum('total_amount'), 0, ',', '.') }}
                         </span>
@@ -99,45 +99,45 @@
                         <table id="example" class="table table-striped">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Kode Faktur</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nama Penerima</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nama Kasir</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nomor Telepon</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Tanggal Pesanan</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Status</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nama Produk/Treatment
+                                    <th class="text-center align-middlefont-semibold text-sm text-gray-600">Invoice Code</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Recipient Name</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Cashier Name</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Phone Number</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Order Date</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Status</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Product/Treatment Name
                                     </th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Total Amount</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Total Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($offlineOrders as $order)
                                     @if ($order->recipient_address == 'Pesanan Offline' && $order->order_status == 'Complete')
                                         <tr class="hover:bg-gray-50">
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $order->invoice_code }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $order->recipient_name }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $order->cashier_name ?? '-' }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $order->recipient_phone }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $order->order_date }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $order->order_status }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 @foreach ($order->details as $detail)
                                                     <p>{{ $detail->product_name ?: $detail->treatment_name }}</p>
                                                 @endforeach
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 Rp {{ number_format($order->total_amount, 0, ',', '.') }}
                                             </td>
                                         </tr>
@@ -157,7 +157,7 @@
                 <div class="bg-white rounded-xl shadow-md p-6 mb-8">
                     <!-- Total Pendapatan -->
                     <div class="mb-2">
-                        <strong class="text-lg">Total Pendapatan Pesanan Online Hari Ini:</strong>
+                        <strong class="text-lg">Total Online Order Revenue Today:</strong>
                         <span class="text-lg font-semibold text-green-600">
                             Rp {{ number_format($onlineOrders->where('order_status', '==', 'Complete')->sum('total_amount'), 0, ',', '.') }}
                         </span>
@@ -166,15 +166,15 @@
                         <table id="example1" class="table table-striped">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Kode Faktur</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nama Penerima</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nama Kasir</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nomor Telepon</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Alamat</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Tanggal Pesanan</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Status</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nama Produk</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Total Amount</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Invoice Code</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Recipient Name</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Cashier Name</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Phone Number</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Adress</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Order Date</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Status</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Product Name</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Total Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -182,33 +182,33 @@
                                     @if ($order->order_status == 'Complete')
                                         <!-- Hanya tampilkan selain Cancelled -->
                                         <tr class="hover:bg-gray-50">
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $order->invoice_code }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $order->recipient_name }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $order->cashier_name ?? '-' }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $order->recipient_phone }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $order->recipient_address }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $order->order_date }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $order->order_status }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 @foreach ($order->details as $detail)
                                                     <p>{{ $detail->product_name }}</p>
                                                 @endforeach
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 Rp {{ number_format($order->total_amount, 0, ',', '.') }}
                                             </td>
                                         </tr>

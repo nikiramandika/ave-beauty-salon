@@ -27,7 +27,7 @@
 
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-pink-50">
     <!-- Navbar -->
     @include('cashier.components.navbar')
 
@@ -41,17 +41,17 @@
                 <div class="bg-white rounded-xl shadow-md p-6">
                     <div class="tabs-nav flex border-b border-gray-300 mb-4">
                         <button
-                            class="tab-link pb-2 px-4 font-medium text-blue-600 border-blue-600 border-b-2 focus:outline-none"
+                            class="tab-link pb-2 px-4 font-medium text-pink-600 border-pink-600 hover:border-pink-600 border-b-2 focus:border-pink-600"
                             data-section="productsSection" onclick="showSection('productsSection', this)">
-                            Produk
+                            Product
                         </button>
                         <button
-                            class="tab-link pb-2 px-4 font-medium text-gray-600 hover:text-blue-600 hover:border-blue-600 border-b-2 border-transparent focus:outline-none"
+                            class="tab-link pb-2 px-4 font-medium text-pink-600 border:text-pink-600 hover:border-pink-600 border-b-2 border-transparent focus:border-pink-600"
                             data-section="treatmentsSection" onclick="showSection('treatmentsSection', this)">
                             Treatment
                         </button>
                         <button
-                            class="tab-link pb-2 px-4 font-medium text-gray-600 hover:text-blue-600 hover:border-blue-600 border-b-2 border-transparent focus:outline-none"
+                            class="tab-link pb-2 px-4 font-medium text-pink-600 border:text-pink-600 hover:border-pink-600 border-b-2 border-transparent focus:border-pink-600"
                             data-section="promosSection" onclick="showSection('promosSection', this)">
                             Promo
                         </button>
@@ -61,7 +61,7 @@
                     <div class="mb-4">
                         <div class="relative">
                             <input type="text" placeholder="..."
-                                class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
+                                class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-pink-500">
                             <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                                                 <p class="mt-1 text-md text-gray-500">
                                                     Size: {{ $detail->size ?? 'N/A' }}
                                                 </p>
-                                                
+
                                                 <p class="text-md text-gray-500">
                                                     Stock: {{ $detail->product_stock ?? 0 }}
                                                 </p>
@@ -102,7 +102,7 @@
                                     <!-- Tampilkan Pesan Jika Tidak Ada Detail -->
                                     <div class="bg-red-100 border border-red-300 rounded-lg p-3 text-center">
                                         <h3 class="font-semibold text-red-500">{{ $product->product_name }}</h3>
-                                        <p class="text-sm text-red-400">Detail produk tidak tersedia.</p>
+                                        <p class="text-sm text-red-400">Product details are not availabl.</p>
                                     </div>
                                 @endif
                             @endforeach
@@ -168,7 +168,7 @@
                 <div class="bg-white rounded-xl shadow-md overflow-hidden">
                     <div class="p-6">
                         {{-- <h1 class="text-2xl font-bold text-center mb-6">Kasir</h1> --}}
-                        <div id="cartList" class="mb-6 bg-gray-50 p-4 rounded-lg">
+                        <div id="cartList" class="mb-6 bg-pink-50 p-4 rounded-lg">
                             <h3 class="text-lg font-semibold mb-3">Daftar Produk</h3>
                             <!-- Produk yang dipilih akan ditambahkan di sini -->
                         </div>
@@ -176,10 +176,10 @@
                             @csrf
                             <input type="hidden" name="cart" id="cartInput">
                             <!-- Total Belanja -->
-                            <div class="mb-6 bg-blue-50 p-4 rounded-lg">
-                                <label class="block text-sm font-medium text-gray-700">Total Belanja</label>
+                            <div class="mb-6 bg-pink-50 p-4 rounded-lg">
+                                <label class="block text-sm font-medium text-gray-700">Total Amount</label>
                                 <input type="text" id="totalAmountDisplay"
-                                    class="mt-1 block w-full text-3xl font-bold text-blue-600 bg-transparent border-none px-0"
+                                    class="mt-1 block w-full text-3xl font-bold text-pink-600 bg-transparent border-none px-0"
                                     value="Rp 0" readonly>
                                 <input type="hidden" id="totalAmount" name="total_amount" value="0">
                             </div>
@@ -187,28 +187,26 @@
 
                             <!-- Metode Pembayaran -->
                             <div class="mb-6">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Metode
-                                    Pembayaran</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Payment Method</label>
                                 <div class="grid grid-cols-2 gap-4">
                                     <div class="flex items-center">
                                         <input type="radio" name="payment_method" id="cash" value="cash"
-                                            class="form-radio h-4 w-4 text-blue-600" checked>
-                                        <label for="cash" class="ml-2">Tunai</label>
+                                            class="form-radio h-4 w-4 text-pink-600" checked>
+                                        <label for="cash" class="ml-2">Cash</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input type="radio" name="payment_method" id="cashless"
-                                            value="Bank Transfer" class="form-radio h-4 w-4 text-blue-600">
-                                        <label for="cashless" class="ml-2">Non-Tunai</label>
+                                            value="Bank Transfer" class="form-radio h-4 w-4 text-pink-600">
+                                        <label for="cashless" class="ml-2">Cashless</label>
                                     </div>
                                 </div>
 
                                 <!-- Dropdown Bank -->
                                 <div id="bankSelection" class="mt-4 hidden">
-                                    <label for="bank" class="block text-sm font-medium text-gray-700">Pilih
-                                        Bank</label>
+                                    <label for="bank" class="block text-sm font-medium text-gray-700">Select Bank</label>
                                     <select id="bank" name="bank"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-2">
-                                        <option value="">Pilih Bank</option>
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 px-4 py-2">
+                                        <option value="">Select Bank</option>
                                         <option value="Mandiri">Mandiri</option>
                                         <option value="BNI">BNI</option>
                                         <option value="BRI">BRI</option>
@@ -221,21 +219,23 @@
                             <!-- Input Uang Tunai -->
                             <div id="cashInput" class="mb-6">
                                 <label for="cashAmount" class="block text-sm font-medium text-gray-700 mb-2">
-                                    Jumlah Uang
+                                    Amount of Money
                                 </label>
                                 <input type="number" name="cash_amount" id="cashAmount"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                    placeholder="Masukkan jumlah uang">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
+                                    placeholder="Enter the amount of money">
                             </div>
 
                             <!-- Kembalian -->
                             <div id="changeAmount" class="mb-6 hidden bg-green-50 p-4 rounded-lg">
-                                <label class="block text-sm font-medium text-gray-700">Kembalian</label>
+                                <label class="block text-sm font-medium text-gray-700">Change</label>
                                 <div id="changeDisplay" class="text-2xl font-bold text-green-600">Rp 0</div>
                             </div>
+
                             <!-- Dropdown Pilihan User -->
-                            <div class="mb-6 w-full">
-                                <select id="userSelect" class="w-full select2">
+                            <div class="mb-6 w-2/2">
+                                <label for="bank" class="block text-sm font-medium text-gray-700 mb-2">Select User</label>
+                                <select id="userSelect" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 px-4 py-2">
                                     <option value=""></option>
                                     @foreach ($users as $user)
                                         <option value="{{ $user->id }}" data-phone="{{ $user->phone ?? '-' }}"
@@ -254,18 +254,18 @@
                                     <label for="emailAddress"
                                         class="block text-sm font-medium text-gray-700">Email</label>
                                     <input type="email" id="emailAddress" name="emailAddress" readonly
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500">
                                 </div>
                             </div>
                             <!-- Bagian Detail Member -->
                             <div id="memberDetails" class="hidden">
                                 <div class="mb-4">
                                     <label for="poinUsed" class="block text-sm font-medium text-gray-700">
-                                        Poin (Tersedia: <span id="availablePoin">0</span>)
+                                        Points (Available: <span id="availablePoin">0</span>)
                                     </label>
                                     <input type="number" id="poinUsed" name="poinUsed"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                        placeholder="Masukkan jumlah poin yang akan digunakan" min="0">
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
+                                        placeholder="Enter the number of points to be used" min="0">
                                 </div>
                             </div>
 
@@ -275,8 +275,8 @@
 
                             <!-- Tombol Submit -->
                             <button type="button" id="confirmPaymentButton"
-                                class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50">
-                                Proses Pembayaran
+                                class="w-full bg-pink-600 text-white px-4 py-2 rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 disabled:opacity-50">
+                                Process Payment
                             </button>
                         </form>
                     </div>
@@ -308,7 +308,7 @@
             <div class="flex justify-end gap-2">
                 <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
                     onclick="closePriceModal()">Cancel</button>
-                <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                <button type="button" class="px-4 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700"
                     onclick="savePrice()">Save</button>
             </div>
         </div>
@@ -329,7 +329,7 @@
                         Batal
                     </button>
                     <button id="printInvoiceButton"
-                        class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                        class="bg-pink-600 text-white px-4 py-2 rounded-md hover:bg-pink-700">
                         Cetak Invoice
                     </button>
                 </div>
@@ -697,7 +697,7 @@
                 <h2 class="text-lg font-bold text-center mb-4">Invoice Berhasil Diproses</h2>
                 <p class="text-sm text-gray-600 text-center mb-6">Silakan pilih untuk mencetak invoice atau menghapus keranjang.</p>
                 <div class="flex justify-around">
-                    <a target="_blank" href="/receipt/download/${invoiceCode}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    <a target="_blank" href="/receipt/download/${invoiceCode}" class="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700">
                         Print Invoice
                     </a>
                     <button id="okButton" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
@@ -739,7 +739,7 @@
         $(document).ready(function() {
             // Inisialisasi Select2
             $('#userSelect').select2({
-                placeholder: "Pilih Pelanggan...",
+                placeholder: "Select Customer",
                 allowClear: true
             });
 
@@ -805,10 +805,10 @@
                     // Buat input nomor telepon editable jika nilainya adalah '-'
                     if (phone === '-') {
                         $('#phoneNumber').prop('readonly', false).addClass(
-                            'border-blue-500 focus:ring-blue-500');
+                            'border-pink-500 focus:ring-pink-500');
                     } else {
                         $('#phoneNumber').prop('readonly', true).removeClass(
-                            'border-blue-500 focus:ring-blue-500');
+                            'border-pink-500 focus:ring-pink-500');
                     }
                 } else {
                     // Hapus data dari localStorage jika tidak ada pengguna yang dipilih
@@ -834,13 +834,13 @@
         function showSection(sectionId, button) {
             // Hapus status aktif dari semua tab-link
             document.querySelectorAll('.tab-link').forEach((tab) => {
-                tab.classList.remove('text-blue-600', 'border-blue-600');
+                tab.classList.remove('text-pink-600', 'border-pink-600');
                 tab.classList.add('text-gray-600', 'border-transparent');
             });
 
             // Tambahkan status aktif ke tombol yang diklik
             if (button) {
-                button.classList.add('text-blue-600', 'border-blue-600');
+                button.classList.add('text-pink-600', 'border-pink-600');
                 button.classList.remove('text-gray-600', 'border-transparent');
             }
 

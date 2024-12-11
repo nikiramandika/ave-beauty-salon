@@ -40,7 +40,7 @@
 
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-pink-50">
     <!-- Navbar -->
     @include('cashier.components.navbar')
 
@@ -60,14 +60,14 @@
                         <!-- Tabs Navigation -->
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="user-tab" data-bs-toggle="tab"
+                                <button class="nav-link active !text-pink-600 hover:!text-pink-500 active:!text-pink-600" id="user-tab" data-bs-toggle="tab"
                                     data-bs-target="#user" type="button" role="tab" aria-controls="user"
                                     aria-selected="true">
                                     Users
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="member-tab" data-bs-toggle="tab" data-bs-target="#member"
+                                <button class="nav-link !text-pink-600 hover:!text-pink-500 active:!text-pink-600" id="member-tab" data-bs-toggle="tab" data-bs-target="#member"
                                     type="button" role="tab" aria-controls="member" aria-selected="false">
                                     Members
                                 </button>
@@ -84,30 +84,30 @@
                                     style="width:100%">
                                     <thead class="table-light">
                                         <tr>
-                                            <th>User ID</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Actions</th>
+                                            <th class="text-center align-middle">User ID</th>
+                                            <th class="text-center align-middle">First Name</th>
+                                            <th class="text-center align-middle">Last Name</th>
+                                            <th class="text-center align-middle">Email</th>
+                                            <th class="text-center align-middle">Phone</th>
+                                            <th class="text-center align-middle">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($users as $user)
                                             <tr>
-                                                <td>{{ $user->id }}</td>
-                                                <td>{{ $user->nama_depan }}</td>
-                                                <td>{{ $user->nama_belakang }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->phone }}</td>
-                                                <td>
+                                                <td class="text-center align-middle">{{ $user->id }}</td>
+                                                <td class="text-center align-middle">{{ $user->nama_depan }}</td>
+                                                <td class="text-center align-middle">{{ $user->nama_belakang }}</td>
+                                                <td class="text-center align-middle">{{ $user->email }}</td>
+                                                <td class="text-center align-middle">{{ $user->phone }}</td>
+                                                <td class="text-center align-middle">
                                                     <!-- Add Member Form -->
                                                     <form id="addMemberForm" action="{{ route('members.store') }}"
                                                         method="POST">
                                                         @csrf
                                                         <input type="hidden" name="user_id" id="userId"
                                                             value="">
-                                                        <button type="button" class="btn btn-primary btn-sm open-modal"
+                                                        <button type="button" class="btn btn-sm text-white bg-pink-400 hover:bg-pink-500 border border-pink-400 focus:ring-pink-500 focus:ring-2 rounded-md open-modal"
                                                             data-user-id="{{ $user->id }}">
                                                             Add to Member
                                                         </button>
@@ -126,24 +126,24 @@
                                     style="width:100%">
                                     <thead class="table-light">
                                         <tr>
-                                            <th>Membership Number</th>
-                                            <th>User Name</th>
-                                            <th>Points</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <th class="text-center align-middle">Membership Number</th>
+                                            <th class="text-center align-middle">User Name</th>
+                                            <th class="text-center align-middle">Points</th>
+                                            <th class="text-center align-middle">Status</th>
+                                            <th class="text-center align-middle">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($members as $member)
                                             <tr>
-                                                <td>{{ $member->membership_number }}</td>
-                                                <td>{{ $member->user->nama_depan }} {{ $member->user->nama_belakang }}
+                                                <td class="text-center align-middle">{{ $member->membership_number }}</td>
+                                                <td class="text-center align-middle">{{ $member->user->nama_depan }} {{ $member->user->nama_belakang }}
                                                 </td>
-                                                <td>{{ $member->points }}</td>
-                                                <td>{{ $member->is_active ? 'Active' : 'Inactive' }}</td>
-                                                <td>
+                                                <td class="text-center align-middle">{{ $member->points }}</td>
+                                                <td class="text-center align-middle">{{ $member->is_active ? 'Active' : 'Inactive' }}</td>
+                                                <td class="text-center align-middle">
                                                     <!-- Edit Button -->
-                                                    <button class="btn btn-warning btn-sm edit-member"
+                                                    <button class="btn btn-warning btn-sm edit-member "
                                                         data-id="{{ $member->member_id }}"
                                                         data-points="{{ $member->points }}"
                                                         data-status="{{ $member->is_active }}">
@@ -241,7 +241,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" id="savePhoneButton">Save</button>
+                        <button type="button" class="btn btn-primary text-white bg-pink-400 hover:bg-pink-500 border border-pink-400 focus:ring-pink-500 focus:ring-2 rounded-md open-modal" id="savePhoneButton">Save</button>
                     </div>
                 </form>
             </div>
@@ -267,7 +267,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="submit" class="btn btn-primary text-white bg-pink-400 hover:bg-pink-500 border border-pink-400 focus:ring-pink-500 focus:ring-2 rounded-md open-modal">Confirm</button>
                     </div>
                 </form>
             </div>
@@ -310,7 +310,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="submit" class="btn btn-primary text-white bg-pink-400 hover:bg-pink-500 border border-pink-400 focus:ring-pink-500 focus:ring-2 rounded-md open-modal">Save Changes</button>
                     </div>
                 </form>
             </div>

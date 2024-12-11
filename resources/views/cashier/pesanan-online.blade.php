@@ -57,7 +57,7 @@
 
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-pink-50">
     <!-- Navbar -->
     @include('cashier.components.navbar')
 
@@ -67,23 +67,22 @@
     <!-- Main Content -->
     <div id="mainContent" class="min-h-screen pt-16 pl-64 transition-all duration-300">
 
-        <div class="min-h-screen bg-gray-100 p-6">
+        <div class="min-h-screen bg-pink-50 p-6">
             <div class="container mx-auto p-6">
-                <h1 class="text-2xl font-bold mb-6">Pesanan Online</h1>
+                <h1 class="text-2xl font-bold mb-6">Online Order</h1>
                 <div class="bg-white rounded-xl shadow-md p-6 mb-8">
                     <div class="overflow-x-auto">
-                        <table id="example" class="table table-striped">
+                        <table id="example" class="table table-striped w-full table-fixed">
                             <thead class="bg-gray-50">
                                 <tr class="align-middle text-center">
-                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Kode Faktur</th>
-                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Nama Penerima</th>
-                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Nomor Telepon</th>
-                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Alamat</th>
-                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Tanggal Pesanan</th>
-                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Status</th>
-                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Aksi</th>
-                                    <th class="text-center p-4 font-semibold text-sm text-gray-600">Bukti Pembayaran
-                                    </th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-40">Invoice Code</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-40">Recipient Name</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-32">Phone Number</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-64">Address</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-32">Order Date</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-32">Status</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-40">Action</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-32">Payment Receipt</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,29 +90,29 @@
                                     @if ($invoice->order_status != 'Cancelled')
                                         <!-- Hanya tampilkan selain Cancelled -->
                                         <tr class="hover:bg-gray-50">
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $invoice->invoice_code }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $invoice->recipient_name }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $invoice->recipient_phone }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $invoice->recipient_address }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $invoice->order_date }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $invoice->order_status }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 <div>
                                                     @if ($invoice->order_status == 'Pending')
                                                         <button
-                                                            class="bg-blue-600 text-white px-4 py-2 mb-2 rounded-md hover:bg-blue-700 w-full"
+                                                            class="bg-orange-400 text-white px-4 py-2 mb-2 rounded-md hover:bg-orange-500 w-full"
                                                             onclick="changeOrderStatus('{{ $invoice->selling_invoice_id }}', 'On Process')">
                                                             On Process
                                                         </button>
@@ -124,27 +123,27 @@
                                                         </button>
                                                     @elseif ($invoice->order_status == 'On Process')
                                                         <button
-                                                            class="bg-green-600 text-white px-4 py-2 mb-2 rounded-md hover:bg-green-700 w-full"
-                                                            onclick="changeOrderStatus('{{ $invoice->selling_invoice_id }}', 'Pesanan Dikirim')">
-                                                            Pesanan Dikirim
+                                                            class="bg-green-500 text-white px-4 py-2 mb-2 rounded-md hover:bg-green-700 w-full"
+                                                            onclick="changeOrderStatus('{{ $invoice->selling_invoice_id }}', 'Order Shipped')">
+                                                            Order Shipped
                                                         </button>
                                                         <button
                                                             class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 w-full"
                                                             onclick="openCancelModal('{{ $invoice->selling_invoice_id }}')">
                                                             Cancelled
                                                         </button>
-                                                    @elseif ($invoice->order_status == 'Pesanan Dikirim')
-                                                        <span class="text-gray-500">Menunggu pesanan diterima</span>
+                                                    @elseif ($invoice->order_status == 'Order Shipped')
+                                                        <span class="text-gray-500">Waiting for order to be received</span>
                                                     @elseif ($invoice->order_status == 'Complete')
-                                                        <span class="text-gray-500">Pesanan diterima</span>
+                                                        <span class="text-gray-500">Order Received</span>
                                                     @endif
                                                 </div>
                                             </td>
                                             <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
                                                 <button
-                                                    class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                                    class="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
                                                     onclick="showPaymentProofModal('storage/{{ $invoice->recipient_file }}', '{{ $invoice->recipient_bank }}', {{ $invoice->total_price }})">
-                                                    Lihat Bukti
+                                                    View Receipt
                                                 </button>
                                             </td>
                                         </tr>
@@ -200,63 +199,63 @@
             </div>
 
             <div class="container mx-auto p-6">
-                <h1 class="text-2xl font-bold mb-6">Pesanan Online Refund</h1>
+                <h1 class="text-2xl font-bold mb-6">Online Order Refund</h1>
                 <div class="bg-white rounded-xl shadow-md p-6">
                     <div class="overflow-x-auto">
-                        <table id="example1" class="table table-striped">
+                        <table id="example1" class="table table-striped w-full table-fixed">
                             <thead class="bg-gray-50 align-middle">
                                 <tr>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Kode Faktur</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nama Penerima</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Nomor Telepon</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Alamat</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Tanggal Pesanan</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Status Refund</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Alasan Refund</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">File User Refund</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">File Admin Refund</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">Aksi</th>
-                                    <th class="text-left p-4 font-semibold text-sm text-gray-600">File Admin Refund</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-40">Invoice Code</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-40">Recipient Name</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-32">Phone Number</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-64">Address</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-32">Order Date</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-32">Refund Status</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-48">Refund Reason</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-32">User Refund File</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-32">Admin Refund File</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-32">Action</th>
+                                    <th class="text-center align-middle font-semibold text-sm text-gray-600 w-40">Admin Refund File Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($refunds as $refund)
                                     <tr class="hover:bg-gray-50">
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->invoice_code }}</td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->recipient_name }}</td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->recipient_phone }}</td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->recipient_address }}</td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->order_date }}</td>
 
                                         <!-- Data Refund -->
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->refunds->refund_status ?? 'N/A' }}
                                         </td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->refunds->refund_reason ?? 'N/A' }}
                                         </td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             @if ($refund->refunds && $refund->refunds->user_refund_file)
                                                 <a href="{{ asset('storage/' . $refund->refunds->user_refund_file) }}"
-                                                    class="text-blue-600 underline" target="_blank">Lihat File</a>
+                                                    class="text-pink-600 underline" target="_blank">View File</a>
                                             @else
                                                 N/A
                                             @endif
                                         </td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             @if ($refund->refunds->admin_refund_file)
                                                 <a href="{{ asset('storage/' . $refund->refunds->admin_refund_file) }}"
-                                                    class="text-blue-600 underline" target="_blank">Lihat File</a>
+                                                    class="text-pink-600 underline" target="_blank">View File</a>
                                             @else
                                                 N/A
                                             @endif
                                         </td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             <div>
                                                 @if ($refund->refunds->refund_status == 'Pending')
                                                     <button
@@ -271,7 +270,7 @@
                                                     </button>
                                                 @elseif ($refund->refunds->refund_status == 'Refund on Process')
                                                     <button
-                                                        class="bg-green-600 text-white px-4 py-2 mb-2 rounded-md hover:bg-green-700 w-full"
+                                                        class="bg-green-500 text-white px-4 py-2 mb-2 rounded-md hover:bg-green-700 w-full"
                                                         onclick="changeRefundStatus('{{ $refund->refund_id }}', 'Refund Success')">
                                                         Refund Success
                                                     </button>
@@ -287,7 +286,7 @@
                                                 @endif
                                             </div>
                                         </td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700">
+                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             @if($refund->refunds->refund_status == 'Refund on Process')
                                             <form action="{{ route('refunds.upload', $refund->refunds->refund_id) }}"
                                                 method="POST" enctype="multipart/form-data" class="mt-2">
@@ -295,8 +294,8 @@
                                                 <input type="file" name="admin_refund_file"
                                                     class="block w-full text-sm text-gray-600 border-gray-300 rounded-md">
                                                 <button type="submit"
-                                                    class="bg-green-600 text-white px-4 py-2 rounded-md mt-2 hover:bg-green-700">
-                                                    Upload Bukti
+                                                    class="bg-green-500 text-white px-4 py-2 rounded-md mt-2 hover:bg-green-700">
+                                                    Upload Receipt
                                                 </button>
                                             </form>
                                             @else
@@ -320,7 +319,7 @@
 <!-- Modal untuk Alasan dan Bukti Pengembalian -->
 <div id="cancelModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
     <div class="bg-white p-6 rounded-lg w-1/3">
-        <h3 class="text-xl mb-4">Alasan Pembatalan dan Bukti Pengembalian</h3>
+        <h3 class="text-xl mb-4">Cancellation Reason and Refund Proof</h3>
 
         <!-- Form -->
         <form action="{{ route('updateOrderStatus') }}" method="POST" enctype="multipart/form-data">
@@ -329,22 +328,20 @@
             <input type="hidden" name="order_status" value="Refund">
 
             <div class="mb-4">
-                <label for="refundReason" class="block text-sm font-medium text-gray-700">Alasan Pembatalan</label>
+                <label for="refundReason" class="block text-sm font-medium text-gray-700">Cancellation Reason</label>
                 <textarea id="refundReason" name="refundReason" rows="4" class="w-full border-gray-300 rounded-md" required></textarea>
             </div>
 
             <div class="mb-4">
-                <label for="refundFile" class="block text-sm font-medium text-gray-700">Bukti Pengembalian
-                    Pembayaran</label>
+                <label for="refundFile" class="block text-sm font-medium text-gray-700">Refund Proof</label>
                 <input type="file" id="refundFile" name="refundFile" class="w-full border-gray-300 rounded-md"
                     required>
             </div>
 
             <div class="flex justify-end">
-                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">Kirim
-                    Refund</button>
+                <button type="submit" class="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">Send Refund</button>
                 <button type="button" onclick="closeCancelModal()"
-                    class="ml-2 bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">Tutup</button>
+                    class="ml-2 bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">Close</button>
             </div>
         </form>
     </div>
@@ -355,20 +352,20 @@
 <!-- Modal Bukti Pembayaran -->
 <div id="paymentProofModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
     <div class="bg-white rounded-xl shadow-md w-96 p-6">
-        <h2 class="text-lg font-bold text-gray-800 mb-4">Bukti Pembayaran</h2>
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Payment Receipt</h2>
         <div class="mb-6">
             <div class="mb-2">
                 <span class="font-bold">Bank Transfer: </span><span class="font-italic" id="paymentProofBank"></span>
             </div>
             <div class="mb-2">
-                <span class="font-bold">Total Harga: </span><span id="paymentProofTotal"></span>
+                <span class="font-bold">Total Price: </span><span id="paymentProofTotal"></span>
             </div>
             <!-- Tempat untuk menampilkan file -->
             <img id="paymentProofImage" class="w-full rounded-md" src="" alt="Bukti Pembayaran">
         </div>
         <div class="flex justify-end">
             <button id="closePaymentProofButton"
-                class="px-4 py-2 bg-gray-300 rounded-md text-gray-800 hover:bg-gray-400">Tutup</button>
+                class="px-4 py-2 bg-gray-300 rounded-md text-gray-800 hover:bg-gray-400">Close</button>
         </div>
     </div>
 </div>
@@ -376,12 +373,12 @@
 <!-- Modal Konfirmasi -->
 <div id="confirmationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
     <div class="bg-white rounded-md shadow-lg p-6">
-        <p class="mb-4 text-gray-700">Apakah Anda yakin ingin mengubah status menjadi <span id="selectedStatusText"
+        <p class="mb-4 text-gray-700">Are you sure you want to change the status to <span id="selectedStatusText"
                 class="font-bold"></span>?</p>
         <div class="flex justify-end">
             <button id="confirmButton"
-                class="bg-blue-600 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-700">Konfirmasi</button>
-            <button id="cancelButton" class="bg-gray-300 px-4 py-2 rounded-md hover:bg-gray-400">Batal</button>
+                class="bg-pink-400 text-white px-4 py-2 rounded-md mr-2 hover:bg-pink-500">Confirm</button>
+            <button id="cancelButton" class="bg-gray-300 px-4 py-2 rounded-md hover:bg-gray-400">Cancel</button>
         </div>
     </div>
 </div>
@@ -389,11 +386,11 @@
 <!-- Modal Notifikasi -->
 <div id="notificationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
     <div class="bg-white rounded-md shadow-lg p-6">
-        <p class="text-gray-700">Status berhasil diubah menjadi <span id="updatedStatusText"
+        <p class="text-gray-700">Status successfully changed to <span id="updatedStatusText"
                 class="font-bold"></span>.</p>
         <div class="flex justify-end">
             <button id="closeNotificationButton"
-                class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Tutup</button>
+                class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Close</button>
         </div>
     </div>
 </div>
@@ -605,7 +602,7 @@
             'Pending': 'bg-yellow-100 text-yellow-700',
             'Cancelled': 'bg-red-100 text-red-700',
             'On Process': 'bg-blue-100 text-blue-700',
-            'Order Completed': 'bg-green-100 text-green-700'
+            'Order Completed': 'bg-green-100 text-green-500'
         };
 
         // Hapus semua kelas warna sebelumnya
