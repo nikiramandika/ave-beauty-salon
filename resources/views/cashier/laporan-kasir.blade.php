@@ -72,13 +72,13 @@
             <div class="container mx-auto p-6">
                 <div class="flex justify-between items-center mb-6">
                     <!-- Bagian Kiri: Laporan Kasir -->
-                    <h1 class="text-2xl font-bold">
+                    <h1 class="text-2xl text-uppercase" style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #63374d;">
                         Cashier Report - {{ \Carbon\Carbon::today('Asia/Jakarta')->toFormattedDateString() }}
                     </h1>
 
                     <!-- Bagian Kanan: Total Pendapatan -->
                     <div class="text-right">
-                        <span class="text-lg font-bold">
+                        <span class="text-lg text-uppercase" style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #63374d;">
                             Total Revenue Today:
                         </span>
                         <span class="text-xl font-semibold text-green-600">
@@ -90,7 +90,7 @@
                 <div class="bg-white rounded-xl shadow-md p-6 mb-8">
                     <!-- Total Pendapatan -->
                     <div class="mb-2">
-                        <strong class="text-lg">Total Offline Order Revenue Today:</strong>
+                        <strong class="text-lg text-uppercase" style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #63374d;">Total Offline Order Revenue Today: </strong>
                         <span class="text-lg font-semibold text-green-600">
                             Rp {{ number_format($offlineOrders->sum('total_amount'), 0, ',', '.') }}
                         </span>
@@ -157,7 +157,7 @@
                 <div class="bg-white rounded-xl shadow-md p-6 mb-8">
                     <!-- Total Pendapatan -->
                     <div class="mb-2">
-                        <strong class="text-lg">Total Online Order Revenue Today:</strong>
+                        <strong class="text-lg text-uppercase" style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #63374d;">Total Online Order Revenue Today:</strong>
                         <span class="text-lg font-semibold text-green-600">
                             Rp {{ number_format($onlineOrders->where('order_status', '==', 'Complete')->sum('total_amount'), 0, ',', '.') }}
                         </span>

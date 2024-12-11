@@ -69,7 +69,7 @@
 
         <div class="min-h-screen bg-pink-50 p-6">
             <div class="container mx-auto p-6">
-                <h1 class="text-2xl font-bold mb-6">Online Order</h1>
+                <h1 class="text-2xl text-uppercase mb-6" style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #63374d;">Online Order</h1>
                 <div class="bg-white rounded-xl shadow-md p-6 mb-8">
                     <div class="overflow-x-auto">
                         <table id="example" class="table table-striped w-full table-fixed">
@@ -199,7 +199,7 @@
             </div>
 
             <div class="container mx-auto p-6">
-                <h1 class="text-2xl font-bold mb-6">Online Order Refund</h1>
+                <h1 class="text-2xl text-uppercase mb-6" style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #63374d;">Online Order Refund</h1>
                 <div class="bg-white rounded-xl shadow-md p-6">
                     <div class="overflow-x-auto">
                         <table id="example1" class="table table-striped w-full table-fixed">

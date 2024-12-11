@@ -14,9 +14,8 @@
             </div>
             <!-- User Profile -->
             <div class="flex items-center">
-                <span class="text-gray-700 mr-4">Hello, {{ Auth::user()->nama_depan }}</span>
+                <span class="text-gray-700 mr-1">Hello, {{ Auth::user()->nama_depan }}  | </span>
                 @auth
-
                     <!-- Tombol Logout -->
                     <form method="POST" action="{{ route('logout') }}" class="d-inline">
                         @csrf
