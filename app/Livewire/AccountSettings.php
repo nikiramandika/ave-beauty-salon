@@ -18,6 +18,14 @@ class AccountSettings extends Component
         $this->email = auth()->user()->email;
         $this->phone = auth()->user()->phone;
     }
+    public function resetForm()
+{
+    // Reset the form fields to the original user data
+    $this->nama_depan = auth()->user()->nama_depan;
+    $this->nama_belakang = auth()->user()->nama_belakang;
+    $this->email = auth()->user()->email;
+    $this->phone = auth()->user()->phone;
+}
 
     public function updateProfile()
     {
@@ -26,11 +34,13 @@ class AccountSettings extends Component
             'nama_depan' => 'required|string|max:255',
             'nama_belakang' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'nullable|regex:/^[0-9]+$/|max:20', // Validasi untuk nomor telepon hanya angka
+            'phone' => 'nullable|regex:/^[0-9]+$/|min:10|max:13', // Validasi untuk nomor telepon hanya angka dengan panjang antara 10-13
         ], [
-            'phone.regex' => 'Nomor telepon hanya boleh mengandung angka.',
+            'phone.regex' => 'The phone number can only contain digits.',
+            'phone.min' => 'The phone number must be at least 10 digits long.',
+            'phone.max' => 'The phone number must not exceed 13 digits.',
         ]);
-
+        
         // Cek apakah nomor telepon sudah ada di database selain untuk user yang sedang login
         if (Auth::user()->phone != $this->phone && User::where('phone', $this->phone)->exists()) {
             session()->flash('error', 'Nomor telepon sudah terdaftar.');

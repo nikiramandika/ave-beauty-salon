@@ -99,7 +99,7 @@
                                 <td style="text-align: center">
                                     @if ($invoice->recipient_address !== 'Pesanan Offline' && empty($invoice->recipient_file))
                                         <a href="{{ route('payment.upload', $invoice->selling_invoice_id) }}"
-                                            class="btn btn-success">Pay Now</a>
+                                            class="btn btn-link p-0">Pay Now</a>
                                     @else
                                         <a href="{{ route('detailInvoice', $invoice->selling_invoice_id) }}"
                                             class="btn btn-link p-0">View</a>

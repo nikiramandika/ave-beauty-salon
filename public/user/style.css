@@ -97,6 +97,9 @@ body {
 .offcanvas-body .list-group-item {
     border-radius: 10px;
 }
+.offcanvas-body li {
+    list-style-type: none;
+}
 
 .full-screen {
     height: 90vh;
@@ -1872,13 +1875,6 @@ a.btn-link.text-light:after {
     font-size: 36px;
     font-weight: 500;
     margin-bottom: 15px;
-}
-
-.promo-price {
-    font-size: 28px;
-    color: var(--bs-dark);
-    font-weight: bold;
-    margin: 15px 0;
 }
 
 .promo-description {

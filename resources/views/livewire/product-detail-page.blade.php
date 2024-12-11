@@ -25,7 +25,6 @@
                     <hr>
                     <!-- Deskripsi -->
                     <p class="heading-color" style="font-weight: 500">
-                        Description
                     </p>
                     <p class="product-description" align="justify">
                         {{ $product->description->description ?? 'Tidak ada deskripsi.' }}

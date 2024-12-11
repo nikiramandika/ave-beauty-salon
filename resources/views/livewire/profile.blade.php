@@ -36,24 +36,24 @@
                             </a>
                         </li>
                     @else
-                        <li class="list-group-item">
-                            <a href="{{ route('settings') }}" class="text-decoration-none">
+                        <li class="">
+                            <a href="{{ route('settings') }}" class="text-decoration-none list-group-item">
                                 Settings
                             </a>
                         </li>
                     @endif
 
-                    <li class="list-group-item">
-                        <a href="{{ route('historyOrder') }}" class="text-decoration-none">Order History</a>
+                    <li class=" ">
+                        <a href="{{ route('historyOrder') }}" class="text-decoration-none list-group-item">Order History</a>
                     </li>
-                    <li class="list-group-item">
-                        <a href="{{ route('course.history') }}" class="text-decoration-none">Course History</a>
+                    <li class="">
+                        <a href="{{ route('course.history') }}" class="text-decoration-none list-group-item">Course History</a>
                     </li>
-                    <li class="list-group-item">
+                    <li class="">
                         <form method="POST" action="{{ route('logout') }}" class="d-inline">
                             @csrf
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();"
-                                class="mx-0 item-anchor">
+                                class="mx-0 item-anchor list-group-item">
                                 Log Out
                             </a>
                         </form>

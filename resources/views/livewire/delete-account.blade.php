@@ -1,17 +1,5 @@
 <div>
     <!-- Alert jika ada pesan sukses atau error -->
-    @if (session()->has('message'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert" id="flash-message">
-            {{ session('message') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @elseif (session()->has('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="flash-message">
-            {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
     <h4 class="mb-4">Delete Account</h4>
     <form wire:submit.prevent="deleteAccount">
         <div class="form-group">
@@ -26,4 +14,19 @@
             <button type="submit" class="btn bsb-btn-xl btn-primary">Delete Account</button>
         </div>
     </form>
+    <div class="mt-4">
+        
+    @if (session()->has('message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="flash-message">
+        {{ session('message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@elseif (session()->has('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="flash-message">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+    </div>
 </div>

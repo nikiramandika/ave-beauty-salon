@@ -1,13 +1,18 @@
-<div style="background-color: #fdeef4">
-    <section id="course-detail" class="course-detail full-screen">
+<div>
+    <section id="course-detail" class="details">
         <div class="container-fluid">
-            <div class="content d-flex align-items-center justify-content-center gap-5">
-                <div class="course-image">
-                    <img src="{{ asset($course->description->course_image) }}" alt="{{ $course->course_name }}" class="img-fluid">
+            <div class="content d-flex justify-content-between gap-5 p-5 py-3 ">
+                <!-- Gambar Produk -->
+                <div class="product-image">
+                    <img src="{{ asset($course->description->course_image) }}" alt="{{ $course->course_name }}"
+                        onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';" class="img-fluid product-image">
                 </div>
-                <div class="course-info">
-                    <h1 class="course-title">{{ $course->course_name }}</h1>
-                    <p class="course-price">Rp{{ number_format($course->price, 0, ',', '.') }}</p>
+
+                <!-- Informasi Produk -->
+                <div class="product-info">
+                    <h1 class="product-title *:heading-color" style="font-weight:600;">{{ $course->course_name }}</h1>
+                    <p class="product-price">Rp{{ number_format($course->price, 0, ',', '.') }}</p>
+                    <hr>
                     <p class="course-sessions"><strong>Sessions:</strong> {{ $course->sessions }}</p>
                     <p class="course-benefits"><strong>Benefits:</strong> {{ $course->description->benefits }}</p>
                     <p class="course-free-items"><strong>Free Items:</strong> {{ $course->description->free_items }}</p>

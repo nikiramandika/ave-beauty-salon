@@ -1,19 +1,5 @@
 <div>
-    <!-- Menampilkan pesan sukses -->
-    @if (session()->has('message'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert" id="flash-message">
-            {{ session('message') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
 
-    <!-- Menampilkan pesan error -->
-    @if (session()->has('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="flash-message">
-            {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
 
     <h4 class="mb-4">Change Password</h4>
     <form wire:submit.prevent="changePassword">
@@ -48,4 +34,22 @@
             <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
     </form>
+
+    <div class="mt-4">
+            <!-- Menampilkan pesan sukses -->
+    @if (session()->has('message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="flash-message">
+        {{ session('message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+<!-- Menampilkan pesan error -->
+@if (session()->has('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="flash-message">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+    </div>
 </div>
