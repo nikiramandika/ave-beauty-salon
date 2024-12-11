@@ -57,7 +57,7 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h4 class="card-header">Update Category</h4>
+                            <h4 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Update Category</h4>
                             <div class="card-body">
                                 <form action="{{ route('categories.update', $category->category_id) }}" method="POST"
                                     enctype="multipart/form-data">

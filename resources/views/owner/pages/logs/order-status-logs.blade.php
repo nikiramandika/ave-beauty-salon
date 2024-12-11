@@ -88,8 +88,8 @@
                         <div class="card mt-4">
                             <div class="card-body">
                                 <!-- Header Order Status Logs -->
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="mb-0">Order Status Logs</h6>
+                                <div class="d-flex justify-content-between align-items-center mb-3" style="margin-left: 10px;">
+                                    <h3 class="mb-0 element-title text-uppercase pb-1" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Order Status Logs</h3>
                                 </div>
 
                                 <!-- Tabel Order Status Logs -->
@@ -115,13 +115,13 @@
                                                     </td> <!-- Nama Kasir -->
                                                     <td>
                                                         <span
-                                                            style="color: {{ $log->old_order_status == 'Complete' ? 'green' : 'red' }}">
+                                                            style="color: {{ $log->old_order_status == 'Complete' ? 'green' : ($log->old_order_status == 'Pending' ? 'orange' : 'blue') }}">
                                                             {{ $log->old_order_status }}
                                                         </span>
                                                     </td>
                                                     <td>
                                                         <span
-                                                            style="color: {{ $log->new_order_status == 'Complete' ? 'green' : 'red' }}">
+                                                            style="color: {{ $log->new_order_status == 'Complete' ? 'green' : ($log->new_order_status == 'Refund' ? 'red' : 'blue') }}">
                                                             {{ $log->new_order_status }}
                                                         </span>
                                                     </td>

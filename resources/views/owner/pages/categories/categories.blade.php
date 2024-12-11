@@ -77,7 +77,7 @@
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <!-- Categories Table -->
                         <div class="card">
-                            <h4 class="card-header">Categories List</h4>
+                            <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Categories List</h3>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <h6 class="mb-0">Category</h6>

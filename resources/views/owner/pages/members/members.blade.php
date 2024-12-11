@@ -72,7 +72,7 @@
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h4 class="card-header">Members List</h4>
+                            <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Members List</h3>
                             <div class="table-responsive text-nowrap">
                                 <table id="example1" class="table">
                                     <thead>

@@ -19,7 +19,7 @@
                     <ul>
                         <li>All transactions are conducted in Indonesian Rupiah (Rp)</li>
                         <li>Products that have been purchased cannot be returned unless there is a defect or shipping error</li>
-                        <li>Shipping is only available within the Medan area, with a flat shipping fee of Rp10.000</li>
+                        <li>Shipping is only available within the Medan area, with a flat shipping fee of Rp15.000</li>
                     </ul>
                 <br>
                 <h4>Online Course Registration</h4>

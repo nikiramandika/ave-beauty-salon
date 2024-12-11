@@ -81,7 +81,7 @@
 
                         <!-- Daftar Course Registration -->
                         <div class="card mt-4">
-                            <h4 class="card-header">Course Registration</h4>
+                            <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d; margin-left: 10px;">Course Registration</h4>
                             <div class="card-body">
                                 <div class="table-responsive text-nowrap">
                                     <table id="example1" class="table">

@@ -82,7 +82,7 @@
                         <!-- resources/views/owner/pages/users.blade.php -->
                         <!-- resources/views/owner/pages/products.blade.php -->
                         <div class="card">
-                            <h4 class="card-header">Promos List</h4>
+                            <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Promos List</h3>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <h5 class="mb-0">Promos</h5>

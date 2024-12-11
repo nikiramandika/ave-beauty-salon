@@ -70,7 +70,7 @@
                             <div class="col-xl">
                                 <div class="card mb-6">
                                     <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h4 class="mb-0">Edit User</h4>
+                                        <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Edit User</h3>
                                         <small class="text-body float-end">Edit User Information</small>
                                     </div>
                                     <div class="card-body">

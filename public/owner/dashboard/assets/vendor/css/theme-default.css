@@ -1,4 +1,10 @@
 @charset "UTF-8";
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+
 .layout-navbar-fixed .layout-wrapper:not(.layout-horizontal) .layout-page:before {
   content: "";
   width: 100%;

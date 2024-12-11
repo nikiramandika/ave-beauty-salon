@@ -80,7 +80,7 @@
                         <!-- Basic Bootstrap Table -->
                         <!-- resources/views/owner/pages/users.blade.php -->
                         <div class="card">
-                            <h4 class="card-header">Users List</h4>
+                            <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Users List</h3>
                             <div class="table-responsive text-nowrap">
                                 <table id="example1" class="table">
                                     <thead>
