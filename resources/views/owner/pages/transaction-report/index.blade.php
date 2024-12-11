@@ -190,9 +190,7 @@
                                                     <td style="text-align:center;">{{ number_format($invoice->total_amount, 2) }}</td>
                                                 </tr>
                                             @empty
-                                                <tr>
-                                                    <td colspan="8" class="text-center">No invoice data available</td>
-                                                </tr>
+
                                             @endforelse
                                         </tbody>
                                     </table>
@@ -274,10 +272,7 @@
                                                     <td style="text-align:center;">{{ number_format($history->course_price, 2) }}</td>
                                                 </tr>
                                             @empty
-                                                <tr>
-                                                    <td colspan="7" class="text-center">No course history data available
-                                                    </td>
-                                                </tr>
+
                                             @endforelse
                                         </tbody>
                                     </table>
@@ -336,8 +331,8 @@
                                 pageSize: 'A4', // Ukuran halaman A4
                                 customize: function(doc) {
                                     // Menyesuaikan lebar kolom sesuai kebutuhan
-                                    doc.content[1].table.widths = ['10%', '10%', '10%', '10%', '10%', '10%',
-                                        '30%', '10%'
+                                    doc.content[1].table.widths = ['15%', '15%', '10%', '10%', '10%', '20%',
+                                        '10%', '10%'
                                     ];
                                 }
                             },

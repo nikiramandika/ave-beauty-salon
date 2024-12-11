@@ -116,7 +116,7 @@
                                                     <td>{{ $log->cashier_first_name }} {{ $log->cashier_last_name }}</td> <!-- Nama Kasir -->
                                                     <td>
                                                         <span
-                                                            style="color: {{ $log->action_type == 'add' ? 'green' : ($log->action_type == 'remove' ? 'red' : 'blue') }}">
+                                                            style="color: {{ $log->action_type == 'add' ? 'green' : ($log->action_type == 'remove' ? 'red' : 'orange') }}">
                                                             {{ ucfirst($log->action_type) }}
                                                         </span>
                                                     </td>
