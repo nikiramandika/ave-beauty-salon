@@ -82,7 +82,7 @@
                         <!-- resources/views/owner/pages/users.blade.php -->
                         <!-- resources/views/owner/pages/products.blade.php -->
                         <div class="card">
-                            <h4 class="card-header">Total Revenue</h4>
+                            <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Total Revenue</h3>
                             <div class="card-body">
                                 <form method="GET" action="{{ route('transaction-report.index') }}">
                                     <label for="time_range">Filter Total Revenue:</label>
@@ -116,7 +116,7 @@
 
                         <div class="card mt-4">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4>Invoice Summary List</h4>
+                                <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Invoice Summary List</h3>
                                 <h6>
                                     Total Invoice Summary:
                                     <span>
@@ -202,7 +202,7 @@
                         <!-- Tambahan Tabel Course History -->
                         <div class="card mt-4">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5>Course History List</h5>
+                                <h5 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Course History List</h5>
                                 <h6>
                                     Total Course Summary:
                                     <span>

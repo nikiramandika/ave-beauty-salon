@@ -16,7 +16,7 @@ img {
 
 body {
     word-wrap: break-word; /* Allows long words to break */
-overflow-wrap: break-word; /* Modern equivalent */
+    overflow-wrap: break-word; /* Modern equivalent */
     font-family: "Montserrat", Roboto, sans-serif;
     --heading-font: "Marcellus", Roboto, sans-serif;
     --heading-font-weight: 500;

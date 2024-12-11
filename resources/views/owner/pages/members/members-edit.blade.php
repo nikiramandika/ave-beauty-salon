@@ -60,7 +60,7 @@
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="card">
-                            <h4 class="card-header">Edit Member</h4>
+                            <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Edit Member</h3>
                             <div class="card-body">
                                 <form action="{{ route('members.update', $member->member_id) }}" method="POST">
                                     @csrf

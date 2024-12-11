@@ -68,7 +68,7 @@
                     <div class="container-xxl flex-grow-1 container-p-y">
 
                         <div class="card mt-4">
-                            <h4 class="card-header">Course Registration Detail</h4>
+                            <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Course Registration Detail</h3>
                             <div class="card-body">
                                 <div class="table-responsive text-nowrap">
                                     <table class="table">
@@ -129,7 +129,7 @@
                         @endif
 
                         <div class="card mt-4">
-                            <h5 class="card-header">Invoice Course Registration</h5>
+                            <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Invoice Course Registration</h3>
                             <div class="card-body">
                                 @if (session('success'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
