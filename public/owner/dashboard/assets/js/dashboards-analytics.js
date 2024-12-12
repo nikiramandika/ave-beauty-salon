@@ -565,181 +565,181 @@
 
   // Order Statistics Chart
   // --------------------------------------------------------------------
-  const chartOrderStatistics = document.querySelector('#orderStatisticsChart'),
-    orderChartConfig = {
-      chart: {
-        height: 145,
-        width: 110,
-        type: 'donut'
-      },
-      labels: ['Electronic', 'Sports', 'Decor', 'Fashion'],
-      series: [50, 85, 25, 40],
-      colors: [config.colors.success, config.colors.primary, config.colors.secondary, config.colors.info],
-      stroke: {
-        width: 5,
-        colors: [cardColor]
-      },
-      dataLabels: {
-        enabled: false,
-        formatter: function (val, opt) {
-          return parseInt(val) + '%';
-        }
-      },
-      legend: {
-        show: false
-      },
-      grid: {
-        padding: {
-          top: 0,
-          bottom: 0,
-          right: 15
-        }
-      },
-      states: {
-        hover: {
-          filter: { type: 'none' }
-        },
-        active: {
-          filter: { type: 'none' }
-        }
-      },
-      plotOptions: {
-        pie: {
-          donut: {
-            size: '75%',
-            labels: {
-              show: true,
-              value: {
-                fontSize: '18px',
-                fontFamily: 'Public Sans',
-                fontWeight: 500,
-                color: headingColor,
-                offsetY: -17,
-                formatter: function (val) {
-                  return parseInt(val) + '%';
-                }
-              },
-              name: {
-                offsetY: 17,
-                fontFamily: 'Public Sans'
-              },
-              total: {
-                show: true,
-                fontSize: '13px',
-                color: legendColor,
-                label: 'Weekly',
-                formatter: function (w) {
-                  return '38%';
-                }
-              }
-            }
-          }
-        }
-      }
-    };
-  if (typeof chartOrderStatistics !== undefined && chartOrderStatistics !== null) {
-    const statisticsChart = new ApexCharts(chartOrderStatistics, orderChartConfig);
-    statisticsChart.render();
-  }
+  // const chartOrderStatistics = document.querySelector('#orderStatisticsChart'),
+  //   orderChartConfig = {
+  //     chart: {
+  //       height: 145,
+  //       width: 110,
+  //       type: 'donut'
+  //     },
+  //     labels: ['Electronic', 'Sports', 'Decor', 'Fashion'],
+  //     series: [50, 85, 25, 40],
+  //     colors: [config.colors.success, config.colors.primary, config.colors.secondary, config.colors.info],
+  //     stroke: {
+  //       width: 5,
+  //       colors: [cardColor]
+  //     },
+  //     dataLabels: {
+  //       enabled: false,
+  //       formatter: function (val, opt) {
+  //         return parseInt(val) + '%';
+  //       }
+  //     },
+  //     legend: {
+  //       show: false
+  //     },
+  //     grid: {
+  //       padding: {
+  //         top: 0,
+  //         bottom: 0,
+  //         right: 15
+  //       }
+  //     },
+  //     states: {
+  //       hover: {
+  //         filter: { type: 'none' }
+  //       },
+  //       active: {
+  //         filter: { type: 'none' }
+  //       }
+  //     },
+  //     plotOptions: {
+  //       pie: {
+  //         donut: {
+  //           size: '75%',
+  //           labels: {
+  //             show: true,
+  //             value: {
+  //               fontSize: '18px',
+  //               fontFamily: 'Public Sans',
+  //               fontWeight: 500,
+  //               color: headingColor,
+  //               offsetY: -17,
+  //               formatter: function (val) {
+  //                 return parseInt(val) + '%';
+  //               }
+  //             },
+  //             name: {
+  //               offsetY: 17,
+  //               fontFamily: 'Public Sans'
+  //             },
+  //             total: {
+  //               show: true,
+  //               fontSize: '13px',
+  //               color: legendColor,
+  //               label: 'Weekly',
+  //               formatter: function (w) {
+  //                 return '38%';
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   };
+  // if (typeof chartOrderStatistics !== undefined && chartOrderStatistics !== null) {
+  //   const statisticsChart = new ApexCharts(chartOrderStatistics, orderChartConfig);
+  //   statisticsChart.render();
+  // }
 
   // Income Chart - Area chart
   // --------------------------------------------------------------------
-  const incomeChartEl = document.querySelector('#incomeChart'),
-    incomeChartConfig = {
-      series: [
-        {
-          data: [21, 30, 22, 42, 26, 35, 29]
-        }
-      ],
-      chart: {
-        height: 232,
-        parentHeightOffset: 0,
-        parentWidthOffset: 0,
-        toolbar: {
-          show: false
-        },
-        type: 'area'
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        width: 3,
-        curve: 'smooth'
-      },
-      legend: {
-        show: false
-      },
-      markers: {
-        size: 6,
-        colors: 'transparent',
-        strokeColors: 'transparent',
-        strokeWidth: 4,
-        discrete: [
-          {
-            fillColor: config.colors.white,
-            seriesIndex: 0,
-            dataPointIndex: 6,
-            strokeColor: config.colors.primary,
-            strokeWidth: 2,
-            size: 6,
-            radius: 8
-          }
-        ],
-        hover: {
-          size: 7
-        }
-      },
-      colors: [config.colors.primary],
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shade: shadeColor,
-          shadeIntensity: 0.6,
-          opacityFrom: 0.5,
-          opacityTo: 0.25,
-          stops: [0, 95, 100]
-        }
-      },
-      grid: {
-        borderColor: borderColor,
-        strokeDashArray: 8,
-        padding: {
-          top: -20,
-          bottom: -8,
-          left: 0,
-          right: 8
-        }
-      },
-      xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-        axisBorder: {
-          show: false
-        },
-        axisTicks: {
-          show: false
-        },
-        labels: {
-          show: true,
-          style: {
-            fontSize: '13px',
-            colors: labelColor
-          }
-        }
-      },
-      yaxis: {
-        labels: {
-          show: false
-        },
-        min: 10,
-        max: 50,
-        tickAmount: 4
-      }
-    };
-  if (typeof incomeChartEl !== undefined && incomeChartEl !== null) {
-    const incomeChart = new ApexCharts(incomeChartEl, incomeChartConfig);
-    incomeChart.render();
-  }
+  // const incomeChartEl = document.querySelector('#incomeChart'),
+  //   incomeChartConfig = {
+  //     series: [
+  //       {
+  //         data: [21, 30, 22, 42, 26, 35, 29]
+  //       }
+  //     ],
+  //     chart: {
+  //       height: 232,
+  //       parentHeightOffset: 0,
+  //       parentWidthOffset: 0,
+  //       toolbar: {
+  //         show: false
+  //       },
+  //       type: 'area'
+  //     },
+  //     dataLabels: {
+  //       enabled: false
+  //     },
+  //     stroke: {
+  //       width: 3,
+  //       curve: 'smooth'
+  //     },
+  //     legend: {
+  //       show: false
+  //     },
+  //     markers: {
+  //       size: 6,
+  //       colors: 'transparent',
+  //       strokeColors: 'transparent',
+  //       strokeWidth: 4,
+  //       discrete: [
+  //         {
+  //           fillColor: config.colors.white,
+  //           seriesIndex: 0,
+  //           dataPointIndex: 6,
+  //           strokeColor: config.colors.primary,
+  //           strokeWidth: 2,
+  //           size: 6,
+  //           radius: 8
+  //         }
+  //       ],
+  //       hover: {
+  //         size: 7
+  //       }
+  //     },
+  //     colors: [config.colors.primary],
+  //     fill: {
+  //       type: 'gradient',
+  //       gradient: {
+  //         shade: shadeColor,
+  //         shadeIntensity: 0.6,
+  //         opacityFrom: 0.5,
+  //         opacityTo: 0.25,
+  //         stops: [0, 95, 100]
+  //       }
+  //     },
+  //     grid: {
+  //       borderColor: borderColor,
+  //       strokeDashArray: 8,
+  //       padding: {
+  //         top: -20,
+  //         bottom: -8,
+  //         left: 0,
+  //         right: 8
+  //       }
+  //     },
+  //     xaxis: {
+  //       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+  //       axisBorder: {
+  //         show: false
+  //       },
+  //       axisTicks: {
+  //         show: false
+  //       },
+  //       labels: {
+  //         show: true,
+  //         style: {
+  //           fontSize: '13px',
+  //           colors: labelColor
+  //         }
+  //       }
+  //     },
+  //     yaxis: {
+  //       labels: {
+  //         show: false
+  //       },
+  //       min: 10,
+  //       max: 50,
+  //       tickAmount: 4
+  //     }
+  //   };
+  // if (typeof incomeChartEl !== undefined && incomeChartEl !== null) {
+  //   const incomeChart = new ApexCharts(incomeChartEl, incomeChartConfig);
+  //   incomeChart.render();
+  // }
 
   // Expenses Mini Chart - Radial Chart
   // --------------------------------------------------------------------

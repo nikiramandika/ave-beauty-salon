@@ -46,6 +46,10 @@ class CheckoutPage extends Component
     {
         // Load data keranjang tanpa memulai timer
         $this->loadCartData();
+        // Mengecek apakah keranjang kosong
+        if ($this->cartItems === [] || $this->cartTotal === 0) {
+            return redirect()->route('products');
+        }
     }
 
 
@@ -113,13 +117,24 @@ class CheckoutPage extends Component
             // Ambil selling_invoice_id dari hasil stored procedure
             $invoiceId = $result[0]->selling_invoice_id ?? null;
 
-            // Jika invoiceId tidak ditemukan, lempar error
+            // Pastikan invoiceId ditemukan
             if (!$invoiceId) {
                 throw new \Exception('Failed to retrieve selling_invoice_id from stored procedure.');
             }
 
+            // Update tabel selling_invoices
+            $updated = DB::table('selling_invoices')
+                ->where('selling_invoice_id', $invoiceId)
+                ->update(['shipping_cost' => 10000]);
+
+            // Cek apakah update berhasil
+            if ($updated === 0) {
+                throw new \Exception('Failed to update shipping value.');
+            }
+
             // Redirect ke halaman pembayaran setelah sukses
             return redirect()->route('payment.upload', ['invoiceId' => $invoiceId]);
+
         } catch (\Exception $e) {
             // Cek apakah ini adalah error MySQL
             if ($e->getPrevious() && $e->getPrevious() instanceof \PDOException) {
@@ -150,6 +165,7 @@ class CheckoutPage extends Component
             'cartItems' => [], // Contoh data keranjang
             'cartTotal' => 0, // Contoh total keranjang
         ]);
+
     }
 
 

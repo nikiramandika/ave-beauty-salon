@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         // Mengambil semua data user dengan pagination
-        $users = User::get();
+        $users = User::where('role', '!=', 'Admin')->get();
 
         return view('owner.pages.users.users', compact('users'));
     }

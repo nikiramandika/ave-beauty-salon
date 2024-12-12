@@ -89,7 +89,7 @@ Route::get('/order-detail', function () {
 });
 
 Route::get('/', HomePage::class)->name('home');
-Route::get('/products', ProductPage::class);
+Route::get('/products', ProductPage::class)->name('products');
 Route::get('/treatment', TreatmentPage::class);
 Route::get('/promo', PromoPage::class);
 Route::get('/course', CoursePage::class);

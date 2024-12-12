@@ -357,7 +357,7 @@ class CashierController extends Controller
                 ->first()
                 ->invoice_code;  // Mengambil invoice_code dari data pertama yang sesuai
             // Mengambil invoice_code dari data pertama
-
+            
             // Debug setelah transaksi selesai
             \Log::info('Transaksi selesai, invoice berhasil diproses dan stok produk diperbarui');
 
@@ -447,10 +447,16 @@ class CashierController extends Controller
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
+            'phone' => 'required|string',  // Validasi phone number
         ]);
 
-        // Ambil ID kasir dari sesi autentikasi (misalnya menggunakan Auth)
+        // Ambil ID kasir dari sesi autentikasi
         $cashierId = auth()->id(); // Pastikan autentikasi terkonfigurasi dengan benar
+
+        // Update phone number pada tabel users
+        $user = User::find($request->user_id);
+        $user->phone = $request->phone;  // Update nomor telepon
+        $user->save();  // Simpan perubahan
 
         // Buat data member baru, termasuk cashier_id
         Member::create([
@@ -465,6 +471,7 @@ class CashierController extends Controller
 
         return redirect()->back()->with('success', 'User has been added as a member.');
     }
+
 
     public function destroyMember(Member $member)
     {
