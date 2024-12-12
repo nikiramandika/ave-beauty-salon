@@ -207,16 +207,16 @@
                             <div class="tab-pane fade show active" id="user" role="tabpanel"
                                 aria-labelledby="user-tab">
                                 <table id="userTable"
-                                    class="table table-striped table-hover align-middle shadow-sm rounded-3 overflow-hidden"
+                                    class="table table-striped table-hover align-middle shadow-sm rounded-3 overflow-hidden font-montserrat font-light"
                                     style="width:100%">
                                     <thead class="table-light">
                                         <tr>
-                                            <th class="text-center align-middlefont-semibold text-sm text-gray-600">User ID</th>
-                                            <th class="text-center align-middlefont-semibold text-sm text-gray-600">First Name</th>
-                                            <th class="text-center align-middlefont-semibold text-sm text-gray-600">Last Name</th>
-                                            <th class="text-center align-middlefont-semibold text-sm text-gray-600">Email</th>
-                                            <th class="text-center align-middlefont-semibold text-sm text-gray-600">Phone</th>
-                                            <th class="text-center align-middlefont-semibold text-sm text-gray-600">Actions</th>
+                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">User ID</th>
+                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">First Name</th>
+                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Last Name</th>
+                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Email</th>
+                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Phone</th>
+                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -249,15 +249,15 @@
                             <!-- Members Table -->
                             <div class="tab-pane fade" id="member" role="tabpanel" aria-labelledby="member-tab">
                                 <table id="memberTable"
-                                    class="table table-striped table-hover align-middle shadow-sm rounded-3 overflow-hidden"
+                                    class="table table-striped table-hover align-middle shadow-sm rounded-3 overflow-hidden font-montserrat font-light"
                                     style="width:100%">
                                     <thead class="table-light">
                                         <tr>
-                                            <th class="text-center align-middle">Membership Number</th>
-                                            <th class="text-center align-middle">User Name</th>
-                                            <th class="text-center align-middle">Points</th>
-                                            <th class="text-center align-middle">Status</th>
-                                            <th class="text-center align-middle">Actions</th>
+                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Membership Number</th>
+                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">User Name</th>
+                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Points</th>
+                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Status</th>
+                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -389,7 +389,7 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>You entered the phone number: <strong id="displayPhone"></strong></p>
+                        <p>Enter phone number: <strong id="displayPhone"></strong></p>
                         <p>Are you sure you want to proceed?</p>
                     </div>
                     <div class="modal-footer">

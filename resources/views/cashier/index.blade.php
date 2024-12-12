@@ -22,12 +22,52 @@
         .hidden {
             display: none;
         }
+
+        .select2-selection__placeholder {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+        }
+        #emailAddress, #phoneNumber {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+        }
+        .select2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+        }
+
+        #productsSection, #treatmentsSection, #promosSection {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 300;
+        }
+
+        #productsSection .bg-white, #treatmentsSection .bg-white, #promosSection .bg-white {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+        }
+
+        #productsSection h3, #treatmentsSection h3, #promosSection h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        #productsSection p, #treatmentsSection p, #promosSection p {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+
+        #productsSection .text-green-600, #treatmentsSection .text-green-600, #treatmentsSection .text-red-600,
+        #promosSection .text-green-600, #promosSection .text-red-600 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+
     </style>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
 
-<body class="bg-pink-50">
+<body class="bg-pink-50  font-montserrat">
     <!-- Navbar -->
     @include('cashier.components.navbar')
 
@@ -35,7 +75,7 @@
     @include('cashier.components.sidebar')
 
     <!-- Main Content -->
-    <div id="mainContent" class="min-h-screen pt-16 pl-64 transition-all duration-300">
+    <div id="mainContent" class="min-h-screen pt-16 pl-64 transition-all duration-300  font-montserrat font-semibold">
         <div class="p-6 flex gap-6">
             <div class="flex-1">
                 <div class="bg-white rounded-xl shadow-md p-6">
@@ -109,7 +149,6 @@
                         </div>
                     </div>
 
-
                     <!-- Treatment Grid -->
                     <div id="treatmentsSection" class="section hidden">
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -135,6 +174,7 @@
                         </div>
 
                     </div>
+
                     <!-- Promo Grid -->
                     <div id="promosSection" class="section hidden">
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -191,12 +231,12 @@
                                 <div class="grid grid-cols-2 gap-4">
                                     <div class="flex items-center">
                                         <input type="radio" name="payment_method" id="cash" value="cash"
-                                            class="form-radio h-4 w-4 text-pink-600" checked>
+                                            class="form-radio h-4 w-4 text-pink-600  font-montserrat font-semibold" checked>
                                         <label for="cash" class="ml-2">Cash</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input type="radio" name="payment_method" id="cashless"
-                                            value="Bank Transfer" class="form-radio h-4 w-4 text-pink-600">
+                                            value="Bank Transfer" class="form-radio h-4 w-4 text-pink-600  font-montserrat font-semibold">
                                         <label for="cashless" class="ml-2">Cashless</label>
                                     </div>
                                 </div>
@@ -205,7 +245,7 @@
                                 <div id="bankSelection" class="mt-4 hidden">
                                     <label for="bank" class="block text-sm font-medium text-gray-700">Select Bank</label>
                                     <select id="bank" name="bank"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 px-4 py-2">
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 px-4 py-2 font-montserrat font-light">
                                         <option value="">Select Bank</option>
                                         <option value="Mandiri">Mandiri</option>
                                         <option value="BNI">BNI</option>
@@ -222,7 +262,7 @@
                                     Amount of Money
                                 </label>
                                 <input type="number" name="cash_amount" id="cashAmount"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500  font-montserrat font-light"
                                     placeholder="Enter the amount of money">
                             </div>
 
@@ -264,7 +304,7 @@
                                         Points (Available: <span id="availablePoin">0</span>)
                                     </label>
                                     <input type="number" id="poinUsed" name="poinUsed"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 font-montserrat font-light"
                                         placeholder="Enter the number of points to be used" min="0">
                                 </div>
                             </div>
@@ -320,17 +360,17 @@
         class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden z-50">
         <div class="flex items-center justify-center min-h-screen">
             <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-                <h2 class="text-lg font-bold mb-4">Konfirmasi Pembayaran</h2>
+                <h2 class="text-lg font-bold mb-4" style="font-family: 'Montserrat', sans-serif; font-weight: 700;">Payment Confirmation</h2>
                 <div id="modalContent">
                     <!-- Konten dinamis akan diisi dengan JavaScript -->
                 </div>
                 <div class="flex justify-between mt-6">
                     <button id="cancelButton" class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">
-                        Batal
+                        Cancel
                     </button>
                     <button id="printInvoiceButton"
                         class="bg-pink-600 text-white px-4 py-2 rounded-md hover:bg-pink-700">
-                        Cetak Invoice
+                        Print Invoice
                     </button>
                 </div>
             </div>
@@ -497,7 +537,7 @@
 
             // Ambil nama pelanggan dari dropdown
             let userSelect = document.getElementById('userSelect');
-            let selectedUser = userSelect.options[userSelect.selectedIndex].text || "Tidak Ada Pelanggan";
+            let selectedUser = userSelect.options[userSelect.selectedIndex].text || "Offline Customer";
 
             // Ambil metode pembayaran
             let paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
@@ -505,34 +545,34 @@
 
             // Perbarui konten modal
             modalContent.innerHTML = `
-        <div class="mb-4">
-            <strong>ID Kasir:</strong> ${cashierId}
+        <div class="mb-4" style="font-family: 'Montserrat', sans-serif; font-weight: 300;">
+            <strong>Cashier ID:</strong> ${cashierId}
         </div>
-        <div class="mb-4">
-            <strong>Pelanggan:</strong> ${selectedUser}
+        <div class="mb-4" style="font-family: 'Montserrat', sans-serif; font-weight: 300;">
+            <strong>Customer:</strong> ${selectedUser}
         </div>
-        <div class="mb-4">
-            <h3 class="text-sm font-semibold mb-2">Produk:</h3>
+        <div class="mb-4" style="font-family: 'Montserrat', sans-serif; font-weight: 300;">
+            <strong>Product:</strong>
             ${cartItems}
         </div>
-        <div class="mb-4">
-            <strong>Metode Pembayaran:</strong> ${paymentMethodText}
+        <div class="mb-4" style="font-family: 'Montserrat', sans-serif; font-weight: 300;">
+            <strong>Payment Method:</strong> ${paymentMethodText}
         </div>
-        <div class="mb-4">
-            <strong>Total Harga Sebelum Diskon:</strong> ${formatRupiah(totalPrice)}
+        <div class="mb-4" style="font-family: 'Montserrat', sans-serif; font-weight: 300;">
+            <strong>Total Price Before Discount:</strong> ${formatRupiah(totalPrice)}
         </div>
-        <div class="mb-4">
-            <strong>Potongan Poin:</strong> ${formatRupiah(discountFromPoints)}
+        <div class="mb-4" style="font-family: 'Montserrat', sans-serif; font-weight: 300;">
+            <strong>Point Deduction:</strong> ${formatRupiah(discountFromPoints)}
         </div>
-        <div class="mb-4">
-            <strong>Total Harga Setelah Diskon:</strong> ${formatRupiah(discountedPrice)}
+        <div class="mb-4" style="font-family: 'Montserrat', sans-serif; font-weight: 300;">
+            <strong>Total Price After Discount:</strong> ${formatRupiah(discountedPrice)}
         </div>
         ${paymentMethod === 'cash' ? `
-                            <div class="mb-4">
-                                <strong>Jumlah Tunai:</strong> ${formatRupiah(cashAmount)}
+                            <div class="mb-4" style="font-family: 'Montserrat', sans-serif; font-weight: 300;">
+                                <strong>Cash Amount:</strong> ${formatRupiah(cashAmount)}
                             </div>
-                            <div class="mb-4">
-                                <strong>Kembalian:</strong> ${formattedChangeAmount}
+                            <div class="mb-4" style="font-family: 'Montserrat', sans-serif; font-weight: 300;">
+                                <strong>Change:</strong> ${formattedChangeAmount}
                             </div>` : ''}
     `;
 
@@ -549,15 +589,15 @@
         });
 
         printInvoiceButton.addEventListener('click', function() {
-            console.log('Tombol Cetak Invoice diklik');
+            console.log('Print invoice button clicked');
 
             try {
                 // Ambil metode pembayaran
                 let paymentMethodElement = document.querySelector('input[name="payment_method"]:checked');
                 let paymentMethod = paymentMethodElement ? paymentMethodElement.value : null;
                 if (!paymentMethod) {
-                    console.error('Metode pembayaran tidak ditemukan!');
-                    alert('Harap pilih metode pembayaran.');
+                    console.error('Payment method not found!');
+                    alert('Please select a payment method');
                     return;
                 }
 
@@ -568,8 +608,8 @@
                     recipientBank = bankSelectionElement ? bankSelectionElement.value : null;
 
                     if (!recipientBank) {
-                        console.error('Bank belum dipilih!');
-                        alert('Harap pilih bank untuk pembayaran Non-Tunai.');
+                        console.error('Bank not selected!');
+                        alert('Please select a bank for non-cash payment');
                         return;
                     }
                 }
@@ -635,8 +675,8 @@
 
                 // Pastikan cart tidak kosong
                 if (!cart || cart.length === 0) {
-                    console.error('Keranjang belanja kosong!');
-                    alert('Keranjang belanja kosong. Harap tambahkan item sebelum melanjutkan.');
+                    console.error('Shopping cart is empty!');
+                    alert('Shopping cart is empty. Please add items before proceeding');
                     return;
                 }
 
@@ -680,11 +720,11 @@
                     })
                     .catch(error => {
                         console.error('Error processing invoice:', error);
-                        alert('Terjadi kesalahan saat memproses invoice. Silakan coba lagi.');
+                        alert('An error occurred while processing the invoice. Please try again.');
                     });
             } catch (error) {
                 console.error('Unhandled error:', error);
-                alert('Terjadi kesalahan yang tidak terduga. Harap periksa input Anda.');
+                alert('An unexpected error occurred. Please check your input.');
             }
         });
 
@@ -694,8 +734,8 @@
             const modalHTML = `
         <div id="successModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-                <h2 class="text-lg font-bold text-center mb-4">Invoice Berhasil Diproses</h2>
-                <p class="text-sm text-gray-600 text-center mb-6">Silakan pilih untuk mencetak invoice atau menghapus keranjang.</p>
+                <h2 class="text-lg font-bold text-center mb-4">Invoice Successfully Processed</h2>
+                <p class="text-sm text-gray-600 text-center mb-6">Please choose to print the invoice or clear the cart</p>
                 <div class="flex justify-around">
                     <a target="_blank" href="/receipt/download/${invoiceCode}" class="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700">
                         Print Invoice
@@ -742,6 +782,7 @@
                 placeholder: "Select Customer",
                 allowClear: true
             });
+
 
             // Muat data yang tersimpan di localStorage saat halaman dimuat
             const savedUserId = localStorage.getItem('selectedUserId');
@@ -885,7 +926,7 @@
 
             // Cek apakah stok lebih dari 0
             if (productStock <= 0) {
-                alert('Stok produk habis');
+                alert('Product is out of stock');
                 return;
             }
 
@@ -902,7 +943,7 @@
                 if (cart[existingProductIndex].quantity < productStock) {
                     cart[existingProductIndex].quantity++;
                 } else {
-                    alert('Stok produk sudah maksimal di keranjang');
+                    alert('The stock of the product is already at its maximum in the cart');
                 }
             } else {
                 // Jika produk belum ada, tambahkan produk baru dengan kuantitas 1
@@ -954,11 +995,11 @@
         function updateTotal() {
             // Hitung total belanja
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            console.log('Total sebelum format:', total);
+            console.log('Total before formatting:', total);
 
             // Format total belanja untuk ditampilkan
             const formattedTotal = formatRupiah(total);
-            console.log('Total setelah format:', formattedTotal);
+            console.log('Total after formatting:', formattedTotal);
 
             // Set tampilan dengan format Rupiah
             const totalAmountDisplay = document.getElementById('totalAmountDisplay');

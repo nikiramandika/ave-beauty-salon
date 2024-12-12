@@ -206,18 +206,17 @@
                         </span>
                     </div>
                     <div class="overflow-x-auto">
-                        <table id="example" class="table table-striped">
+                        <table id="example" class="table table-striped font-montserrat font-light">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="text-center align-middlefont-semibold text-sm text-gray-600">Invoice Code</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Recipient Name</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Cashier Name</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Phone Number</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Order Date</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Status</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Product/Treatment Name
-                                    </th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Total Amount</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Invoice Code</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Recipient Name</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Cashier Name</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Phone Number</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Order Date</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Status</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Product/Treatment Name</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Total Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -273,18 +272,18 @@
                         </span>
                     </div>
                     <div class="overflow-x-auto">
-                        <table id="example1" class="table table-striped">
+                        <table id="example1" class="table table-striped font-montserrat font-light">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Invoice Code</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Recipient Name</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Cashier Name</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Phone Number</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Adress</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Order Date</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Status</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Product Name</th>
-                                    <th class="text-center align-middle font-semibold text-sm text-gray-600">Total Amount</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Invoice Code</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Recipient Name</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Cashier Name</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Phone Number</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Adress</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Order Date</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Status</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Product Name</th>
+                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Total Amount</th>
                                 </tr>
                             </thead>
                             <tbody>

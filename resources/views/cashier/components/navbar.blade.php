@@ -9,7 +9,7 @@
                 <!-- Logo & Store Name -->
                 <div class="ml-4 flex items-center">
                     <img src="{{ asset('user/images/logo.png') }}" alt="Logo" class="h-8 w-8 mr-2">
-                    <span class="text-xl font-montserrat">Ave Beauty Salon</span>
+                    <span class="text-xl font-montserrat font-semibold text-[#63374d]">Ave Beauty Salon</span>
                 </div>
             </div>
             <!-- User Profile -->
