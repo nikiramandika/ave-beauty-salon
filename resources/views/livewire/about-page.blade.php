@@ -9,30 +9,38 @@
                 and sophistication. Every visit to Ave Beauty Salon is a journey to rediscover the art of true beauty,
                 blending classic refinement with modern sensibility.</p>
         </header>
-
-        <div class="image-large">
-            <img src="user/images/ave1.jpg" alt="Ave Beauty Salon">
+ 
+        <div class="m-0 pb-5 d-flex justify-content-center con-abt">
+            <img src="user/images/ave1.jpg" alt="Ave Beauty Salon" class="w-100">
         </div>
 
-        <div class="contents">
-            <div class="left">
-                <img src="user/images/ave2.jpg" alt="Ave Beauty Salon">
+        <section class="collection bg-light position-relative py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="collection-item d-flex flex-wrap my-5 rounded bg-white px-0 mx-2">
+                        <div class="col-md-6 column-container">
+                                <img src="user/images/ave2.jpg" alt="collection" class="product-image img-fluid w-100 h-100">
+                        </div>
+                        <div class="col-md-6 column-container bg-white rounded">
+                            <div class="collection-content p-5 m-0 m-md-">
+                                <h4 class="element-title text-uppercase pb-2">Our Vision</h4>
+                                <p align="justify" class="text-muted">Our vision at Ave Beauty Salon is to become a sanctuary of creativity and personal
+                                    reinvention. We aspire to inspire confidence and celebrate each client’s unique beauty by merging
+                                    artful design with tailored care. In a world of fleeting trends, Ave Beauty Salon stands as a symbol
+                                    of elegance, fostering a community where beauty becomes an experience of self-discovery and
+                                    empowerment.
+                
+                                    <br> <br>We believe in the power of authenticity and craftsmanship, striving to redefine beauty
+                                    standards by focusing on individuality rather than conformity. Our commitment is to provide an
+                                    environment where every guest feels valued, respected, and transformed, encouraging them to embrace
+                                    their true selves with grace and sophistication.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="right">
-                <h2>OUR VISION</h2>
-                <p align="justify">Our vision at Ave Beauty Salon is to become a sanctuary of creativity and personal
-                    reinvention. We aspire to inspire confidence and celebrate each client’s unique beauty by merging
-                    artful design with tailored care. In a world of fleeting trends, Ave Beauty Salon stands as a symbol
-                    of elegance, fostering a community where beauty becomes an experience of self-discovery and
-                    empowerment.
-
-                    <br> <br>We believe in the power of authenticity and craftsmanship, striving to redefine beauty
-                    standards by focusing on individuality rather than conformity. Our commitment is to provide an
-                    environment where every guest feels valued, respected, and transformed, encouraging them to embrace
-                    their true selves with grace and sophistication.
-                </p>
-            </div>
-        </div>
+        </section>
+    
         <!-- Location Map -->
         <div class="location-map">
             <h2>Our Location</h2>
