@@ -15,39 +15,39 @@ class CheckoutCourse extends Component
     public function mount($course_slug)
     {
         $this->course_slug = $course_slug;
-    
+
         // Ambil detail kursus berdasarkan slug
         $this->course = \App\Models\Course::where('course_slug', $course_slug)
             ->where('is_active', 1)
             ->firstOrFail();
-    
+
         // Ambil course_id langsung
         $this->course_id = $this->course->course_id; // Pastikan kolom course_id tersedia di tabel
     }
-    
+
 
     public function submitPaymentCourse()
     {
         $this->email = auth()->user()->email;
-    
+
         // Validasi Input
-        $validatedData = $this->validate([
+        $this->validate([
             'firstName' => 'required|string',
             'lastName' => 'required|string',
-            'recipientPhone' => 'required|string',
+            'recipientPhone' => 'required|digits_between:10,13',
             'address' => 'required|string',
             'state' => 'required|string',
             'country' => 'required|string',
-            'zip' => 'required|string',
+            'zip' => 'required|numeric',
             'recipientBank' => 'required|string',
             'startDate' => 'required|date',
             'endDate' => 'required|date|after_or_equal:startDate',
         ]);
-    
+
         // Data penerima dan alamat digabungkan setelah validasi
         $recipientName = $this->firstName . ' ' . $this->lastName;
         $recipientAddress = $this->address . ', ' . $this->state . ', ' . $this->country . ', ' . $this->zip;
-    
+
         try {
             // Panggil stored procedure tanpa menggunakan transaksi Laravel
             $result = DB::select('CALL invoice_course_process(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @selling_invoice_id)', [
@@ -64,27 +64,27 @@ class CheckoutCourse extends Component
                 $this->startDate,        // Start date
                 $this->endDate,          // End date (pastikan ini adalah tanggal yang valid)
             ]);
-            
-        
+
+
             // Ambil hasil ID faktur dari output parameter
             $invoiceId = DB::select('SELECT @selling_invoice_id AS selling_invoice_id')[0]->selling_invoice_id ?? null;
-        
+
             logger()->info('Output selling_invoice_id:', ['invoiceId' => $invoiceId]);
-        
+
             if (!$invoiceId) {
                 throw new \Exception('Failed to retrieve selling_invoice_id from stored procedure.');
             }
-        
+
             return redirect()->route('payment.upload', ['invoiceId' => $invoiceId]);
         } catch (\Exception $e) {
             logger()->error('Transaction error: ' . $e->getMessage());
             session()->flash('error', 'An error occurred while processing your payment. Please try again later.');
             return back();
-        }        
+        }
     }
-    
-    
-    
+
+
+
     public function render()
     {
         return view('livewire.checkout-course', [

@@ -73,24 +73,18 @@ class CheckoutPage extends Component
     {
         $this->email = auth()->user()->email;
 
-        // Validasi Input
-        try {
-            $this->validate([
-                'firstName' => 'required|string',
-                'lastName' => 'required|string',
-                'recipientPhone' => 'required|string',
-                'address' => 'required|string',
-                'state' => 'required|string',
-                'country' => 'required|string',
-                'zip' => 'required|string',
-                'recipientBank' => 'required|string',
-            ]);
-        } catch (\Exception $e) {
-            // Debug hanya untuk pengembangan
-            logger()->error('Validation error: ' . $e->getMessage());
-            session()->flash('error', 'Validation failed. Please check your input.');
-            return back();
-        }
+        $this->validate([
+            'firstName' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'recipientPhone' => 'required|digits_between:10,13',
+            'address' => 'required|string|max:255',
+            'country' => 'required|string',
+            'state' => 'required|string',
+            'zip' => 'required|numeric',
+            'recipientBank' => 'required|string',
+        ]);
+
+
 
         $recipientName = $this->firstName . ' ' . $this->lastName;
         $recipientAddress = $this->address . ', ' . $this->state . ', ' . $this->country . ', ' . $this->zip;

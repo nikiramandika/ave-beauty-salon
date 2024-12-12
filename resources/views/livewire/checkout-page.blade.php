@@ -189,8 +189,9 @@
                             <!-- Phone Number -->
                             <div class="col-12">
                                 <label for="recipientPhone" class="form-label">Phone Number</label>
-                                <input type="number" class="form-control" id="recipientPhone"
-                                    wire:model="recipientPhone" placeholder="e.g., 08123456789" required>
+                                <input type="text" class="form-control" id="recipientPhone"
+                                    wire:model="recipientPhone" placeholder="e.g., 08123456789" required
+                                    pattern="[0-9]{10,13}" minlength="10" maxlength="13">
                                 @error('recipientPhone')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -274,10 +275,10 @@
                             @enderror
                         </div>
 
-
                         <!-- Submit Button -->
                         <button type="submit" class="w-100 btn btn-primary btn-lg my-4">Submit Payment</button>
                     </form>
+
                 </div>
             </div>
         </main>
