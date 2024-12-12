@@ -211,12 +211,12 @@
                                     style="width:100%">
                                     <thead class="table-light">
                                         <tr>
-                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">User ID</th>
-                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">First Name</th>
-                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Last Name</th>
-                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Email</th>
-                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Phone</th>
-                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Actions</th>
+                                            <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">User ID</th>
+                                            <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">First Name</th>
+                                            <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Last Name</th>
+                                            <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Email</th>
+                                            <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Phone</th>
+                                            <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -253,11 +253,11 @@
                                     style="width:100%">
                                     <thead class="table-light">
                                         <tr>
-                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Membership Number</th>
-                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">User Name</th>
-                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Points</th>
-                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Status</th>
-                                            <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Actions</th>
+                                            <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Membership Number</th>
+                                            <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">User Name</th>
+                                            <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Points</th>
+                                            <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Status</th>
+                                            <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>

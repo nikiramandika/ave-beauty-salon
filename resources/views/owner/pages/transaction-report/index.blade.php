@@ -162,14 +162,14 @@
                                     <table id="example1" class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th style="text-align:center;">Invoice Code</th>
-                                                <th style="text-align:center;">Order Date</th>
-                                                <th style="text-align:center;">Order Status</th>
-                                                <th style="text-align:center;">Cashier Name</th>
-                                                <th style="text-align:center;">Recipient Name</th>
-                                                <th style="text-align:center;">Recipient Email</th>
-                                                <th style="text-align:center;">Recipient Phone</th>
-                                                <th style="text-align:center;">Total Amount</th>
+                                                <th style="text-align:center; font-weight: 700;">Invoice Code</th>
+                                                <th style="text-align:center; font-weight: 700;">Order Date</th>
+                                                <th style="text-align:center; font-weight: 700;">Order Status</th>
+                                                <th style="text-align:center; font-weight: 700;">Cashier Name</th>
+                                                <th style="text-align:center; font-weight: 700;">Recipient Name</th>
+                                                <th style="text-align:center; font-weight: 700;">Recipient Email</th>
+                                                <th style="text-align:center; font-weight: 700;">Recipient Phone</th>
+                                                <th style="text-align:center; font-weight: 700;">Total Amount</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
@@ -243,13 +243,13 @@
                                     <table id="example" class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th style="text-align:center;">Invoice Code</th>
-                                                <th style="text-align:center;">Order Date</th>
-                                                <th style="text-align:center;">Order Status</th>
-                                                <th style="text-align:center;">Course Name</th>
-                                                <th style="text-align:center;">Total Sessions</th>
-                                                <th style="text-align:center;">Sessions Completed</th>
-                                                <th style="text-align:center;">Course Price</th>
+                                                <th style="text-align:center; font-weight: 700;">Invoice Code</th>
+                                                <th style="text-align:center; font-weight: 700;">Order Date</th>
+                                                <th style="text-align:center; font-weight: 700;">Order Status</th>
+                                                <th style="text-align:center; font-weight: 700;">Course Name</th>
+                                                <th style="text-align:center; font-weight: 700;">Total Sessions</th>
+                                                <th style="text-align:center; font-weight: 700;">Sessions Completed</th>
+                                                <th style="text-align:center; font-weight: 700;">Course Price</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">

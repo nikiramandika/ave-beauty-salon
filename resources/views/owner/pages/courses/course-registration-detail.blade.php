@@ -74,13 +74,13 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th style="text-align:center;">Invoice Code</th> <!-- Menambahkan kolom untuk Invoice Code -->
-                                                <th style="text-align:center;">Course Name</th>
-                                                <th style="text-align:center;">Username</th>
-                                                <th style="text-align:center;">Start Date</th>
-                                                <th style="text-align:center;">End Date</th>
-                                                <th style="text-align:center;">Sessions Completed</th>
-                                                <th style="text-align:center;">Status</th>
+                                                <th style="text-align:center; font-weight: 700;">Invoice Code</th> <!-- Menambahkan kolom untuk Invoice Code -->
+                                                <th style="text-align:center; font-weight: 700;">Course Name</th>
+                                                <th style="text-align:center; font-weight: 700;">Username</th>
+                                                <th style="text-align:center; font-weight: 700;">Start Date</th>
+                                                <th style="text-align:center; font-weight: 700;">End Date</th>
+                                                <th style="text-align:center; font-weight: 700;">Sessions Completed</th>
+                                                <th style="text-align:center; font-weight: 700;">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
@@ -148,12 +148,12 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th style="text-align:center;">Recipient Name</th>
-                                                <th style="text-align:center;">Recipient Email</th>
-                                                <th style="text-align:center;">Recipient Phone Number</th>
-                                                <th style="text-align:center;">Recipient Address</th>
-                                                <th style="text-align:center;">Payment Status</th>
-                                                <th style="text-align:center;">Payment Receipt Image</th>
+                                                <th style="text-align:center; font-weight: 700;">Recipient Name</th>
+                                                <th style="text-align:center; font-weight: 700;">Recipient Email</th>
+                                                <th style="text-align:center; font-weight: 700;">Recipient Phone Number</th>
+                                                <th style="text-align:center; font-weight: 700;">Recipient Address</th>
+                                                <th style="text-align:center; font-weight: 700;">Payment Status</th>
+                                                <th style="text-align:center; font-weight: 700;">Payment Receipt Image</th>
                                                 <!-- Menambahkan kolom untuk Gambar -->
                                             </tr>
                                         </thead>

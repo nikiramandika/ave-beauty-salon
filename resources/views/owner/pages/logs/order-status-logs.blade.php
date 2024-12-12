@@ -97,29 +97,29 @@
                                     <table id="example1" class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Log Time</th>
-                                                <th>Invoice Code</th>
-                                                <th>Cashier</th>
-                                                <th>Old Status</th>
-                                                <th>New Status</th>
+                                                <th style="text-align:center; font-weight: 700;">Log Time</th>
+                                                <th style="text-align:center; font-weight: 700;">Invoice Code</th>
+                                                <th style="text-align:center; font-weight: 700;">Cashier</th>
+                                                <th style="text-align:center; font-weight: 700;">Old Status</th>
+                                                <th style="text-align:center; font-weight: 700;">New Status</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             @forelse($logs as $log)
                                                 <tr>
-                                                    <td>{{ $log->log_time }}</td>
-                                                    <td>{{ $log->invoice_code }}</td>
-                                                    <td>
+                                                    <td style="text-align:center;">{{ $log->log_time }}</td>
+                                                    <td style="text-align:center;">{{ $log->invoice_code }}</td>
+                                                    <td style="text-align:center;">
                                                         {{ $log->nama_depan ?? '-' }}
                                                         {{ $log->nama_belakang ?? '-' }}
                                                     </td> <!-- Nama Kasir -->
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         <span
                                                             style="color: {{ $log->old_order_status == 'Complete' ? 'green' : ($log->old_order_status == 'Pending' ? 'orange' : 'navy') }}">
                                                             {{ $log->old_order_status }}
                                                         </span>
                                                     </td>
-                                                    <td>
+                                                    <td style="text-align:center;">
                                                         <span
                                                             style="color: {{ $log->new_order_status == 'Complete' ? 'green' : ($log->new_order_status == 'Refund' ? 'red' : 'navy') }}">
                                                             {{ $log->new_order_status }}

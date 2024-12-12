@@ -85,11 +85,11 @@
                                 <table id="example1" class="table">
                                     <thead>
                                         <tr>
-                                            <th style="text-align:center;">Name</th>
-                                            <th style="text-align:center;">Email</th>
-                                            <th style="text-align:center;">Role</th>
-                                            <th style="text-align:center;">Status</th>
-                                            <th style="text-align:center;">Actions</th>
+                                            <th style="text-align:center; font-weight: 700;">Name</th>
+                                            <th style="text-align:center; font-weight: 700;">Email</th>
+                                            <th style="text-align:center; font-weight: 700;">Role</th>
+                                            <th style="text-align:center; font-weight: 700;">Status</th>
+                                            <th style="text-align:center; font-weight: 700;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">

@@ -209,14 +209,14 @@
                         <table id="example" class="table table-striped font-montserrat font-light">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Invoice Code</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Recipient Name</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Cashier Name</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Phone Number</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Order Date</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Status</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Product/Treatment Name</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Total Amount</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Invoice Code</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Recipient Name</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Cashier Name</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Phone Number</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Order Date</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Status</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Product/Treatment Name</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat" style="text-transform: uppercase; font-weight: 700;">Total Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -275,15 +275,15 @@
                         <table id="example1" class="table table-striped font-montserrat font-light">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Invoice Code</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Recipient Name</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Cashier Name</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Phone Number</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Adress</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Order Date</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Status</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Product Name</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 font-montserrat font-semibold">Total Amount</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Invoice Code</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Recipient Name</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Cashier Name</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Phone Number</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-64" style="text-transform: uppercase; font-weight: 700;">Address</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Order Date</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Status</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Product Name</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Total Amount</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -97,32 +97,32 @@
                                     <table id="example1" class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Log Time</th>
-                                                <th>User</th>
-                                                <th>Membership Number</th>
-                                                <th>Cashier</th>
-                                                <th>Action Type</th>
-                                                <th>Old Points</th>
-                                                <th>New Points</th>
-                                                <th>Is Active</th>
+                                                <th style="text-align:center; font-weight: 700;">Log Time</th>
+                                                <th style="text-align:center; font-weight: 700;">User</th>
+                                                <th style="text-align:center; font-weight: 700;">Membership Number</th>
+                                                <th style="text-align:center; font-weight: 700;">Cashier</th>
+                                                <th style="text-align:center; font-weight: 700;">Action Type</th>
+                                                <th style="text-align:center; font-weight: 700;">Old Points</th>
+                                                <th style="text-align:center; font-weight: 700;">New Points</th>
+                                                <th style="text-align:center; font-weight: 700;">Is Active</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             @forelse($logs as $log)
                                                 <tr>
-                                                    <td>{{ $log->log_time }}</td>
-                                                    <td>{{ $log->user_first_name }} {{ $log->user_last_name }}</td> <!-- Nama User -->
-                                                    <td>{{ $log->membership_number }}</td>
-                                                    <td>{{ $log->cashier_first_name }} {{ $log->cashier_last_name }}</td> <!-- Nama Kasir -->
-                                                    <td>
+                                                    <td style="text-align:center;">{{ $log->log_time }}</td>
+                                                    <td style="text-align:center;">{{ $log->user_first_name }} {{ $log->user_last_name }}</td> <!-- Nama User -->
+                                                    <td style="text-align:center;">{{ $log->membership_number }}</td>
+                                                    <td style="text-align:center;">{{ $log->cashier_first_name }} {{ $log->cashier_last_name }}</td> <!-- Nama Kasir -->
+                                                    <td style="text-align:center;">
                                                         <span
                                                             style="color: {{ $log->action_type == 'add' ? 'green' : ($log->action_type == 'remove' ? 'red' : 'orange') }}">
                                                             {{ ucfirst($log->action_type) }}
                                                         </span>
                                                     </td>
-                                                    <td>{{ $log->old_points ?? '-' }}</td>
-                                                    <td>{{ $log->new_points ?? '-' }}</td>
-                                                    <td>
+                                                    <td style="text-align:center;">{{ $log->old_points ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $log->new_points ?? '-' }}</td>
+                                                    <td style="text-align:center;">
                                                         <span style="color: {{ $log->is_active ? 'green' : 'red' }}">
                                                             {{ $log->is_active ? 'Active' : 'Inactive' }}
                                                         </span>

@@ -87,13 +87,13 @@
                                     <table id="example1" class="table">
                                         <thead>
                                             <tr>
-                                                <th style="text-align:center;">Username</th>
-                                                <th style="text-align:center;">Email</th>
-                                                <th style="text-align:center;">Start Date</th>
-                                                <th style="text-align:center;">End Date</th>
-                                                <th style="text-align:center;">Sessions Completed</th>
-                                                <th style="text-align:center;">Status</th>
-                                                <th style="text-align:center;">Actions</th>
+                                                <th style="text-align:center; font-weight: 700;">Username</th>
+                                                <th style="text-align:center; font-weight: 700;">Email</th>
+                                                <th style="text-align:center; font-weight: 700;">Start Date</th>
+                                                <th style="text-align:center; font-weight: 700;">End Date</th>
+                                                <th style="text-align:center; font-weight: 700;">Sessions Completed</th>
+                                                <th style="text-align:center; font-weight: 700;">Status</th>
+                                                <th style="text-align:center; font-weight: 700;">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">

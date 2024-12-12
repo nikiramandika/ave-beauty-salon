@@ -91,15 +91,15 @@
                                     <table id="example1" class="table">
                                         <thead>
                                             <tr>
-                                                <th style="text-align:center;">Image</th>
-                                                <th style="text-align:center;">Course Name</th>
-                                                <th style="text-align:center;">Slug</th>
-                                                <th style="text-align:center;">Price</th>
-                                                <th style="text-align:center;">Desctiption</th>
-                                                <th style="text-align:center;">Sessions</th>
-                                                <th style="text-align:center;">Benefits</th>
-                                                <th style="text-align:center;">Status</th>
-                                                <th style="text-align:center;">Actions</th>
+                                                <th style="text-align:center; font-weight: 700;">Image</th>
+                                                <th style="text-align:center; font-weight: 700;">Course Name</th>
+                                                <th style="text-align:center; font-weight: 700;">Slug</th>
+                                                <th style="text-align:center; font-weight: 700;">Price</th>
+                                                <th style="text-align:center; font-weight: 700;">Desctiption</th>
+                                                <th style="text-align:center; font-weight: 700;">Sessions</th>
+                                                <th style="text-align:center; font-weight: 700;">Benefits</th>
+                                                <th style="text-align:center; font-weight: 700;">Status</th>
+                                                <th style="text-align:center; font-weight: 700;">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">

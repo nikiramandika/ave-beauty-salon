@@ -97,27 +97,27 @@
                                     <table id="example1" class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Log Time</th>
-                                                <th>Invoice Code</th>
-                                                <th>Cashier</th>
-                                                <th>Old Refund ID</th>
-                                                <th>New Refund ID</th>
-                                                <th>Refund Status</th> <!-- Kolom baru untuk Refund Status -->
+                                                <th style="text-align:center; font-weight: 700;">Log Time</th>
+                                                <th style="text-align:center; font-weight: 700;">Invoice Code</th>
+                                                <th style="text-align:center; font-weight: 700;">Cashier</th>
+                                                <th style="text-align:center; font-weight: 700;">Old Refund ID</th>
+                                                <th style="text-align:center; font-weight: 700;">New Refund ID</th>
+                                                <th style="text-align:center; font-weight: 700;">Refund Status</th> <!-- Kolom baru untuk Refund Status -->
 
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             @forelse($logs as $log)
                                                 <tr>
-                                                    <td>{{ $log->log_time }}</td>
-                                                    <td>{{ $log->invoice_code }}</td>
-                                                    <td>
+                                                    <td style="text-align:center;">{{ $log->log_time }}</td>
+                                                    <td style="text-align:center;">{{ $log->invoice_code }}</td>
+                                                    <td style="text-align:center;">
                                                         {{ $log->nama_depan ?? '-' }}
                                                         {{ $log->nama_belakang ?? '-' }}
                                                     </td> <!-- Nama Kasir -->
-                                                    <td>{{ $log->old_refund_id ?? '-' }}</td>
-                                                    <td>{{ $log->new_refund_id ?? '-' }}</td>
-                                                    <td>
+                                                    <td style="text-align:center;">{{ $log->old_refund_id ?? '-' }}</td>
+                                                    <td style="text-align:center;">{{ $log->new_refund_id ?? '-' }}</td>
+                                                    <td style="text-align:center;">
                                                         <span style="color: {{ $log->refund_status == 'Refund Success' ? 'green' : 'red' }}">
                                                             {{ $log->refund_status ?? '-' }}
                                                         </span>

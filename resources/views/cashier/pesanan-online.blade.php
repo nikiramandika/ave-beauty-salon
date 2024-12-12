@@ -185,14 +185,14 @@
                         <table id="example" class="table table-striped w-full table-fixed font-montserrat font-light">
                             <thead class="bg-gray-50">
                                 <tr class="align-middle text-center">
-                                    <th class="text-center align-middle text-sm text-gray-600 w-40 font-montserrat font-semibold">Invoice Code</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 w-40 font-montserrat font-semibold">Recipient Name</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 w-32 font-montserrat font-semibold">Phone Number</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 w-64 font-montserrat font-semibold">Address</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 w-32 font-montserrat font-semibold">Order Date</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 w-32 font-montserrat font-semibold">Status</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 w-40 font-montserrat font-semibold">Action</th>
-                                    <th class="text-center align-middle text-sm text-gray-600 w-32 font-montserrat font-semibold">Payment Receipt</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Invoice Code</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Recipient Name</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Phone Number</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-64" style="text-transform: uppercase; font-weight: 700;">Address</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Order Date</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Status</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Action</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Payment Receipt</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -315,17 +315,17 @@
                         <table id="example1" class="table table-striped w-full table-fixed font-montserrat font-light">
                             <thead class="bg-gray-50 align-middle">
                                 <tr>
-                                    <th class="text-center align-middle font-montserrat font-semibold text-sm text-gray-600 w-40">Invoice Code</th>
-                                    <th class="text-center align-middle font-montserrat font-semibold text-sm text-gray-600 w-40">Recipient Name</th>
-                                    <th class="text-center align-middle font-montserrat font-semibold text-sm text-gray-600 w-32">Phone Number</th>
-                                    <th class="text-center align-middle font-montserrat font-semibold text-sm text-gray-600 w-64">Address</th>
-                                    <th class="text-center align-middle font-montserrat font-semibold text-sm text-gray-600 w-32">Order Date</th>
-                                    <th class="text-center align-middle font-montserrat font-semibold text-sm text-gray-600 w-32">Refund Status</th>
-                                    <th class="text-center align-middle font-montserrat font-semibold text-sm text-gray-600 w-48">Refund Reason</th>
-                                    <th class="text-center align-middle font-montserrat font-semibold text-sm text-gray-600 w-32">User Refund File</th>
-                                    <th class="text-center align-middle font-montserrat font-semibold text-sm text-gray-600 w-32">Admin Refund File</th>
-                                    <th class="text-center align-middle font-montserrat font-semibold text-sm text-gray-600 w-32">Action</th>
-                                    <th class="text-center align-middle font-montserrat font-semibold text-sm text-gray-600 w-40">Admin Refund File Action</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Invoice Code</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Recipient Name</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Phone Number</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-64" style="text-transform: uppercase; font-weight: 700;">Address</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Order Date</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Refund Status</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-48" style="text-transform: uppercase; font-weight: 700;">Refund Reason</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">User Refund File</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Admin Refund File</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Action</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Admin Refund File Action</th>
                                 </tr>
                             </thead>
                             <tbody>

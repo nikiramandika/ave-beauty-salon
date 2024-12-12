@@ -93,14 +93,14 @@
                                     <table id="example1" class="table">
                                         <thead>
                                             <tr>
-                                                <th style="text-align:center;">Image</th>
-                                                <th style="text-align:center;">Treatment Name</th>
-                                                <th style="text-align:center;">Slug</th>
-                                                <th style="text-align:center;">Price</th>
-                                                <th style="text-align:center;">Description</th>
-                                                <th style="text-align:center;">Duration</th>
-                                                <th style="text-align:center;">Status</th>
-                                                <th style="text-align:center;">Actions</th>
+                                                <th style="text-align:center; font-weight: 700;">Image</th>
+                                                <th style="text-align:center; font-weight: 700;">Treatment Name</th>
+                                                <th style="text-align:center; font-weight: 700;">Slug</th>
+                                                <th style="text-align:center; font-weight: 700;">Price</th>
+                                                <th style="text-align:center; font-weight: 700;">Description</th>
+                                                <th style="text-align:center; font-weight: 700;">Duration</th>
+                                                <th style="text-align:center; font-weight: 700;">Status</th>
+                                                <th style="text-align:center; font-weight: 700;">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
