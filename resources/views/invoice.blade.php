@@ -12,7 +12,7 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f4f4f4;
+            background-color: #fdeef4 !important;
         }
 
         .invoice-container {
@@ -26,14 +26,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #007bff;
+            border-bottom: 2px solid #751332;
             padding-bottom: 20px;
             margin-bottom: 20px;
         }
 
         .company-info h1 {
             margin: 0;
-            color: #007bff;
+            color: #751332;
         }
 
         .invoice-details {
@@ -46,14 +46,15 @@
         .invoice-details-section {
             background-color: #f8f9fa;
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 10px;
         }
 
         .invoice-details-section h3 {
             margin-top: 0;
-            color: #007bff;
+            color: #751332;
             border-bottom: 1px solid #ddd;
             padding-bottom: 10px;
+            border-radius: 10px;
         }
 
         .invoice-table {
@@ -63,10 +64,11 @@
         }
 
         .invoice-table th {
-            background-color: #007bff;
+            background-color: #751332;
             color: white;
             padding: 10px;
             text-align: left;
+            
         }
 
         .invoice-table td {
@@ -81,7 +83,7 @@
         .total {
             font-weight: bold;
             font-size: 1.2em;
-            color: #007bff;
+            color: #751332;
             text-align: right;
             margin-top: 20px;
         }
@@ -90,15 +92,22 @@
 
 <body>
     <div class="invoice-container">
-        <div class="invoice-header">
+        <div class="invoice-header" style="align-items: flex-start;">
             <div class="company-info">
                 <h1>Invoice</h1>
-                <p>{{ config('app.name', 'Your Company Name') }}</p>
+                {{-- <p>{{ config('app.name', 'Your Company Name') }}</p> --}}
+                <div>
+                
+                    <strong>Invoice Code:</strong> {{ $invoice->invoice_code }}<br>
+                    <strong>Date:</strong> {{ $invoice->order_date }}
+                </div>
+                
             </div>
-            <div>
-                <strong>Invoice Code:</strong> {{ $invoice->invoice_code }}<br>
-                <strong>Date:</strong> {{ $invoice->order_date }}
-            </div>
+            <div class="col-2 col-lg-3">
+                <a class="navbar-brand text-white" href="home">
+                    <img src="{{ asset('user/images/logo.png') }}" alt="Logo" style="width: 60px; height: auto">
+                </a>
+            </div>  
         </div>
 
         <div class="invoice-details">
