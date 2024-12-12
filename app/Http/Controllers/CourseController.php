@@ -209,29 +209,24 @@ class CourseController extends Controller
 
     public function courseRegistration()
     {
-        // Ambil data CourseDescription, CourseRegistration, dan CourseHistory1 dengan relasi yang diperlukan
+        // Ambil data CourseDescription
         $courseDescriptions = CourseDescription::with('course')->get();
 
-        // Ambil CourseRegistrations dan relasi yang dibutuhkan
-        $courseRegistrations = CourseRegistration::with('course', 'user')->get();
+        // Ambil CourseRegistrations dengan data dari CourseHistory1
+        $courseRegistrations = CourseRegistration::select(
+            'course_registrations.*',
+            'course_history1.order_date',
+            'course_history1.invoice_code',
+            'course_history1.order_status'
+        )
+            ->leftJoin('course_history1', 'course_registrations.invoice_code', '=', 'course_history1.invoice_code')
+            ->with('course', 'user')
+            ->get();
 
-        // Mengambil data CourseHistory1 dan mencocokkannya dengan registration_id dari CourseRegistration
-        $courseHistory1 = CourseHistory1::with('course', 'user')->get();
-
-        // Menambahkan invoice_code ke setiap courseRegistration berdasarkan registration_id yang cocok di courseHistory1
-        foreach ($courseRegistrations as $registration) {
-            // Mencari data history yang terkait dengan registration_id
-            $history = $courseHistory1->where('registration_id', $registration->id)->first();
-            if ($history) {
-                $registration->invoice_code = $history->invoice_code;
-            } else {
-                $registration->invoice_code = null; // Jika tidak ditemukan, set invoice_code sebagai null
-            }
-        }
-
-        // Mengirimkan data ke view
-        return view('owner.pages.courses.course-registration', compact('courseDescriptions', 'courseRegistrations', 'courseHistory1'));
+        // Kirim data ke view
+        return view('owner.pages.courses.course-registration', compact('courseDescriptions', 'courseRegistrations'));
     }
+
 
     public function viewCourseHistory($registration_id)
     {
@@ -274,48 +269,48 @@ class CourseController extends Controller
     public function updateSessionPlus(Request $request, $registrationId)
     {
         Log::info("updateSessionPlus called for registrationId: $registrationId"); // Log untuk debugging
-    
+
         // Temukan data course registration berdasarkan ID
         $registration = CourseRegistration::find($registrationId);
-    
+
         if ($registration) {
             // Ambil total sessions dari course yang terkait
             $totalSessions = $registration->course->sessions;
-    
+
             // Pastikan sesi belum mencapai total
             if ($registration->sessions_completed < $totalSessions) {
                 $registration->sessions_completed += 1;
                 $registration->save();
-    
+
                 return response()->json(['success' => true]);
             }
-    
+
             return response()->json(['error' => 'Jumlah sesi sudah mencapai total.']);
         }
-    
+
         return response()->json(['error' => 'Registrasi tidak ditemukan.']);
     }
     public function updateSessionMinus(Request $request, $registrationId)
     {
         Log::info("updateSessionMinus called for registrationId: $registrationId"); // Log untuk debugging
-    
+
         // Temukan data course registration berdasarkan ID
         $registration = CourseRegistration::find($registrationId);
-    
+
         if ($registration) {
             // Pastikan sesi tidak kurang dari 0
             if ($registration->sessions_completed > 0) {
                 $registration->sessions_completed -= 1;
                 $registration->save();
-    
+
                 return response()->json(['success' => true]);
             }
-    
+
             return response()->json(['error' => 'Jumlah sesi tidak bisa kurang dari 0.']);
         }
-    
+
         return response()->json(['error' => 'Registrasi tidak ditemukan.']);
     }
-        
+
 
 }

@@ -80,53 +80,67 @@
 
                         <!-- Daftar Course Registration -->
                         <div class="card mt-4">
-                            <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d; margin-left: 10px;">Course Registration</h4>
-                            <div class="card-body">
-                                <div class="table-responsive text-nowrap">
-                                    <table id="example1" class="table">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align:center; font-weight: 700;">Username</th>
-                                                <th style="text-align:center; font-weight: 700;">Email</th>
-                                                <th style="text-align:center; font-weight: 700;">Start Date</th>
-                                                <th style="text-align:center; font-weight: 700;">End Date</th>
-                                                <th style="text-align:center; font-weight: 700;">Sessions Completed</th>
-                                                <th style="text-align:center; font-weight: 700;">Status</th>
-                                                <th style="text-align:center; font-weight: 700;">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="table-border-bottom-0">
-                                            @forelse($courseRegistrations as $registration)
+                            <h3 class="card-header element-title text-uppercase pb-2"
+                                style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d; margin-left: 10px;">
+                                Course Registration</h4>
+                                <div class="card-body">
+                                    <div class="table-responsive text-nowrap">
+                                        <table id="example1" class="table">
+                                            <thead>
                                                 <tr>
-                                                    <td style="text-align:center;">{{ $registration->user->nama_depan ?? '-' }}
-                                                        {{ $registration->user->nama_belakang ?? '-' }}</td>
+                                                    <th style="text-align:center; font-weight: 700;">Invoice Code</th>
+                                                    <th style="text-align:center; font-weight: 700;">Order Date</th>
+                                                    <th style="text-align:center; font-weight: 700;">Username</th>
+                                                    <th style="text-align:center; font-weight: 700;">Start Date</th>
+                                                    <th style="text-align:center; font-weight: 700;">End Date</th>
+                                                    <th style="text-align:center; font-weight: 700;">Sessions Completed
+                                                    </th>
+                                                    <th style="text-align:center; font-weight: 700;">Status</th>
+                                                    <th style="text-align:center; font-weight: 700;">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-border-bottom-0">
+                                                @forelse($courseRegistrations as $registration)
+                                                    <tr>
+                                                        <td>{{ $registration->invoice_code }}</td>
 
-                                                    <td style="text-align:center;">{{ $registration->user->email ?? '-' }}</td>
-                                                    <td style="text-align:center;">{{ $registration->start_date ?? '-' }}</td>
-                                                    <td style="text-align:center;">{{ $registration->end_date ?? '-' }}</td>
-                                                    <td style="text-align:center;">{{ $registration->sessions_completed ?? 0 }}</td>
-                                                    <td style="text-align:center;">
-                                                        <span
-                                                            style="color: {{ $registration->status == 'Registered' ? 'green' : 'red' }}">
-                                                            {{ ucfirst($registration->status) }}
-                                                        </span>
-                                                    </td>
-                                                    <td style="text-align:center;">
-                                                        <a href="{{ route('course.history.view', ['registration_id' => $registration->registration_id]) }}"
-                                                            class="dropdown-item">
-                                                            <i class="bx bx-show-alt me-2"></i> View
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="7" class="text-center">No course registration data available</td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
+                                                        <td style="text-align:center;">{{ $registration->order_date ? $registration->order_date : 'N/A' }}
+                                                        </td>
+                                                        <td style="text-align:center;">
+                                                            {{ $registration->user->nama_depan ?? '-' }}
+                                                            {{ $registration->user->nama_belakang ?? '-' }}</td>
+
+
+                                                        <td style="text-align:center;">
+                                                            {{ $registration->start_date ?? '-' }}</td>
+
+                                                        <td style="text-align:center;">
+                                                            {{ $registration->end_date ?? '-' }}</td>
+                                                        <td style="text-align:center;">
+                                                            {{ $registration->sessions_completed ?? 0 }}</td>
+                                                        <td style="text-align:center;">
+                                                            <span
+                                                                style="color: {{ $registration->order_status == 'Complete' ? 'green' : 'red' }}">
+                                                                {{ ucfirst($registration->order_status) }}
+                                                            </span>
+                                                        </td>
+                                                        <td style="text-align:center;">
+                                                            <a href="{{ route('course.history.view', ['registration_id' => $registration->registration_id]) }}"
+                                                                class="dropdown-item">
+                                                                <i class="bx bx-show-alt me-2"></i> View
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="7" class="text-center">No course registration
+                                                            data available</td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                     <!-- Content wrapper -->
@@ -175,11 +189,11 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="deleteCourseModalLabel">Delete Course Confirmation</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete <strong><span
-                                    id="deleteCourseName"></span></strong>?</p>
+                        <p>Are you sure you want to delete <strong><span id="deleteCourseName"></span></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <form id="deleteCourseForm" method="POST">

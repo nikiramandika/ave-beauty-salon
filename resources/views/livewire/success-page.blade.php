@@ -6,7 +6,11 @@
                     <div class="card">
                         <div class="px-5">
                             <div class="px-2 pt-5 pb-3 d-flex justify-content-between">
+                                @if ($details->contains('product_name', '!=', null))
                                 <h4 class="">Thanks for your Order, {{ $invoice->recipient_name }}!</h4>
+                                @else
+                                <h4 class="">Thank you for registering for the course, {{ $invoice->recipient_name }}!</h4>
+                                @endif
                                 <p>
                                     <span
                                         class="text-white px-3 py-2 badge rounded-pill 
@@ -19,13 +23,23 @@
                                 <h2 class="h5 mb-0">
                                     <a href="#" class="text-muted"></a> Order #{{ $invoice->invoice_code }}
                                 </h2>
-                                <a href="{{ route('historyOrder') }}" class="btn-link" style="height: fit-content">View Order</a>
-                                
+                                @if ($details->contains('product_name', '!=', null))
+                                <a href="{{ route('historyOrder') }}" class="btn-link" style="height: fit-content">View
+                                    Order</a>
+                                @else
+                                <a href="{{ route('course.history') }}" class="btn-link" style="height: fit-content">View
+                                    Course</a>
+                                @endif
+
                             </div>
 
                             <div class="card-body pt-5">
                                 <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <p class="lead fw-bold mb-0">Products Ordered</p>
+                                    @if ($details->contains('product_name', '!=', null))
+                                        <p class="lead fw-bold mb-0">Products Ordered</p>
+                                    @else
+                                        <p class="lead fw-bold mb-0">Course Ordered</p>
+                                    @endif
                                 </div>
                                 @if ($details->count())
                                     @foreach ($details as $detail)
@@ -36,21 +50,25 @@
                                                         <!-- Menampilkan gambar produk dari product_descriptions -->
                                                         @if ($detail->product_image)
                                                             <img src="{{ asset($detail->product_image) }}"
-                                                                class="img-fluid rounded" alt="Product" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
+                                                                class="img-fluid rounded" alt="Product Image"
+                                                                onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                                         @else
-                                                            <img src="{{ asset('user/images/image_not_available.png') }}" class="img-fluid"
-                                                                alt="Product">
-                                                            <!-- Placeholder jika tidak ada gambar -->
+                                                            <img src="{{ $detail->course_name ? asset('user/images/course_placeholder.png') : asset('user/images/product_placeholder.png') }}"
+                                                                class="img-fluid" alt="Placeholder">
                                                         @endif
+
                                                     </div>
                                                     <div
                                                         class="col-md-3 text-center d-flex justify-content-center align-items-center">
-                                                        <p class="text-muted mb-0">{{ $detail->product_name }}</p>
+                                                        <p class="text-muted mb-0">
+                                                            {{ $detail->product_name ?? $detail->course_name }}
+                                                        </p>
                                                     </div>
                                                     <div
                                                         class="col-md-3 text-center d-flex justify-content-center align-items-center">
                                                         <p class="text-muted mb-0 small">
-                                                            Rp{{ number_format((float) $detail->price, 0, ',', '.') }}</p>
+                                                            Rp{{ number_format((float) $detail->price, 0, ',', '.') }}
+                                                        </p>
                                                     </div>
                                                     <div
                                                         class="col-md-2 text-center d-flex justify-content-center align-items-center">
@@ -94,20 +112,31 @@
                                         Rp{{ number_format((float) $details->sum(fn($d) => $d->quantity * $d->price), 0, ',', '.') }}
                                     </p>
                                 </div>
-                                <div class="d-flex justify-content-between pt-2">
-                                    <p class="text-muted mb-0">Shipping Fee</p>
-                                    <p class="text-muted mb-0">
-                                        Rp{{ number_format(10000, 0, ',', '.') }}
-                                    </p>
-                                </div>
+
+                                @if ($details->contains('product_name', '!=', null))
+                                    <!-- Pengecekan apakah product_name ada -->
+                                    <div class="d-flex justify-content-between pt-2">
+                                        <p class="text-muted mb-0">Shipping Fee</p>
+                                        <p class="text-muted mb-0">
+                                            Rp{{ number_format(10000, 0, ',', '.') }}
+                                        </p>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
+
                     <div class="card-footer border-0 px-5 py-5"
                         style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
                         <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
                             Total Paid: <span class="px-3 h2 mb-0 ms-2">
-                                Rp{{ number_format((float) $details->sum(fn($d) => $d->quantity * $d->price ) + 10000, 0, ',', '.') }}
+                                Rp{{ number_format(
+                                    (float) $details->sum(fn($d) => $d->quantity * $d->price) +
+                                        ($details->contains('product_name', '!=', null) ? 10000 : 0),
+                                    0,
+                                    ',',
+                                    '.',
+                                ) }}
                             </span>
                         </h5>
                     </div>

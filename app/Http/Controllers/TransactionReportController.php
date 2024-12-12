@@ -106,7 +106,7 @@ class TransactionReportController extends Controller
             ->get();
 
         // Hitung total amount
-        $invoiceTotal = $invoices->sum('total_amount');
+        $invoiceTotal = $invoices->where('order_status', 'Complete')->sum('total_amount');
 
         // Tampilkan ke view
         return view('owner.pages.transaction-report.transaction-by-time', compact('invoices', 'invoiceTotal', 'selectedMonth', 'selectedYear'));
