@@ -264,7 +264,7 @@
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="status" value="Complete">
-                                <button type="submit" class="btn btn-primary">Yes, Accept Order</button>
+                                <button type="submit" class="btn btn-primary mx-2">Yes, Accept Order</button>
                             </form>
                         </div>
                     </div>

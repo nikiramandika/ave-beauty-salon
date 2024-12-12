@@ -2,12 +2,12 @@
     .image-holder {
         border-radius: 10px!important;
 
-        
+
     }
     .product-image {
         border-radius: 10px 10px 10px 10px!important;
         padding-right: 0px!important;
-        
+
     }
     .category-content {
     margin: auto; /* Ensures content within this div is centered */
@@ -127,7 +127,7 @@
             </div>
         </div>
     </section>
-    
+
 
     <section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
     </section>
@@ -168,7 +168,7 @@
         <div class="container">
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
                 <h4 class="">Explore Categories Product</h4>
-                <a href="/product" class="btn-link">View All Products</a>
+                <a href="/products" class="btn-link">View All Products</a>
             </div>
             <div class="swiper product-swiper open-up" data-aos="zoom-out">
                 <div class="swiper-wrapper d-flex">

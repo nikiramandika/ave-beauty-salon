@@ -89,7 +89,7 @@
                                                             <span>{{ $cashier->user->nama_depan ?? '' }}
                                                                 {{ $cashier->user->nama_belakang ?? '' }}</span>
                                                         @else
-                                                            <span class="text-muted">Data user tidak ditemukan</span>
+                                                            <span class="text-muted">User data not found</span>
                                                         @endif
                                                     </div>
                                                 </td>
@@ -128,7 +128,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="3" class="text-center">Tidak ada data kasir</td>
+                                                <td colspan="3" class="text-center">No cashier data</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -175,11 +175,11 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="cashierDetailModalLabel">Detail Kasir</h5>
+                    <h5 class="modal-title" id="cashierDetailModalLabel">Cashier Detail</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Nama:</strong> <span id="modalCashierName"></span></p>
+                    <p><strong>Name:</strong> <span id="modalCashierName"></span></p>
                     <p><strong>Email:</strong> <span id="modalCashierEmail"></span></p>
                     <p><strong>Phone:</strong> <span id="modalCashierPhone"></span></p>
                     <p><strong>Status:</strong> <span id="modalCashierStatus"></span></p>
@@ -199,19 +199,19 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Konfirmasi Hapus</h5>
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Delete Confirmation</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus kasir <strong><span id="deleteCashierName"></span></strong>?
+                    <p>Are you sure you want to delete <strong><span id="deleteCashierName"></span></strong>?
                     </p>
                 </div>
                 <div class="modal-footer">
                     <form id="deleteCashierForm" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-danger">Hapus</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>
             </div>

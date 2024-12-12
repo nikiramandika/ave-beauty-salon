@@ -133,7 +133,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="6" class="text-center">Tidak ada data anggota</td>
+                                                <td colspan="6" class="text-center">No user data</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -180,14 +180,14 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="memberDetailModalLabel">Detail Anggota</h5>
+                    <h5 class="modal-title" id="memberDetailModalLabel">Member Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Nama:</strong> <span id="modalMemberName"></span></p>
+                    <p><strong>Name:</strong> <span id="modalMemberName"></span></p>
                     <p><strong>Membership Number:</strong> <span id="modalMembershipNumber"></span></p>
-                    <p><strong>Poin:</strong> <span id="modalMemberPoints"></span></p>
-                    <p><strong>Tanggal Bergabung:</strong> <span id="modalJoinedDate"></span></p>
+                    <p><strong>Point:</strong> <span id="modalMemberPoints"></span></p>
+                    <p><strong>Join Date:</strong> <span id="modalJoinedDate"></span></p>
                     <p><strong>Status:</strong> <span id="modalMemberStatus"></span></p>
                 </div>
                 <div class="modal-footer">
@@ -203,19 +203,19 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Konfirmasi Hapus</h5>
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Delete Confirmation</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus anggota <strong><span id="deleteMemberName"></span></strong>?
+                    <p>Are you sure you want to delete <strong><span id="deleteMemberName"></span></strong>?
                     </p>
                 </div>
                 <div class="modal-footer">
                     <form id="deleteMemberForm" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-danger">Hapus</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>
             </div>
@@ -233,6 +233,7 @@
             }],
         });
     </script>
+
 
     <!-- Core JS -->
     <script>

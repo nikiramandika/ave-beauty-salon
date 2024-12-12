@@ -138,7 +138,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">Tidak ada data pengguna</td>
+                                                <td colspan="5" class="text-center">No user data</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -186,18 +186,18 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="userDetailModalLabel">Detail Pengguna</h5>
+                    <h5 class="modal-title" id="userDetailModalLabel">User Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <!-- User details will be populated here via JavaScript -->
-                    <p><strong>Nama:</strong> <span id="modalUserName"></span></p>
+                    <p><strong>Name:</strong> <span id="modalUserName"></span></p>
                     <p><strong>Email:</strong> <span id="modalUserEmail"></span></p>
                     <p><strong>Phone:</strong> <span id="modalUserPhone"></span></p>
                     <p><strong>Role:</strong> <span id="modalUserRole"></span></p>
                     <p><strong>Status:</strong> <span id="modalUserStatus"></span></p>
-                    <p><strong>Created_at:</strong> <span id="modalUserCreatedAt"></span></p>
-                    <p><strong>Updated_at:</strong> <span id="modalUserUpdatedAt"></span></p>
+                    <p><strong>Created At:</strong> <span id="modalUserCreatedAt"></span></p>
+                    <p><strong>Updated At:</strong> <span id="modalUserUpdatedAt"></span></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -211,18 +211,18 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Konfirmasi Hapus</h5>
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Delete Confirmation</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus user <strong><span id="deleteUserName"></span></strong>?</p>
+                    <p>Are you sure you want to delete <strong><span id="deleteUserName"></span></strong>?</p>
                 </div>
                 <div class="modal-footer">
                     <form id="deleteUserForm" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-danger">Hapus</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>
             </div>
