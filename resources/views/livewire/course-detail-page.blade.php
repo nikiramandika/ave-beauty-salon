@@ -5,7 +5,8 @@
                 <!-- Gambar Produk -->
                 <div class="product-image">
                     <img src="{{ asset($course->description->course_image) }}" alt="{{ $course->course_name }}"
-                        onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';" class="img-fluid product-image">
+                        onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';"
+                        class="img-fluid product-image">
                 </div>
 
                 <!-- Informasi Produk -->
@@ -17,7 +18,11 @@
                     <p class="course-benefits"><strong>Benefits:</strong> {{ $course->description->benefits }}</p>
                     <p class="course-free-items"><strong>Free Items:</strong> {{ $course->description->free_items }}</p>
                     <p class="course-description" align="justify">{{ $course->description->description }}</p>
-                    <button wire:click="redirectToCheckout" class="btn btn-primary">Register</button>
+                    @auth
+                        <button wire:click="redirectToCheckout" class="btn btn-primary">Register</button>
+                    @else
+                        <a href="/login" class="btn btn-primary" style="text-decoration: none; color: white">Register</a>
+                    @endauth
                 </div>
             </div>
         </div>

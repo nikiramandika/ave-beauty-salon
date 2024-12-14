@@ -3,23 +3,25 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Middleware\SetDatabaseConnection;
+use DB;
 class RoleMiddleware
 {
-    public function handle(Request $request, Closure $next, ...$roles)
+    public function handle($request, Closure $next, $role)
     {
-        if (!Auth::check()) {
-            return redirect('/login'); // Arahkan ke halaman login jika belum login
+        if (Auth::check() && Auth::user()->role === 'Admin') {
+            DB::setDefaultConnection('admin'); 
+            return $next($request);
         }
-
-        $user = Auth::user();
-
-        if (!in_array($user->role, $roles)) {
-            abort(403, 'Unauthorized'); // Error 403 jika role tidak sesuai
+        else if(Auth::check() && Auth::user()->role === 'Cashier'){
+            DB::setDefaultConnection('kasir'); 
+            return $next($request);
         }
-
-        return $next($request);
+        else if(Auth::check() && Auth::user()->role === 'User'){
+            DB::setDefaultConnection('user'); 
+            return $next($request);
+        }
+        return redirect()->intended('/dashboard');
     }
 }

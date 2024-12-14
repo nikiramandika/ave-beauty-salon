@@ -87,8 +87,11 @@
                         <div class="card mt-4">
                             <div class="card-body">
                                 <!-- Header Refund Logs -->
-                                <div class="d-flex justify-content-between align-items-center mb-3" style="margin-left: 10px;">
-                                    <h3 class="mb-0 element-title text-uppercase pb-1" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Refund Logs</h3>
+                                <div class="d-flex justify-content-between align-items-center mb-3"
+                                    style="margin-left: 10px;">
+                                    <h3 class="mb-0 element-title text-uppercase pb-1"
+                                        style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">
+                                        Refund Logs</h3>
                                 </div>
 
                                 <!-- Tabel Refund Logs -->
@@ -99,9 +102,8 @@
                                                 <th style="text-align:center; font-weight: 700;">Log Time</th>
                                                 <th style="text-align:center; font-weight: 700;">Invoice Code</th>
                                                 <th style="text-align:center; font-weight: 700;">Cashier</th>
-                                                <th style="text-align:center; font-weight: 700;">Old Refund ID</th>
-                                                <th style="text-align:center; font-weight: 700;">New Refund ID</th>
-                                                <th style="text-align:center; font-weight: 700;">Refund Status</th> <!-- Kolom baru untuk Refund Status -->
+                                                <th style="text-align:center; font-weight: 700;">Old Refund Status</th>
+                                                <th style="text-align:center; font-weight: 700;">New Refund Status</th>
 
                                             </tr>
                                         </thead>
@@ -114,13 +116,15 @@
                                                         {{ $log->nama_depan ?? '-' }}
                                                         {{ $log->nama_belakang ?? '-' }}
                                                     </td> <!-- Nama Kasir -->
-                                                    <td style="text-align:center;">{{ $log->old_refund_id ?? '-' }}</td>
-                                                    <td style="text-align:center;">{{ $log->new_refund_id ?? '-' }}</td>
-                                                    <td style="text-align:center;">
-                                                        <span style="color: {{ $log->refund_status == 'Refund Success' ? 'green' : 'red' }}">
-                                                            {{ $log->refund_status ?? '-' }}
-                                                        </span>
+                                                    <td
+                                                        style="text-align:center; color: {{ $log->old_refund_status == 'Refund Success' ? 'green' : ($log->old_refund_status ? 'red' : 'black') }}">
+                                                        {{ $log->old_refund_status ?? '-' }}
                                                     </td>
+                                                    <td
+                                                        style="text-align:center; color: {{ $log->new_refund_status == 'Refund Success' ? 'green' : ($log->new_refund_status ? 'red' : 'black') }}">
+                                                        {{ $log->new_refund_status ?? '-' }}
+                                                    </td>
+
                                                 </tr>
                                             @empty
                                                 <tr>

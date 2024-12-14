@@ -46,11 +46,19 @@
 
                     <!-- Tombol Tambah ke Keranjang -->
                     <div>
-                        <button id="addToCartButton"
-                            wire:click="addToCart('{{ $product->product_id }}', document.getElementById('sizeDropdown').value)"
-                            class="btn btn-primary mt-4">
-                            Add to Cart
-                        </button>
+                        @auth
+                            <!-- Jika sudah login, tombol akan menambah ke keranjang -->
+                            <button id="addToCartButton"
+                                wire:click="addToCart('{{ $product->product_id }}', document.getElementById('sizeDropdown').value)"
+                                class="btn btn-primary mt-4">
+                                Add to Cart
+                            </button>
+                        @else
+                            <!-- Jika belum login, tombol mengarah ke halaman login -->
+                            <a href="/login" class="btn btn-primary mt-4 " style="text-decoration: none; color: white">
+                                Add to Cart
+                            </a>
+                        @endauth
                     </div>
                     @if (session()->has('error'))
                         <div class="alert alert-danger alert-dismissible fade show mt-3" style="z-index: 10000"

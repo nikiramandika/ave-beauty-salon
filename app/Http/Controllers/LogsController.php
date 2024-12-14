@@ -31,12 +31,10 @@ class LogsController extends Controller
     {
         $logs = DB::table('refund_logs')
             ->leftJoin('users', 'refund_logs.cashier_id', '=', 'users.id') // Join dengan tabel users untuk kasir
-            ->leftJoin('refunds', 'refund_logs.new_refund_id', '=', 'refunds.refund_id') // Join dengan tabel refunds
             ->select(
                 'refund_logs.*',
                 'users.nama_depan',
                 'users.nama_belakang',
-                'refunds.refund_status' // Ambil refund_status dari tabel refunds
             )
             ->orderBy('refund_logs.log_time', 'desc')
             ->get();

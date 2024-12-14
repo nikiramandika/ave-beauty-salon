@@ -15,6 +15,7 @@ use App\Http\Controllers\TransactionReportController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\SearchResult;
+use App\Http\Middleware\RoleMiddleware;
 use App\Livewire\AboutPage;
 use App\Livewire\AccountSettings;
 use App\Livewire\ChangePassword;
@@ -50,7 +51,7 @@ use App\Livewire\SettingsPage;
 // Route::get('/users-owner', function () {
 //     return view('owner.pages.users');
 // });
-Route::middleware(['role:Cashier'])->group(function () {
+Route::middleware(['role:Cashier', RoleMiddleware::class . ':Cashier'])->group(function () {
     Route::get('/cashiers', [CashierController::class, 'cashierProduct'])->name('cashier.index');
     Route::post('/cashier/process', [CashierController::class, 'process'])->name('cashier.process');
     Route::get('/pesanan-online', [CashierController::class, 'pesananOnline'])->name('cashier.pesananOnline');
@@ -96,20 +97,19 @@ Route::get('/course', CoursePage::class);
 Route::get('/about', AboutPage::class);
 Route::get('/search', SearchPage::class)->name('search');
 Route::get('/termandcondition', TermandconditionPage::class);
+Route::get('/products/{product_slug}', ProductDetailPage::class);
+Route::get('/treatment/{treatment_slug}', TreatmentDetailPage::class);
+Route::get('/promo/{promo_slug}', PromoDetailPage::class);
+Route::get('/course/{course_slug}', CourseDetailPage::class);
 
-Route::middleware(['role:User'])->group(function () {
+Route::middleware(['role:User', RoleMiddleware::class . ':User'])->group(function () {
     Route::get('/settings', SettingsPage::class)->name('settings');
     Route::get('/settings/account', AccountSettings::class)->name('settings.account');
     Route::get('/settings/change-password', ChangePassword::class)->name('settings.change-password');
     Route::get('/settings/delete-account', DeleteAccount::class)->name('settings.delete-account');
 });
 // User Livewire
-Route::middleware(['role:User', 'verified'])->group(function () {
-
-    Route::get('/products/{product_slug}', ProductDetailPage::class);
-    Route::get('/treatment/{treatment_slug}', TreatmentDetailPage::class);
-    Route::get('/promo/{promo_slug}', PromoDetailPage::class);
-    Route::get('/course/{course_slug}', CourseDetailPage::class);
+Route::middleware(['role:User', 'verified', RoleMiddleware::class . ':User'])->group(function () {
     Route::get('/checkout', CheckoutPage::class)->name('checkout');
     Route::get('/payment/{invoiceId}', PaymentPage::class)->name('payment.upload');
     Route::get('/checkoutCourse/{course_slug}', CheckoutCourse::class)->name('checkoutCourse');
@@ -124,7 +124,9 @@ Route::middleware(['role:User', 'verified'])->group(function () {
 
 
 
-Route::middleware(['role:Admin'])->group(function () {
+Route::middleware(['role:Admin', RoleMiddleware::class . ':Admin'])->group(function () {
+
+    // Tambahkan route yang hanya menggunakan koneksi ini
     Route::get('/cashiers-owner', function () {
         return view('owner.pages.cashiers');
     });
