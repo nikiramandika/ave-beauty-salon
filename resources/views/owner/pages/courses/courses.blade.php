@@ -81,7 +81,9 @@
                         <!-- resources/views/owner/pages/users.blade.php -->
                         <!-- resources/views/owner/pages/products.blade.php -->
                         <div class="card">
-                            <h3 class="card-header element-title text-uppercase pb-2" style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Courses List</h3>
+                            <h3 class="card-header element-title text-uppercase pb-2"
+                                style="font-family: 'Montserrat', sans-serif; font-weight: 400; color: #63374d;">Courses
+                                List</h3>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <h5 class="mb-0">Courses</h5>
@@ -109,17 +111,25 @@
                                                         @if ($description->course_image)
                                                             <img src="{{ asset($description->course_image) }}"
                                                                 alt="Course Image"
-                                                                style="width: 100px; height: 100px; object-fit: cover;">
+                                                                style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;">
                                                         @else
                                                             <span>-</span>
                                                         @endif
                                                     </td>
-                                                    <td style="text-align:center;">{{ $description->course->course_name ?? '-' }}</td>
-                                                    <td style="text-align:center;">{{ $description->course->course_slug ?? '-' }}</td>
-                                                    <td style="text-align:center;">{{ $description->course->price ?? '-' }}</td>
-                                                    <td style="min-width: 500px; word-wrap: break-word; white-space: normal; text-align:justify;">{{ $description->description ?? '-' }}</td>
-                                                    <td style="text-align:center;">{{ $description->course->sessions ?? '-' }}</td>
-                                                    <td style="text-align:center;">{{ $description->benefits ?? '-' }}</td>
+                                                    <td style="text-align:center;">
+                                                        {{ $description->course->course_name ?? '-' }}</td>
+                                                    <td style="text-align:center;">
+                                                        {{ $description->course->course_slug ?? '-' }}</td>
+                                                    <td style="text-align:center;">
+                                                        {{ $description->course->price ?? '-' }}</td>
+                                                    <td
+                                                        style="min-width: 500px; word-wrap: break-word; white-space: normal; text-align:justify;">
+                                                        {{ $description->description ?? '-' }}</td>
+                                                    <td style="text-align:center;">
+                                                        {{ $description->course->sessions ?? '-' }}</td>
+                                                    <td
+                                                        style="min-width: 500px; word-wrap: break-word; white-space: normal; text-align:justify;">
+                                                        {{ $description->benefits ?? '-' }}</td>
                                                     <td style="text-align:center;">
                                                         <span
                                                             style="color: {{ $description->course && $description->course->is_active ? 'green' : 'red' }}">
@@ -244,8 +254,7 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete <strong><span
-                                    id="deleteCourseName"></span></strong>?</p>
+                        <p>Are you sure you want to delete <strong><span id="deleteCourseName"></span></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <form id="deleteCourseForm" method="POST">

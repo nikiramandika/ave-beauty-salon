@@ -116,7 +116,7 @@
                                 </div>
                             </div>
                             <!-- Complete Order Button -->
-                            @if ($invoice->order_status === 'Pesanan Dikirim')
+                            @if ($invoice->order_status === 'Order Shipped')
                                 <div class="d-flex justify-content-end mt-2">
                                     <div>
                                         <button type="button"

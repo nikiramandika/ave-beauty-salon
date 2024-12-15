@@ -29,63 +29,75 @@ class CourseController extends Controller
     }
     public function store(Request $request)
     {
-        // Step 1: Validate the incoming request data
-        $validator = Validator::make($request->all(), [
-            'course_name' => 'required|string|max:100',
-            'course_slug' => 'required|string|max:100|unique:courses,course_slug',
-            'price' => 'required|numeric',
-            'sessions' => 'required|integer',
-            'is_active' => 'required|boolean',
-            'free_items' => 'nullable|string|max:255',
-            'course_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'benefits' => 'nullable|string|max:255',
-            'description' => 'nullable|string|max:1000' // Add validation for description here
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         try {
-            // Handle the course image upload
+            // 1. Handle the course image upload
             $courseImagePath = null;
             if ($request->hasFile('course_image')) {
-                $image = $request->file('course_image');
-                $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('public/course_images', $imageName);
-                $courseImagePath = 'storage/course_images/' . $imageName;
+                try {
+                    $image = $request->file('course_image');
+                    $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+                    $image->storeAs('public/course_images', $imageName);
+                    $courseImagePath = 'storage/course_images/' . $imageName;
+                    Log::info("Course image uploaded successfully: " . $courseImagePath);
+                } catch (\Exception $e) {
+                    Log::error("Error uploading course image: " . $e->getMessage());
+                    return redirect()
+                        ->back()
+                        ->with('error', 'Error uploading image: ' . $e->getMessage())
+                        ->withInput();
+                }
+            } else {
+                Log::info("No course image uploaded.");
             }
 
-            // Create the course record
-            $course = Course::create([
-                'course_name' => $request->course_name,
-                'course_slug' => $request->course_slug,
-                'price' => $request->price,
-                'sessions' => $request->sessions,
-                'is_active' => $request->is_active,
-            ]);
+            // 2. Create the course record
+            try {
+                $course = Course::create([
+                    'course_name' => $request->course_name,
+                    'course_slug' => $request->course_slug,
+                    'price' => $request->price,
+                    'sessions' => $request->sessions,
+                    'is_active' => $request->is_active,
+                ]);
+                Log::info("Course created successfully: " . $course->course_name);
+            } catch (\Exception $e) {
+                Log::error("Error creating course record: " . $e->getMessage());
+                return redirect()
+                    ->back()
+                    ->with('error', 'Error creating course: ' . $e->getMessage())
+                    ->withInput();
+            }
 
-            // Create the course description record, including the new description field
-            CourseDescription::create([
-                'course_id' => $course->course_id,
-                'free_items' => $request->free_items,
-                'course_image' => $courseImagePath,
-                'benefits' => $request->benefits,
-                'description' => $request->description, // Insert the description here
-            ]);
+            // 3. Create the course description record
+            try {
+                CourseDescription::create([
+                    'course_id' => $course->course_id,
+                    'free_items' => $request->free_items,
+                    'course_image' => $courseImagePath,
+                    'benefits' => $request->benefits,
+                    'description' => $request->description, // Insert the description here
+                ]);
+                Log::info("Course description created successfully for course: " . $course->course_name);
+            } catch (\Exception $e) {
+                Log::error("Error creating course description: " . $e->getMessage());
+                return redirect()
+                    ->back()
+                    ->with('error', 'Error creating course description: ' . $e->getMessage())
+                    ->withInput();
+            }
 
+            // Final step: redirect with success
             return redirect()->route('courses.index')->with('success', 'Course created successfully.');
 
         } catch (\Exception $e) {
+            Log::error("General error during course creation: " . $e->getMessage());
             return redirect()
                 ->back()
                 ->with('error', 'Error creating course: ' . $e->getMessage())
                 ->withInput();
         }
     }
+
 
     public function edit($course_id)
     {
@@ -104,9 +116,9 @@ class CourseController extends Controller
             'price' => 'required|numeric',
             'sessions' => 'required|integer',
             'is_active' => 'required|boolean',
-            'free_items' => 'nullable|string|max:255',
+            'free_items' => 'nullable|string',
             'course_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'benefits' => 'nullable|string|max:255',
+            'benefits' => 'nullable|string',
             'description' => 'nullable|string|max:1000'
         ]);
 

@@ -110,7 +110,7 @@
                                                         @if ($treatment->description && $treatment->description->treatment_image)
                                                             <img src="{{ asset($treatment->description->treatment_image) }}"
                                                                 alt="Gambar Treatment"
-                                                                style="width: 100px; height: 100px; object-fit: cover;"
+                                                                style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;"
                                                                 onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                                         @else
                                                             <span>-</span>

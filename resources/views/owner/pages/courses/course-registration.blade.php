@@ -132,10 +132,6 @@
                                                         </td>
                                                     </tr>
                                                 @empty
-                                                    <tr>
-                                                        <td colspan="7" class="text-center">No course registration
-                                                            data available</td>
-                                                    </tr>
                                                 @endforelse
                                             </tbody>
                                         </table>

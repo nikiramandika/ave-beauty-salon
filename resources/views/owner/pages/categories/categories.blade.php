@@ -101,9 +101,9 @@
                                                     <td style="text-align:center;">{{ $category->category_slug }}</td>
                                                     <td style="text-align:center;">
                                                         <img src="{{ asset($category->category_image) }}"
-                                                            alt="{{ $category->category_name }}" style="width: 100px;">
-
-                                                    </td>
+                                                             alt="{{ $category->category_name }}" 
+                                                             style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;">
+                                                    </td>                                                    
                                                     <td style="text-align:center;">
                                                         <div class="dropdown px-5">
                                                             <button type="button"

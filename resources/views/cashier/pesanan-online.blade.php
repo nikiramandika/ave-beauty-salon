@@ -481,7 +481,7 @@
 </div>
 
 <!-- Modal Konfirmasi -->
-<div id="confirmationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+<div id="confirmationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center" style="z-index: 100000;">
     <div class="bg-white rounded-md shadow-lg p-6">
         <p class="mb-4 text-gray-700">Are you sure you want to change the status to <span id="selectedStatusText"
                 class="font-bold"></span>?</p>
@@ -494,7 +494,7 @@
 </div>
 
 <!-- Modal Notifikasi -->
-<div id="notificationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+<div id="notificationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center" style="z-index: 100000;">
     <div class="bg-white rounded-md shadow-lg p-6">
         <p class="text-gray-700">Status successfully changed to <span id="updatedStatusText"
                 class="font-bold"></span>.</p>

@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'avebeautysalon'),
+    'default' => env('DB_CONNECTION', 'guest'),
     /*
     |--------------------------------------------------------------------------
     | Database Connections
@@ -59,13 +59,13 @@ return [
             'engine' => null,
         ],
 
-        'user' => [
+        'avebeautysalon' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST_CUSTOMER', '127.0.0.1'),
             'port' => env('DB_PORT_CUSTOMER', '3306'),
             'database' => env('DB_DATABASE_CUSTOMER', 'avebeautysalon'),
-            'username' => env('DB_USERNAME_CUSTOMER', 'customer'),
-            'password' => env('DB_PASSWORD_CUSTOMER', 'customer'),
+            'username' => env('DB_USERNAME_CUSTOMER', 'avebeautysalon'),
+            'password' => env('DB_PASSWORD_CUSTOMER', 'guest'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -74,12 +74,12 @@ return [
             'engine' => null,
         ],
 
-        'avebeautysalon' => [
+        'guest' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST_AVEBEAUTYSALON', '127.0.0.1'),
             'port' => env('DB_PORT_AVEBEAUTYSALON', '3306'),
             'database' => env('DB_DATABASE_AVEBEAUTYSALON', 'avebeautysalon'),
-            'username' => env('DB_USERNAME_AVEBEAUTYSALON', 'avebeautysalon'),
+            'username' => env('DB_USERNAME_AVEBEAUTYSALON', 'guest'),
             'password' => env('DB_PASSWORD_AVEBEAUTYSALON', 'guest'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',

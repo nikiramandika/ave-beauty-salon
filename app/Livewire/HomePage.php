@@ -1,6 +1,7 @@
 <?php
 namespace App\Livewire;
 
+use DB;
 use Livewire\Component;
 use App\Models\Category;
 use App\Models\Treatment;
@@ -9,6 +10,7 @@ class HomePage extends Component
 {
     public function render()
     {
+
         // Ambil semua kategori
         $categories = Category::all();
 

@@ -23,18 +23,6 @@
                             </div>
                         @endif
 
-                        <div class="row gy-3 gy-md-4 overflow-hidden mt-1">
-                            <!-- Resend Verification Email Button -->
-                            <div class="col-12">
-                                <form method="POST" action="{{ route('verification.send') }}">
-                                    @csrf
-                                    <div class="d-grid">
-                                        <button class="btn bsb-btn-xl btn-primary"
-                                            type="submit">{{ __('Send Verification Email') }}</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
 
                         <div class="row gy-3 gy-md-4 overflow-hidden mt-1">
                             <!-- Logout Button -->
@@ -44,6 +32,19 @@
                                     <div class="d-grid border-animation-left">
                                         <button class="btn bsb-btn-xl item-anchor"
                                             type="submit">{{ __('Log Out') }}</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="row gy-3 gy-md-4 overflow-hidden ">
+                            <!-- Resend Verification Email Button -->
+                            <div class="col-12">
+                                <form method="POST" action="{{ route('verification.send') }}">
+                                    @csrf
+                                    <div class="d-grid">
+                                        <button class="btn bsb-btn-xl btn-primary"
+                                            type="submit">{{ __('Send Verification Email') }}</button>
                                     </div>
                                 </form>
                             </div>

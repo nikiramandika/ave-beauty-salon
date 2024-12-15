@@ -47,12 +47,19 @@
                     <!-- Tombol Tambah ke Keranjang -->
                     <div>
                         @auth
-                            <!-- Jika sudah login, tombol akan menambah ke keranjang -->
-                            <button id="addToCartButton"
-                                wire:click="addToCart('{{ $product->product_id }}', document.getElementById('sizeDropdown').value)"
-                                class="btn btn-primary mt-4">
-                                Add to Cart
-                            </button>
+                            @if (auth()->user()->email_verified_at)
+                                <!-- Jika sudah login dan email sudah terverifikasi, tombol akan menambah ke keranjang -->
+                                <button id="addToCartButton"
+                                    wire:click="addToCart('{{ $product->product_id }}', document.getElementById('sizeDropdown').value)"
+                                    class="btn btn-primary mt-4">
+                                    Add to Cart
+                                </button>
+                            @else
+                                <!-- Jika belum login, tombol mengarah ke halaman login -->
+                                <a href="/verify-email" class="btn btn-primary mt-4 " style="text-decoration: none; color: white">
+                                    Add to Cart
+                                </a>
+                            @endif
                         @else
                             <!-- Jika belum login, tombol mengarah ke halaman login -->
                             <a href="/login" class="btn btn-primary mt-4 " style="text-decoration: none; color: white">

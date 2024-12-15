@@ -7,12 +7,14 @@
                         <div class="img-cont">
                             <a href="{{ url('promo/' . $promo->promo_slug) }}">
                                 <img src="{{ asset($promo->description->promo_image ?? 'user/images/default.jpg') }}"
-                                    alt="{{ $promo->promo_name }}" class="bd-placeholder-img card-img-top product-image img-fluid" width="100%" style="width: 250px; height:250px; object-fit:cover;" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
+                                    alt="{{ $promo->promo_name }}"
+                                    class="bd-placeholder-img card-img-top product-image img-fluid" 
+                                    onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                             </a>
                         </div>
-                        
+
                         <div class="promo-content">
-                           <h5 class="text-capitalize fs-5 mt-3">
+                            <h5 class="text-capitalize fs-5 mt-3">
                                 <a href="{{ url('promo/' . $promo->promo_slug) }}">{{ $promo->promo_name }}</a>
                             </h5>
                             <div class="price-container">
@@ -28,4 +30,4 @@
             @endforeach
         </div>
     </div>
-</section>
+</section>  

@@ -101,6 +101,9 @@ class CashierController extends Controller
         $invoices = SellingInvoice::with('details')
             ->whereNull('refund_id') // Hanya ambil data yang refund_id-nya NULL
             ->where('recipient_address', '!=', 'Pesanan Offline') // Tidak ambil jika alamat adalah 'Pesanan Offline'
+            ->doesntHave('details', 'and', function ($query) {
+                $query->whereNotNull('course_name'); // Tidak ambil jika ada course_name di selling_invoice_details
+            })
             ->get()
             ->map(function ($invoice) {
                 // Hitung total harga untuk invoice ini
@@ -109,6 +112,7 @@ class CashierController extends Controller
                 });
                 return $invoice;
             });
+
 
         // Ambil data refunds (pesanan yang direfund)
         $refunds = SellingInvoice::whereNotNull('refund_id') // Ambil hanya invoice yang memiliki refund_id
@@ -357,7 +361,7 @@ class CashierController extends Controller
                 ->first()
                 ->invoice_code;  // Mengambil invoice_code dari data pertama yang sesuai
             // Mengambil invoice_code dari data pertama
-            
+
             // Debug setelah transaksi selesai
             \Log::info('Transaksi selesai, invoice berhasil diproses dan stok produk diperbarui');
 

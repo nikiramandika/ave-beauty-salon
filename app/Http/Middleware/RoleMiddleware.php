@@ -4,24 +4,35 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Middleware\SetDatabaseConnection;
-use DB;
+use Illuminate\Support\Facades\DB;
+
 class RoleMiddleware
 {
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, $roles)
     {
-        if (Auth::check() && Auth::user()->role === 'Admin') {
-            DB::setDefaultConnection('admin'); 
-            return $next($request);
+        // Pastikan $roles berupa array
+        $roles = is_array($roles) ? $roles : explode('|', $roles);
+
+        // Ambil user yang sedang login
+        $user = Auth::user();
+
+        // Jika user belum login atau role tidak sesuai, abort
+        if (!$user || !in_array($user->role, $roles)) {
+            abort(403, 'Unauthorized');
         }
-        else if(Auth::check() && Auth::user()->role === 'Cashier'){
-            DB::setDefaultConnection('kasir'); 
-            return $next($request);
-        }
-        else if(Auth::check() && Auth::user()->role === 'User'){
-            DB::setDefaultConnection('user'); 
-            return $next($request);
-        }
-        return redirect()->intended('/dashboard');
+
+        // Atur koneksi database berdasarkan role
+        $connectionMap = [
+            'Admin' => 'admin',
+            'Cashier' => 'kasir',
+            'User' => 'avebeautysalon',
+        ];
+
+        $connection = $connectionMap[$user->role] ?? 'default'; // Gunakan koneksi default jika role tidak ditemukan
+
+        DB::setDefaultConnection($connection);
+
+        // Lanjutkan request
+        return $next($request);
     }
 }

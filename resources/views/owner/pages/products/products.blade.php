@@ -110,7 +110,7 @@
                                                         @if ($product->description && $product->description->product_image)
                                                             <img src="{{ asset($product->description->product_image) }}"
                                                                 alt="Gambar Produk"
-                                                                style="width: 100px; height: 100px; object-fit: cover;">
+                                                                style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;">
                                                         @else
                                                             <span>-</span>
                                                         @endif
