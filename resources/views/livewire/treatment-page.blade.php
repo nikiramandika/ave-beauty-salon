@@ -17,7 +17,7 @@
                                     <a
                                         href="{{ url('treatment/' . $treatment->treatment_slug) }}">{{ $treatment->treatment_name }}</a>
                                 </h5>
-                                <a href="#" class="text-decoration-none" data-after="View Details">
+                                <a href="{{ url('treatment/' . $treatment->treatment_slug) }}" class="text-decoration-none" data-after="View Details">
                                     <span>
                                         {{$treatment->price ? 'Rp' . number_format($treatment->price, 0, ',', '.') : 'Variable price' }}
                                     </span>

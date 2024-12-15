@@ -15,7 +15,7 @@
                             <h5 class="fs-5 mt-3">
                                 <a href="{{ url('course/' . $course->course_slug) }}">{{ $course->course_name }}</a>
                             </h5>
-                            <a href="#" class="text-decoration-none" data-after="Register Course">
+                            <a href="{{ url('course/' . $course->course_slug) }}" class="text-decoration-none" data-after="Register Course">
                                 <span>Rp{{ number_format($course->price, 0, ',', '.') }}</span>
                             </a>
                         </div>

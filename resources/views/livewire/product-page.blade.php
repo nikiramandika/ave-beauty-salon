@@ -23,7 +23,8 @@
                             <a href="{{ url('products/' . $product->product_slug) }}">
                                 <div class="img-cont">
                                     <img src="{{ asset($product->description->product_image ?? 'user/images/default.jpg') }}"
-                                        alt="{{ $product->product_name }}" class="product-image img-fluid" onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
+                                        alt="{{ $product->product_name }}" class="product-image img-fluid"
+                                        onerror="this.onerror=null; this.src='{{ asset('user/images/image_not_available.png') }}';">
                                 </div>
                             </a>
                             <div class="product-content">
@@ -32,8 +33,8 @@
                                         {{ $product->product_name }}
                                     </a>
                                 </h5>
-                                <a class="text-decoration-none" data-after="View Details"
-                                    wire:click.prevent="addToCart('{{ $product->product_id }}', 1)">
+                                <a href="{{ url('products/' . $product->product_slug) }}" class="text-decoration-none"
+                                    data-after="View Details">
                                     <!-- Gunakan price_range -->
                                     <span>{{ $product->price_range ?? 'Harga tidak tersedia' }}</span>
                                 </a>

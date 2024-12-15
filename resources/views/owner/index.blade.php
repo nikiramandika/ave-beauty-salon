@@ -136,10 +136,18 @@
                                         data: productQuantities // Data jumlah pesanan
                                     }],
                                     xaxis: {
-                                        categories: productNames, // Nama-nama produk sebagai label
+                                        categories: productNames.map(name => name.replace(/\s\(Size:.*?\)/, '')),
                                         labels: {
                                             rotate: -40,
-                                            offsetY: -8
+                                            offsetY: -10,
+                                            style: {
+                                                fontSize: '12px',
+                                                fontWeight: '400',
+                                                colors: ['#333'],
+                                                whiteSpace: 'nowrap' // Mencegah teks melipat ke bawah
+                                            },
+                                            trim: true, // Memotong teks jika terlalu panjang
+                                            maxHeight: 80, // Membatasi tinggi label
                                         }
                                     },
                                     title: {
@@ -249,10 +257,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <p class="mb-1">Course Registrations for {{$currentMonth}}</p>
-                                        <h4 class="card-title mb-3">{{$totalRegisterCourseThisMonth}}</h4>
+                                        <p class="mb-1">Course Registrations for {{ $currentMonth }}</p>
+                                        <h4 class="card-title mb-3">{{ $totalRegisterCourseThisMonth }}</h4>
                                         <small class="text-success fw-medium">
-                                            <i class="bx bx-up-arrow-alt"></i> {{$percentageChangeFormatted}}%
+                                            <i class="bx bx-up-arrow-alt"></i> {{ $percentageChangeFormatted }}%
                                         </small>
                                     </div>
                                 </div>

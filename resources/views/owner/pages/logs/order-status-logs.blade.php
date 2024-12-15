@@ -172,7 +172,7 @@
         <script>
             $('#example1').DataTable({
                 order: [
-                    [1, 'desc']
+                    [0, 'desc']
                 ], // Mengurutkan berdasarkan kolom "Tanggal Pesanan" (kolom ke-5, karena indeks dimulai dari 0), urutan asc (ascending)
                 columnDefs: [{
                     targets: 1, // Indeks kolom Tanggal Pesanan (dimulai dari 0)

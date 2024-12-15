@@ -101,6 +101,7 @@ class CashierController extends Controller
         $invoices = SellingInvoice::with('details')
             ->whereNull('refund_id') // Hanya ambil data yang refund_id-nya NULL
             ->where('recipient_address', '!=', 'Pesanan Offline') // Tidak ambil jika alamat adalah 'Pesanan Offline'
+            ->whereNotNull('recipient_file') // Tambahkan kondisi recipient_file tidak boleh NULL
             ->doesntHave('details', 'and', function ($query) {
                 $query->whereNotNull('course_name'); // Tidak ambil jika ada course_name di selling_invoice_details
             })
@@ -112,6 +113,7 @@ class CashierController extends Controller
                 });
                 return $invoice;
             });
+
 
 
         // Ambil data refunds (pesanan yang direfund)

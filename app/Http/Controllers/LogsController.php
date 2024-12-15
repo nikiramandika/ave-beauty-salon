@@ -36,11 +36,13 @@ class LogsController extends Controller
                 'users.nama_depan',
                 'users.nama_belakang',
             )
+            ->whereNotNull('refund_logs.invoice_code') // Tambahkan kondisi untuk mengecualikan NULL
             ->orderBy('refund_logs.log_time', 'desc')
             ->get();
 
         return view('owner.pages.logs.refund-logs', compact('logs'));
     }
+
 
 
     public function orderStatusLogs()

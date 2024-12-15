@@ -36,22 +36,27 @@
         .hidden {
             display: none;
         }
-        .page-item.active .page-link, .page-item.active .page-link:hover, .page-item.active .page-link:focus,
-        .pagination li.active > a:not(.page-link), .pagination li.active > a:not(.page-link):hover,
-        .pagination li.active > a:not(.page-link):focus {
+
+        .page-item.active .page-link,
+        .page-item.active .page-link:hover,
+        .page-item.active .page-link:focus,
+        .pagination li.active>a:not(.page-link),
+        .pagination li.active>a:not(.page-link):hover,
+        .pagination li.active>a:not(.page-link):focus {
             border-color: #f36d9a;
             background-color: #f36d9a;
             color: #fff;
             box-shadow: 0 0.125rem 0.25rem #f6a5c0;
         }
-        .pagination-sm .page-item + .page-item .page-link,
-        .pagination-sm .pagination li + li > a:not(.page-link) {
+
+        .pagination-sm .page-item+.page-item .page-link,
+        .pagination-sm .pagination li+li>a:not(.page-link) {
             margin-left: 0.25rem;
         }
 
-        .pagination-lg .page-item + .page-item .page-link,
-        .pagination-lg .pagination li + li > a:not(.page-link) {
-                margin-left: 0.5rem;
+        .pagination-lg .page-item+.page-item .page-link,
+        .pagination-lg .pagination li+li>a:not(.page-link) {
+            margin-left: 0.5rem;
         }
 
         .pagination .page-link {
@@ -63,21 +68,23 @@
         }
 
         .pagination-lg .page-link,
-        .pagination-lg > li > a:not(.page-link) {
+        .pagination-lg>li>a:not(.page-link) {
             min-width: calc(2.8759615rem + calc(1px * 2));
             min-height: calc(2.8757925rem + calc(1px * 2));
         }
 
         .pagination-sm .page-link,
-        .pagination-sm > li > a:not(.page-link) {
+        .pagination-sm>li>a:not(.page-link) {
             min-width: calc(1.7509515rem + calc(1px * 2));
             min-height: calc(1.7501875rem + calc(1px * 2));
         }
 
-        .pagination-sm > .page-item.first .page-link, .pagination-sm > .page-item.last .page-link,
-        .pagination-sm > .page-item.next .page-link, .pagination-sm > .page-item.prev .page-link,
-        .pagination-sm > .page-item.previous .page-link {
-                padding: 0.211rem;
+        .pagination-sm>.page-item.first .page-link,
+        .pagination-sm>.page-item.last .page-link,
+        .pagination-sm>.page-item.next .page-link,
+        .pagination-sm>.page-item.prev .page-link,
+        .pagination-sm>.page-item.previous .page-link {
+            padding: 0.211rem;
         }
 
         .pagination {
@@ -123,6 +130,7 @@
             background-color: var(--bs-pagination-hover-bg);
             border-color: var(--bs-pagination-hover-border-color);
         }
+
         .page-link:focus {
             z-index: 3;
             color: var(--bs-pagination-focus-color);
@@ -130,17 +138,23 @@
             outline: 0;
             box-shadow: var(--bs-pagination-focus-box-shadow);
         }
-        .page-link.active, .active > .page-link {
+
+        .page-link.active,
+        .active>.page-link {
             z-index: 3;
             color: var(--bs-pagination-active-color);
         }
-        .page-link.disabled, .disabled > .page-link {
+
+        .page-link.disabled,
+        .disabled>.page-link {
             color: var(--bs-pagination-disabled-color);
             pointer-events: none;
         }
+
         .page-item:not(:first-child) .page-link {
             margin-left: 0.375rem;
         }
+
         .page-item .page-link {
             border-radius: 50%;
             width: 2.5rem;
@@ -150,12 +164,14 @@
             align-items: center;
             padding: 0;
         }
+
         .pagination-lg {
             --bs-pagination-padding-x: 0.9826rem;
             --bs-pagination-padding-y: 0.681rem;
             --bs-pagination-font-size: 1.0625rem;
             --bs-pagination-border-radius: 50%;
         }
+
         .pagination-sm {
             --bs-pagination-padding-x: 0.269rem;
             --bs-pagination-padding-y: 0.3165rem;
@@ -179,20 +195,29 @@
 
         <div class="min-h-screen bg-pink-50 p-6">
             <div class="container mx-auto p-6">
-                <h1 class="text-2xl text-uppercase mb-6" style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #63374d;">Online Order</h1>
+                <h1 class="text-2xl text-uppercase mb-6"
+                    style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #63374d;">Online Order</h1>
                 <div class="bg-white rounded-xl shadow-md p-6 mb-8">
                     <div class="overflow-x-auto">
                         <table id="example" class="table table-striped w-full table-fixed font-montserrat font-light">
                             <thead class="bg-gray-50">
                                 <tr class="align-middle text-center">
-                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Invoice Code</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Recipient Name</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Phone Number</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-64" style="text-transform: uppercase; font-weight: 700;">Address</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Order Date</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Status</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Action</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Payment Receipt</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40"
+                                        style="text-transform: uppercase; font-weight: 700;">Invoice Code</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40"
+                                        style="text-transform: uppercase; font-weight: 700;">Recipient Name</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32"
+                                        style="text-transform: uppercase; font-weight: 700;">Phone Number</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-64"
+                                        style="text-transform: uppercase; font-weight: 700;">Address</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32"
+                                        style="text-transform: uppercase; font-weight: 700;">Order Date</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32"
+                                        style="text-transform: uppercase; font-weight: 700;">Status</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40"
+                                        style="text-transform: uppercase; font-weight: 700;">Action</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32"
+                                        style="text-transform: uppercase; font-weight: 700;">Payment Receipt</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -200,25 +225,32 @@
                                     @if ($invoice->order_status != 'Cancelled')
                                         <!-- Hanya tampilkan selain Cancelled -->
                                         <tr class="hover:bg-gray-50">
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                            <td
+                                                class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $invoice->invoice_code }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                            <td
+                                                class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $invoice->recipient_name }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                            <td
+                                                class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $invoice->recipient_phone }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                            <td
+                                                class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $invoice->recipient_address }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                            <td
+                                                class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $invoice->order_date }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                            <td
+                                                class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 {{ $invoice->order_status }}
                                             </td>
-                                            <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                            <td
+                                                class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                                 <div>
                                                     @if ($invoice->order_status == 'Pending')
                                                         <button
@@ -243,7 +275,8 @@
                                                             Cancelled
                                                         </button>
                                                     @elseif ($invoice->order_status == 'Order Shipped')
-                                                        <span class="text-gray-500">Waiting for order to be received</span>
+                                                        <span class="text-gray-500">Waiting for order to be
+                                                            received</span>
                                                     @elseif ($invoice->order_status == 'Complete')
                                                         <span class="text-gray-500">Order Received</span>
                                                     @endif
@@ -309,47 +342,69 @@
             </div>
 
             <div class="container mx-auto p-6">
-                <h1 class="text-2xl text-uppercase mb-6" style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #63374d;">Online Order Refund</h1>
+                <h1 class="text-2xl text-uppercase mb-6"
+                    style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #63374d;">Online Order Refund
+                </h1>
                 <div class="bg-white rounded-xl shadow-md p-6">
                     <div class="overflow-x-auto">
                         <table id="example1" class="table table-striped w-full table-fixed font-montserrat font-light">
                             <thead class="bg-gray-50 align-middle">
                                 <tr>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Invoice Code</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Recipient Name</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Phone Number</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-64" style="text-transform: uppercase; font-weight: 700;">Address</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Order Date</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Refund Status</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-48" style="text-transform: uppercase; font-weight: 700;">Refund Reason</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">User Refund File</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Admin Refund File</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-32" style="text-transform: uppercase; font-weight: 700;">Action</th>
-                                    <th class="text-center align-middle text-sm  font-montserrat w-40" style="text-transform: uppercase; font-weight: 700;">Admin Refund File Action</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40"
+                                        style="text-transform: uppercase; font-weight: 700;">Invoice Code</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40"
+                                        style="text-transform: uppercase; font-weight: 700;">Recipient Name</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32"
+                                        style="text-transform: uppercase; font-weight: 700;">Phone Number</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-64"
+                                        style="text-transform: uppercase; font-weight: 700;">Address</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32"
+                                        style="text-transform: uppercase; font-weight: 700;">Order Date</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32"
+                                        style="text-transform: uppercase; font-weight: 700;">Refund Status</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-48"
+                                        style="text-transform: uppercase; font-weight: 700;">Refund Reason</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32"
+                                        style="text-transform: uppercase; font-weight: 700;">User Refund File</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32"
+                                        style="text-transform: uppercase; font-weight: 700;">Admin Refund File</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-32"
+                                        style="text-transform: uppercase; font-weight: 700;">Action</th>
+                                    <th class="text-center align-middle text-sm  font-montserrat w-40"
+                                        style="text-transform: uppercase; font-weight: 700;">Admin Refund File Action
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($refunds as $refund)
                                     <tr class="hover:bg-gray-50">
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                        <td
+                                            class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->invoice_code }}</td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                        <td
+                                            class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->recipient_name }}</td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                        <td
+                                            class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->recipient_phone }}</td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                        <td
+                                            class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->recipient_address }}</td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                        <td
+                                            class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->order_date }}</td>
 
                                         <!-- Data Refund -->
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                        <td
+                                            class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->refunds->refund_status ?? 'N/A' }}
                                         </td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                        <td
+                                            class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             {{ $refund->refunds->refund_reason ?? 'N/A' }}
                                         </td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                        <td
+                                            class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             @if ($refund->refunds && $refund->refunds->user_refund_file)
                                                 <a href="{{ asset('storage/' . $refund->refunds->user_refund_file) }}"
                                                     class="text-pink-600 underline" target="_blank">View File</a>
@@ -357,7 +412,8 @@
                                                 N/A
                                             @endif
                                         </td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                        <td
+                                            class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             @if ($refund->refunds->admin_refund_file)
                                                 <a href="{{ asset('storage/' . $refund->refunds->admin_refund_file) }}"
                                                     class="text-pink-600 underline" target="_blank">View File</a>
@@ -365,7 +421,8 @@
                                                 N/A
                                             @endif
                                         </td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                        <td
+                                            class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
                                             <div>
                                                 @if ($refund->refunds->refund_status == 'Pending')
                                                     <button
@@ -396,20 +453,22 @@
                                                 @endif
                                             </div>
                                         </td>
-                                        <td class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
-                                            @if($refund->refunds->refund_status == 'Refund on Process')
-                                            <form action="{{ route('refunds.upload', $refund->refunds->refund_id) }}"
-                                                method="POST" enctype="multipart/form-data" class="mt-2">
-                                                @csrf
-                                                <input type="file" name="admin_refund_file"
-                                                    class="block w-full text-sm text-gray-600 border-gray-300 rounded-md">
-                                                <button type="submit"
-                                                    class="bg-green-500 text-white px-4 py-2 rounded-md mt-2 hover:bg-green-700">
-                                                    Upload Receipt
-                                                </button>
-                                            </form>
+                                        <td
+                                            class="p-4 border-b border-gray-200 text-sm text-gray-700 text-center align-middle">
+                                            @if ($refund->refunds->refund_status == 'Refund on Process')
+                                                <form
+                                                    action="{{ route('refunds.upload', $refund->refunds->refund_id) }}"
+                                                    method="POST" enctype="multipart/form-data" class="mt-2">
+                                                    @csrf
+                                                    <input type="file" name="admin_refund_file"
+                                                        class="block w-full text-sm text-gray-600 border-gray-300 rounded-md">
+                                                    <button type="submit"
+                                                        class="bg-green-500 text-white px-4 py-2 rounded-md mt-2 hover:bg-green-700">
+                                                        Upload Receipt
+                                                    </button>
+                                                </form>
                                             @else
-                                            <span class="text-gray-500">No Action</span>
+                                                <span class="text-gray-500">No Action</span>
                                             @endif
                                         </td>
 
@@ -449,7 +508,8 @@
             </div>
 
             <div class="flex justify-end">
-                <button type="submit" class="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">Send Refund</button>
+                <button type="submit" class="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">Send
+                    Refund</button>
                 <button type="button" onclick="closeCancelModal()"
                     class="ml-2 bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">Close</button>
             </div>
@@ -481,7 +541,8 @@
 </div>
 
 <!-- Modal Konfirmasi -->
-<div id="confirmationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center" style="z-index: 100000;">
+<div id="confirmationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center"
+    style="z-index: 100000;">
     <div class="bg-white rounded-md shadow-lg p-6">
         <p class="mb-4 text-gray-700">Are you sure you want to change the status to <span id="selectedStatusText"
                 class="font-bold"></span>?</p>
@@ -494,7 +555,8 @@
 </div>
 
 <!-- Modal Notifikasi -->
-<div id="notificationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center" style="z-index: 100000;">
+<div id="notificationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center"
+    style="z-index: 100000;">
     <div class="bg-white rounded-md shadow-lg p-6">
         <p class="text-gray-700">Status successfully changed to <span id="updatedStatusText"
                 class="font-bold"></span>.</p>
@@ -526,7 +588,12 @@
         columnDefs: [{
             targets: 4, // Indeks kolom Tanggal Pesanan (dimulai dari 0)
             type: 'date' // Mengatur DataTables untuk memperlakukan kolom ini sebagai tanggal
-        }],
+        },
+        {
+            targets: 7, // Indeks kolom ke-7
+            width: "200px" // Menetapkan lebar kolom menjadi 200px (sesuai kebutuhan)
+        }
+    ],
         layout: {
             topStart: {
                 buttons: ['copy', 'excel', 'pdf', 'colvis']
@@ -536,12 +603,17 @@
 
     $('#example1').DataTable({
         order: [
-            [4, 'desc']
-        ], // Mengurutkan berdasarkan kolom "Tanggal Pesanan" (kolom ke-5, karena indeks dimulai dari 0), urutan asc (ascending)
+            [4, 'desc'] // Mengurutkan berdasarkan kolom "Tanggal Pesanan"
+        ],
         columnDefs: [{
-            targets: 4, // Indeks kolom Tanggal Pesanan (dimulai dari 0)
-            type: 'date' // Mengatur DataTables untuk memperlakukan kolom ini sebagai tanggal
-        }],
+                targets: 4, // Indeks kolom Tanggal Pesanan
+                type: 'date' // Mengatur kolom ini sebagai tipe tanggal
+            },
+            {
+                targets: 9, // Indeks kolom ke-7
+                width: "200px" // Menetapkan lebar kolom menjadi 200px (sesuai kebutuhan)
+            }
+        ],
         layout: {
             topStart: {
                 buttons: ['copy', 'excel', 'pdf', 'colvis']
