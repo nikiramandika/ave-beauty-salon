@@ -6,7 +6,15 @@
             <!-- Informasi Invoice -->
             <div class="mb-4">
                 <h5>Invoice ID: <strong>{{ $invoice->invoice_code }}</strong></h5>
-                <h5>Recipient Bank: <strong>{{ $recipientBank }}</strong></h5>
+                @if($recipientBank === 'Mandiri')
+                <h5>Recipient Bank: <strong>{{ $recipientBank }} (1029374382xxxx)</strong></h5>
+                @elseif($recipientBank === 'BCA')
+                <h5>Recipient Bank: <strong>{{ $recipientBank }} (82739129xxxx)</strong></h5>
+                @elseif($recipientBank === 'BNI')
+                <h5>Recipient Bank: <strong>{{ $recipientBank }} (332763840xxx)</strong></h5>
+                @elseif($recipientBank === 'BRI')
+                <h5>Recipient Bank: <strong>{{ $recipientBank }} (3793747672xxx)</strong></h5>
+                @endif
                 <h5>Time Remaining:
                     <strong id="countdown-timer"></strong>
                 </h5>

@@ -224,9 +224,7 @@
                                 <label for="state" class="form-label">State</label>
                                 <select class="form-select" id="state" wire:model="state" required>
                                     <option value="">Choose...</option>
-                                    <option>California</option>
-                                    <option>Jakarta</option>
-                                    <option>Other</option>
+                                    <option>Medan</option>
                                 </select>
                                 @error('state')
                                     <span class="text-danger">{{ $message }}</span>
@@ -265,10 +263,10 @@
                             <label for="bank" class="form-label">Choose Your Bank</label>
                             <select class="form-select" id="bank" wire:model="recipientBank" required>
                                 <option value="">Select a bank...</option>
-                                <option value="BCA">BCA</option>
-                                <option value="Mandiri">Mandiri</option>
-                                <option value="BNI">BNI</option>
-                                <option value="BRI">BRI</option>
+                                <option value="BCA">BCA (82739129xxxx)</option>
+                                <option value="Mandiri">Mandiri (1029374382xxxx)</option>
+                                <option value="BNI">BNI (332763840xxx)</option>
+                                <option value="BRI">BRI(3793747672xxx)</option>
                             </select>
                             @error('recipientBank')
                                 <span class="text-danger">{{ $message }}</span>
